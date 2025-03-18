@@ -50,6 +50,8 @@ g++ -std=c++17 -Wall -Wextra -D__USE_MINGW_ANSI_STDIO=1 -D_GLIBCXX_USE_CXX11_ABI
     src/game/World.cpp ^
     src/game/LanguageManager.cpp ^
     src/game/GameData.cpp ^
+    src/game/CharacterEditor.cpp ^
+    src/game/ConsoleUI.cpp ^
     -o bin/UnchartedWaters.exe ^
     -lstdc++fs
 
@@ -69,4 +71,6 @@ if exist "data" (
 )
 
 echo L'exécutable se trouve dans bin\UnchartedWaters.exe
+dir bin
+echo.
 pause 

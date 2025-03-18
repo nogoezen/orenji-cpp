@@ -149,6 +149,7 @@ public:
     const Morality &getMorality() const { return m_morality; }
     int getClassId() const { return m_classId; }
     const std::vector<int> &getSecondaryClasses() const { return m_secondaryClasses; }
+    std::vector<int> &getSecondaryClasses() { return m_secondaryClasses; }
     int getLevel() const { return m_level; }
     int getMaxLevel() const { return m_maxLevel; }
     const std::string &getProfile() const { return m_profile; }
@@ -165,20 +166,21 @@ public:
     void setNickname(const std::string &nickname) { m_nickname = nickname; }
     void setClassId(int classId) { m_classId = classId; }
     void addSecondaryClass(int classId) { m_secondaryClasses.push_back(classId); }
+    void clearSecondaryClasses() { m_secondaryClasses.clear(); }
     void setLevel(int level) { m_level = level; }
     void setProfile(const std::string &profile) { m_profile = profile; }
 
     // Méthodes pour définir les paramètres
     void setParam(int index, int value)
     {
-        if (index >= 0 && index < m_params.size())
+        if (index >= 0 && static_cast<size_t>(index) < m_params.size())
         {
             m_params[index] = value;
         }
         else if (index >= 0 && index < 8)
         {
             // Si le tableau n'est pas assez grand, l'agrandir
-            while (m_params.size() <= index)
+            while (static_cast<size_t>(index) >= m_params.size())
             {
                 m_params.push_back(0);
             }
@@ -189,7 +191,7 @@ public:
     // Obtenir un paramètre spécifique
     int getParam(int index) const
     {
-        if (index >= 0 && index < m_params.size())
+        if (index >= 0 && static_cast<size_t>(index) < m_params.size())
         {
             return m_params[index];
         }
