@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Épices",
+    "description": "Épices rares et précieuses venues d'Orient",
+    "icon": "spice"
+  },
+  {
+    "id": 2,
+    "name": "Textiles",
+    "description": "Tissus, étoffes et vêtements",
+    "icon": "textile"
+  },
+  {
+    "id": 3,
+    "name": "Métaux précieux",
+    "description": "Or, argent et autres métaux de valeur",
+    "icon": "gold"
+  },
+  {
+    "id": 4,
+    "name": "Métaux communs",
+    "description": "Fer, cuivre et autres métaux utilitaires",
+    "icon": "metal"
+  },
+  {
+    "id": 5,
+    "name": "Produits du Nouveau Monde",
+    "description": "Marchandises exotiques des Amériques",
+    "icon": "america"
+  },
+  {
+    "id": 6,
+    "name": "Produits de luxe",
+    "description": "Articles de luxe pour les nobles et les riches marchands",
+    "icon": "luxury"
+  },
+  {
+    "id": 7,
+    "name": "Nourriture et boissons",
+    "description": "Denrées alimentaires et boissons",
+    "icon": "food"
+  },
+  {
+    "id": 8,
+    "name": "Matériaux de construction",
+    "description": "Bois, pierre et autres matériaux pour la construction",
+    "icon": "construction"
+  },
+  {
+    "id": 9,
+    "name": "Armes et munitions",
+    "description": "Équipement militaire et de défense",
+    "icon": "weapon"
+  },
+  {
+    "id": 10,
+    "name": "Navigation",
+    "description": "Équipement et fournitures pour la navigation",
+    "icon": "navigation"
+  }
+] 

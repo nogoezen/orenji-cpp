@@ -1,0 +1,563 @@
+[
+  {
+    "id": 1,
+    "name": "Veste de marin",
+    "description": "Vêtement basique pour naviguer.",
+    "iconIndex": 135,
+    "price": 100,
+    "atypeId": 1,
+    "params": [0, 0, 0, 2, 0, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Commun sur tous les navires"
+  },
+  {
+    "id": 2,
+    "name": "Manteau de capitaine",
+    "description": "Manteau élégant symbolisant l'autorité.",
+    "iconIndex": 135,
+    "price": 500,
+    "atypeId": 1,
+    "params": [0, 0, 0, 5, 0, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 3,
+    "name": "Veste de cuir",
+    "description": "Protection légère mais robuste.",
+    "iconIndex": 135,
+    "price": 300,
+    "atypeId": 1,
+    "params": [0, 0, 0, 4, 0, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Europe"
+  },
+  {
+    "id": 4,
+    "name": "Cotte de mailles",
+    "description": "Armure intermédiaire offrant une bonne protection.",
+    "iconIndex": 135,
+    "price": 800,
+    "atypeId": 1,
+    "params": [0, 0, 0, 8, -1, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 5,
+    "name": "Plastron",
+    "description": "Protection solide pour le torse.",
+    "iconIndex": 135,
+    "price": 1200,
+    "atypeId": 1,
+    "params": [0, 0, 0, 12, -2, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 6,
+    "name": "Chapeau de marin",
+    "description": "Couvre-chef basique pour se protéger du soleil.",
+    "iconIndex": 136,
+    "price": 50,
+    "atypeId": 2,
+    "params": [0, 0, 0, 1, 0, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Commun sur tous les navires"
+  },
+  {
+    "id": 7,
+    "name": "Tricorne",
+    "description": "Chapeau à trois pointes, symbole des officiers.",
+    "iconIndex": 136,
+    "price": 300,
+    "atypeId": 2,
+    "params": [0, 0, 0, 3, 0, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 8,
+    "name": "Casque en acier",
+    "description": "Protection solide pour la tête.",
+    "iconIndex": 136,
+    "price": 600,
+    "atypeId": 2,
+    "params": [0, 0, 0, 6, -1, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 9,
+    "name": "Bottes de marin",
+    "description": "Chaussures robustes adaptées au pont d'un navire.",
+    "iconIndex": 137,
+    "price": 80,
+    "atypeId": 3,
+    "params": [0, 0, 0, 1, 1, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Commun sur tous les navires"
+  },
+  {
+    "id": 10,
+    "name": "Bottes en cuir",
+    "description": "Chaussures confortables et résistantes.",
+    "iconIndex": 137,
+    "price": 200,
+    "atypeId": 3,
+    "params": [0, 0, 0, 2, 2, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Europe"
+  },
+  {
+    "id": 11,
+    "name": "Bottes de capitaine",
+    "description": "Bottes élégantes et de qualité supérieure.",
+    "iconIndex": 137,
+    "price": 400,
+    "atypeId": 3,
+    "params": [0, 0, 0, 3, 3, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 12,
+    "name": "Gants de marin",
+    "description": "Gants basiques pour protéger les mains.",
+    "iconIndex": 138,
+    "price": 60,
+    "atypeId": 4,
+    "params": [0, 0, 0, 1, 0, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Commun sur tous les navires"
+  },
+  {
+    "id": 13,
+    "name": "Gants en cuir",
+    "description": "Gants robustes offrant une bonne protection.",
+    "iconIndex": 138,
+    "price": 150,
+    "atypeId": 4,
+    "params": [0, 0, 0, 2, 0, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Europe"
+  },
+  {
+    "id": 14,
+    "name": "Gantelets",
+    "description": "Protection métallique pour les mains.",
+    "iconIndex": 138,
+    "price": 350,
+    "atypeId": 4,
+    "params": [0, 0, 0, 4, -1, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 15,
+    "name": "Amulette de navigation",
+    "description": "Porte-bonheur pour les marins.",
+    "iconIndex": 145,
+    "price": 500,
+    "atypeId": 5,
+    "params": [0, 0, 0, 0, 0, 3, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Commun sur tous les navires"
+  },
+  {
+    "id": 16,
+    "name": "Médaillon de protection",
+    "description": "Bijou censé protéger des dangers de la mer.",
+    "iconIndex": 145,
+    "price": 800,
+    "atypeId": 5,
+    "params": [0, 0, 0, 2, 0, 5, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 17,
+    "name": "Anneau de chance",
+    "description": "Augmente la chance du porteur.",
+    "iconIndex": 145,
+    "price": 1000,
+    "atypeId": 5,
+    "params": [0, 0, 0, 0, 0, 0, 0, 5],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 18,
+    "name": "Uniforme d'amiral",
+    "description": "Tenue complète de la plus haute autorité navale.",
+    "iconIndex": 135,
+    "price": 3000,
+    "atypeId": 1,
+    "params": [0, 0, 0, 15, 0, 5, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "A",
+    "origin": "Europe"
+  },
+  {
+    "id": 19,
+    "name": "Ceinture de force",
+    "description": "Ceinture spéciale augmentant la force physique.",
+    "iconIndex": 145,
+    "price": 1500,
+    "atypeId": 5,
+    "params": [0, 0, 5, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 20,
+    "name": "Cape d'explorateur",
+    "description": "Cape légendaire ayant appartenu à un grand explorateur.",
+    "iconIndex": 135,
+    "price": 5000,
+    "atypeId": 1,
+    "params": [0, 0, 0, 10, 5, 5, 0, 5],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 22, "dataId": 7, "value": 0.05}
+    ],
+    "rank": "A",
+    "origin": "Europe"
+  },
+  {
+    "id": 21,
+    "name": "Armure en cuir",
+    "description": "Armure relativement peu coûteuse faite de cuir durci avec de la graisse animale.",
+    "iconIndex": 135,
+    "price": 1000,
+    "atypeId": 1,
+    "params": [0, 0, 0, 10, 0, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Europe"
+  },
+  {
+    "id": 22,
+    "name": "Cotte de mailles",
+    "description": "Armure faite de milliers de petits anneaux d'acier entrelacés. Offre une bonne mobilité mais une protection moyenne.",
+    "iconIndex": 135,
+    "price": 2000,
+    "atypeId": 1,
+    "params": [0, 0, 0, 20, -1, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 23,
+    "name": "Demi-plaque",
+    "description": "Armure avec des plaques d'acier fin et résistant qui ne couvrent que le haut du corps. Conçue pour les combats navals actifs.",
+    "iconIndex": 135,
+    "price": 4000,
+    "atypeId": 1,
+    "params": [0, 0, 0, 30, -2, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 24,
+    "name": "Cotte de plates",
+    "description": "Une amélioration de la cotte de mailles, cette armure est formée d'une combinaison de plaques et de mailles. Meilleure protection que la demi-plaque.",
+    "iconIndex": 135,
+    "price": 8000,
+    "atypeId": 1,
+    "params": [0, 0, 0, 40, -3, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "A",
+    "origin": "Europe"
+  },
+  {
+    "id": 25,
+    "name": "Plaque d'Errol",
+    "description": "Demi-plaque fabriquée par le célèbre armurier de Copenhague, Errol. Offre une meilleure protection que la cotte de plates.",
+    "iconIndex": 135,
+    "price": 300000,
+    "atypeId": 1,
+    "params": [0, 0, 0, 55, -2, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "S",
+    "origin": "Copenhague"
+  },
+  {
+    "id": 26,
+    "name": "Armure de croisé",
+    "description": "Armure que le célèbre armurier Montaguinus a fabriquée sur mesure pour Affonso, le roi fondateur du Portugal.",
+    "iconIndex": 135,
+    "price": 600000,
+    "atypeId": 1,
+    "params": [0, 0, 0, 70, -3, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "S",
+    "origin": "Portugal"
+  },
+  {
+    "id": 27,
+    "name": "Armure de Loki",
+    "description": "On dit que le pouvoir d'un dieu scandinave maléfique réside dans cette armure noire comme le jais. Sa défense est impressionnante.",
+    "iconIndex": 135,
+    "price": 600000,
+    "atypeId": 1,
+    "params": [0, 0, 0, 70, -3, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "S",
+    "origin": "Scandinavie"
+  },
+  {
+    "id": 28,
+    "name": "Armure féerique",
+    "description": "Une armure argentée étincelante. Malgré sa fabrication délicate et son blindage abdominal léger, la défense de l'armure est excellente.",
+    "iconIndex": 135,
+    "price": 600000,
+    "atypeId": 1,
+    "params": [0, 0, 0, 70, -1, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "S",
+    "origin": "Mythique"
+  },
+  {
+    "id": 29,
+    "name": "Armure dorée",
+    "description": "Une armure brillante audacieusement décorée d'or et d'argent. Sa puissance défensive est médiocre mais son apparence est impressionnante.",
+    "iconIndex": 135,
+    "price": 50000,
+    "atypeId": 1,
+    "params": [0, 0, 0, 5, 0, 0, 5, 5],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Moyen-Orient"
+  },
+  {
+    "id": 30,
+    "name": "Tiare d'Aquamarine",
+    "description": "Une tiare décorée de façon complexe et sertie de petites mais brillantes pierres d'aigue-marine.",
+    "iconIndex": 145,
+    "price": 5000,
+    "atypeId": 5,
+    "params": [0, 0, 0, 0, 0, 5, 0, 5],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 31,
+    "name": "Robe chinoise",
+    "description": "Une belle robe traditionnelle chinoise, faite de la plus fine soie chinoise.",
+    "iconIndex": 135,
+    "price": 8000,
+    "atypeId": 1,
+    "params": [0, 0, 0, 5, 5, 0, 0, 5],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Chine"
+  },
+  {
+    "id": 32,
+    "name": "Diadème",
+    "description": "Une belle tiare mise en valeur par un grand saphir en son centre.",
+    "iconIndex": 145,
+    "price": 4000,
+    "atypeId": 5,
+    "params": [0, 0, 0, 0, 0, 4, 0, 4],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 33,
+    "name": "Manteau d'hermine",
+    "description": "Un manteau luxueux fait de la fourrure blanche d'hiver de la rare hermine.",
+    "iconIndex": 135,
+    "price": 12000,
+    "atypeId": 1,
+    "params": [0, 0, 0, 8, 8, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe du Nord"
+  },
+  {
+    "id": 34,
+    "name": "Éventail de paon",
+    "description": "Un bel éventail fait de longues et colorées plumes de paon.",
+    "iconIndex": 145,
+    "price": 3000,
+    "atypeId": 5,
+    "params": [0, 0, 0, 0, 0, 3, 0, 3],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Inde"
+  },
+  {
+    "id": 35,
+    "name": "Peigne en platine",
+    "description": "Un peigne fantaisie en platine décoré de pierres précieuses rares.",
+    "iconIndex": 145,
+    "price": 10000,
+    "atypeId": 5,
+    "params": [0, 0, 0, 0, 0, 7, 0, 7],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "A",
+    "origin": "Europe"
+  },
+  {
+    "id": 36,
+    "name": "Couronne royale",
+    "description": "Un des trésors perdus de l'Atlantide. La couronne est en or et ornée de nombreuses pierres précieuses. Une œuvre d'art inestimable.",
+    "iconIndex": 145,
+    "price": 100000,
+    "atypeId": 5,
+    "params": [0, 0, 0, 10, 10, 10, 10, 10],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "S",
+    "origin": "Atlantide"
+  },
+  {
+    "id": 37,
+    "name": "Écharpe en soie",
+    "description": "Une écharpe colorée en fine soie.",
+    "iconIndex": 145,
+    "price": 1000,
+    "atypeId": 5,
+    "params": [0, 0, 0, 0, 2, 2, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Chine"
+  },
+  {
+    "id": 38,
+    "name": "Châle en soie",
+    "description": "Un châle doux fait de la meilleure soie de Chine.",
+    "iconIndex": 145,
+    "price": 3000,
+    "atypeId": 5,
+    "params": [0, 0, 0, 0, 3, 3, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Chine"
+  },
+  {
+    "id": 39,
+    "name": "Manteau de velours",
+    "description": "Un manteau en velours coupé selon la dernière mode du XVIe siècle.",
+    "iconIndex": 135,
+    "price": 5000,
+    "atypeId": 1,
+    "params": [0, 0, 0, 5, 5, 0, 0, 0],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 40,
+    "name": "Couronne de diamants",
+    "description": "Une grande couronne faite pour une reine, sertie de diamants. Extrêmement rare et précieuse.",
+    "iconIndex": 145,
+    "price": 100000,
+    "atypeId": 5,
+    "params": [0, 0, 0, 5, 5, 5, 5, 10],
+    "traits": [
+      {"code": 22, "dataId": 1, "value": 0}
+    ],
+    "rank": "S",
+    "origin": "Europe"
+  }
+] 

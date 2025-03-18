@@ -1,0 +1,3566 @@
+[
+  {
+    "id": 1,
+    "name": "Détroit de Gibraltar",
+    "type": "strait",
+    "category": "geographical",
+    "regionId": 2,
+    "coordinates": {
+      "x": -5.5,
+      "y": 36.0
+    },
+    "difficulty": 3,
+    "rewards": {
+      "fame": 500,
+      "gold": 1000,
+      "items": [5]
+    },
+    "requirements": {
+      "navigation": 2,
+      "exploration": 3
+    },
+    "description": "Passage stratégique entre la mer Méditerranée et l'océan Atlantique, gardé par le rocher de Gibraltar."
+  },
+  {
+    "id": 2,
+    "name": "Îles Canaries",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 2,
+    "coordinates": {
+      "x": -15.5,
+      "y": 28.3
+    },
+    "difficulty": 2,
+    "rewards": {
+      "fame": 300,
+      "gold": 800,
+      "items": [3, 8]
+    },
+    "requirements": {
+      "navigation": 1,
+      "exploration": 2
+    },
+    "description": "Archipel volcanique au large des côtes africaines, servant d'escale importante pour les voyages vers le Nouveau Monde."
+  },
+  {
+    "id": 3,
+    "name": "Cap de Bonne-Espérance",
+    "type": "landmark",
+    "category": "geographical",
+    "regionId": 4,
+    "coordinates": {
+      "x": 18.5,
+      "y": -34.3
+    },
+    "difficulty": 5,
+    "rewards": {
+      "fame": 1000,
+      "gold": 2000,
+      "items": [7, 12]
+    },
+    "requirements": {
+      "navigation": 4,
+      "exploration": 3
+    },
+    "description": "Point de passage crucial entre l'océan Atlantique et l'océan Indien, découvert par Bartolomeu Dias en 1488."
+  },
+  {
+    "id": 4,
+    "name": "Tenochtitlan",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -99.1,
+      "y": 19.4
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [15, 21]
+    },
+    "requirements": {
+      "navigation": 3,
+      "exploration": 6
+    },
+    "description": "Capitale de l'Empire aztèque, conquise par Hernán Cortés en 1521. Aujourd'hui Mexico."
+  },
+  {
+    "id": 5,
+    "name": "Malacca",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 102.2,
+      "y": 2.2
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 2500,
+      "items": [9, 16]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 4
+    },
+    "description": "Centre névralgique du commerce des épices, conquis par les Portugais en 1511."
+  },
+  {
+    "id": 6,
+    "name": "Îles Moluques",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 128.0,
+      "y": 1.5
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [11, 18]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 5
+    },
+    "description": "Les légendaires 'îles aux épices', source des précieux clous de girofle et noix de muscade."
+  },
+  {
+    "id": 7,
+    "name": "Carthagène des Indes",
+    "type": "monument",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -75.5,
+      "y": 10.4
+    },
+    "difficulty": 5,
+    "rewards": {
+      "fame": 800,
+      "gold": 1500,
+      "items": [6, 13]
+    },
+    "requirements": {
+      "navigation": 3,
+      "exploration": 4
+    },
+    "description": "Port fortifié espagnol fondé en 1533, clé du commerce avec le Nouveau Monde."
+  },
+  {
+    "id": 8,
+    "name": "Détroit de Magellan",
+    "type": "strait",
+    "category": "geographical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -70.0,
+      "y": -53.0
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 5000,
+      "items": [14, 20]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 6
+    },
+    "description": "Passage découvert par Magellan en 1520, première route entre l'Atlantique et le Pacifique."
+  },
+  {
+    "id": 9,
+    "name": "Goa",
+    "type": "monument",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 73.8,
+      "y": 15.5
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1000,
+      "gold": 2000,
+      "items": [8, 17]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 4
+    },
+    "description": "Capitale de l'Inde portugaise depuis 1510, centre du commerce des épices."
+  },
+  {
+    "id": 10,
+    "name": "Potosí",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -65.8,
+      "y": -19.6
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [10, 19]
+    },
+    "requirements": {
+      "navigation": 4,
+      "exploration": 7
+    },
+    "description": "La plus riche mine d'argent du Nouveau Monde, découverte en 1545."
+  },
+  {
+    "id": 11,
+    "name": "Île de Mozambique",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 4,
+    "coordinates": {
+      "x": 40.7,
+      "y": -15.0
+    },
+    "difficulty": 5,
+    "rewards": {
+      "fame": 800,
+      "gold": 1500,
+      "items": [4, 12]
+    },
+    "requirements": {
+      "navigation": 4,
+      "exploration": 3
+    },
+    "description": "Comptoir portugais stratégique sur la route des Indes depuis 1507."
+  },
+  {
+    "id": 12,
+    "name": "Ormuz",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 56.4,
+      "y": 27.1
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 2500,
+      "items": [7, 15]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 4
+    },
+    "description": "Forteresse portugaise contrôlant l'entrée du golfe Persique depuis 1515."
+  },
+  {
+    "id": 13,
+    "name": "Macau",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 113.5,
+      "y": 22.2
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [11, 16]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 5
+    },
+    "description": "Premier comptoir européen permanent en Chine, établi par les Portugais en 1557."
+  },
+  {
+    "id": 14,
+    "name": "Nagasaki",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 129.9,
+      "y": 32.8
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [13, 18]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Premier port japonais ouvert aux Européens, établi en 1571."
+  },
+  {
+    "id": 15,
+    "name": "Cuzco",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -71.9,
+      "y": -13.5
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [14, 20]
+    },
+    "requirements": {
+      "navigation": 4,
+      "exploration": 8
+    },
+    "description": "Capitale de l'Empire inca, conquise par Francisco Pizarro en 1533."
+  },
+  {
+    "id": 16,
+    "name": "Îles du Cap-Vert",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 2,
+    "coordinates": {
+      "x": -24.0,
+      "y": 16.0
+    },
+    "difficulty": 3,
+    "rewards": {
+      "fame": 400,
+      "gold": 1000,
+      "items": [3, 9]
+    },
+    "requirements": {
+      "navigation": 2,
+      "exploration": 3
+    },
+    "description": "Archipel stratégique pour le ravitaillement des navires portugais sur la route des Indes."
+  },
+  {
+    "id": 17,
+    "name": "Kilwa",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 4,
+    "coordinates": {
+      "x": 39.5,
+      "y": -8.9
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 2500,
+      "items": [8, 14]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 4
+    },
+    "description": "Cité-État swahilie majeure, centre du commerce de l'or et de l'ivoire, conquise par les Portugais en 1505."
+  },
+  {
+    "id": 18,
+    "name": "Socotra",
+    "type": "landmark",
+    "category": "geographical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 53.8,
+      "y": 12.5
+    },
+    "difficulty": 5,
+    "rewards": {
+      "fame": 800,
+      "gold": 1500,
+      "items": [6, 11]
+    },
+    "requirements": {
+      "navigation": 4,
+      "exploration": 4
+    },
+    "description": "Île stratégique à l'entrée du golfe d'Aden, occupée par les Portugais en 1507."
+  },
+  {
+    "id": 19,
+    "name": "Calicut",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 75.8,
+      "y": 11.2
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [12, 17]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 5
+    },
+    "description": "Premier port indien atteint par Vasco de Gama en 1498, centre majeur du commerce des épices."
+  },
+  {
+    "id": 20,
+    "name": "Diu",
+    "type": "monument",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 70.9,
+      "y": 20.7
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1000,
+      "gold": 2000,
+      "items": [7, 13]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 4
+    },
+    "description": "Forteresse portugaise établie en 1509, clé du contrôle du commerce dans le golfe de Cambay."
+  },
+  {
+    "id": 21,
+    "name": "Cochin",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 76.2,
+      "y": 9.9
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 2500,
+      "items": [9, 15]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 4
+    },
+    "description": "Premier comptoir portugais en Inde, établi en 1503, rival de Calicut."
+  },
+  {
+    "id": 22,
+    "name": "Colombo",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 79.8,
+      "y": 6.9
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [10, 16]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 5
+    },
+    "description": "Port stratégique de Ceylan, contrôlé par les Portugais depuis 1505."
+  },
+  {
+    "id": 23,
+    "name": "Îles Banda",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 129.9,
+      "y": -4.5
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 5000,
+      "items": [13, 19]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 7
+    },
+    "description": "Source unique de la noix de muscade, convoitée par les puissances européennes."
+  },
+  {
+    "id": 24,
+    "name": "Ternate",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 127.4,
+      "y": 0.8
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [11, 18]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Sultanat des Moluques, premier comptoir portugais dans les îles aux épices en 1512."
+  },
+  {
+    "id": 25,
+    "name": "Détroit de Malacca",
+    "type": "strait",
+    "category": "geographical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 101.5,
+      "y": 2.8
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [8, 14]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 5
+    },
+    "description": "Passage maritime stratégique entre l'océan Indien et la mer de Chine méridionale."
+  },
+  {
+    "id": 26,
+    "name": "Puerto Rico",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -66.5,
+      "y": 18.2
+    },
+    "difficulty": 4,
+    "rewards": {
+      "fame": 800,
+      "gold": 1500,
+      "items": [5, 10]
+    },
+    "requirements": {
+      "navigation": 3,
+      "exploration": 3
+    },
+    "description": "Île colonisée par les Espagnols dès 1508, base importante des Caraïbes."
+  },
+  {
+    "id": 27,
+    "name": "La Havane",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -82.4,
+      "y": 23.1
+    },
+    "difficulty": 5,
+    "rewards": {
+      "fame": 1000,
+      "gold": 2000,
+      "items": [7, 12]
+    },
+    "requirements": {
+      "navigation": 4,
+      "exploration": 4
+    },
+    "description": "Port fondé en 1519, point de rassemblement des flottes espagnoles du Nouveau Monde."
+  },
+  {
+    "id": 28,
+    "name": "Veracruz",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -96.1,
+      "y": 19.2
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 2500,
+      "items": [9, 15]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 4
+    },
+    "description": "Premier port continental établi par Cortés en 1519, porte d'entrée vers l'Empire aztèque."
+  },
+  {
+    "id": 29,
+    "name": "Panama",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -79.5,
+      "y": 9.0
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [11, 17]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 5
+    },
+    "description": "Ville fondée en 1519, point de transit crucial entre les océans Atlantique et Pacifique."
+  },
+  {
+    "id": 30,
+    "name": "Santo Domingo",
+    "type": "monument",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -69.9,
+      "y": 18.5
+    },
+    "difficulty": 4,
+    "rewards": {
+      "fame": 800,
+      "gold": 1500,
+      "items": [6, 11]
+    },
+    "requirements": {
+      "navigation": 3,
+      "exploration": 3
+    },
+    "description": "Première ville européenne du Nouveau Monde, fondée en 1496."
+  },
+  {
+    "id": 31,
+    "name": "Détroit de Hormuz",
+    "type": "strait",
+    "category": "geographical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 56.5,
+      "y": 26.5
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [10, 16]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 5
+    },
+    "description": "Passage stratégique vers le golfe Persique, contrôlé par la forteresse portugaise d'Ormuz."
+  },
+  {
+    "id": 32,
+    "name": "Îles Ryukyu",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 127.7,
+      "y": 26.2
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [12, 18]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Royaume indépendant et centre commercial important entre la Chine, le Japon et l'Asie du Sud-Est."
+  },
+  {
+    "id": 33,
+    "name": "Îles Andaman",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 92.8,
+      "y": 12.5
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [9, 15]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 5
+    },
+    "description": "Archipel mystérieux sur la route maritime entre l'Inde et Malacca."
+  },
+  {
+    "id": 34,
+    "name": "Sofala",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 4,
+    "coordinates": {
+      "x": 34.7,
+      "y": -20.2
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 2500,
+      "items": [8, 13]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 4
+    },
+    "description": "Comptoir portugais établi en 1505, principal port d'exportation de l'or du Monomotapa."
+  },
+  {
+    "id": 35,
+    "name": "Îles Comores",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 4,
+    "coordinates": {
+      "x": 43.3,
+      "y": -11.7
+    },
+    "difficulty": 5,
+    "rewards": {
+      "fame": 1000,
+      "gold": 2000,
+      "items": [7, 12]
+    },
+    "requirements": {
+      "navigation": 4,
+      "exploration": 4
+    },
+    "description": "Archipel stratégique sur la route des Indes, visité par les Portugais dès 1503."
+  },
+  {
+    "id": 36,
+    "name": "Zanzibar",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 4,
+    "coordinates": {
+      "x": 39.2,
+      "y": -6.2
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 2500,
+      "items": [9, 14]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 4
+    },
+    "description": "Île commerciale majeure de la côte swahilie, visitée par Vasco de Gama en 1499."
+  },
+  {
+    "id": 37,
+    "name": "Mombasa",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 4,
+    "coordinates": {
+      "x": 39.7,
+      "y": -4.0
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [10, 16]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 5
+    },
+    "description": "Port swahili important, disputé entre Portugais et Ottomans au début du XVIe siècle."
+  },
+  {
+    "id": 38,
+    "name": "Îles Laquedives",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 73.0,
+      "y": 10.0
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 2500,
+      "items": [8, 13]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 4
+    },
+    "description": "Archipel sur la route maritime entre le golfe Persique et Malacca."
+  },
+  {
+    "id": 39,
+    "name": "Détroit de la Sonde",
+    "type": "strait",
+    "category": "geographical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 105.9,
+      "y": -6.1
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [11, 17]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Passage maritime stratégique entre Java et Sumatra, route alternative vers les Moluques."
+  },
+  {
+    "id": 40,
+    "name": "Aceh",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 95.3,
+      "y": 5.5
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [10, 15]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 5
+    },
+    "description": "Sultanat puissant de Sumatra, centre du commerce du poivre au début du XVIe siècle."
+  },
+  {
+    "id": 41,
+    "name": "Îles Nicobar",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 93.8,
+      "y": 8.0
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [9, 14]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 5
+    },
+    "description": "Archipel sur la route maritime entre le Bengale et Malacca."
+  },
+  {
+    "id": 42,
+    "name": "Détroit de Macassar",
+    "type": "strait",
+    "category": "geographical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 118.5,
+      "y": -2.0
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [12, 18]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Passage maritime entre Bornéo et les Célèbes, route vers les Moluques."
+  },
+  {
+    "id": 43,
+    "name": "Timor",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 125.6,
+      "y": -8.8
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [11, 17]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Île riche en bois de santal, visitée par les Portugais dès 1515."
+  },
+  {
+    "id": 44,
+    "name": "Îles Mariannes",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 145.8,
+      "y": 15.2
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 5000,
+      "items": [13, 19]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 7
+    },
+    "description": "Archipel découvert par Magellan en 1521, première escale européenne dans le Pacifique."
+  },
+  {
+    "id": 45,
+    "name": "Bahia",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -38.5,
+      "y": -13.0
+    },
+    "difficulty": 5,
+    "rewards": {
+      "fame": 1000,
+      "gold": 2000,
+      "items": [7, 12]
+    },
+    "requirements": {
+      "navigation": 4,
+      "exploration": 4
+    },
+    "description": "Premier établissement portugais au Brésil, fondé en 1549."
+  },
+  {
+    "id": 46,
+    "name": "Rio de Janeiro",
+    "type": "landmark",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -43.2,
+      "y": -22.9
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 2500,
+      "items": [8, 13]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 4
+    },
+    "description": "Baie découverte par les Portugais en 1502, site d'une future ville majeure."
+  },
+  {
+    "id": 47,
+    "name": "Îles Malouines",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -59.0,
+      "y": -51.8
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [11, 16]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Archipel austral découvert au début du XVIe siècle."
+  },
+  {
+    "id": 48,
+    "name": "Îles du Cap Horn",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -67.2,
+      "y": -55.9
+    },
+    "difficulty": 10,
+    "rewards": {
+      "fame": 3000,
+      "gold": 6000,
+      "items": [14, 20]
+    },
+    "requirements": {
+      "navigation": 9,
+      "exploration": 8
+    },
+    "description": "Archipel à l'extrémité sud de l'Amérique, point de passage redouté vers le Pacifique."
+  },
+  {
+    "id": 49,
+    "name": "Îles Galápagos",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -90.7,
+      "y": -0.4
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 5000,
+      "items": [13, 19]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 7
+    },
+    "description": "Archipel volcanique découvert accidentellement par les Espagnols en 1535."
+  },
+  {
+    "id": 50,
+    "name": "Détroit de Torres",
+    "type": "strait",
+    "category": "geographical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 142.5,
+      "y": -10.5
+    },
+    "difficulty": 10,
+    "rewards": {
+      "fame": 3000,
+      "gold": 6000,
+      "items": [15, 21]
+    },
+    "requirements": {
+      "navigation": 9,
+      "exploration": 8
+    },
+    "description": "Passage maritime entre la Nouvelle-Guinée et l'Australie, encore inexploré au XVIe siècle."
+  },
+  {
+    "id": 51,
+    "name": "Tortues géantes des Galápagos",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 3,
+    "coordinates": {
+      "x": -90.7,
+      "y": -0.4
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 2000,
+      "items": [8, 15]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 7
+    },
+    "description": "Créatures fascinantes découvertes par les premiers explorateurs espagnols, symboles des îles."
+  },
+  {
+    "id": 52,
+    "name": "Astrolabe perfectionné",
+    "type": "invention",
+    "category": "technological",
+    "regionId": 2,
+    "coordinates": {
+      "x": -9.1,
+      "y": 38.7
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 3000,
+      "items": [22, 25]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 4
+    },
+    "description": "Innovation portugaise permettant une navigation plus précise en haute mer."
+  },
+  {
+    "id": 53,
+    "name": "Temple d'Angkor",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 103.8,
+      "y": 13.4
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [16, 23]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 8
+    },
+    "description": "Vestiges majestueux de l'Empire khmer, découverts par les premiers explorateurs portugais."
+  },
+  {
+    "id": 54,
+    "name": "Caravelle améliorée",
+    "type": "invention",
+    "category": "technological",
+    "regionId": 2,
+    "coordinates": {
+      "x": -8.6,
+      "y": 41.1
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3500,
+      "items": [24, 27]
+    },
+    "requirements": {
+      "navigation": 9,
+      "exploration": 5
+    },
+    "description": "Innovation navale portugaise permettant de meilleures performances en haute mer."
+  },
+  {
+    "id": 55,
+    "name": "Tigres de Malaisie",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 7,
+    "coordinates": {
+      "x": 101.7,
+      "y": 3.1
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 1800,
+      "gold": 2500,
+      "items": [12, 19]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 8
+    },
+    "description": "Félins majestueux des jungles d'Asie du Sud-Est, craints et vénérés par les populations locales."
+  },
+  {
+    "id": 56,
+    "name": "Cité perdue de Zimbabwe",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 4,
+    "coordinates": {
+      "x": 30.9,
+      "y": -20.3
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 5000,
+      "items": [17, 24]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 9
+    },
+    "description": "Mystérieuses ruines d'une civilisation africaine avancée, source de nombreuses légendes."
+  },
+  {
+    "id": 57,
+    "name": "Art des Navigateurs polynésiens",
+    "type": "culture",
+    "category": "technological",
+    "regionId": 7,
+    "coordinates": {
+      "x": 147.2,
+      "y": -9.5
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 3000,
+      "items": [21, 26]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 7
+    },
+    "description": "Techniques de navigation traditionnelles utilisant les étoiles, les vagues et les oiseaux."
+  },
+  {
+    "id": 58,
+    "name": "Dragons de Komodo",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 7,
+    "coordinates": {
+      "x": 119.4,
+      "y": -8.6
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 3500,
+      "items": [14, 20]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 8
+    },
+    "description": "Immenses lézards découverts dans les îles indonésiennes, inspirant les légendes de dragons."
+  },
+  {
+    "id": 59,
+    "name": "Porcelaine Ming",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 118.8,
+      "y": 32.0
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 4000,
+      "items": [23, 28]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 6
+    },
+    "description": "Art raffiné de la porcelaine chinoise, très recherché par les marchands européens."
+  },
+  {
+    "id": 60,
+    "name": "Quadrant de Davis",
+    "type": "invention",
+    "category": "technological",
+    "regionId": 2,
+    "coordinates": {
+      "x": -4.5,
+      "y": 48.4
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [25, 29]
+    },
+    "requirements": {
+      "navigation": 9,
+      "exploration": 6
+    },
+    "description": "Instrument de navigation permettant des mesures plus précises de la latitude en mer."
+  },
+  {
+    "id": 61,
+    "name": "Temples mayas du Yucatan",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -89.6,
+      "y": 20.7
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [18, 25]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 8
+    },
+    "description": "Cités perdues dans la jungle, témoignant de l'ancienne grandeur de la civilisation maya."
+  },
+  {
+    "id": 62,
+    "name": "Éléphants de guerre siamois",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 100.5,
+      "y": 13.7
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [15, 22]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 7
+    },
+    "description": "Imposants pachydermes utilisés par les armées du royaume de Siam."
+  },
+  {
+    "id": 63,
+    "name": "Manuscrits de Tombouctou",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 4,
+    "coordinates": {
+      "x": -3.0,
+      "y": 16.7
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 3500,
+      "items": [19, 26]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 8
+    },
+    "description": "Collection unique de textes anciens sur l'astronomie, les mathématiques et la philosophie."
+  },
+  {
+    "id": 64,
+    "name": "Art de la Laque japonaise",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 135.7,
+      "y": 35.0
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 5000,
+      "items": [20, 27]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 7
+    },
+    "description": "Technique artisanale raffinée du Japon, produisant des objets d'une beauté exceptionnelle."
+  },
+  {
+    "id": 65,
+    "name": "Rhinocéros indiens",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 6,
+    "coordinates": {
+      "x": 89.5,
+      "y": 26.8
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 2500,
+      "items": [13, 21]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 7
+    },
+    "description": "Imposants mammifères unicornes, très recherchés pour leur corne aux propriétés légendaires."
+  },
+  {
+    "id": 66,
+    "name": "Pyramides de Méroé",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 4,
+    "coordinates": {
+      "x": 33.7,
+      "y": 16.9
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [16, 22]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 8
+    },
+    "description": "Anciennes pyramides nubiennes témoignant d'une civilisation africaine avancée, redécouvertes par les explorateurs européens."
+  },
+  {
+    "id": 67,
+    "name": "Boussole à sec",
+    "type": "invention",
+    "category": "technological",
+    "regionId": 2,
+    "coordinates": {
+      "x": 12.5,
+      "y": 41.9
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3500,
+      "items": [23, 28]
+    },
+    "requirements": {
+      "navigation": 9,
+      "exploration": 5
+    },
+    "description": "Innovation italienne permettant une lecture plus stable de la boussole même par mer agitée."
+  },
+  {
+    "id": 68,
+    "name": "Îles Spratly",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 114.3,
+      "y": 10.7
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [12, 18]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Archipel disputé en mer de Chine méridionale, riche en ressources marines et point stratégique pour la navigation."
+  },
+  {
+    "id": 69,
+    "name": "Baie d'Halong",
+    "type": "landmark",
+    "category": "geographical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 107.0,
+      "y": 20.9
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [9, 15]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 5
+    },
+    "description": "Baie spectaculaire parsemée de milliers d'îlots karstiques, repaire de pirates et lieu de légendes."
+  },
+  {
+    "id": 70,
+    "name": "Manuscrits de la Mer Morte",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 2,
+    "coordinates": {
+      "x": 35.5,
+      "y": 31.3
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 5000,
+      "items": [21, 27]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 9
+    },
+    "description": "Anciens textes hébraïques cachés dans des grottes près de la Mer Morte, témoins d'une sagesse millénaire."
+  },
+  {
+    "id": 71,
+    "name": "Îles Féroé",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 2,
+    "coordinates": {
+      "x": -6.9,
+      "y": 62.0
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 2500,
+      "items": [8, 14]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 4
+    },
+    "description": "Archipel isolé dans l'Atlantique Nord, étape importante pour les navigateurs nordiques vers l'Islande et le Groenland."
+  },
+  {
+    "id": 72,
+    "name": "Technique de Carénage améliorée",
+    "type": "invention",
+    "category": "technological",
+    "regionId": 2,
+    "coordinates": {
+      "x": -0.1,
+      "y": 43.5
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 3000,
+      "items": [24, 29]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 4
+    },
+    "description": "Méthode avancée pour nettoyer et réparer les coques des navires, augmentant leur vitesse et leur durabilité."
+  },
+  {
+    "id": 73,
+    "name": "Îles Socotra",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 53.8,
+      "y": 12.5
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [10, 16]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 5
+    },
+    "description": "Archipel isolé dans l'océan Indien, abritant une flore unique et servant de point de ravitaillement stratégique."
+  },
+  {
+    "id": 74,
+    "name": "Palais de Topkapi",
+    "type": "monument",
+    "category": "historical",
+    "regionId": 2,
+    "coordinates": {
+      "x": 28.9,
+      "y": 41.0
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 2500,
+      "items": [9, 15]
+    },
+    "requirements": {
+      "navigation": 4,
+      "exploration": 6
+    },
+    "description": "Résidence principale des sultans ottomans, centre du pouvoir d'un empire rival des puissances européennes."
+  },
+  {
+    "id": 75,
+    "name": "Technique de Distillation d'eau de mer",
+    "type": "invention",
+    "category": "technological",
+    "regionId": 2,
+    "coordinates": {
+      "x": -3.7,
+      "y": 40.4
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [22, 26]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Procédé permettant d'obtenir de l'eau potable à partir d'eau de mer, révolutionnant les voyages au long cours."
+  },
+  {
+    "id": 76,
+    "name": "Îles Kerguelen",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 4,
+    "coordinates": {
+      "x": 70.2,
+      "y": -49.3
+    },
+    "difficulty": 10,
+    "rewards": {
+      "fame": 3000,
+      "gold": 6000,
+      "items": [14, 20]
+    },
+    "requirements": {
+      "navigation": 9,
+      "exploration": 8
+    },
+    "description": "Archipel isolé dans l'océan Indien austral, terre désolée balayée par les vents, repaire de phoques et d'oiseaux marins."
+  },
+  {
+    "id": 77,
+    "name": "Cité perdue de Tikal",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -89.6,
+      "y": 17.2
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 5000,
+      "items": [17, 23]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 9
+    },
+    "description": "Ancienne cité maya enfouie dans la jungle guatémaltèque, avec ses temples pyramidaux émergeant de la canopée."
+  },
+  {
+    "id": 78,
+    "name": "Baleines bleues de l'Antarctique",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 3,
+    "coordinates": {
+      "x": -60.0,
+      "y": -60.0
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 3500,
+      "items": [13, 19]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 7
+    },
+    "description": "Les plus grands animaux de la planète, observés par les premiers explorateurs des mers australes."
+  },
+  {
+    "id": 79,
+    "name": "Technique de Navigation Céleste",
+    "type": "invention",
+    "category": "technological",
+    "regionId": 2,
+    "coordinates": {
+      "x": -9.1,
+      "y": 38.7
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [25, 28]
+    },
+    "requirements": {
+      "navigation": 10,
+      "exploration": 5
+    },
+    "description": "Méthode avancée de navigation utilisant les positions précises des étoiles, permettant de déterminer la longitude en mer."
+  },
+  {
+    "id": 80,
+    "name": "Îles Marquises",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 7,
+    "coordinates": {
+      "x": -139.5,
+      "y": -9.0
+    },
+    "difficulty": 10,
+    "rewards": {
+      "fame": 3000,
+      "gold": 6000,
+      "items": [15, 21]
+    },
+    "requirements": {
+      "navigation": 9,
+      "exploration": 8
+    },
+    "description": "Archipel isolé de Polynésie, aux paysages spectaculaires et habité par des peuples aux traditions uniques."
+  },
+  {
+    "id": 81,
+    "name": "Forteresse de Derbent",
+    "type": "monument",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 48.3,
+      "y": 42.1
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [10, 16]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 7
+    },
+    "description": "Ancienne forteresse sassanide contrôlant le passage entre la mer Caspienne et le Caucase, point stratégique sur la Route de la Soie."
+  },
+  {
+    "id": 82,
+    "name": "Technique de Conservation des Agrumes",
+    "type": "invention",
+    "category": "technological",
+    "regionId": 2,
+    "coordinates": {
+      "x": -4.4,
+      "y": 36.7
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3500,
+      "items": [23, 27]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 5
+    },
+    "description": "Méthode permettant de conserver les citrons et oranges pendant les longs voyages, prévenant le scorbut chez les marins."
+  },
+  {
+    "id": 83,
+    "name": "Îles Chagos",
+    "type": "archipelago",
+    "category": "geographical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 72.4,
+      "y": -7.3
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [11, 17]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Archipel isolé au cœur de l'océan Indien, offrant un refuge naturel aux navires et abritant une biodiversité marine exceptionnelle."
+  },
+  {
+    "id": 84,
+    "name": "Manuscrits de Dunhuang",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 94.7,
+      "y": 40.1
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 5000,
+      "items": [20, 26]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 9
+    },
+    "description": "Collection exceptionnelle de textes bouddhiques et taoïstes découverts dans les grottes de la Route de la Soie, témoignant des échanges culturels entre l'Est et l'Ouest."
+  },
+  {
+    "id": 85,
+    "name": "Technique de Cartographie Précise",
+    "type": "invention",
+    "category": "technological",
+    "regionId": 2,
+    "coordinates": {
+      "x": 4.9,
+      "y": 52.4
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [24, 29]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 7
+    },
+    "description": "Méthode néerlandaise révolutionnaire pour créer des cartes maritimes précises, intégrant les relevés de profondeur et les courants."
+  },
+  {
+    "id": 86,
+    "name": "Lions de l'Atlas",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 4,
+    "coordinates": {
+      "x": -5.0,
+      "y": 31.5
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 2500,
+      "items": [11, 17]
+    },
+    "requirements": {
+      "navigation": 4,
+      "exploration": 7
+    },
+    "description": "Majestueux lions d'Afrique du Nord, plus grands que leurs cousins subsahariens, chassés par les Berbères et les Arabes."
+  },
+  {
+    "id": 87,
+    "name": "Dugongs de la mer Rouge",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 6,
+    "coordinates": {
+      "x": 35.0,
+      "y": 20.0
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 2000,
+      "items": [8, 14]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 6
+    },
+    "description": "Paisibles mammifères marins, probablement à l'origine des légendes de sirènes chez les marins arabes."
+  },
+  {
+    "id": 88,
+    "name": "Perroquets Aras des Caraïbes",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 3,
+    "coordinates": {
+      "x": -66.0,
+      "y": 18.0
+    },
+    "difficulty": 5,
+    "rewards": {
+      "fame": 1000,
+      "gold": 1800,
+      "items": [7, 13]
+    },
+    "requirements": {
+      "navigation": 3,
+      "exploration": 5
+    },
+    "description": "Magnifiques oiseaux aux couleurs éclatantes, très prisés par les nobles européens."
+  },
+  {
+    "id": 89,
+    "name": "Panthères des neiges",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 7,
+    "coordinates": {
+      "x": 90.0,
+      "y": 35.0
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 3000,
+      "items": [12, 18]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 8
+    },
+    "description": "Félins fantomatiques des hautes montagnes d'Asie, vénérés par les populations locales."
+  },
+  {
+    "id": 90,
+    "name": "Tortues géantes des Seychelles",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 4,
+    "coordinates": {
+      "x": 55.5,
+      "y": -4.6
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 2500,
+      "items": [9, 15]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 6
+    },
+    "description": "Énormes reptiles paisibles, source de nourriture précieuse pour les navires en route vers les Indes."
+  },
+  {
+    "id": 91,
+    "name": "Tapirs malais",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 7,
+    "coordinates": {
+      "x": 101.0,
+      "y": 4.0
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 2000,
+      "items": [8, 14]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 6
+    },
+    "description": "Étranges mammifères à la robe bicolore, habitant les forêts tropicales d'Asie du Sud-Est."
+  },
+  {
+    "id": 92,
+    "name": "Lamantins des Caraïbes",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 3,
+    "coordinates": {
+      "x": -81.0,
+      "y": 22.0
+    },
+    "difficulty": 5,
+    "rewards": {
+      "fame": 1000,
+      "gold": 1800,
+      "items": [7, 13]
+    },
+    "requirements": {
+      "navigation": 4,
+      "exploration": 5
+    },
+    "description": "Paisibles mammifères marins des eaux chaudes, souvent confondus avec les sirènes par les premiers explorateurs."
+  },
+  {
+    "id": 93,
+    "name": "Orangs-outans de Bornéo",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 7,
+    "coordinates": {
+      "x": 114.0,
+      "y": 1.0
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 3000,
+      "items": [11, 17]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 7
+    },
+    "description": "Grands singes roux des forêts tropicales, considérés comme des 'hommes de la forêt' par les populations locales."
+  },
+  {
+    "id": 94,
+    "name": "Crocodiles du Nil",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 4,
+    "coordinates": {
+      "x": 31.0,
+      "y": 22.0
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 2500,
+      "items": [10, 16]
+    },
+    "requirements": {
+      "navigation": 4,
+      "exploration": 7
+    },
+    "description": "Redoutables prédateurs aquatiques, vénérés dans l'Égypte ancienne et craints par les navigateurs."
+  },
+  {
+    "id": 95,
+    "name": "Pandas géants",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 7,
+    "coordinates": {
+      "x": 103.0,
+      "y": 30.0
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 4000,
+      "items": [13, 19]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 8
+    },
+    "description": "Mystérieux ours noirs et blancs des montagnes chinoises, rarement aperçus par les Européens."
+  },
+  {
+    "id": 96,
+    "name": "Jaguars d'Amazonie",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 3,
+    "coordinates": {
+      "x": -60.0,
+      "y": -3.0
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 3000,
+      "items": [12, 18]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 8
+    },
+    "description": "Puissants félins tachetés, vénérés par les civilisations précolombiennes comme des divinités."
+  },
+  {
+    "id": 97,
+    "name": "Éléphants de Ceylan",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 6,
+    "coordinates": {
+      "x": 80.0,
+      "y": 7.0
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 2500,
+      "items": [9, 15]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 7
+    },
+    "description": "Pachydermes sacrés de l'île de Ceylan, utilisés dans les cérémonies religieuses et le transport du bois."
+  },
+  {
+    "id": 98,
+    "name": "Requins-baleines des Maldives",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 6,
+    "coordinates": {
+      "x": 73.0,
+      "y": 3.2
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 3000,
+      "items": [11, 17]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Gigantesques poissons pacifiques, source d'émerveillement pour les marins de l'océan Indien."
+  },
+  {
+    "id": 99,
+    "name": "Paons de Java",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 7,
+    "coordinates": {
+      "x": 110.0,
+      "y": -7.0
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1200,
+      "gold": 2000,
+      "items": [8, 14]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 6
+    },
+    "description": "Magnifiques oiseaux aux plumes iridescentes, symboles de royauté dans les cours asiatiques."
+  },
+  {
+    "id": 100,
+    "name": "Lamas des Andes",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 3,
+    "coordinates": {
+      "x": -72.0,
+      "y": -13.0
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 2500,
+      "items": [10, 16]
+    },
+    "requirements": {
+      "navigation": 4,
+      "exploration": 7
+    },
+    "description": "Camélidés domestiqués par les Incas, essentiels pour le transport en haute altitude."
+  },
+  {
+    "id": 101,
+    "name": "Cobras royaux",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 7,
+    "coordinates": {
+      "x": 100.0,
+      "y": 15.0
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 2500,
+      "items": [9, 15]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 7
+    },
+    "description": "Plus grands serpents venimeux du monde, vénérés dans les cultures d'Asie du Sud-Est."
+  },
+  {
+    "id": 102,
+    "name": "Hippopotames du Zambèze",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 4,
+    "coordinates": {
+      "x": 33.0,
+      "y": -18.0
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 3000,
+      "items": [12, 18]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 8
+    },
+    "description": "Imposants mammifères amphibies, maîtres des rivières africaines et redoutés des navigateurs."
+  },
+  {
+    "id": 103,
+    "name": "Oiseaux de paradis",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 7,
+    "coordinates": {
+      "x": 140.0,
+      "y": -5.0
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 4000,
+      "items": [13, 19]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 7
+    },
+    "description": "Oiseaux aux plumages extraordinaires des îles orientales, considérés comme venus du paradis par les premiers explorateurs."
+  },
+  {
+    "id": 104,
+    "name": "Dauphins roses de l'Amazone",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 3,
+    "coordinates": {
+      "x": -60.0,
+      "y": -3.5
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 3000,
+      "items": [11, 17]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 7
+    },
+    "description": "Mystérieux cétacés d'eau douce, au centre de nombreuses légendes amérindiennes."
+  },
+  {
+    "id": 105,
+    "name": "Pangolins de Malaisie",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 7,
+    "coordinates": {
+      "x": 102.0,
+      "y": 4.0
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 2500,
+      "items": [10, 16]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 6
+    },
+    "description": "Étranges mammifères écailleux, recherchés pour leurs propriétés médicinales dans la médecine traditionnelle."
+  },
+  {
+    "id": 106,
+    "name": "Cité perdue de Petra",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 35.4,
+      "y": 30.3
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 5000,
+      "items": [18, 24]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 9
+    },
+    "description": "Ancienne cité nabatéenne taillée dans la roche, carrefour des routes commerciales entre l'Arabie et la Méditerranée."
+  },
+  {
+    "id": 107,
+    "name": "Trésor des Templiers",
+    "type": "treasure",
+    "category": "historical",
+    "regionId": 2,
+    "coordinates": {
+      "x": -4.5,
+      "y": 48.3
+    },
+    "difficulty": 10,
+    "rewards": {
+      "fame": 3000,
+      "gold": 8000,
+      "items": [20, 25]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 9
+    },
+    "description": "Légendaire trésor des Chevaliers du Temple, supposément caché sur les côtes bretonnes après leur dissolution."
+  },
+  {
+    "id": 108,
+    "name": "Art de la Soie chinoise",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 120.5,
+      "y": 31.2
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [16, 22]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Secrets jalousement gardés de la fabrication de la soie, convoités par les marchands européens."
+  },
+  {
+    "id": 109,
+    "name": "Ruines de Mohenjo-daro",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 68.1,
+      "y": 27.3
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 5000,
+      "items": [17, 23]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 8
+    },
+    "description": "Vestiges mystérieux de l'ancienne civilisation de la vallée de l'Indus, redécouverts par les explorateurs."
+  },
+  {
+    "id": 110,
+    "name": "Trésor du Grand Zimbabwe",
+    "type": "treasure",
+    "category": "historical",
+    "regionId": 4,
+    "coordinates": {
+      "x": 30.9,
+      "y": -20.3
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 6000,
+      "items": [19, 24]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 8
+    },
+    "description": "Richesses légendaires des anciens rois du Monomotapa, cachées dans les ruines de leur capitale."
+  },
+  {
+    "id": 111,
+    "name": "Art du Tapis persan",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 51.4,
+      "y": 35.7
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3500,
+      "items": [15, 21]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 7
+    },
+    "description": "Technique ancestrale de tissage des tapis, produisant des œuvres d'art prisées dans toutes les cours royales."
+  },
+  {
+    "id": 112,
+    "name": "Cité engloutie de Dwarka",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 68.9,
+      "y": 22.2
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [14, 20]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 7
+    },
+    "description": "Ruines sous-marines légendaires au large du Gujarat, liées aux mythes de Krishna."
+  },
+  {
+    "id": 113,
+    "name": "Trésor des Incas",
+    "type": "treasure",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -72.5,
+      "y": -13.2
+    },
+    "difficulty": 10,
+    "rewards": {
+      "fame": 3000,
+      "gold": 8000,
+      "items": [21, 26]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 9
+    },
+    "description": "Fabuleuse rançon d'Atahualpa, dissimulée par les Incas avant l'arrivée des conquistadors."
+  },
+  {
+    "id": 114,
+    "name": "Art de la Calligraphie arabe",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 44.4,
+      "y": 33.3
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3500,
+      "items": [13, 19]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 7
+    },
+    "description": "Art sacré de l'écriture, transformant les textes en œuvres d'art complexes et raffinées."
+  },
+  {
+    "id": 115,
+    "name": "Temple souterrain d'Ellora",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 75.2,
+      "y": 20.0
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [16, 22]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 8
+    },
+    "description": "Complexe monumental taillé dans la roche, témoignant de la coexistence des religions indiennes."
+  },
+  {
+    "id": 116,
+    "name": "Trésor des Ming",
+    "type": "treasure",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 116.4,
+      "y": 39.9
+    },
+    "difficulty": 10,
+    "rewards": {
+      "fame": 3000,
+      "gold": 7000,
+      "items": [22, 27]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 8
+    },
+    "description": "Collection légendaire de jades et de porcelaines impériales de la dynastie Ming."
+  },
+  {
+    "id": 117,
+    "name": "Art du Bronze benin",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 4,
+    "coordinates": {
+      "x": 5.6,
+      "y": 6.3
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [17, 23]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 8
+    },
+    "description": "Technique sophistiquée de fonte du bronze, produisant des œuvres d'art d'une finesse exceptionnelle."
+  },
+  {
+    "id": 118,
+    "name": "Cité perdue de Nan Madol",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 158.3,
+      "y": 6.8
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 5000,
+      "items": [18, 24]
+    },
+    "requirements": {
+      "navigation": 9,
+      "exploration": 8
+    },
+    "description": "Mystérieuse cité construite sur des îlots artificiels dans le Pacifique, surnommée la 'Venise du Pacifique'."
+  },
+  {
+    "id": 119,
+    "name": "Trésor des Aztèques",
+    "type": "treasure",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -99.1,
+      "y": 19.4
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 6000,
+      "items": [20, 25]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 8
+    },
+    "description": "Trésors de Montezuma cachés lors de la chute de Tenochtitlan, incluant des objets en or massif."
+  },
+  {
+    "id": 120,
+    "name": "Art de la Céramique maya",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -89.6,
+      "y": 20.9
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3500,
+      "items": [14, 20]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 7
+    },
+    "description": "Techniques élaborées de poterie et de peinture sur céramique, illustrant mythes et histoire maya."
+  },
+  {
+    "id": 121,
+    "name": "Temples d'Ayutthaya",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 100.6,
+      "y": 14.4
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [15, 21]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 7
+    },
+    "description": "Capitale du royaume de Siam, centre religieux et commercial majeur d'Asie du Sud-Est."
+  },
+  {
+    "id": 122,
+    "name": "Trésor de Kilwa",
+    "type": "treasure",
+    "category": "historical",
+    "regionId": 4,
+    "coordinates": {
+      "x": 39.5,
+      "y": -8.9
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 5000,
+      "items": [16, 22]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 7
+    },
+    "description": "Richesses accumulées par les sultans de Kilwa grâce au commerce de l'or et des épices."
+  },
+  {
+    "id": 123,
+    "name": "Art du Bronze chinois",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 112.5,
+      "y": 34.6
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [17, 23]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 8
+    },
+    "description": "Techniques millénaires de fonte et de décoration du bronze, créant des objets rituels d'une grande complexité."
+  },
+  {
+    "id": 124,
+    "name": "Cité perdue de Vijayanagar",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 76.5,
+      "y": 15.3
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [18, 24]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 8
+    },
+    "description": "Vestiges de la capitale du dernier grand empire hindou, célèbre pour ses temples et ses bazars."
+  },
+  {
+    "id": 125,
+    "name": "Trésor des Safavides",
+    "type": "treasure",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 51.7,
+      "y": 32.6
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 6000,
+      "items": [19, 25]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 8
+    },
+    "description": "Collection royale perse de bijoux, manuscrits enluminés et objets précieux."
+  },
+  {
+    "id": 126,
+    "name": "Art de la Navigation polynésienne",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": -149.5,
+      "y": -17.5
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 4500,
+      "items": [20, 26]
+    },
+    "requirements": {
+      "navigation": 9,
+      "exploration": 7
+    },
+    "description": "Techniques ancestrales de navigation océanique utilisant les étoiles, les courants et les oiseaux."
+  },
+  {
+    "id": 127,
+    "name": "Temples d'Anuradhapura",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 80.4,
+      "y": 8.3
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [15, 21]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 8
+    },
+    "description": "Ancienne capitale du Sri Lanka, abritant des stupas monumentaux et des reliques sacrées."
+  },
+  {
+    "id": 128,
+    "name": "Manuscrits de Tombouctou",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 4,
+    "coordinates": {
+      "x": -3.0,
+      "y": 16.8
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2200,
+      "gold": 3800,
+      "items": [14, 22]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 8
+    },
+    "description": "Collection précieuse de manuscrits arabes et africains sur l'astronomie, les mathématiques et la médecine, conservés dans la ville caravanière de Tombouctou."
+  },
+  {
+    "id": 129,
+    "name": "Mines d'Argent de Potosí",
+    "type": "resource",
+    "category": "geographical",
+    "regionId": 17,
+    "coordinates": {
+      "x": -65.8,
+      "y": -19.6
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2000,
+      "gold": 5500,
+      "items": [18, 25]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 9
+    },
+    "description": "Gisements d'argent récemment découverts dans les Andes, promettant d'immenses richesses pour la couronne espagnole."
+  },
+  {
+    "id": 130,
+    "name": "Codex Aztèques",
+    "type": "artifact",
+    "category": "historical",
+    "regionId": 9,
+    "coordinates": {
+      "x": -99.1,
+      "y": 19.4
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2300,
+      "gold": 3200,
+      "items": [14, 20]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 7
+    },
+    "description": "Manuscrits pictographiques aztèques détaillant leur histoire, religion et astronomie, sauvés de la destruction lors de la conquête espagnole."
+  },
+  {
+    "id": 131,
+    "name": "Route des Épices de Maluku",
+    "type": "trade_route",
+    "category": "geographical",
+    "regionId": 18,
+    "coordinates": {
+      "x": 127.4,
+      "y": 0.8
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 4800,
+      "items": [1, 23]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 7
+    },
+    "description": "Itinéraire maritime vers les îles Moluques, source principale de noix de muscade, clous de girofle et autres épices précieuses convoitées par les puissances européennes."
+  },
+  {
+    "id": 132,
+    "name": "Forteresse de Diu",
+    "type": "fortress",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 70.9,
+      "y": 20.7
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1800,
+      "gold": 3500,
+      "items": [16, 24]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 6
+    },
+    "description": "Bastion portugais stratégique sur la côte indienne, construit après la victoire navale de 1509 contre les flottes ottomanes et égyptiennes."
+  },
+  {
+    "id": 133,
+    "name": "Techniques de Navigation Chinoise",
+    "type": "knowledge",
+    "category": "scientific",
+    "regionId": 8,
+    "coordinates": {
+      "x": 118.8,
+      "y": 32.1
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2100,
+      "gold": 3000,
+      "items": [12, 26]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Savoirs avancés sur la construction navale, la boussole et les cartes maritimes, développés durant les expéditions de l'amiral Zheng He au début du XVe siècle."
+  },
+  {
+    "id": 134,
+    "name": "Cité Perdue de Ciudad Blanca",
+    "type": "ruins",
+    "category": "mythical",
+    "regionId": 9,
+    "coordinates": {
+      "x": -85.9,
+      "y": 15.7
+    },
+    "difficulty": 10,
+    "rewards": {
+      "fame": 3000,
+      "gold": 5500,
+      "items": [19, 25]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 9
+    },
+    "description": "Légendaire cité d'or cachée dans les jungles du Honduras, mentionnée dans les récits des premiers conquistadors espagnols."
+  },
+  {
+    "id": 135,
+    "name": "Lignes de Nazca",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -75.1,
+      "y": -14.7
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1800,
+      "gold": 3500,
+      "items": [14, 22]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 8
+    },
+    "description": "Vastes géoglyphes tracés dans le désert péruvien, représentant des figures animales et géométriques. Invisibles du sol, ces mystérieuses lignes ne peuvent être pleinement appréciées que vues d'en haut."
+  },
+  {
+    "id": 136,
+    "name": "Statues Moaï de l'Île de Pâques",
+    "type": "monument",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -109.4,
+      "y": -27.1
+    },
+    "difficulty": 10,
+    "rewards": {
+      "fame": 3000,
+      "gold": 6000,
+      "items": [18, 24]
+    },
+    "requirements": {
+      "navigation": 9,
+      "exploration": 8
+    },
+    "description": "Gigantesques statues monolithiques sculptées par le peuple Rapa Nui. Ces figures énigmatiques aux visages allongés et aux oreilles démesurées semblent garder les secrets d'une civilisation isolée."
+  },
+  {
+    "id": 137,
+    "name": "Pororoca de l'Amazone",
+    "type": "natural",
+    "category": "geographical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -50.5,
+      "y": -0.2
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [11, 17]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Phénomène naturel impressionnant où les marées de l'Atlantique remontent l'Amazone, créant une vague déferlante pouvant atteindre 4 mètres de hauteur. Les indigènes l'appellent 'grand fracas' en raison du bruit assourdissant qu'elle produit."
+  },
+  {
+    "id": 138,
+    "name": "Dodo de l'Île Maurice",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 4,
+    "coordinates": {
+      "x": 57.5,
+      "y": -20.2
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 5000,
+      "items": [13, 19]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 7
+    },
+    "description": "Oiseau étrange incapable de voler, récemment découvert sur l'île Maurice par les navigateurs portugais. Son apparence maladroite et sa confiance naïve envers les humains le rendent vulnérable aux chasseurs."
+  },
+  {
+    "id": 139,
+    "name": "Ornithorynque",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 15,
+    "coordinates": {
+      "x": 146.5,
+      "y": -35.3
+    },
+    "difficulty": 10,
+    "rewards": {
+      "fame": 2800,
+      "gold": 5500,
+      "items": [15, 21]
+    },
+    "requirements": {
+      "navigation": 9,
+      "exploration": 8
+    },
+    "description": "Créature extraordinaire des terres australes, à peine entrevue par quelques explorateurs. Cet animal déconcertant semble combiner des caractéristiques de plusieurs espèces : bec de canard, corps de loutre et pattes palmées."
+  },
+  {
+    "id": 140,
+    "name": "Restes de Mammouth",
+    "type": "fossil",
+    "category": "natural",
+    "regionId": 11,
+    "coordinates": {
+      "x": 161.0,
+      "y": 69.5
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 5000,
+      "items": [16, 23]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 7
+    },
+    "description": "Ossements et défenses gigantesques d'une créature disparue, découverts dans les terres gelées du Grand Nord. Les peuples locaux racontent que ces bêtes colossales parcouraient autrefois la toundra."
+  },
+  {
+    "id": 141,
+    "name": "Durian",
+    "type": "plant",
+    "category": "natural",
+    "regionId": 7,
+    "coordinates": {
+      "x": 101.7,
+      "y": 3.1
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1500,
+      "gold": 3000,
+      "items": [9, 15]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 6
+    },
+    "description": "Fruit épineux d'Asie du Sud-Est au parfum si puissant qu'il est interdit dans certains lieux publics. Sa chair crémeuse offre une saveur complexe qui divise les voyageurs : délice pour certains, répulsion pour d'autres."
+  },
+  {
+    "id": 142,
+    "name": "Lac Titicaca",
+    "type": "natural",
+    "category": "geographical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -69.4,
+      "y": -16.2
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 4000,
+      "items": [12, 18]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 7
+    },
+    "description": "Lac navigable le plus haut du monde, niché à plus de 3800 mètres dans les Andes. Considéré comme sacré par les Incas, ses eaux profondes abritent des îles où vivent des communautés préservant leurs traditions ancestrales."
+  },
+  {
+    "id": 143,
+    "name": "Fontaine de Jouvence",
+    "type": "myth",
+    "category": "mythical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -82.3,
+      "y": 24.5
+    },
+    "difficulty": 10,
+    "rewards": {
+      "fame": 3500,
+      "gold": 7000,
+      "items": [22, 28]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 9
+    },
+    "description": "Source légendaire aux eaux miraculeuses conférant jeunesse éternelle à quiconque s'y baigne. Juan Ponce de León l'aurait cherchée en Floride, inspirant de nombreux explorateurs à s'aventurer dans ces terres inconnues."
+  },
+  {
+    "id": 144,
+    "name": "Cité d'Or de Quivira",
+    "type": "myth",
+    "category": "mythical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -98.5,
+      "y": 38.0
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 3000,
+      "gold": 6500,
+      "items": [21, 27]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 8
+    },
+    "description": "Cité mythique aux richesses incommensurables, située quelque part dans les grandes plaines d'Amérique du Nord. Les récits des indigènes parlent de maisons aux toits d'or et de rues pavées de pierres précieuses."
+  },
+  {
+    "id": 145,
+    "name": "Royaume du Prêtre Jean",
+    "type": "myth",
+    "category": "mythical",
+    "regionId": 4,
+    "coordinates": {
+      "x": 37.5,
+      "y": 9.0
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2800,
+      "gold": 5500,
+      "items": [19, 25]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 8
+    },
+    "description": "Légendaire royaume chrétien isolé, gouverné par un puissant monarque-prêtre. Longtemps situé en Asie par les Européens, ce mythe s'est déplacé vers l'Éthiopie au début du XVIe siècle, motivant de nombreuses expéditions."
+  },
+  {
+    "id": 146,
+    "name": "Manuscrits de Voynich",
+    "type": "artifact",
+    "category": "historical",
+    "regionId": 2,
+    "coordinates": {
+      "x": 14.4,
+      "y": 50.1
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 2200,
+      "gold": 4500,
+      "items": [18, 24]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 7
+    },
+    "description": "Mystérieux codex illustré, écrit dans une langue inconnue et indéchiffrable. Récemment apparu dans les cercles érudits d'Europe centrale, ce manuscrit contient des illustrations de plantes inconnues et de diagrammes astronomiques énigmatiques."
+  },
+  {
+    "id": 147,
+    "name": "Quetzal à longue queue",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 3,
+    "coordinates": {
+      "x": -90.2,
+      "y": 15.5
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1800,
+      "gold": 3500,
+      "items": [13, 19]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 7
+    },
+    "description": "Oiseau sacré des civilisations mésoaméricaines, aux plumes iridescentes vert émeraude et rouge écarlate. Ses longues plumes caudales étaient réservées aux coiffes des empereurs aztèques et considérées plus précieuses que l'or."
+  },
+  {
+    "id": 148,
+    "name": "Baobabs de Madagascar",
+    "type": "plant",
+    "category": "natural",
+    "regionId": 4,
+    "coordinates": {
+      "x": 44.4,
+      "y": -20.3
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2000,
+      "gold": 3800,
+      "items": [14, 20]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Arbres colossaux aux troncs massifs, semblant pousser à l'envers avec leurs racines vers le ciel. Les populations locales les vénèrent comme demeures des esprits et utilisent leur écorce pour fabriquer cordes et tissus."
+  },
+  {
+    "id": 149,
+    "name": "Thé de Chine",
+    "type": "plant",
+    "category": "natural",
+    "regionId": 7,
+    "coordinates": {
+      "x": 119.5,
+      "y": 29.8
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2200,
+      "gold": 4500,
+      "items": [16, 22]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 6
+    },
+    "description": "Plante précieuse dont les feuilles séchées produisent une boisson revigorante, au cœur de cérémonies élaborées en Chine et au Japon. Les marchands portugais commencent à peine à en rapporter en Europe, où elle suscite curiosité et engouement."
+  },
+  {
+    "id": 150,
+    "name": "Cacao des Aztèques",
+    "type": "plant",
+    "category": "natural",
+    "regionId": 3,
+    "coordinates": {
+      "x": -96.7,
+      "y": 17.1
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1700,
+      "gold": 3500,
+      "items": [12, 18]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 6
+    },
+    "description": "Arbre produisant des fèves amères utilisées par les Aztèques pour préparer une boisson épicée réservée à la noblesse et servant de monnaie. Les Espagnols commencent à l'introduire en Europe, où son goût unique intrigue les cours royales."
+  },
+  {
+    "id": 151,
+    "name": "Temples d'Hampi",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 76.5,
+      "y": 15.3
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2300,
+      "gold": 4700,
+      "items": [17, 23]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 8
+    },
+    "description": "Vestiges majestueux de la capitale de l'Empire de Vijayanagar, récemment tombée aux mains des sultanats musulmans. Ses temples ornés de sculptures complexes et ses palais témoignent de la grandeur passée du dernier grand royaume hindou."
+  },
+  {
+    "id": 152,
+    "name": "Cité perdue de Kuelap",
+    "type": "ruins",
+    "category": "historical",
+    "regionId": 3,
+    "coordinates": {
+      "x": -77.9,
+      "y": -6.4
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2700,
+      "gold": 5500,
+      "items": [19, 25]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 9
+    },
+    "description": "Forteresse monumentale perchée dans les nuages des Andes, construite par la civilisation Chachapoyas avant leur conquête par les Incas. Ses murs cyclopéens et ses structures circulaires défient l'entendement par leur ingéniosité architecturale."
+  },
+  {
+    "id": 153,
+    "name": "Tatouages Maoris",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 174.8,
+      "y": -41.3
+    },
+    "difficulty": 10,
+    "rewards": {
+      "fame": 3000,
+      "gold": 5000,
+      "items": [20, 26]
+    },
+    "requirements": {
+      "navigation": 9,
+      "exploration": 8
+    },
+    "description": "Art corporel élaboré des guerriers polynésiens de terres lointaines, créant des motifs spiralés complexes gravés dans la peau du visage et du corps. Ces marques racontent l'histoire et le statut de chaque individu au sein de sa tribu."
+  },
+  {
+    "id": 154,
+    "name": "Masques Dogon",
+    "type": "culture",
+    "category": "historical",
+    "regionId": 4,
+    "coordinates": {
+      "x": -3.5,
+      "y": 14.5
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2200,
+      "gold": 4000,
+      "items": [15, 21]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 8
+    },
+    "description": "Sculptures rituelles d'un peuple africain aux connaissances astronomiques surprenantes. Leurs masques de bois, utilisés lors de cérémonies sacrées, représentent des créatures mythiques et des ancêtres, témoignant d'une cosmologie complexe."
+  },
+  {
+    "id": 155,
+    "name": "Licorne de Mer",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 2,
+    "coordinates": {
+      "x": -40.0,
+      "y": 70.0
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2500,
+      "gold": 5000,
+      "items": [18, 24]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 7
+    },
+    "description": "Créature marine mystérieuse des mers arctiques, arborant une longue défense torsadée. Les marins rapportent des récits de ces bêtes nageant en groupes dans les eaux glacées, leurs cornes émergeant parfois de la surface comme une forêt d'épées."
+  },
+  {
+    "id": 156,
+    "name": "Papyrus d'Imhotep",
+    "type": "artifact",
+    "category": "historical",
+    "regionId": 4,
+    "coordinates": {
+      "x": 31.2,
+      "y": 30.0
+    },
+    "difficulty": 8,
+    "rewards": {
+      "fame": 2400,
+      "gold": 4800,
+      "items": [17, 23]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 8
+    },
+    "description": "Manuscrit ancien attribué au légendaire architecte et médecin de l'Égypte antique. Récemment découvert dans une tombe, ce document contient des formules médicales et des connaissances architecturales avancées qui fascinent les érudits européens."
+  },
+  {
+    "id": 157,
+    "name": "Jardins suspendus de Sigiriya",
+    "type": "monument",
+    "category": "historical",
+    "regionId": 6,
+    "coordinates": {
+      "x": 80.7,
+      "y": 7.9
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 2100,
+      "gold": 4200,
+      "items": [16, 22]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 7
+    },
+    "description": "Palais-forteresse construit au sommet d'un rocher monolithique, orné de jardins en terrasses et de fresques colorées. Cette merveille d'ingénierie hydraulique permet à l'eau de monter jusqu'aux jardins suspendus, défiant les lois de la nature."
+  },
+  {
+    "id": 158,
+    "name": "Hommes à queue",
+    "type": "myth",
+    "category": "mythical",
+    "regionId": 7,
+    "coordinates": {
+      "x": 127.0,
+      "y": -5.0
+    },
+    "difficulty": 9,
+    "rewards": {
+      "fame": 2600,
+      "gold": 5200,
+      "items": [19, 25]
+    },
+    "requirements": {
+      "navigation": 8,
+      "exploration": 8
+    },
+    "description": "Créatures mi-hommes mi-bêtes censées habiter les îles reculées de l'archipel indonésien. Les récits de marins et de marchands arabes décrivent ces êtres dotés d'une queue semblable à celle des singes, vivant en tribus dans les forêts impénétrables."
+  },
+  {
+    "id": 159,
+    "name": "Champignons luminescents",
+    "type": "plant",
+    "category": "natural",
+    "regionId": 3,
+    "coordinates": {
+      "x": -54.0,
+      "y": -3.0
+    },
+    "difficulty": 7,
+    "rewards": {
+      "fame": 1900,
+      "gold": 3700,
+      "items": [14, 20]
+    },
+    "requirements": {
+      "navigation": 6,
+      "exploration": 7
+    },
+    "description": "Fungi extraordinaires illuminant les grottes et sous-bois de la forêt amazonienne d'une lueur verdâtre surnaturelle. Les tribus locales les utilisent pour créer des peintures corporelles phosphorescentes lors de rituels nocturnes."
+  },
+  {
+    "id": 160,
+    "name": "Monolithe de Stenness",
+    "type": "monument",
+    "category": "historical",
+    "regionId": 2,
+    "coordinates": {
+      "x": -3.2,
+      "y": 59.0
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1800,
+      "gold": 3600,
+      "items": [13, 19]
+    },
+    "requirements": {
+      "navigation": 7,
+      "exploration": 5
+    },
+    "description": "Cercle de pierres dressées par une civilisation ancienne sur les îles Orcades. Ces mégalithes, plus vieux que Stonehenge, sont alignés avec précision sur les mouvements solaires et lunaires, témoignant d'un savoir astronomique sophistiqué."
+  },
+  {
+    "id": 161,
+    "name": "Vallée des Geysers",
+    "type": "natural",
+    "category": "geographical",
+    "regionId": 11,
+    "coordinates": {
+      "x": 160.0,
+      "y": 54.0
+    },
+    "difficulty": 10,
+    "rewards": {
+      "fame": 3000,
+      "gold": 6000,
+      "items": [21, 27]
+    },
+    "requirements": {
+      "navigation": 9,
+      "exploration": 8
+    },
+    "description": "Région volcanique où des jets d'eau bouillante jaillissent spontanément du sol, créant un paysage infernal de vapeur et de soufre. Les peuples locaux considèrent ces phénomènes comme des manifestations d'esprits souterrains courroucés."
+  },
+  {
+    "id": 162,
+    "name": "Corail Rouge de Méditerranée",
+    "type": "wildlife",
+    "category": "natural",
+    "regionId": 2,
+    "coordinates": {
+      "x": 8.5,
+      "y": 42.5
+    },
+    "difficulty": 6,
+    "rewards": {
+      "fame": 1700,
+      "gold": 3400,
+      "items": [12, 18]
+    },
+    "requirements": {
+      "navigation": 5,
+      "exploration": 6
+    },
+    "description": "Précieux organisme marin aux branches écarlates, exploité depuis l'Antiquité pour la joaillerie. Les pêcheurs de corail plongent à des profondeurs périlleuses pour récolter ces 'arbres de sang', considérés comme protecteurs contre le mauvais œil."
+  }
+] 

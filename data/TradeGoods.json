@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "name": "Bois",
+    "description": "Matériau de construction essentiel pour les navires et les bâtiments.",
+    "basePrice": 50,
+    "weight": 10,
+    "category": "Matériaux",
+    "rarity": 1,
+    "origin": ["Europe du Nord", "Amériques"]
+  },
+  {
+    "id": 2,
+    "name": "Vin",
+    "description": "Boisson alcoolisée produite à partir de raisins fermentés.",
+    "basePrice": 100,
+    "weight": 5,
+    "category": "Nourriture",
+    "rarity": 2,
+    "origin": ["Europe du Sud", "France"]
+  },
+  {
+    "id": 3,
+    "name": "Épices",
+    "description": "Substances aromatiques utilisées pour assaisonner les aliments.",
+    "basePrice": 200,
+    "weight": 2,
+    "category": "Luxe",
+    "rarity": 3,
+    "origin": ["Inde", "Asie du Sud-Est"]
+  },
+  {
+    "id": 4,
+    "name": "Soie",
+    "description": "Tissu luxueux produit à partir de fils de soie.",
+    "basePrice": 300,
+    "weight": 3,
+    "category": "Luxe",
+    "rarity": 4,
+    "origin": ["Chine", "Japon"]
+  },
+  {
+    "id": 5,
+    "name": "Or",
+    "description": "Métal précieux utilisé pour la fabrication de bijoux et de monnaie.",
+    "basePrice": 500,
+    "weight": 8,
+    "category": "Métaux précieux",
+    "rarity": 5,
+    "origin": ["Amériques", "Afrique"]
+  },
+  {
+    "id": 6,
+    "name": "Poisson",
+    "description": "Aliment de base pour de nombreuses populations côtières.",
+    "basePrice": 30,
+    "weight": 4,
+    "category": "Nourriture",
+    "rarity": 1,
+    "origin": ["Partout"]
+  },
+  {
+    "id": 7,
+    "name": "Sel",
+    "description": "Minéral essentiel pour la conservation des aliments.",
+    "basePrice": 40,
+    "weight": 5,
+    "category": "Matériaux",
+    "rarity": 2,
+    "origin": ["Méditerranée", "Mines de sel"]
+  },
+  {
+    "id": 8,
+    "name": "Coton",
+    "description": "Fibre naturelle utilisée pour la fabrication de textiles.",
+    "basePrice": 80,
+    "weight": 4,
+    "category": "Textiles",
+    "rarity": 2,
+    "origin": ["Égypte", "Inde"]
+  },
+  {
+    "id": 9,
+    "name": "Café",
+    "description": "Boisson stimulante préparée à partir de grains torréfiés.",
+    "basePrice": 120,
+    "weight": 3,
+    "category": "Nourriture",
+    "rarity": 3,
+    "origin": ["Éthiopie", "Arabie"]
+  },
+  {
+    "id": 10,
+    "name": "Sucre",
+    "description": "Édulcorant extrait principalement de la canne à sucre.",
+    "basePrice": 150,
+    "weight": 6,
+    "category": "Nourriture",
+    "rarity": 3,
+    "origin": ["Caraïbes", "Brésil"]
+  }
+] 

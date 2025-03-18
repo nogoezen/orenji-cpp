@@ -1,0 +1,399 @@
+[
+  {
+    "id": 13,
+    "name": "Tactique navale",
+    "description": "Améliore les performances lors des batailles navales.",
+    "iconIndex": 76,
+    "mpCost": 0,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "D",
+    "acquisitionRequirements": {
+      "actorLevel": 3,
+      "goldCost": 300,
+      "location": "Lisbonne",
+      "teacherNpcId": 400
+    }
+  },
+  {
+    "id": 14,
+    "name": "Tir de canon",
+    "description": "Améliore la précision des tirs de canon.",
+    "iconIndex": 64,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 2,
+      "formula": "a.atk * 4 - b.def * 2",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 10,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 5,
+      "goldCost": 500,
+      "requiredSkills": [13],
+      "location": "Séville",
+      "teacherNpcId": 405
+    }
+  },
+  {
+    "id": 15,
+    "name": "Abordage",
+    "description": "Permet de prendre le contrôle d'un navire ennemi.",
+    "iconIndex": 76,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 0,
+      "formula": "a.atk * 3",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 10,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 8,
+      "goldCost": 1000,
+      "requiredSkills": [13],
+      "location": "Malaga",
+      "teacherNpcId": 410
+    }
+  },
+  {
+    "id": 16,
+    "name": "Flotte de guerre",
+    "description": "Commande une flotte entière lors des batailles.",
+    "iconIndex": 79,
+    "mpCost": 20,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 0,
+      "formula": "a.atk * 5",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 2,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 10,
+    "rank": "S",
+    "acquisitionRequirements": {
+      "actorLevel": 20,
+      "goldCost": 8000,
+      "requiredSkills": [15, 60],
+      "requiredItems": [
+        {
+          "itemId": 180,
+          "quantity": 1
+        }
+      ],
+      "location": "Lisbonne",
+      "teacherNpcId": 415
+    }
+  },
+  {
+    "id": 25,
+    "name": "Bordée de canons",
+    "description": "Tire une bordée complète de canons sur un navire ennemi.",
+    "iconIndex": 64,
+    "mpCost": 8,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 2,
+      "formula": "a.atk * 4.5 - b.def * 1.5",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": 0,
+    "successRate": 95,
+    "tpGain": 10,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 9,
+      "goldCost": 1200,
+      "requiredSkills": [14],
+      "location": "Venise",
+      "teacherNpcId": 420
+    }
+  },
+  {
+    "id": 26,
+    "name": "Tir de précision",
+    "description": "Vise les points faibles du navire ennemi.",
+    "iconIndex": 64,
+    "mpCost": 12,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 2,
+      "formula": "a.atk * 3 - b.def * 1",
+      "type": 1,
+      "variance": 10
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 10,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 10,
+      "goldCost": 1500,
+      "requiredSkills": [14],
+      "location": "Gênes",
+      "teacherNpcId": 425
+    }
+  },
+  {
+    "id": 27,
+    "name": "Boulets chaînés",
+    "description": "Tire des boulets reliés par une chaîne pour endommager les voiles.",
+    "iconIndex": 64,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 2,
+      "formula": "a.atk * 2.5",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [
+      {"code": 21, "dataId": 4, "value1": 1, "value2": 0}
+    ],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 10,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 12,
+      "goldCost": 2000,
+      "requiredSkills": [25],
+      "location": "Marseille",
+      "teacherNpcId": 430
+    }
+  },
+  {
+    "id": 28,
+    "name": "Boulets rouges",
+    "description": "Tire des boulets chauffés au rouge pour incendier le navire ennemi.",
+    "iconIndex": 64,
+    "mpCost": 25,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 2,
+      "formula": "a.atk * 3.5",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [
+      {"code": 21, "dataId": 2, "value1": 1, "value2": 0}
+    ],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 10,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 14,
+      "goldCost": 2500,
+      "requiredSkills": [26],
+      "requiredItems": [
+        {
+          "itemId": 185,
+          "quantity": 2
+        }
+      ],
+      "location": "Istanbul",
+      "teacherNpcId": 435
+    }
+  },
+  {
+    "id": 60,
+    "name": "Formation en ligne",
+    "description": "Organise les navires en ligne pour maximiser la puissance de feu.",
+    "iconIndex": 79,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [
+      {"code": 31, "dataId": 1, "value1": 3, "value2": 0}
+    ],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 8,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 13,
+      "goldCost": 2200,
+      "requiredSkills": [13],
+      "location": "Londres",
+      "teacherNpcId": 440
+    }
+  },
+  {
+    "id": 61,
+    "name": "Manœuvre d'évitement",
+    "description": "Effectue des manœuvres pour éviter les tirs ennemis.",
+    "iconIndex": 82,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [
+      {"code": 31, "dataId": 3, "value1": 3, "value2": 0}
+    ],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 8,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 7,
+      "goldCost": 800,
+      "requiredSkills": [13],
+      "location": "Venise",
+      "teacherNpcId": 445
+    }
+  },
+  {
+    "id": 62,
+    "name": "Couper la ligne",
+    "description": "Manœuvre audacieuse pour traverser la ligne ennemie.",
+    "iconIndex": 76,
+    "mpCost": 20,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 0,
+      "formula": "a.atk * 2.5",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 2,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 10,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 15,
+      "goldCost": 3000,
+      "requiredSkills": [60, 61],
+      "location": "Amsterdam",
+      "teacherNpcId": 450
+    }
+  },
+  {
+    "id": 63,
+    "name": "Pavillon de reddition",
+    "description": "Feint la reddition pour approcher l'ennemi et l'attaquer par surprise.",
+    "iconIndex": 87,
+    "mpCost": 30,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 0,
+      "formula": "a.atk * 4",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 10,
+    "rank": "S",
+    "acquisitionRequirements": {
+      "actorLevel": 18,
+      "goldCost": 5000,
+      "requiredSkills": [15, 62],
+      "requiredItems": [
+        {
+          "itemId": 190,
+          "quantity": 1
+        }
+      ],
+      "location": "Tunis",
+      "teacherNpcId": 455
+    }
+  }
+] 

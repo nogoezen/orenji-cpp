@@ -1,0 +1,388 @@
+[
+  {
+    "id": 9,
+    "name": "Exploration",
+    "description": "Augmente les chances de découvrir de nouvelles terres.",
+    "iconIndex": 76,
+    "mpCost": 0,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "D",
+    "acquisitionRequirements": {
+      "actorLevel": 1,
+      "goldCost": 100,
+      "location": "Lisbonne",
+      "teacherNpcId": 305
+    }
+  },
+  {
+    "id": 10,
+    "name": "Chasse au trésor",
+    "description": "Augmente les chances de trouver des trésors cachés.",
+    "iconIndex": 91,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 4,
+      "goldCost": 400,
+      "requiredSkills": [9],
+      "location": "Porto",
+      "teacherNpcId": 310
+    }
+  },
+  {
+    "id": 11,
+    "name": "Déchiffrage",
+    "description": "Permet de déchiffrer d'anciennes cartes au trésor.",
+    "iconIndex": 83,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 8,
+      "goldCost": 1000,
+      "requiredSkills": [10],
+      "location": "Alexandrie",
+      "teacherNpcId": 315
+    }
+  },
+  {
+    "id": 12,
+    "name": "Découverte majeure",
+    "description": "Révèle une zone inexplorée importante sur la carte.",
+    "iconIndex": 84,
+    "mpCost": 20,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 15,
+      "goldCost": 3000,
+      "requiredSkills": [11],
+      "requiredItems": [
+        {
+          "itemId": 140,
+          "quantity": 1
+        }
+      ],
+      "location": "Lisbonne",
+      "teacherNpcId": 320
+    }
+  },
+  {
+    "id": 130,
+    "name": "Survie",
+    "description": "Techniques de survie en milieu hostile.",
+    "iconIndex": 76,
+    "mpCost": 0,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "D",
+    "acquisitionRequirements": {
+      "actorLevel": 2,
+      "goldCost": 200,
+      "location": "Ceuta",
+      "teacherNpcId": 325
+    }
+  },
+  {
+    "id": 131,
+    "name": "Pistage",
+    "description": "Permet de suivre des traces et de repérer des indices.",
+    "iconIndex": 76,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 95,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 5,
+      "goldCost": 500,
+      "requiredSkills": [130],
+      "location": "Madère",
+      "teacherNpcId": 330
+    }
+  },
+  {
+    "id": 132,
+    "name": "Reconnaissance",
+    "description": "Explore rapidement une zone pour en identifier les caractéristiques.",
+    "iconIndex": 76,
+    "mpCost": 8,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 6,
+      "goldCost": 600,
+      "requiredSkills": [9],
+      "location": "Canaries",
+      "teacherNpcId": 335
+    }
+  },
+  {
+    "id": 133,
+    "name": "Prospection",
+    "description": "Recherche de ressources naturelles et de richesses.",
+    "iconIndex": 91,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 9,
+      "goldCost": 1200,
+      "requiredSkills": [132],
+      "location": "Açores",
+      "teacherNpcId": 340
+    }
+  },
+  {
+    "id": 134,
+    "name": "Établissement de colonie",
+    "description": "Établit un avant-poste ou une colonie dans une région inexplorée.",
+    "iconIndex": 87,
+    "mpCost": 30,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 0,
+    "rank": "S",
+    "acquisitionRequirements": {
+      "actorLevel": 20,
+      "goldCost": 10000,
+      "requiredSkills": [12, 133],
+      "requiredItems": [
+        {
+          "itemId": 150,
+          "quantity": 1
+        }
+      ],
+      "location": "Séville",
+      "teacherNpcId": 345
+    }
+  },
+  {
+    "id": 135,
+    "name": "Ethnographie",
+    "description": "Étude des peuples indigènes et de leurs coutumes.",
+    "iconIndex": 83,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 10,
+      "goldCost": 1500,
+      "location": "Lisbonne",
+      "teacherNpcId": 350
+    }
+  },
+  {
+    "id": 136,
+    "name": "Naturalisme",
+    "description": "Étude de la faune et de la flore des régions explorées.",
+    "iconIndex": 83,
+    "mpCost": 12,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 95,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 11,
+      "goldCost": 1800,
+      "location": "Venise",
+      "teacherNpcId": 355
+    }
+  },
+  {
+    "id": 137,
+    "name": "Découverte de passage",
+    "description": "Recherche de passages maritimes stratégiques.",
+    "iconIndex": 84,
+    "mpCost": 25,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 75,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 16,
+      "goldCost": 4000,
+      "requiredSkills": [12],
+      "requiredItems": [
+        {
+          "itemId": 155,
+          "quantity": 1
+        }
+      ],
+      "location": "Lisbonne",
+      "teacherNpcId": 360
+    }
+  }
+] 

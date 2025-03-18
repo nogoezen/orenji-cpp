@@ -1,0 +1,383 @@
+[
+  {
+    "id": 1,
+    "name": "Navigation côtière",
+    "description": "Permet de naviguer efficacement le long des côtes.",
+    "iconIndex": 64,
+    "mpCost": 0,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "D",
+    "acquisitionRequirements": {
+      "actorLevel": 1,
+      "goldCost": 100,
+      "location": "Lisbonne",
+      "teacherNpcId": 500
+    }
+  },
+  {
+    "id": 2,
+    "name": "Lecture des étoiles",
+    "description": "Permet de naviguer en haute mer en utilisant les étoiles.",
+    "iconIndex": 79,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 4,
+      "goldCost": 400,
+      "requiredSkills": [1],
+      "location": "Porto",
+      "teacherNpcId": 505
+    }
+  },
+  {
+    "id": 3,
+    "name": "Prévision météo",
+    "description": "Permet de prévoir les tempêtes et d'éviter les dégâts.",
+    "iconIndex": 69,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 8,
+      "goldCost": 1000,
+      "requiredSkills": [2],
+      "location": "Madère",
+      "teacherNpcId": 510
+    }
+  },
+  {
+    "id": 4,
+    "name": "Route optimale",
+    "description": "Trouve la route la plus rapide entre deux ports.",
+    "iconIndex": 82,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 12,
+      "goldCost": 2000,
+      "requiredSkills": [3],
+      "location": "Lisbonne",
+      "teacherNpcId": 515
+    }
+  },
+  {
+    "id": 17,
+    "name": "Cartographie",
+    "description": "Permet de créer des cartes précises des régions explorées.",
+    "iconIndex": 83,
+    "mpCost": 0,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 10,
+      "goldCost": 1500,
+      "location": "Séville",
+      "teacherNpcId": 520
+    }
+  },
+  {
+    "id": 18,
+    "name": "Relevé astronomique",
+    "description": "Détermine précisément la position du navire.",
+    "iconIndex": 79,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 5,
+      "goldCost": 500,
+      "requiredSkills": [2],
+      "location": "Venise",
+      "teacherNpcId": 525
+    }
+  },
+  {
+    "id": 19,
+    "name": "Carte des courants",
+    "description": "Identifie les courants marins pour naviguer plus rapidement.",
+    "iconIndex": 67,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 9,
+      "goldCost": 1200,
+      "requiredSkills": [17],
+      "location": "Lisbonne",
+      "teacherNpcId": 530
+    }
+  },
+  {
+    "id": 20,
+    "name": "Atlas mondial",
+    "description": "Révèle l'ensemble de la carte du monde.",
+    "iconIndex": 84,
+    "mpCost": 30,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "S",
+    "acquisitionRequirements": {
+      "actorLevel": 20,
+      "goldCost": 8000,
+      "requiredSkills": [4, 17, 19],
+      "requiredItems": [
+        {
+          "itemId": 200,
+          "quantity": 1
+        }
+      ],
+      "location": "Lisbonne",
+      "teacherNpcId": 535
+    }
+  },
+  {
+    "id": 41,
+    "name": "Quadrant",
+    "description": "Utilisation du quadrant pour mesurer la hauteur des astres.",
+    "iconIndex": 79,
+    "mpCost": 0,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "D",
+    "acquisitionRequirements": {
+      "actorLevel": 2,
+      "goldCost": 200,
+      "location": "Lisbonne",
+      "teacherNpcId": 540
+    }
+  },
+  {
+    "id": 42,
+    "name": "Astrolabe",
+    "description": "Utilisation de l'astrolabe pour déterminer la latitude.",
+    "iconIndex": 79,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 6,
+      "goldCost": 600,
+      "requiredSkills": [41],
+      "location": "Séville",
+      "teacherNpcId": 545
+    }
+  },
+  {
+    "id": 43,
+    "name": "Éphémérides",
+    "description": "Calcul précis des positions des astres pour la navigation.",
+    "iconIndex": 83,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 11,
+      "goldCost": 1800,
+      "requiredSkills": [42],
+      "location": "Venise",
+      "teacherNpcId": 550
+    }
+  },
+  {
+    "id": 44,
+    "name": "Calcul de longitude",
+    "description": "Technique avancée pour déterminer la longitude en mer.",
+    "iconIndex": 83,
+    "mpCost": 20,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 16,
+      "goldCost": 4000,
+      "requiredSkills": [43],
+      "requiredItems": [
+        {
+          "itemId": 210,
+          "quantity": 1
+        }
+      ],
+      "location": "Londres",
+      "teacherNpcId": 555
+    }
+  }
+] 

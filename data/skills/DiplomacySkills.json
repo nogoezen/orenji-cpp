@@ -1,0 +1,384 @@
+[
+  {
+    "id": 29,
+    "name": "Négociation diplomatique",
+    "description": "Permet de négocier des accords avec d'autres nations.",
+    "iconIndex": 87,
+    "mpCost": 0,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "D",
+    "acquisitionRequirements": {
+      "actorLevel": 4,
+      "goldCost": 300,
+      "location": "Lisbonne",
+      "teacherNpcId": 180
+    }
+  },
+  {
+    "id": 30,
+    "name": "Protocole royal",
+    "description": "Connaissance des protocoles des cours royales européennes.",
+    "iconIndex": 87,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 6,
+      "goldCost": 600,
+      "requiredSkills": [29],
+      "location": "Madrid",
+      "teacherNpcId": 185
+    }
+  },
+  {
+    "id": 31,
+    "name": "Alliance commerciale",
+    "description": "Établit une alliance commerciale avec une nation étrangère.",
+    "iconIndex": 87,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 10,
+      "goldCost": 1500,
+      "requiredSkills": [30],
+      "location": "Londres",
+      "teacherNpcId": 190
+    }
+  },
+  {
+    "id": 32,
+    "name": "Traité international",
+    "description": "Négocie un traité majeur entre plusieurs nations.",
+    "iconIndex": 87,
+    "mpCost": 30,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 0,
+    "rank": "S",
+    "acquisitionRequirements": {
+      "actorLevel": 20,
+      "goldCost": 8000,
+      "requiredSkills": [31],
+      "requiredItems": [
+        {
+          "itemId": 100,
+          "quantity": 1
+        }
+      ],
+      "location": "Rome",
+      "teacherNpcId": 195
+    }
+  },
+  {
+    "id": 120,
+    "name": "Étiquette de cour",
+    "description": "Maîtrise des règles de comportement dans les cours royales.",
+    "iconIndex": 87,
+    "mpCost": 0,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "D",
+    "acquisitionRequirements": {
+      "actorLevel": 3,
+      "goldCost": 250,
+      "location": "Paris",
+      "teacherNpcId": 200
+    }
+  },
+  {
+    "id": 121,
+    "name": "Audience royale",
+    "description": "Obtient une audience avec un monarque ou un haut dignitaire.",
+    "iconIndex": 87,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 7,
+      "goldCost": 800,
+      "requiredSkills": [120],
+      "location": "Lisbonne",
+      "teacherNpcId": 205
+    }
+  },
+  {
+    "id": 122,
+    "name": "Lettre de marque",
+    "description": "Obtient une autorisation officielle pour attaquer les navires ennemis.",
+    "iconIndex": 87,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 9,
+      "goldCost": 1200,
+      "requiredSkills": [121],
+      "location": "Londres",
+      "teacherNpcId": 210
+    }
+  },
+  {
+    "id": 123,
+    "name": "Charte commerciale",
+    "description": "Obtient des droits commerciaux exclusifs dans certains ports.",
+    "iconIndex": 87,
+    "mpCost": 20,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 12,
+      "goldCost": 2000,
+      "requiredSkills": [31, 122],
+      "location": "Amsterdam",
+      "teacherNpcId": 215
+    }
+  },
+  {
+    "id": 124,
+    "name": "Intrigue de cour",
+    "description": "Manipule les relations politiques à son avantage.",
+    "iconIndex": 87,
+    "mpCost": 25,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 14,
+      "goldCost": 2500,
+      "requiredSkills": [121],
+      "location": "Venise",
+      "teacherNpcId": 220
+    }
+  },
+  {
+    "id": 125,
+    "name": "Réseau d'espionnage",
+    "description": "Établit un réseau d'informateurs dans les cours étrangères.",
+    "iconIndex": 87,
+    "mpCost": 30,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 75,
+    "tpGain": 0,
+    "rank": "S",
+    "acquisitionRequirements": {
+      "actorLevel": 18,
+      "goldCost": 5000,
+      "requiredSkills": [124],
+      "requiredItems": [
+        {
+          "itemId": 110,
+          "quantity": 1
+        }
+      ],
+      "location": "Istanbul",
+      "teacherNpcId": 225
+    }
+  },
+  {
+    "id": 126,
+    "name": "Médiation",
+    "description": "Résout les conflits entre factions ou nations.",
+    "iconIndex": 87,
+    "mpCost": 20,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 13,
+      "goldCost": 2200,
+      "requiredSkills": [30],
+      "location": "Rome",
+      "teacherNpcId": 230
+    }
+  },
+  {
+    "id": 127,
+    "name": "Patronage",
+    "description": "Obtient le soutien d'un noble ou d'un dignitaire influent.",
+    "iconIndex": 87,
+    "mpCost": 25,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 15,
+      "goldCost": 3000,
+      "requiredSkills": [121],
+      "location": "Florence",
+      "teacherNpcId": 235
+    }
+  }
+] 

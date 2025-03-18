@@ -1,0 +1,98 @@
+{
+    "language": "English",
+    "menu": {
+        "title": "Orenji Trading Game",
+        "start": "Start Game",
+        "continue": "Continue",
+        "options": "Options",
+        "quit": "Quit",
+        "back": "Back",
+        "help": "Help",
+        "language": "Language",
+        "music": "Music: {}"
+    },
+    "game": {
+        "day": "Day {}",
+        "money": "Money: {} gold",
+        "location": "Location: {}",
+        "crew": {
+            "title": "Crew Members",
+            "empty": "No crew members",
+            "hire": "Hire crew member",
+            "fire": "Fire crew member",
+            "member": "{} ({})"
+        },
+        "ship": {
+            "title": "Ship",
+            "name": "Name: {}",
+            "type": "Type: {}",
+            "cargo": "Cargo: {}/{} units",
+            "health": "Hull: {}/{}"
+        },
+        "trade": {
+            "title": "Trade",
+            "buy": "Buy",
+            "sell": "Sell",
+            "quantity": "Quantity: {}",
+            "total": "Total: {} gold",
+            "market": "Market",
+            "inventory": "Inventory",
+            "not_enough_money": "Not enough money",
+            "not_enough_cargo": "Not enough cargo space",
+            "not_enough_items": "Not enough items"
+        },
+        "navigation": {
+            "title": "Navigation",
+            "travel": "Travel to {}",
+            "arrive": "You arrived at {}",
+            "days": "{} days of travel"
+        },
+        "status": {
+            "loading": "Loading...",
+            "saving": "Saving...",
+            "error": "Error: {}",
+            "success": "Success: {}"
+        }
+    },
+    "items": {
+        "fish": "Fish",
+        "rice": "Rice",
+        "tea": "Tea",
+        "silk": "Silk",
+        "spice": "Spice",
+        "jade": "Jade",
+        "porcelain": "Porcelain"
+    },
+    "locations": {
+        "edo": "Edo",
+        "osaka": "Osaka",
+        "kyoto": "Kyoto",
+        "nagasaki": "Nagasaki",
+        "sapporo": "Sapporo"
+    },
+    "ships": {
+        "junk": "Junk",
+        "sloop": "Sloop",
+        "caravel": "Caravel",
+        "galleon": "Galleon"
+    },
+    "commands": {
+        "navigation": "Navigation commands",
+        "trade": "Trade commands",
+        "inventory": "Inventory commands",
+        "ship": "Ship commands",
+        "crew": "Crew commands",
+        "help": "Help",
+        "save": "Save game",
+        "load": "Load game",
+        "quit": "Quit game"
+    },
+    "help": {
+        "title": "Help",
+        "navigation": "Use the arrow keys to navigate the menus. Press Enter to select an option.",
+        "trade": "Buy and sell goods at different ports to make a profit.",
+        "travel": "Travel between ports to find better prices for your goods.",
+        "ship": "Upgrade your ship to increase cargo capacity.",
+        "crew": "Hire crew members to improve your ship's performance."
+    }
+} 

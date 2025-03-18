@@ -1,0 +1,1868 @@
+﻿[
+  {
+    "id": 1,
+    "name": "Leon Franco",
+    "title": "Duc de Lisbonne",
+    "nationality": "Portugal",
+    "role": "Noble",
+    "location": "Lisbonne",
+    "profile": "Protagoniste du premier Uncharted Waters, maintenant un duc portugais et père de João. Strict et exigeant, il a donné à son fils son ancien navire en lui ordonnant de ne revenir qu'après être devenu le plus grand navigateur du monde.",
+    "characterName": "NPC_Noble",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Noble",
+    "services": ["Information", "Quête"],
+    "quests": [1, 5],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 2,
+        "type": "Famille"
+      },
+      {
+        "npcId": 3,
+        "type": "Supérieur"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Duchess Christiana",
+    "title": "Duchesse de Lisbonne",
+    "nationality": "Portugal",
+    "role": "Noble",
+    "location": "Lisbonne",
+    "profile": "Épouse du duc Franco et ancienne princesse du Portugal. Bien que soutenant les aventures de João, elle s'inquiète constamment pour son bien-être et a engagé Pietro pour veiller sur son fils.",
+    "characterName": "NPC_Noble",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Noble",
+    "services": ["Information"],
+    "quests": [2],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 1,
+        "type": "Famille"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Jean III",
+    "title": "Roi du Portugal",
+    "nationality": "Portugal",
+    "role": "Souverain",
+    "location": "Lisbonne",
+    "profile": "Roi du Portugal de 1521 à 1557, succédant à son père Manuel Ier. En 1525, il est au début de son règne et poursuit l'expansion de l'empire maritime portugais. Sous son règne, le Portugal renforce sa présence en Asie et au Brésil, et l'Inquisition est établie au Portugal en 1536.",
+    "characterName": "NPC_King",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_King",
+    "services": ["Quête"],
+    "quests": [3, 10],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 1,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Charles V",
+    "title": "Empereur du Saint-Empire et Roi d'Espagne",
+    "nationality": "Espagne",
+    "role": "Souverain",
+    "location": "Madrid",
+    "profile": "Né en 1500, Charles V est devenu roi d'Espagne en 1516 et empereur du Saint-Empire romain germanique en 1519. En 1525, il est au sommet de sa puissance après avoir vaincu et capturé François Ier à la bataille de Pavie. Son empire s'étend sur l'Europe et le Nouveau Monde.",
+    "characterName": "NPC_Emperor",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Emperor",
+    "services": ["Quête"],
+    "quests": [4, 11],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 5,
+        "type": "Rival"
+      },
+      {
+        "npcId": 6,
+        "type": "Rival"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "François I",
+    "title": "Roi de France",
+    "nationality": "France",
+    "role": "Souverain",
+    "location": "Paris",
+    "profile": "Roi de France de 1515 à 1547. Grand mécène des arts et de la Renaissance française. En 1525, il est capturé à la bataille de Pavie et emprisonné à Madrid. Pour obtenir sa liberté, il doit céder la Bourgogne à Charles V par le traité de Madrid, mais renie ce traité dès sa libération.",
+    "characterName": "NPC_King",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_King",
+    "services": ["Quête"],
+    "quests": [5, 12],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 4,
+        "type": "Rival"
+      },
+      {
+        "npcId": 6,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Suleiman le Magnifique",
+    "title": "Sultan de l'Empire ottoman",
+    "nationality": "Empire ottoman",
+    "role": "Souverain",
+    "location": "Istanbul",
+    "profile": "Sultan de l'Empire ottoman de 1520 à 1566. En 1525, il vient de remporter une victoire décisive à la bataille de Mohács contre la Hongrie. Sous son règne, l'Empire ottoman atteint son apogée territoriale et culturelle. Il est connu pour son alliance avec François I contre Charles V.",
+    "characterName": "NPC_Sultan",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Sultan",
+    "services": ["Quête"],
+    "quests": [6, 13],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 4,
+        "type": "Rival"
+      },
+      {
+        "npcId": 5,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Howell",
+    "title": "Président de la Banque Marco Polo",
+    "nationality": "Venise",
+    "role": "Banquier",
+    "location": "Venise",
+    "profile": "Associé de Radino et propriétaire de la Banque Marco Polo. Il sert de modèle pour Ali au début de son scénario. Après avoir acheté un bâtiment vacant que le jeune marchand voulait, Howell le met au défi de le racheter à un prix très élevé. Cependant, quand Ali apporte la somme requise, il décide de lui donner le bâtiment gratuitement.",
+    "characterName": "NPC_Banker",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Banker",
+    "services": ["Investissement", "Information"],
+    "quests": [7],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 8,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Radino",
+    "title": "Banquier",
+    "nationality": "Venise",
+    "role": "Banquier",
+    "location": "Venise",
+    "profile": "Ami banquier d'Ali, Radino encourage le jeune homme à réussir et aide même à financer son entreprise commerciale. Il finit par s'installer à Venise.",
+    "characterName": "NPC_Banker",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Banker",
+    "services": ["Investissement", "Information"],
+    "quests": [8],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 7,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Gerhard Mercator",
+    "title": "Cartographe",
+    "nationality": "Saint-Empire",
+    "role": "Cartographe",
+    "location": "Amsterdam",
+    "profile": "Basé sur le cartographe historique Gerardus Mercator, il inspire Ernst à parcourir le monde et à faire de nouvelles découvertes afin de créer une carte supérieure pour leur entreprise. Incapable de voyager en raison de son âge, Mercator assume la responsabilité de gérer l'entreprise de cartographie à Amsterdam tout en fournissant à la flotte de son collègue les fonds nécessaires.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Scholar",
+    "services": ["Cartographie", "Information"],
+    "quests": [9],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 10,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Hans Starten",
+    "title": "Assistant de Mercator",
+    "nationality": "Saint-Empire",
+    "role": "Navigateur",
+    "location": "Amsterdam",
+    "profile": "Employé par Mercator pour aider Ernst, Hans chouchoute le jeune homme en raison de ses liens étroits avec le père de ce dernier. Joyeux et bon avec les enfants, il aime jouer les entremetteurs pour Ernst et Paula, à leur grand embarras. Son souhait avant de prendre sa retraite est de voir la légendaire terre de Zipangu.",
+    "characterName": "NPC_Sailor",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Sailor",
+    "services": ["Information"],
+    "quests": [10],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 9,
+        "type": "Subordonné"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Roberto Ezequiel",
+    "title": "Commandant de la flotte espagnole",
+    "nationality": "Espagne",
+    "role": "Amiral",
+    "location": "Séville",
+    "profile": "Commandant de la flotte espagnole, Ezequiel est un homme d'honneur qui se soucie beaucoup de ses subordonnés, y compris Catalina. Lorsque la lieutenante devient renégate après s'être vu refuser sa vengeance, le commandant est forcé de la poursuivre à travers les hautes mers. Son navire amiral est appelé le 'Santa Cruz'.",
+    "characterName": "NPC_Admiral",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Admiral",
+    "services": ["Quête", "Information"],
+    "quests": [11],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 12,
+        "type": "Supérieur"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Emilio Sanude",
+    "title": "Premier officier de Catalina",
+    "nationality": "Espagne",
+    "role": "Navigateur",
+    "location": "Séville",
+    "profile": "Premier officier de Catalina et ancien officier de la flotte espagnole, le prudent Emilio s'efforce souvent d'atténuer la nature impétueuse de sa capitaine. Il n'accepte d'aider Catalina à devenir une pirate à succès que pour honorer la mémoire de son défunt frère Michael, qui était son meilleur ami.",
+    "characterName": "NPC_Sailor",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Sailor",
+    "services": ["Information"],
+    "quests": [12],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 11,
+        "type": "Subordonné"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Marquis Martinez",
+    "title": "Marquis",
+    "nationality": "Espagne",
+    "role": "Noble",
+    "location": "Madrid",
+    "profile": "Noble sans scrupules qui cherche à saper le duc Franco et à prendre le contrôle du monde. Pour ce faire, lui et ses cohortes établissent une base d'opérations en Amérique du Sud tout en se faisant passer pour des Atlantes pour tromper les autochtones et les réduire en servitude. Ils tentent également d'accuser le duc de la disparition du prince Alberto, mais sont déjoués au dernier moment.",
+    "characterName": "NPC_Villain",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Villain",
+    "services": ["Aucun"],
+    "quests": [13],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 1,
+        "type": "Ennemi"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Professeur Juliano",
+    "title": "Chercheur en astronomie",
+    "nationality": "États pontificaux",
+    "role": "Érudit",
+    "location": "Naples",
+    "profile": "Chercheur en astronomie de Naples qui enseigne la navigation céleste aux membres d'équipage du joueur.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Scholar",
+    "services": ["Formation", "Information"],
+    "quests": [14],
+    "historical": false,
+    "relationships": []
+  },
+  {
+    "id": 15,
+    "name": "Dr. Wolf",
+    "title": "Armurier",
+    "nationality": "Saint-Empire",
+    "role": "Artisan",
+    "location": "Hambourg",
+    "profile": "Armurier de Hambourg qui enseigne l'artillerie aux membres d'équipage du joueur.",
+    "characterName": "NPC_Craftsman",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Craftsman",
+    "services": ["Formation", "Réparation"],
+    "quests": [15],
+    "historical": false,
+    "relationships": []
+  },
+  {
+    "id": 16,
+    "name": "Giovanni Verazzano",
+    "title": "Cartographe",
+    "nationality": "Venise",
+    "role": "Cartographe",
+    "location": "Venise",
+    "profile": "Cartographe de Venise qui paie le joueur pour explorer la carte du monde.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 2,
+    "faceIndex": 2,
+    "faceName": "NPC_Scholar",
+    "services": ["Cartographie", "Information"],
+    "quests": [16],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 17,
+    "name": "Vasco da Gama",
+    "title": "Navigateur et explorateur",
+    "nationality": "Portugal",
+    "role": "Navigateur",
+    "location": "Lisbonne",
+    "profile": "Premier Européen à atteindre l'Inde par voie maritime en contournant l'Afrique. Ses voyages ont ouvert la route des épices pour le Portugal et changé l'équilibre du commerce mondial. En 1525, il est gouverneur des Indes portugaises.",
+    "characterName": "NPC_Explorer",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Explorer",
+    "services": ["Information", "Formation"],
+    "quests": [17],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 3,
+        "type": "Subordonné"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Ferdinand Magellan",
+    "title": "Explorateur (posthume)",
+    "nationality": "Portugal",
+    "role": "Navigateur",
+    "location": "Séville",
+    "profile": "Bien que décédé en 1521, son héritage est encore très présent. Premier à organiser une expédition autour du monde (achevée par Juan Sebastián Elcano en 1522), il a découvert le détroit qui porte son nom et atteint les Philippines où il a trouvé la mort.",
+    "characterName": "NPC_Explorer",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Explorer",
+    "services": ["Information"],
+    "quests": [18],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 19,
+    "name": "Juan Sebastián Elcano",
+    "title": "Navigateur",
+    "nationality": "Espagne",
+    "role": "Navigateur",
+    "location": "Séville",
+    "profile": "Premier homme à avoir fait le tour du monde. Après la mort de Magellan aux Philippines en 1521, il a pris le commandement de l'expédition et l'a ramenée en Espagne en 1522, complétant ainsi la première circumnavigation de la Terre.",
+    "characterName": "NPC_Explorer",
+    "characterIndex": 2,
+    "faceIndex": 2,
+    "faceName": "NPC_Explorer",
+    "services": ["Information", "Formation"],
+    "quests": [19],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 18,
+        "type": "Subordonné"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Piri Reis",
+    "title": "Amiral et cartographe ottoman",
+    "nationality": "Empire ottoman",
+    "role": "Cartographe",
+    "location": "Istanbul",
+    "profile": "Amiral ottoman et cartographe renommé, servant le Sultan dans la Méditerranée et l'océan Indien. Sa carte du monde de 1513 est l'une des plus anciennes cartes montrant les Amériques.",
+    "characterName": "NPC_Admiral",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Admiral",
+    "services": ["Cartographie", "Information"],
+    "quests": [20],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 6,
+        "type": "Subordonné"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Hernán Cortés",
+    "title": "Conquistador",
+    "nationality": "Espagne",
+    "role": "Militaire",
+    "location": "Mexico",
+    "profile": "Conquistador espagnol qui a mené l'expédition qui a causé la chute de l'Empire aztèque en 1521. En 1525, il est gouverneur de la Nouvelle-Espagne (Mexique).",
+    "characterName": "NPC_Conquistador",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Conquistador",
+    "services": ["Information", "Quête"],
+    "quests": [21],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 4,
+        "type": "Subordonné"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Bartolomé de Las Casas",
+    "title": "Prêtre dominicain",
+    "nationality": "Espagne",
+    "role": "Religieux",
+    "location": "Hispaniola",
+    "profile": "Prêtre dominicain espagnol, défenseur des droits des peuples autochtones d'Amérique. Il dénonce les abus des conquistadors et plaide pour un traitement humain des populations indigènes.",
+    "characterName": "NPC_Priest",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Priest",
+    "services": ["Information"],
+    "quests": [22],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 21,
+        "type": "Rival"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Andrea Doria",
+    "title": "Amiral génois",
+    "nationality": "Venise",
+    "role": "Amiral",
+    "location": "Gênes",
+    "profile": "Grand amiral et homme d'État génois. En 1525, il est au service de François Ier, mais passera plus tard au service de Charles V. Il est considéré comme le plus grand amiral de son temps.",
+    "characterName": "NPC_Admiral",
+    "characterIndex": 2,
+    "faceIndex": 2,
+    "faceName": "NPC_Admiral",
+    "services": ["Formation", "Information"],
+    "quests": [23],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 5,
+        "type": "Subordonné"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Khayr ad-Din Barberousse",
+    "title": "Corsaire et amiral ottoman",
+    "nationality": "Empire ottoman",
+    "role": "Pirate",
+    "location": "Alger",
+    "profile": "Corsaire et amiral ottoman qui domine la Méditerranée occidentale. En 1525, il est le souverain d'Alger et deviendra plus tard grand amiral de la flotte ottomane sous Suleiman le Magnifique.",
+    "characterName": "NPC_Pirate",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Pirate",
+    "services": ["Information", "Quête"],
+    "quests": [24],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 6,
+        "type": "Subordonné"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Babur",
+    "title": "Empereur moghol",
+    "nationality": "Empire Moghol",
+    "role": "Souverain",
+    "location": "Delhi",
+    "profile": "Fondateur de l'Empire moghol en Inde. En 1525, il vient de remporter la première bataille de Panipat, qui lui a permis de conquérir Delhi et de fonder l'Empire moghol.",
+    "characterName": "NPC_Emperor",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Emperor",
+    "services": ["Quête", "Information"],
+    "quests": [25],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 26,
+    "name": "Afonso de Albuquerque",
+    "title": "Gouverneur des Indes portugaises (posthume)",
+    "nationality": "Portugal",
+    "role": "Militaire",
+    "location": "Goa",
+    "profile": "Bien que décédé en 1515, son héritage est encore très présent. Surnommé 'le Lion des Mers', il a établi l'empire colonial portugais en Asie en conquérant Goa, Malacca et Ormuz, contrôlant ainsi les principales routes commerciales de l'océan Indien.",
+    "characterName": "NPC_Governor",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Governor",
+    "services": ["Information"],
+    "quests": [26],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 27,
+    "name": "Zheng He",
+    "title": "Amiral chinois (posthume)",
+    "nationality": "Ming",
+    "role": "Navigateur",
+    "location": "Canton",
+    "profile": "Bien que décédé en 1433, son héritage est encore très présent. Amiral chinois de la dynastie Ming qui a dirigé sept expéditions navales à travers l'Asie du Sud-Est, l'océan Indien et jusqu'en Afrique de l'Est entre 1405 et 1433.",
+    "characterName": "NPC_Admiral",
+    "characterIndex": 3,
+    "faceIndex": 3,
+    "faceName": "NPC_Admiral",
+    "services": ["Information"],
+    "quests": [27],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 28,
+    "name": "Lucia",
+    "title": "Serveuse",
+    "nationality": "Venise",
+    "role": "Autre",
+    "location": "Venise",
+    "profile": "Fille de Carlotta et serveuse au Red Whale Pavilion. Ayant connu João pendant leur enfance, elle est amoureuse de lui et aime écouter ses histoires. Le marquis Martinez l'enlève plus tard pour avoir espionné son complot concernant Neo-Atlantis. Elle parvient à s'échapper grâce à Raul et retrouve João.",
+    "characterName": "NPC_Waitress",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Waitress",
+    "services": ["Information"],
+    "quests": [28],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 29,
+        "type": "Famille"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Carlotta",
+    "title": "Propriétaire de taverne",
+    "nationality": "Venise",
+    "role": "Marchand",
+    "location": "Venise",
+    "profile": "L'une des serveuses du premier jeu. Elle est maintenant propriétaire d'une petite taverne appelée le Red Whale Pavilion et a une fille nommée Lucia.",
+    "characterName": "NPC_Merchant",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "NPC_Merchant",
+    "services": ["Information", "Commerce"],
+    "quests": [29],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 28,
+        "type": "Famille"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Ladia",
+    "title": "Serveuse",
+    "nationality": "Empire ottoman",
+    "role": "Autre",
+    "location": "Istanbul",
+    "profile": "Serveuse à Istanbul qui sert d'intérêt amoureux pour Ali. Elle admire les hommes qui font bon usage de leurs talents et accepte de devenir l'un des investisseurs d'Ali. Une fois que le joueur lui a remboursé avec intérêt, l'amitié de Ladia avec le marchand s'épanouira en amour.",
+    "characterName": "NPC_Waitress",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Waitress",
+    "services": ["Information", "Investissement"],
+    "quests": [30],
+    "historical": false,
+    "relationships": []
+  },
+  {
+    "id": 31,
+    "name": "Enrico Malione",
+    "title": "Professeur de philosophie",
+    "nationality": "Portugal",
+    "role": "Érudit",
+    "location": "Lisbonne",
+    "profile": "Professeur à l'Université de Lisbonne spécialisé en philosophie, Enrico rejoint le voyage de João dans l'espoir d'atteindre Zipangu et d'approfondir ses études. Servant de voix de la raison pour le groupe, il fournit des informations précieuses sur divers sujets et aide à découvrir la vérité sur l'Atlantide. La version japonaise le présente comme un missionnaire cherchant à répandre le christianisme en Asie.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 3,
+    "faceIndex": 3,
+    "faceName": "NPC_Scholar",
+    "services": ["Information", "Formation"],
+    "quests": [31],
+    "historical": false,
+    "relationships": []
+  },
+  {
+    "id": 32,
+    "name": "Domingo Manana",
+    "title": "Prince Alberto de Portugal",
+    "nationality": "Portugal",
+    "role": "Noble",
+    "location": "Lisbonne",
+    "profile": "Un passager clandestin découvert à bord du navire amiral de João, qui l'engage par compassion. Après avoir prouvé sa valeur tout au long du voyage et échappé à la mort aux mains des pirates, il révèle être le Prince Alberto du Portugal. Son retour à Lisbonne aide à disculper le duc Franco et l'encourage à embrasser ses devoirs royaux.",
+    "characterName": "NPC_Noble",
+    "characterIndex": 2,
+    "faceIndex": 2,
+    "faceName": "NPC_Noble",
+    "services": ["Information"],
+    "quests": [32],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 3,
+        "type": "Famille"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Andreas Paella",
+    "title": "Officier de marine",
+    "nationality": "Espagne",
+    "role": "Navigateur",
+    "location": "Séville",
+    "profile": "Un roturier qui a gravi les échelons de la marine espagnole, Andreas partage les sentiments vengeurs de Catalina envers les Portugais et l'aide à échapper aux hommes d'Ezequiel en incendiant certains de leurs navires. Lui et son fiancé Hernan étaient de proches amis malgré leur statut disparate. Bien que loyal envers Catalina, lui et Emilio ne s'entendent pas en raison de la personnalité impétueuse du premier et de la tendance du second à douter.",
+    "characterName": "NPC_Sailor",
+    "characterIndex": 2,
+    "faceIndex": 2,
+    "faceName": "NPC_Sailor",
+    "services": ["Information"],
+    "quests": [33],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 12,
+        "type": "Rival"
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "name": "Matthew Roy",
+    "title": "Marin",
+    "nationality": "Angleterre",
+    "role": "Navigateur",
+    "location": "Londres",
+    "profile": "Un compagnon d'Otto qui aime boire, bien que la version localisée en fasse plutôt un glouton. Il refuse d'abord de coopérer avec le noble, ne changeant d'avis qu'après avoir perdu un duel. Contrairement à Otto plus chevaleresque, Matthew est mal élevé mais intelligent, utilisant souvent le sarcasme dans ses interactions avec les autres.",
+    "characterName": "NPC_Sailor",
+    "characterIndex": 3,
+    "faceIndex": 3,
+    "faceName": "NPC_Sailor",
+    "services": ["Information"],
+    "quests": [34],
+    "historical": false,
+    "relationships": []
+  },
+  {
+    "id": 35,
+    "name": "Camillo Stefano",
+    "title": "Chasseur de trésors",
+    "nationality": "Italie",
+    "role": "Navigateur",
+    "location": "Venise",
+    "profile": "Partenaire d'aventure de Pietro. Tout aussi enthousiaste à trouver des trésors rares, Camillo tend à être le plus sensé et est parfois exaspéré par le manque de manières de son ami. Il sert d'intermédiaire entre Pietro et leur sponsor, la duchesse Christiana.",
+    "characterName": "NPC_Sailor",
+    "characterIndex": 4,
+    "faceIndex": 4,
+    "faceName": "NPC_Sailor",
+    "services": ["Information"],
+    "quests": [35],
+    "historical": false,
+    "relationships": []
+  },
+  {
+    "id": 36,
+    "name": "Salim Jahan",
+    "title": "Marchand",
+    "nationality": "Empire ottoman",
+    "role": "Marchand",
+    "location": "Istanbul",
+    "profile": "Ami et partenaire commercial d'Ali Vezas. Il a quitté la marine pour aider l'entreprise de son père à prospérer, mais l'a perdu dans un accident malheureux. Après avoir pleuré sa mort, Salim décide de soutenir l'entreprise commerciale d'Ali dans l'espoir de réaliser un profit pour eux-mêmes. Il éprouve une attirance pour la sœur de son ami, Sapha.",
+    "characterName": "NPC_Merchant",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Merchant",
+    "services": ["Commerce", "Information"],
+    "quests": [36],
+    "historical": false,
+    "relationships": []
+  },
+  {
+    "id": 37,
+    "name": "Sapha",
+    "title": "Serveuse",
+    "nationality": "Empire ottoman",
+    "role": "Autre",
+    "location": "Basra",
+    "profile": "Sœur perdue d'Ali, elle est retrouvée travaillant comme serveuse à Basra et ne se souvient de rien de son passé. Il lui faut du temps pour accepter d'être liée à Ali, qui l'invite à rester avec lui vers la fin de son histoire.",
+    "characterName": "NPC_Waitress",
+    "characterIndex": 2,
+    "faceIndex": 2,
+    "faceName": "NPC_Waitress",
+    "services": ["Information"],
+    "quests": [37],
+    "historical": false,
+    "relationships": []
+  },
+  {
+    "id": 38,
+    "name": "Paula Eustachio",
+    "title": "Voyageuse",
+    "nationality": "Ming",
+    "role": "Autre",
+    "location": "Séville",
+    "profile": "Une jeune fille orientale voyageant avec Ernst pour trouver sa véritable patrie. À l'âge de 4 ans, elle s'est retrouvée à Séville et a été adoptée par un marin jusqu'à sa mort. Cela pousse Paula à découvrir ses origines et à retrouver la famille qu'elle avait perdue. Durant son séjour avec le groupe d'Ernst, elle fournit à l'explorateur des rapports sur l'entreprise de Mercator et est gênée chaque fois que Hans joue les entremetteurs entre eux deux. Avec le temps, ils développent de forts sentiments l'un pour l'autre, ce qui amène Paula à rester avec Ernst même après avoir retrouvé sa famille à Changan.",
+    "characterName": "NPC_Waitress",
+    "characterIndex": 3,
+    "faceIndex": 3,
+    "faceName": "NPC_Waitress",
+    "services": ["Information"],
+    "quests": [38],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 9,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "name": "Raul Franco",
+    "title": "Explorateur",
+    "nationality": "Portugal",
+    "role": "Navigateur",
+    "location": "Amérique du Sud",
+    "profile": "Père de Leon et grand-père de João, il serait mort en mer il y a plus de 20 ans. En vérité, il a été recueilli par des autochtones amicaux après avoir fait naufrage ; leur hospitalité l'a conduit à découvrir la cité dorée d'El Dorado. Quelques années plus tard, Raul a été capturé par les hommes du marquis Martinez et est devenu leur prisonnier à Neo-Atlantis. Durant l'histoire de Pietro, il parvient à s'échapper et à retrouver son fils.",
+    "characterName": "NPC_Explorer",
+    "characterIndex": 3,
+    "faceIndex": 3,
+    "faceName": "NPC_Explorer",
+    "services": ["Information"],
+    "quests": [39],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 1,
+        "type": "Famille"
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "name": "Felippe",
+    "title": "Membre de la Société de la Terre Ronde",
+    "nationality": "Portugal",
+    "role": "Érudit",
+    "location": "Lisbonne",
+    "profile": "Un membre haut placé de la Société de la Terre Ronde à Lisbonne. Il présente João à Enrico et aide à financer leur voyage. Dans la version japonaise, Felippe est un évêque.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 4,
+    "faceIndex": 4,
+    "faceName": "NPC_Scholar",
+    "services": ["Information", "Investissement"],
+    "quests": [40],
+    "historical": false,
+    "relationships": []
+  },
+  {
+    "id": 41,
+    "name": "Antonio Kahn",
+    "title": "Pirate",
+    "nationality": "Inconnu",
+    "role": "Pirate",
+    "location": "Mer Méditerranée",
+    "profile": "Un pirate engagé pour assassiner le prince Alberto et faire porter le blâme à João. Sa première tentative échoue en raison de l'arrivée de Catalina. Plus tard, il s'introduit dans la maison de João et meurt en duel contre le jeune navigateur.",
+    "characterName": "NPC_Pirate",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Pirate",
+    "services": ["Aucun"],
+    "quests": [41],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 13,
+        "type": "Subordonné"
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Rudolph",
+    "title": "Pirate",
+    "nationality": "Inconnu",
+    "role": "Pirate",
+    "location": "Amérique du Sud",
+    "profile": "Un pirate de mèche avec Kahn. Il enlève Lucia et la garde en otage en Amérique du Sud. Ses efforts pour vaincre João en combat naval se terminent misérablement.",
+    "characterName": "NPC_Pirate",
+    "characterIndex": 2,
+    "faceIndex": 2,
+    "faceName": "NPC_Pirate",
+    "services": ["Aucun"],
+    "quests": [42],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 41,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Tafari",
+    "title": "Chef des descendants atlantes",
+    "nationality": "Éthiopie",
+    "role": "Autre",
+    "location": "Massawa",
+    "profile": "Une figure importante à Massawa, Tafari et ses proches sont les derniers descendants des Atlantes qui ont subi des représailles pour avoir joué avec la nature. Craignant que l'armée turque ne les attaque pour leurs secrets jalousement gardés, il confie à João la mission de trouver le Bâton de Poséidon afin que le savoir de l'Atlantide ne soit plus jamais utilisé à mauvais escient.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 5,
+    "faceIndex": 5,
+    "faceName": "NPC_Scholar",
+    "services": ["Information", "Quête"],
+    "quests": [43],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 44,
+        "type": "Supérieur"
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Meconbe",
+    "title": "Serviteur de Tafari",
+    "nationality": "Éthiopie",
+    "role": "Autre",
+    "location": "Massawa",
+    "profile": "Un serviteur de Tafari et un autre descendant des Atlantes survivants. Il est initialement méfiant envers le groupe de João, ne reculant qu'après avoir été apaisé par son maître.",
+    "characterName": "NPC_Sailor",
+    "characterIndex": 5,
+    "faceIndex": 5,
+    "faceName": "NPC_Sailor",
+    "services": ["Information"],
+    "quests": [44],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 43,
+        "type": "Subordonné"
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "name": "Bret Perot",
+    "title": "Pirate",
+    "nationality": "Inconnu",
+    "role": "Pirate",
+    "location": "Syracuse",
+    "profile": "Un pirate rencontré par Catalina à Syracuse. Bret l'informe constamment des allées et venues de João et suggère qu'elle utilise Lucia pour l'attirer hors de sa cachette. Initialement présenté comme odieux et irritable, il est démasqué comme un complice du marquis Martinez et nargue Catalina malgré sa défaite.",
+    "characterName": "NPC_Pirate",
+    "characterIndex": 3,
+    "faceIndex": 3,
+    "faceName": "NPC_Pirate",
+    "services": ["Information"],
+    "quests": [45],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 13,
+        "type": "Subordonné"
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "name": "Edmund Gilbert",
+    "title": "Noble anglais",
+    "nationality": "Angleterre",
+    "role": "Noble",
+    "location": "Londres",
+    "profile": "Un noble anglais dont le dédain pour Otto ne connaît pas de limites. Il aime regarder l'homme plus âgé de haut et n'a aucun scrupule à lui rendre la vie difficile. Jaloux du succès de son rival, Edmund décide de former sa propre flotte dans Daikoukai Jidai Gaiden, mais subit une défaite humiliante aux mains de Salvador.",
+    "characterName": "NPC_Noble",
+    "characterIndex": 3,
+    "faceIndex": 3,
+    "faceName": "NPC_Noble",
+    "services": ["Aucun"],
+    "quests": [46],
+    "historical": false,
+    "relationships": []
+  },
+  {
+    "id": 47,
+    "name": "Gerald de Jode",
+    "title": "Cartographe",
+    "nationality": "Saint-Empire",
+    "role": "Cartographe",
+    "location": "Anvers",
+    "profile": "Un cartographe d'Anvers qui cherche des explorateurs pour aider à compléter la carte du monde. Dans Daikoukai Jidai Gaiden, il enseigne plutôt la navigation céleste aux membres d'équipage.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 6,
+    "faceIndex": 6,
+    "faceName": "NPC_Scholar",
+    "services": ["Cartographie", "Information"],
+    "quests": [47],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 48,
+    "name": "Diogo Ribeiro",
+    "title": "Cartographe",
+    "nationality": "Portugal",
+    "role": "Cartographe",
+    "location": "Barcelone",
+    "profile": "Un cartographe de Barcelone qui paie les explorateurs pour découvrir des zones inexplorées.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 7,
+    "faceIndex": 7,
+    "faceName": "NPC_Scholar",
+    "services": ["Cartographie", "Information"],
+    "quests": [48],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 49,
+    "name": "Olives",
+    "title": "Cartographe",
+    "nationality": "Espagne",
+    "role": "Cartographe",
+    "location": "Palma",
+    "profile": "Un cartographe de Palma qui engage des explorateurs pour découvrir des parties inexplorées de la carte. Dans Daikoukai Jidai Gaiden, il est révélé être une connaissance de Mercator.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 8,
+    "faceIndex": 8,
+    "faceName": "NPC_Scholar",
+    "services": ["Cartographie", "Information"],
+    "quests": [49],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 9,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Butler Marco",
+    "title": "Majordome",
+    "nationality": "Portugal",
+    "role": "Autre",
+    "location": "Lisbonne",
+    "profile": "Ancien premier maître de Leon du titre précédent. Maintenant majordome au service de la famille Franco, il fait également office de collectionneur de découvertes à Lisbonne.",
+    "characterName": "NPC_Sailor",
+    "characterIndex": 6,
+    "faceIndex": 6,
+    "faceName": "NPC_Sailor",
+    "services": ["Information"],
+    "quests": [50],
+    "historical": false,
+    "relationships": [
+      {
+        "npcId": 1,
+        "type": "Subordonné"
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "name": "Count Morie",
+    "title": "Comte",
+    "nationality": "Danemark",
+    "role": "Noble",
+    "location": "Copenhague",
+    "profile": "Un noble de Copenhague qui collectionne les découvertes des explorateurs. Certains des objets supprimés du jeu se moquent de sa calvitie.",
+    "characterName": "NPC_Noble",
+    "characterIndex": 4,
+    "faceIndex": 4,
+    "faceName": "NPC_Noble",
+    "services": ["Information"],
+    "quests": [51],
+    "historical": false,
+    "relationships": []
+  },
+  {
+    "id": 52,
+    "name": "Ranajame",
+    "title": "Collectionneur",
+    "nationality": "Empire Ottoman",
+    "role": "Marchand",
+    "location": "Alexandrie",
+    "profile": "Un collectionneur d'Alexandrie qui cherche à partager de nouvelles découvertes avec les nobles.",
+    "characterName": "NPC_Merchant",
+    "characterIndex": 2,
+    "faceIndex": 2,
+    "faceName": "NPC_Merchant",
+    "services": ["Information", "Commerce"],
+    "quests": [52],
+    "historical": false,
+    "relationships": []
+  },
+  {
+    "id": 53,
+    "name": "Duke Joan",
+    "title": "Duc de Modène",
+    "nationality": "Italie",
+    "role": "Noble",
+    "location": "Pise",
+    "profile": "Un noble excentrique de Pise qui collectionne les découvertes. Offre le moins d'or par rapport aux autres collectionneurs. Dans Daikoukai Jidai Gaiden, il enseigne plutôt la négociation aux membres d'équipage.",
+    "characterName": "NPC_Noble",
+    "characterIndex": 5,
+    "faceIndex": 5,
+    "faceName": "NPC_Noble",
+    "services": ["Information"],
+    "quests": [53],
+    "historical": false,
+    "relationships": []
+  },
+  {
+    "id": 54,
+    "name": "Professor Mordes",
+    "title": "Érudit",
+    "nationality": "France",
+    "role": "Érudit",
+    "location": "Bordeaux",
+    "profile": "Un érudit de Bordeaux, il collecte les découvertes des explorateurs et les partage avec les nobles.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 9,
+    "faceIndex": 9,
+    "faceName": "NPC_Scholar",
+    "services": ["Information"],
+    "quests": [54],
+    "historical": false,
+    "relationships": []
+  },
+  {
+    "id": 55,
+    "name": "King Carlos",
+    "title": "Roi d'Espagne",
+    "nationality": "Espagne",
+    "role": "Souverain",
+    "location": "Madrid",
+    "profile": "Le roi d'Espagne et l'ancien seigneur de Catalina. Il s'agit de Charles Ier d'Espagne, qui est également l'empereur Charles V du Saint-Empire romain germanique.",
+    "characterName": "NPC_King",
+    "characterIndex": 2,
+    "faceIndex": 2,
+    "faceName": "NPC_King",
+    "services": ["Quête"],
+    "quests": [55],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 4,
+        "type": "Identique"
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "name": "Henry VIII",
+    "title": "Roi d'Angleterre",
+    "nationality": "Angleterre",
+    "role": "Souverain",
+    "location": "Londres",
+    "profile": "Roi d'Angleterre de 1509 à 1547. En 1525, il est au milieu de son règne et commence à s'éloigner de l'Église catholique en raison de son désir d'annuler son mariage avec Catherine d'Aragon. Il est connu pour avoir eu six épouses et pour avoir établi l'Église d'Angleterre.",
+    "characterName": "NPC_King",
+    "characterIndex": 3,
+    "faceIndex": 3,
+    "faceName": "NPC_King",
+    "services": ["Quête"],
+    "quests": [56],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 4,
+        "type": "Rival"
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "name": "Ibrahim Pacha",
+    "title": "Grand Vizir ottoman",
+    "nationality": "Empire ottoman",
+    "role": "Militaire",
+    "location": "Istanbul",
+    "profile": "Grand Vizir de l'Empire ottoman de 1523 à 1536, il est le plus proche conseiller et ami de Suleiman le Magnifique. Né chrétien grec et capturé comme esclave, il s'élève au plus haut rang de l'Empire ottoman. En 1525, il joue un rôle crucial dans les campagnes militaires ottomanes et les relations diplomatiques avec l'Europe.",
+    "characterName": "NPC_Noble",
+    "characterIndex": 6,
+    "faceIndex": 6,
+    "faceName": "NPC_Noble",
+    "services": ["Information", "Quête"],
+    "quests": [57],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 6,
+        "type": "Subordonné"
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "name": "Clément VII",
+    "title": "Pape",
+    "nationality": "États pontificaux",
+    "role": "Religieux",
+    "location": "Rome",
+    "profile": "Pape de 1523 à 1534. Né Giulio de' Medici, il est issu de la puissante famille florentine. En 1525, il est confronté à la montée du protestantisme et aux tensions entre François Ier et Charles V. Son refus d'annuler le mariage d'Henri VIII conduira au schisme anglican. En 1527, Rome sera saccagée par les troupes impériales de Charles V.",
+    "characterName": "NPC_Priest",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Priest",
+    "services": ["Information", "Quête"],
+    "quests": [58],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 4,
+        "type": "Rival"
+      },
+      {
+        "npcId": 5,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "name": "Martin Luther",
+    "title": "Réformateur religieux",
+    "nationality": "Saint-Empire",
+    "role": "Religieux",
+    "location": "Wittenberg",
+    "profile": "Théologien et moine allemand à l'origine de la Réforme protestante. En 1525, il est marié à Katharina von Bora et a déjà publié ses œuvres majeures, dont la traduction de la Bible en allemand. Cette même année, il prend position contre la révolte des paysans allemands, ce qui lui vaut des critiques.",
+    "characterName": "NPC_Priest",
+    "characterIndex": 2,
+    "faceIndex": 2,
+    "faceName": "NPC_Priest",
+    "services": ["Information"],
+    "quests": [59],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 58,
+        "type": "Rival"
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "name": "Isabelle de Portugal",
+    "title": "Impératrice du Saint-Empire",
+    "nationality": "Portugal",
+    "role": "Noble",
+    "location": "Madrid",
+    "profile": "Épouse de Charles V depuis 1526 et impératrice du Saint-Empire. Fille du roi Manuel Ier de Portugal, elle est connue pour sa beauté et son intelligence. En 1525, elle est fiancée à Charles V, qui l'épousera l'année suivante. Elle servira plusieurs fois de régente pendant les absences de son époux.",
+    "characterName": "NPC_Noble",
+    "characterIndex": 7,
+    "faceIndex": 7,
+    "faceName": "NPC_Noble",
+    "services": ["Information"],
+    "quests": [60],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 4,
+        "type": "Famille"
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "name": "Roxelane",
+    "title": "Haseki Sultan",
+    "nationality": "Empire ottoman",
+    "role": "Noble",
+    "location": "Istanbul",
+    "profile": "Favorite et plus tard épouse légale de Suleiman le Magnifique. D'origine ukrainienne ou polonaise, elle est capturée et vendue comme esclave avant d'entrer au harem impérial. En 1525, elle gagne en influence à la cour ottomane. Elle deviendra la première concubine à épouser un sultan ottoman, brisant la tradition.",
+    "characterName": "NPC_Noble",
+    "characterIndex": 8,
+    "faceIndex": 8,
+    "faceName": "NPC_Noble",
+    "services": ["Information"],
+    "quests": [61],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 6,
+        "type": "Famille"
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "name": "Albrecht Dürer",
+    "title": "Artiste et graveur",
+    "nationality": "Saint-Empire",
+    "role": "Autre",
+    "location": "Nuremberg",
+    "profile": "L'un des plus grands artistes de la Renaissance allemande, connu pour ses gravures, peintures et écrits théoriques. En 1525, il publie son traité sur la géométrie. Il meurt en 1528, laissant un héritage artistique considérable qui influence l'art européen.",
+    "characterName": "NPC_Craftsman",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Craftsman",
+    "services": ["Information"],
+    "quests": [62],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 63,
+    "name": "Nicolaus Copernicus",
+    "title": "Astronome et mathématicien",
+    "nationality": "Pologne-Lituanie",
+    "role": "Érudit",
+    "location": "Frombork",
+    "profile": "Astronome polonais qui développe la théorie héliocentrique du système solaire. En 1525, il travaille sur son œuvre majeure 'De revolutionibus orbium coelestium', qui ne sera publiée qu'en 1543, année de sa mort. Sa théorie révolutionnaire place le Soleil, et non la Terre, au centre de l'univers.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 10,
+    "faceIndex": 10,
+    "faceName": "NPC_Scholar",
+    "services": ["Formation", "Information"],
+    "quests": [63],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 64,
+    "name": "Paracelse",
+    "title": "Médecin et alchimiste",
+    "nationality": "Saint-Empire",
+    "role": "Érudit",
+    "location": "Bâle",
+    "profile": "Médecin, alchimiste et astrologue suisse qui révolutionne la médecine européenne. En 1525, il enseigne à l'Université de Bâle, où ses méthodes non conventionnelles et son rejet des autorités médicales traditionnelles provoquent des controverses. Il est considéré comme le fondateur de la toxicologie.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 11,
+    "faceIndex": 11,
+    "faceName": "NPC_Scholar",
+    "services": ["Formation", "Information"],
+    "quests": [64],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 65,
+    "name": "Michelangelo Buonarroti",
+    "title": "Sculpteur, peintre et architecte",
+    "nationality": "États pontificaux",
+    "role": "Artisan",
+    "location": "Florence",
+    "profile": "L'un des plus grands artistes de la Renaissance italienne. En 1525, il travaille sur les tombeaux des Médicis à Florence. Il a déjà réalisé des chefs-d'œuvre comme la Pietà, le David et le plafond de la chapelle Sixtine. Plus tard, il concevra le dôme de la basilique Saint-Pierre à Rome.",
+    "characterName": "NPC_Craftsman",
+    "characterIndex": 2,
+    "faceIndex": 2,
+    "faceName": "NPC_Craftsman",
+    "services": ["Information"],
+    "quests": [65],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 58,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "name": "Erasme",
+    "title": "Philosophe humaniste",
+    "nationality": "Saint-Empire",
+    "role": "Érudit",
+    "location": "Bâle",
+    "profile": "Théologien et humaniste néerlandais, figure majeure de la Renaissance du Nord. En 1525, il est établi à Bâle et publie des œuvres importantes sur la réforme de l'Église. Bien que critique envers les abus de l'Église catholique, il s'oppose à la rupture de Luther et reste fidèle au catholicisme.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 12,
+    "faceIndex": 12,
+    "faceName": "NPC_Scholar",
+    "services": ["Information", "Formation"],
+    "quests": [66],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 59,
+        "type": "Rival"
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "name": "Montezuma II",
+    "title": "Empereur aztèque (posthume)",
+    "nationality": "Empire Aztèque",
+    "role": "Souverain",
+    "location": "Tenochtitlan",
+    "profile": "Dernier empereur aztèque indépendant, mort en 1520 pendant la conquête espagnole. Son règne a vu l'apogée puis l'effondrement de l'Empire aztèque face aux conquistadors de Cortés. En 1525, son héritage reste vivant parmi les populations indigènes du Mexique, qui résistent encore à la domination espagnole.",
+    "characterName": "NPC_Emperor",
+    "characterIndex": 2,
+    "faceIndex": 2,
+    "faceName": "NPC_Emperor",
+    "services": ["Information"],
+    "quests": [67],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 21,
+        "type": "Ennemi"
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "name": "Atahualpa",
+    "title": "Empereur inca",
+    "nationality": "Empire Inca",
+    "role": "Souverain",
+    "location": "Cuzco",
+    "profile": "Empereur inca qui règne de 1532 à 1533. En 1525, il n'est pas encore empereur mais est impliqué dans la guerre civile qui oppose son frère Huascar et son père Huayna Capac. Cette guerre affaiblira l'Empire inca juste avant l'arrivée des conquistadors espagnols menés par Francisco Pizarro.",
+    "characterName": "NPC_Emperor",
+    "characterIndex": 3,
+    "faceIndex": 3,
+    "faceName": "NPC_Emperor",
+    "services": ["Information", "Quête"],
+    "quests": [68],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 69,
+    "name": "Machiavel",
+    "title": "Philosophe et diplomate",
+    "nationality": "États pontificaux",
+    "role": "Érudit",
+    "location": "Florence",
+    "profile": "Philosophe politique, historien et écrivain florentin. Bien que décédé en 1527, en 1525 il vit ses dernières années à Florence après avoir publié son œuvre majeure 'Le Prince' en 1513. Ses théories sur le pouvoir et la gouvernance influencent profondément la pensée politique occidentale.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 13,
+    "faceIndex": 13,
+    "faceName": "NPC_Scholar",
+    "services": ["Information", "Formation"],
+    "quests": [69],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 70,
+    "name": "Thomas More",
+    "title": "Chancelier d'Angleterre",
+    "nationality": "Angleterre",
+    "role": "Noble",
+    "location": "Londres",
+    "profile": "Juriste, philosophe et homme d'État anglais. En 1525, il est un conseiller influent d'Henri VIII et deviendra Chancelier d'Angleterre en 1529. Auteur de 'L'Utopie', il s'opposera plus tard au divorce du roi et sera exécuté en 1535 pour avoir refusé de reconnaître Henri VIII comme chef de l'Église d'Angleterre.",
+    "characterName": "NPC_Noble",
+    "characterIndex": 9,
+    "faceIndex": 9,
+    "faceName": "NPC_Noble",
+    "services": ["Information", "Quête"],
+    "quests": [70],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 56,
+        "type": "Subordonné"
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "name": "Anne Boleyn",
+    "title": "Dame de compagnie",
+    "nationality": "Angleterre",
+    "role": "Noble",
+    "location": "Londres",
+    "profile": "Future seconde épouse d'Henri VIII et mère d'Élisabeth Ire. En 1525, elle est dame de compagnie à la cour d'Angleterre et commence à attirer l'attention du roi, qui est encore marié à Catherine d'Aragon. Son refus de devenir la maîtresse du roi et son insistance pour le mariage conduiront Henri VIII à rompre avec Rome.",
+    "characterName": "NPC_Noble",
+    "characterIndex": 10,
+    "faceIndex": 10,
+    "faceName": "NPC_Noble",
+    "services": ["Information"],
+    "quests": [71],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 56,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "name": "Soliman Pacha",
+    "title": "Gouverneur ottoman d'Égypte",
+    "nationality": "Empire ottoman",
+    "role": "Militaire",
+    "location": "Le Caire",
+    "profile": "Gouverneur ottoman de l'Égypte de 1525 à 1535. Ancien grand vizir, il est nommé gouverneur après la conquête ottomane de l'Égypte. Il joue un rôle crucial dans l'intégration de l'Égypte à l'Empire ottoman et dans la sécurisation des routes commerciales vers l'Asie.",
+    "characterName": "NPC_Governor",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Governor",
+    "services": ["Quête", "Information"],
+    "quests": [72],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 6,
+        "type": "Subordonné"
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "name": "Zahir al-Din Muhammad Babur",
+    "title": "Fondateur de l'Empire moghol",
+    "nationality": "Empire Moghol",
+    "role": "Souverain",
+    "location": "Delhi",
+    "profile": "Fondateur de l'Empire moghol en Inde. En 1525, il remporte la première bataille de Panipat contre Ibrahim Lodi, établissant ainsi sa domination sur le nord de l'Inde. Descendant de Tamerlan et de Gengis Khan, il est aussi connu pour ses mémoires, le Baburnama.",
+    "characterName": "NPC_Emperor",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Emperor",
+    "services": ["Quête", "Information"],
+    "quests": [25],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 74,
+    "name": "Léonard de Vinci",
+    "title": "Artiste et inventeur",
+    "nationality": "France",
+    "role": "Érudit",
+    "location": "Amboise",
+    "profile": "Bien que décédé en 1519, son héritage est encore très présent en 1525. Génie polymathe de la Renaissance italienne, il a excellé dans de nombreux domaines : peinture, sculpture, architecture, sciences, musique, mathématiques, ingénierie, anatomie et botanique. Ses carnets contiennent des croquis et des notes sur une variété de sujets, y compris des inventions en avance sur son temps.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 14,
+    "faceIndex": 14,
+    "faceName": "NPC_Scholar",
+    "services": ["Information"],
+    "quests": [73],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 5,
+        "type": "Allié"
+      },
+      {
+        "npcId": 65,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "name": "Raphaël",
+    "title": "Peintre et architecte",
+    "nationality": "États pontificaux",
+    "role": "Artisan",
+    "location": "Rome",
+    "profile": "Bien que décédé en 1520, son influence artistique est encore prépondérante en 1525. L'un des plus grands peintres de la Renaissance italienne, connu pour ses Madones et ses fresques au Vatican, notamment 'L'École d'Athènes'. Son style équilibré et harmonieux a défini l'idéal classique de la Renaissance.",
+    "characterName": "NPC_Craftsman",
+    "characterIndex": 3,
+    "faceIndex": 3,
+    "faceName": "NPC_Craftsman",
+    "services": ["Information"],
+    "quests": [74],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 65,
+        "type": "Allié"
+      },
+      {
+        "npcId": 74,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "name": "Titien",
+    "title": "Peintre vénitien",
+    "nationality": "Venise",
+    "role": "Artisan",
+    "location": "Venise",
+    "profile": "Le plus grand peintre de l'école vénitienne, actif pendant plus de 70 ans. En 1525, il est au sommet de sa carrière et reconnu comme le peintre officiel de la République de Venise. Maître de la couleur, il est recherché par les plus grands souverains d'Europe pour ses portraits et ses tableaux mythologiques.",
+    "characterName": "NPC_Craftsman",
+    "characterIndex": 4,
+    "faceIndex": 4,
+    "faceName": "NPC_Craftsman",
+    "services": ["Information"],
+    "quests": [75],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 4,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "name": "Ludovico Ariosto",
+    "title": "Poète italien",
+    "nationality": "États pontificaux",
+    "role": "Érudit",
+    "location": "Ferrare",
+    "profile": "Poète italien de la Renaissance, auteur du poème épique 'Orlando Furioso' (Roland furieux). En 1525, il vient de publier la deuxième édition de son chef-d'œuvre, qui mêle aventures chevaleresques et éléments fantastiques. Son œuvre influence profondément la littérature européenne.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 15,
+    "faceIndex": 15,
+    "faceName": "NPC_Scholar",
+    "services": ["Information"],
+    "quests": [76],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 78,
+    "name": "Isabelle d'Este",
+    "title": "Marquise de Mantoue",
+    "nationality": "États pontificaux",
+    "role": "Noble",
+    "location": "Mantoue",
+    "profile": "L'une des femmes les plus influentes de la Renaissance italienne, grande mécène des arts et collectionneuse. En 1525, elle est veuve mais continue à diriger Mantoue et à soutenir les artistes. Son érudition et son goût raffiné lui valent le surnom de 'Première Dame de la Renaissance'.",
+    "characterName": "NPC_Noble",
+    "characterIndex": 11,
+    "faceIndex": 11,
+    "faceName": "NPC_Noble",
+    "services": ["Information", "Quête"],
+    "quests": [77],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 74,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "name": "Lucrèce Borgia",
+    "title": "Duchesse de Ferrare",
+    "nationality": "États pontificaux",
+    "role": "Noble",
+    "location": "Ferrare",
+    "profile": "Fille du pape Alexandre VI et sœur de César Borgia. En 1525, elle est duchesse de Ferrare par son mariage avec Alphonse d'Este. Malgré sa réputation sulfureuse, elle est une mécène des arts et des lettres respectée, protégeant notamment le poète Ludovico Ariosto.",
+    "characterName": "NPC_Noble",
+    "characterIndex": 12,
+    "faceIndex": 12,
+    "faceName": "NPC_Noble",
+    "services": ["Information"],
+    "quests": [78],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 77,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "name": "Selim Ier",
+    "title": "Sultan ottoman (posthume)",
+    "nationality": "Empire ottoman",
+    "role": "Souverain",
+    "location": "Istanbul",
+    "profile": "Bien que décédé en 1520, son héritage est encore très présent. Père de Suleiman le Magnifique, il a considérablement étendu l'Empire ottoman en conquérant la Syrie, la Palestine, l'Égypte et les lieux saints de l'Islam, devenant ainsi le premier calife ottoman. Surnommé 'Yavuz' (le Terrible), il a posé les bases de la puissance ottomane que son fils développera.",
+    "characterName": "NPC_Sultan",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Sultan",
+    "services": ["Information"],
+    "quests": [79],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 6,
+        "type": "Famille"
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "name": "Moctezuma II",
+    "title": "Empereur aztèque (posthume)",
+    "nationality": "Empire Aztèque",
+    "role": "Souverain",
+    "location": "Tenochtitlan",
+    "profile": "Dernier empereur aztèque indépendant, mort en 1520 pendant la conquête espagnole. Son règne a vu l'apogée puis l'effondrement de l'Empire aztèque face aux conquistadors de Cortés. En 1525, son héritage reste vivant parmi les populations indigènes du Mexique, qui résistent encore à la domination espagnole.",
+    "characterName": "NPC_Emperor",
+    "characterIndex": 4,
+    "faceIndex": 4,
+    "faceName": "NPC_Emperor",
+    "services": ["Information"],
+    "quests": [80],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 21,
+        "type": "Ennemi"
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "name": "Francisco Pizarro",
+    "title": "Conquistador",
+    "nationality": "Espagne",
+    "role": "Militaire",
+    "location": "Panama",
+    "profile": "Conquistador espagnol qui conquerra l'Empire inca. En 1525, il est gouverneur de Panama et prépare sa première expédition vers le Pérou, après avoir entendu parler des richesses de l'Empire inca. Il ne parviendra à conquérir l'Empire inca qu'en 1532-1533, en capturant l'empereur Atahualpa.",
+    "characterName": "NPC_Conquistador",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "NPC_Conquistador",
+    "services": ["Information", "Quête"],
+    "quests": [81],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 4,
+        "type": "Subordonné"
+      },
+      {
+        "npcId": 21,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "name": "Zhengde",
+    "title": "Empereur de Chine",
+    "nationality": "Ming",
+    "role": "Souverain",
+    "location": "Pékin",
+    "profile": "Empereur de la dynastie Ming de 1505 à 1521. Bien que décédé en 1521, son règne a des conséquences importantes en 1525. Connu pour son désintérêt pour les affaires d'État et sa passion pour les voyages incognito, il a laissé le gouvernement aux mains des eunuques, ce qui a affaibli l'administration impériale.",
+    "characterName": "NPC_Emperor",
+    "characterIndex": 5,
+    "faceIndex": 5,
+    "faceName": "NPC_Emperor",
+    "services": ["Information"],
+    "quests": [82],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 84,
+    "name": "Jiajing",
+    "title": "Empereur de Chine",
+    "nationality": "Ming",
+    "role": "Souverain",
+    "location": "Pékin",
+    "profile": "Empereur de la dynastie Ming de 1521 à 1567. En 1525, il est au début de son règne et tente de restaurer l'autorité impériale après les excès de son prédécesseur. Fervent taoïste, il consacre d'importantes ressources à la recherche de l'élixir d'immortalité et aux rituels religieux.",
+    "characterName": "NPC_Emperor",
+    "characterIndex": 6,
+    "faceIndex": 6,
+    "faceName": "NPC_Emperor",
+    "services": ["Quête", "Information"],
+    "quests": [83],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 83,
+        "type": "Famille"
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "name": "Wang Yangming",
+    "title": "Philosophe néo-confucéen",
+    "nationality": "Ming",
+    "role": "Érudit",
+    "location": "Nankin",
+    "profile": "Philosophe, calligraphe et général chinois, l'une des figures les plus importantes du néo-confucianisme. En 1525, il est au sommet de son influence intellectuelle et politique. Sa philosophie de l'unité de la connaissance et de l'action a profondément influencé la pensée chinoise, japonaise et coréenne.",
+    "characterName": "NPC_Scholar",
+    "characterIndex": 16,
+    "faceIndex": 16,
+    "faceName": "NPC_Scholar",
+    "services": ["Formation", "Information"],
+    "quests": [84],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 84,
+        "type": "Allié"
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "name": "Guru Nanak",
+    "title": "Fondateur du sikhisme",
+    "nationality": "Empire Moghol",
+    "role": "Religieux",
+    "location": "Kartarpur",
+    "profile": "Fondateur du sikhisme et premier des dix gourous sikhs. En 1525, il est dans les dernières années de sa vie (il meurt en 1539) et établit la communauté sikhe à Kartarpur. Son enseignement rejette les distinctions de caste et prône l'égalité entre hommes et femmes.",
+    "characterName": "NPC_Priest",
+    "characterIndex": 3,
+    "faceIndex": 3,
+    "faceName": "NPC_Priest",
+    "services": ["Information"],
+    "quests": [85],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 73,
+        "type": "Neutre"
+      }
+    ]
+  },
+  {
+    "id": 87,
+    "name": "Askia Mohammad I",
+    "title": "Empereur songhaï",
+    "nationality": "Songhaï",
+    "role": "Souverain",
+    "location": "Gao",
+    "profile": "Empereur de l'Empire songhaï en Afrique de l'Ouest de 1493 à 1528. En 1525, son empire est à son apogée, s'étendant du Sénégal actuel au Nigeria. Sous son règne, Tombouctou devient un centre intellectuel et commercial majeur. Il encourage l'islam et les échanges avec le monde musulman.",
+    "characterName": "NPC_Emperor",
+    "characterIndex": 7,
+    "faceIndex": 7,
+    "faceName": "NPC_Emperor",
+    "services": ["Quête", "Information"],
+    "quests": [86],
+    "historical": true,
+    "relationships": []
+  },
+  {
+    "id": 88,
+    "name": "Ismail Ier",
+    "title": "Shah de Perse",
+    "nationality": "Perse Safavide",
+    "role": "Souverain",
+    "location": "Tabriz",
+    "profile": "Fondateur de la dynastie safavide et premier shah de Perse unifié. En 1525, il est dans les dernières années de son règne (il meurt en 1524). Il a établi le chiisme comme religion d'État en Perse et a lutté contre l'Empire ottoman. Son règne marque le début de l'identité nationale iranienne moderne.",
+    "characterName": "NPC_Emperor",
+    "characterIndex": 8,
+    "faceIndex": 8,
+    "faceName": "NPC_Emperor",
+    "services": ["Information"],
+    "quests": [87],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 6,
+        "type": "Rival"
+      }
+    ]
+  },
+  {
+    "id": 89,
+    "name": "Tahmasp Ier",
+    "title": "Shah de Perse",
+    "nationality": "Perse Safavide",
+    "role": "Souverain",
+    "location": "Tabriz",
+    "profile": "Deuxième shah de la dynastie safavide. En 1525, il vient d'accéder au trône à l'âge de 10 ans après la mort de son père Ismail Ier. Malgré son jeune âge, il réussira à maintenir l'indépendance de la Perse face aux Ottomans et aux Ouzbeks, et règnera pendant 52 ans.",
+    "characterName": "NPC_Emperor",
+    "characterIndex": 9,
+    "faceIndex": 9,
+    "faceName": "NPC_Emperor",
+    "services": ["Quête", "Information"],
+    "quests": [88],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 88,
+        "type": "Famille"
+      },
+      {
+        "npcId": 6,
+        "type": "Rival"
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "name": "Krishnadevaraya",
+    "title": "Empereur de Vijayanagara",
+    "nationality": "Vijayanagar",
+    "role": "Souverain",
+    "location": "Hampi",
+    "profile": "Empereur de l'Empire de Vijayanagara dans le sud de l'Inde de 1509 à 1529. En 1525, son empire est à son apogée, dominant toute l'Inde du Sud. Son règne est considéré comme un âge d'or pour la littérature, les arts et l'architecture. Il est aussi connu pour ses victoires militaires et ses réformes administratives.",
+    "characterName": "NPC_Emperor",
+    "characterIndex": 10,
+    "faceIndex": 10,
+    "faceName": "NPC_Emperor",
+    "services": ["Quête", "Information"],
+    "quests": [89],
+    "historical": true,
+    "relationships": [
+      {
+        "npcId": 73,
+        "type": "Rival"
+      }
+    ]
+  }
+] 

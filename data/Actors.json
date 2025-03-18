@@ -1,0 +1,385 @@
+[
+  {
+    "id": 1,
+    "name": "Carlos Mendes",
+    "nickname": "L'Héritage de la Route des Indes",
+    "title": {
+      "current": "Chevalier",
+      "rank": 2,
+      "points": 150,
+      "nextRankRequirement": 500
+    },
+    "morality": {
+      "value": 60,
+      "alignment": "Moral",
+      "reputation": {
+        "Portugal": 80,
+        "Espagne": 40,
+        "Empire Ottoman": -20,
+        "Angleterre": 10
+      }
+    },
+    "classId": 1,
+    "secondaryClasses": [3],
+    "initialLevel": 1,
+    "maxLevel": 99,
+    "profile": "Fils du légendaire navigateur Manuel Mendes, Diogo sert dans la Carreira da Índia. En 1505, il commande une flotte de l'Estado da Índia.",
+    "characterName": "Actor1",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "Actor1",
+    "params": [
+      100,
+      30,
+      15,
+      12,
+      8,
+      10,
+      14,
+      10
+    ],
+    "equips": [
+      1,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "id": 2,
+    "name": "María Gaztelu",
+    "nickname": "La Corsaire Basque",
+    "title": {
+      "current": "Vicomte",
+      "rank": 3,
+      "points": 200,
+      "nextRankRequirement": 800
+    },
+    "morality": {
+      "value": -30,
+      "alignment": "Immoral",
+      "reputation": {
+        "Portugal": -10,
+        "Espagne": -40,
+        "Empire Ottoman": 20,
+        "Angleterre": 30
+      }
+    },
+    "classId": 4,
+    "secondaryClasses": [3, 2],
+    "initialLevel": 1,
+    "maxLevel": 99,
+    "profile": "Marchande basque de Saint-Sébastien devenue corsaire après la persécution de sa famille par l'Inquisition.",
+    "characterName": "Actor3",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "Actor3",
+    "params": [
+      95,
+      28,
+      16,
+      11,
+      10,
+      12,
+      15,
+      9
+    ],
+    "equips": [
+      4,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Hendrik van Deventer",
+    "nickname": "Le Pionnier du Commerce",
+    "title": {
+      "current": "Baron",
+      "rank": 3,
+      "points": 350,
+      "nextRankRequirement": 800
+    },
+    "morality": {
+      "value": 10,
+      "alignment": "Neutre",
+      "reputation": {
+        "Portugal": 30,
+        "Espagne": 30,
+        "Empire Ottoman": 30,
+        "Angleterre": 50,
+        "Provinces-Unies": 90
+      }
+    },
+    "classId": 2,
+    "secondaryClasses": [1],
+    "initialLevel": 1,
+    "maxLevel": 99,
+    "profile": "Marchand d'Anvers cherchant des routes commerciales indépendantes vers l'Orient, spécialisé dans les sociétés par actions et l'assurance maritime.",
+    "characterName": "Actor2",
+    "characterIndex": 2,
+    "faceIndex": 2,
+    "faceName": "Actor2",
+    "params": [
+      92,
+      22,
+      13,
+      15,
+      9,
+      11,
+      10,
+      14
+    ],
+    "equips": [
+      2,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Piri Hoca",
+    "nickname": "L'Amiral du Sultan",
+    "title": {
+      "current": "Duc",
+      "rank": 7,
+      "points": 1200,
+      "nextRankRequirement": 2000
+    },
+    "morality": {
+      "value": 40,
+      "alignment": "Moral",
+      "reputation": {
+        "Portugal": -50,
+        "Espagne": -60,
+        "Empire Ottoman": 95,
+        "Angleterre": -20,
+        "Venise": -40
+      }
+    },
+    "classId": 1,
+    "secondaryClasses": [4, 5],
+    "initialLevel": 1,
+    "maxLevel": 99,
+    "profile": "Amiral ottoman et cartographe renommé, servant le Sultan dans la Méditerranée et l'océan Indien.",
+    "characterName": "Actor2",
+    "characterIndex": 0,
+    "faceIndex": 0,
+    "faceName": "Actor2",
+    "params": [
+      98,
+      26,
+      14,
+      13,
+      11,
+      13,
+      12,
+      11
+    ],
+    "equips": [
+      3,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Lorenzo Doria",
+    "nickname": "Le Banquier de la Renaissance",
+    "title": {
+      "current": "Marquis",
+      "rank": 6,
+      "points": 900,
+      "nextRankRequirement": 1500
+    },
+    "morality": {
+      "value": -10,
+      "alignment": "Neutre",
+      "reputation": {
+        "Portugal": 40,
+        "Espagne": 60,
+        "Empire Ottoman": -30,
+        "Angleterre": 30,
+        "Venise": -60,
+        "Gênes": 95
+      }
+    },
+    "classId": 2,
+    "secondaryClasses": [5],
+    "initialLevel": 1,
+    "maxLevel": 99,
+    "profile": "Membre de la puissante famille génoise des Doria, banquier et financier influent dans toute l'Europe de la Renaissance.",
+    "characterName": "Actor1",
+    "characterIndex": 3,
+    "faceIndex": 3,
+    "faceName": "Actor1",
+    "params": [
+      85,
+      20,
+      10,
+      8,
+      18,
+      16,
+      9,
+      16
+    ],
+    "equips": [
+      1,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Richard Hawkyns",
+    "nickname": "Le Corsaire de Sa Majesté",
+    "title": {
+      "current": "Chevalier",
+      "rank": 2,
+      "points": 300,
+      "nextRankRequirement": 500
+    },
+    "morality": {
+      "value": -50,
+      "alignment": "Immoral",
+      "reputation": {
+        "Portugal": -40,
+        "Espagne": -80,
+        "Empire Ottoman": 10,
+        "Angleterre": 85
+      }
+    },
+    "classId": 3,
+    "secondaryClasses": [4, 1],
+    "initialLevel": 1,
+    "maxLevel": 99,
+    "profile": "Corsaire anglais au service de la couronne, cherchant à établir la puissance maritime anglaise face aux empires espagnol et portugais.",
+    "characterName": "Actor1",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "Actor1",
+    "params": [
+      105,
+      25,
+      17,
+      14,
+      7,
+      9,
+      15,
+      10
+    ],
+    "equips": [
+      2,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Isabelle de Montreuil",
+    "nickname": "La Cartographe des Mers",
+    "title": {
+      "current": "Comtesse",
+      "rank": 5,
+      "points": 600,
+      "nextRankRequirement": 1200
+    },
+    "morality": {
+      "value": 80,
+      "alignment": "Vertueux",
+      "reputation": {
+        "Portugal": 30,
+        "Espagne": 20,
+        "Empire Ottoman": 30,
+        "Angleterre": 40,
+        "France": 90
+      }
+    },
+    "classId": 5,
+    "secondaryClasses": [1],
+    "initialLevel": 1,
+    "maxLevel": 99,
+    "profile": "Noble française recherchant son père disparu en expédition, spécialisée dans la cartographie et la navigation.",
+    "characterName": "Actor3",
+    "characterIndex": 1,
+    "faceIndex": 1,
+    "faceName": "Actor3",
+    "params": [
+      88,
+      32,
+      11,
+      10,
+      15,
+      14,
+      13,
+      12
+    ],
+    "equips": [
+      1,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Mansa Kébé",
+    "nickname": "Le Protecteur des Sables",
+    "title": {
+      "current": "Prince",
+      "rank": 8,
+      "points": 0,
+      "nextRankRequirement": 0
+    },
+    "morality": {
+      "value": 90,
+      "alignment": "Vertueux",
+      "reputation": {
+        "Portugal": -60,
+        "Espagne": -70,
+        "Empire Ottoman": 40,
+        "Angleterre": -50,
+        "Wagadou": 100,
+        "Mali": 80
+      }
+    },
+    "classId": 3,
+    "secondaryClasses": [2],
+    "initialLevel": 1,
+    "maxLevel": 99,
+    "profile": "Prince du Wagadou luttant contre l'expansion coloniale, cherchant à unifier les tribus côtières et à protéger le commerce d'or.",
+    "characterName": "Actor2",
+    "characterIndex": 3,
+    "faceIndex": 3,
+    "faceName": "Actor2",
+    "params": [
+      110,
+      24,
+      18,
+      15,
+      8,
+      10,
+      16,
+      9
+    ],
+    "equips": [
+      3,
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+]

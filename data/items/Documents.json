@@ -1,0 +1,104 @@
+[
+  {
+    "id": 1,
+    "name": "Carte au trésor",
+    "description": "Indique l'emplacement d'un trésor caché.",
+    "iconIndex": 177,
+    "price": 5000,
+    "consumable": true,
+    "itypeId": 2,
+    "categoryId": 8,
+    "effects": [],
+    "occasion": 0,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "baseItem": {
+      "type": "document",
+      "properties": {
+        "documentType": "treasure",
+        "validityDuration": -1,
+        "authenticityLevel": 100,
+        "regionRestrictions": []
+      }
+    }
+  },
+  {
+    "id": 2,
+    "name": "Lettre de marque",
+    "description": "Document officiel autorisant la capture de navires ennemis.",
+    "iconIndex": 178,
+    "price": 3000,
+    "consumable": false,
+    "itypeId": 2,
+    "categoryId": 8,
+    "effects": [],
+    "occasion": 0,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "baseItem": {
+      "type": "document",
+      "properties": {
+        "documentType": "privateering",
+        "validityDuration": 180,
+        "authenticityLevel": 100,
+        "regionRestrictions": [1, 2]
+      }
+    }
+  },
+  {
+    "id": 3,
+    "name": "Licence commerciale",
+    "description": "Autorise le commerce dans certains ports.",
+    "iconIndex": 179,
+    "price": 2000,
+    "consumable": false,
+    "itypeId": 2,
+    "categoryId": 8,
+    "effects": [],
+    "occasion": 0,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "baseItem": {
+      "type": "document",
+      "properties": {
+        "documentType": "trade",
+        "validityDuration": 90,
+        "authenticityLevel": 100,
+        "regionRestrictions": [3, 4, 5]
+      }
+    }
+  }
+] 

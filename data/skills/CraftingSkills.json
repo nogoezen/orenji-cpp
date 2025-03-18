@@ -1,0 +1,401 @@
+[
+  {
+    "id": 100,
+    "name": "Forge d'armes",
+    "description": "Permet de forger des armes simples.",
+    "iconIndex": 76,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 3,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 5,
+      "goldCost": 500,
+      "location": "Tolède",
+      "teacherNpcId": 120
+    }
+  },
+  {
+    "id": 101,
+    "name": "Forge avancée",
+    "description": "Permet de forger des armes de qualité supérieure.",
+    "iconIndex": 76,
+    "mpCost": 20,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 3,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 12,
+      "goldCost": 2000,
+      "requiredSkills": [100],
+      "requiredItems": [
+        {
+          "itemId": 72,
+          "quantity": 2
+        }
+      ],
+      "location": "Milan",
+      "teacherNpcId": 125
+    }
+  },
+  {
+    "id": 102,
+    "name": "Fabrication d'armures",
+    "description": "Permet de fabriquer des armures légères.",
+    "iconIndex": 81,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 3,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 6,
+      "goldCost": 600,
+      "location": "Nuremberg",
+      "teacherNpcId": 130
+    }
+  },
+  {
+    "id": 103,
+    "name": "Armurerie avancée",
+    "description": "Permet de fabriquer des armures de qualité supérieure.",
+    "iconIndex": 81,
+    "mpCost": 20,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 3,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 13,
+      "goldCost": 2200,
+      "requiredSkills": [102],
+      "requiredItems": [
+        {
+          "itemId": 75,
+          "quantity": 2
+        }
+      ],
+      "location": "Augsbourg",
+      "teacherNpcId": 135
+    }
+  },
+  {
+    "id": 104,
+    "name": "Charpenterie navale",
+    "description": "Permet de réparer et d'améliorer les navires.",
+    "iconIndex": 220,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 3,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 8,
+      "goldCost": 1000,
+      "location": "Gênes",
+      "teacherNpcId": 140
+    }
+  },
+  {
+    "id": 105,
+    "name": "Construction navale",
+    "description": "Permet de construire de nouveaux navires.",
+    "iconIndex": 220,
+    "mpCost": 30,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 3,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 0,
+    "rank": "S",
+    "acquisitionRequirements": {
+      "actorLevel": 20,
+      "goldCost": 10000,
+      "requiredSkills": [104],
+      "requiredItems": [
+        {
+          "itemId": 80,
+          "quantity": 3
+        },
+        {
+          "itemId": 85,
+          "quantity": 1
+        }
+      ],
+      "location": "Venise",
+      "teacherNpcId": 145
+    }
+  },
+  {
+    "id": 106,
+    "name": "Fabrication d'instruments",
+    "description": "Permet de fabriquer des instruments de navigation.",
+    "iconIndex": 121,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 3,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 9,
+      "goldCost": 1200,
+      "location": "Lisbonne",
+      "teacherNpcId": 150
+    }
+  },
+  {
+    "id": 107,
+    "name": "Fabrication de canons",
+    "description": "Permet de fabriquer des canons pour les navires.",
+    "iconIndex": 64,
+    "mpCost": 25,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 3,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 15,
+      "goldCost": 3000,
+      "requiredSkills": [100],
+      "requiredItems": [
+        {
+          "itemId": 90,
+          "quantity": 2
+        }
+      ],
+      "location": "Malaga",
+      "teacherNpcId": 155
+    }
+  },
+  {
+    "id": 108,
+    "name": "Alchimie",
+    "description": "Permet de créer des potions et des remèdes.",
+    "iconIndex": 135,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 3,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 7,
+      "goldCost": 800,
+      "location": "Venise",
+      "teacherNpcId": 160
+    }
+  },
+  {
+    "id": 109,
+    "name": "Cuisine",
+    "description": "Permet de préparer des repas pour l'équipage.",
+    "iconIndex": 32,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 3,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 95,
+    "tpGain": 0,
+    "rank": "D",
+    "acquisitionRequirements": {
+      "actorLevel": 3,
+      "goldCost": 200,
+      "location": "Marseille",
+      "teacherNpcId": 165
+    }
+  },
+  {
+    "id": 110,
+    "name": "Fabrication de poudre",
+    "description": "Permet de fabriquer de la poudre à canon.",
+    "iconIndex": 64,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 3,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 10,
+      "goldCost": 1500,
+      "location": "Istanbul",
+      "teacherNpcId": 170
+    }
+  },
+  {
+    "id": 111,
+    "name": "Fabrication d'armes à feu",
+    "description": "Permet de fabriquer des mousquets et des pistolets.",
+    "iconIndex": 77,
+    "mpCost": 20,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 3,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 14,
+      "goldCost": 2500,
+      "requiredSkills": [100, 110],
+      "requiredItems": [
+        {
+          "itemId": 95,
+          "quantity": 1
+        }
+      ],
+      "location": "Anvers",
+      "teacherNpcId": 175
+    }
+  }
+] 

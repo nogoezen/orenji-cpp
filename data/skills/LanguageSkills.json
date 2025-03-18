@@ -1,0 +1,992 @@
+[
+  {
+    "id": 1,
+    "name": "Linguistique de base",
+    "description": "Connaissances de base en langues étrangères.",
+    "iconIndex": 83,
+    "mpCost": 0,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "D",
+    "acquisitionRequirements": {
+      "actorLevel": 1,
+      "goldCost": 100,
+      "location": "Lisbonne",
+      "teacherNpcId": 600
+    }
+  },
+  {
+    "id": 2,
+    "name": "Latin",
+    "description": "Maîtrise du latin, langue savante et diplomatique de l'Europe. Utilisée par l'Église, les universités et les diplomates.",
+    "iconIndex": 83,
+    "mpCost": 0,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 3,
+      "goldCost": 500,
+      "location": "Rome",
+      "teacherNpcId": 601
+    }
+  },
+  {
+    "id": 3,
+    "name": "Arabe",
+    "description": "Maîtrise de l'arabe, langue du commerce méditerranéen, de l'Empire Ottoman et des sultanats d'Afrique du Nord.",
+    "iconIndex": 83,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 95,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 4,
+      "goldCost": 400,
+      "location": "Le Caire",
+      "teacherNpcId": 602
+    }
+  },
+  {
+    "id": 4,
+    "name": "Portugais",
+    "description": "Maîtrise du portugais, langue du Royaume du Portugal et de son vaste empire commercial s'étendant du Brésil à l'Asie.",
+    "iconIndex": 83,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 95,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 2,
+      "goldCost": 300,
+      "location": "Lisbonne",
+      "teacherNpcId": 603
+    }
+  },
+  {
+    "id": 5,
+    "name": "Espagnol",
+    "description": "Maîtrise de l'espagnol (castillan), langue de la Monarchie Catholique Espagnole et de son empire colonial américain.",
+    "iconIndex": 83,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 95,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 2,
+      "goldCost": 300,
+      "location": "Séville",
+      "teacherNpcId": 604
+    }
+  },
+  {
+    "id": 6,
+    "name": "Turc ottoman",
+    "description": "Maîtrise du turc ottoman, langue officielle de l'Empire Ottoman sous Soliman le Magnifique.",
+    "iconIndex": 83,
+    "mpCost": 8,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 5,
+      "goldCost": 600,
+      "location": "Constantinople",
+      "teacherNpcId": 605
+    }
+  },
+  {
+    "id": 7,
+    "name": "Français",
+    "description": "Maîtrise du français, langue du Royaume de France sous François Ier et langue diplomatique émergente en Europe.",
+    "iconIndex": 83,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 95,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 2,
+      "goldCost": 300,
+      "location": "Paris",
+      "teacherNpcId": 606
+    }
+  },
+  {
+    "id": 8,
+    "name": "Anglais",
+    "description": "Maîtrise de l'anglais, langue du Royaume d'Angleterre sous Henri VIII, en pleine transformation linguistique.",
+    "iconIndex": 83,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 95,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 2,
+      "goldCost": 300,
+      "location": "Londres",
+      "teacherNpcId": 607
+    }
+  },
+  {
+    "id": 9,
+    "name": "Italien",
+    "description": "Maîtrise de l'italien, langue des cités-États italiennes comme Venise et Florence, et langue du commerce méditerranéen.",
+    "iconIndex": 83,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 95,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 2,
+      "goldCost": 300,
+      "location": "Rome",
+      "teacherNpcId": 608
+    }
+  },
+  {
+    "id": 10,
+    "name": "Allemand",
+    "description": "Maîtrise de l'allemand et de ses dialectes, langue principale du Saint-Empire Romain Germanique.",
+    "iconIndex": 83,
+    "mpCost": 8,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 3,
+      "goldCost": 400,
+      "location": "Nuremberg",
+      "teacherNpcId": 609
+    }
+  },
+  {
+    "id": 11,
+    "name": "Persan",
+    "description": "Maîtrise du persan, langue de l'Empire Safavide et langue culturelle importante dans tout le Moyen-Orient.",
+    "iconIndex": 83,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 5,
+      "goldCost": 600,
+      "location": "Ispahan",
+      "teacherNpcId": 610
+    }
+  },
+  {
+    "id": 12,
+    "name": "Russe",
+    "description": "Maîtrise du russe, langue du Grand-Duché de Moscovie en pleine expansion sous Vassili III.",
+    "iconIndex": 83,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 4,
+      "goldCost": 500,
+      "location": "Moscou",
+      "teacherNpcId": 611
+    }
+  },
+  {
+    "id": 13,
+    "name": "Polonais",
+    "description": "Maîtrise du polonais, langue principale de l'Union de Pologne-Lituanie sous Sigismond Ier.",
+    "iconIndex": 83,
+    "mpCost": 8,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 3,
+      "goldCost": 400,
+      "location": "Cracovie",
+      "teacherNpcId": 612
+    }
+  },
+  {
+    "id": 14,
+    "name": "Grec",
+    "description": "Maîtrise du grec, langue importante dans les territoires byzantins de l'Empire Ottoman et langue savante de la Renaissance.",
+    "iconIndex": 83,
+    "mpCost": 8,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 4,
+      "goldCost": 500,
+      "location": "Constantinople",
+      "teacherNpcId": 613
+    }
+  },
+  {
+    "id": 15,
+    "name": "Nahuatl",
+    "description": "Maîtrise du nahuatl, langue de l'Empire Aztèque, essentielle pour communiquer avec les populations mésoaméricaines.",
+    "iconIndex": 83,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 7,
+      "goldCost": 800,
+      "location": "Mexico",
+      "teacherNpcId": 614
+    }
+  },
+  {
+    "id": 16,
+    "name": "Quechua",
+    "description": "Maîtrise du quechua, langue de l'Empire Inca (Tahuantinsuyo), parlée dans toute la région andine.",
+    "iconIndex": 83,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 7,
+      "goldCost": 800,
+      "location": "Cuzco",
+      "teacherNpcId": 615
+    }
+  },
+  {
+    "id": 17,
+    "name": "Hébreu",
+    "description": "Maîtrise de l'hébreu, langue liturgique juive et langue savante importante pour les études bibliques à l'époque de la Réforme.",
+    "iconIndex": 83,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 5,
+      "goldCost": 600,
+      "location": "Rome",
+      "teacherNpcId": 616
+    }
+  },
+  {
+    "id": 18,
+    "name": "Amharique",
+    "description": "Maîtrise de l'amharique, langue de l'Empire d'Éthiopie sous Lebna Dengel, seul royaume chrétien d'Afrique de l'Est.",
+    "iconIndex": 83,
+    "mpCost": 12,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 6,
+      "goldCost": 700,
+      "location": "Gondar",
+      "teacherNpcId": 617
+    }
+  },
+  {
+    "id": 19,
+    "name": "Thaï",
+    "description": "Maîtrise du thaï, langue du Royaume d'Ayutthaya (Siam), centre commercial important en Asie du Sud-Est.",
+    "iconIndex": 83,
+    "mpCost": 12,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 6,
+      "goldCost": 700,
+      "location": "Ayutthaya",
+      "teacherNpcId": 618
+    }
+  },
+  {
+    "id": 20,
+    "name": "Berbère",
+    "description": "Maîtrise des langues berbères, parlées dans le Sultanat Wattasside (Maroc) et les régions d'Afrique du Nord.",
+    "iconIndex": 83,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 4,
+      "goldCost": 500,
+      "location": "Fès",
+      "teacherNpcId": 619
+    }
+  },
+  {
+    "id": 21,
+    "name": "Hongrois",
+    "description": "Maîtrise du hongrois (magyar), langue du Royaume de Hongrie sous Louis II, à la frontière entre chrétienté et Empire Ottoman.",
+    "iconIndex": 83,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 4,
+      "goldCost": 500,
+      "location": "Buda",
+      "teacherNpcId": 620
+    }
+  },
+  {
+    "id": 22,
+    "name": "Langues tatares",
+    "description": "Maîtrise des langues tatares, parlées dans le Khanat de Crimée et les steppes eurasiatiques.",
+    "iconIndex": 83,
+    "mpCost": 12,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 6,
+      "goldCost": 700,
+      "location": "Caffa",
+      "teacherNpcId": 621
+    }
+  },
+  {
+    "id": 23,
+    "name": "Swahili",
+    "description": "Maîtrise du swahili, lingua franca du commerce sur la côte est-africaine, mêlant influences arabes et bantoues.",
+    "iconIndex": 83,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 5,
+      "goldCost": 600,
+      "location": "Kilwa",
+      "teacherNpcId": 622
+    }
+  },
+  {
+    "id": 24,
+    "name": "Catalan",
+    "description": "Maîtrise du catalan, langue importante dans la Couronne d'Aragon et le commerce méditerranéen occidental.",
+    "iconIndex": 83,
+    "mpCost": 8,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 2,
+      "goldCost": 300,
+      "location": "Barcelone",
+      "teacherNpcId": 623
+    }
+  },
+  {
+    "id": 25,
+    "name": "Gujarati",
+    "description": "Maîtrise du gujarati, langue principale du Gujarat et langue commerciale majeure de l'Inde occidentale.",
+    "iconIndex": 83,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 5,
+      "goldCost": 600,
+      "location": "Ahmedabad",
+      "teacherNpcId": 624
+    }
+  },
+  {
+    "id": 26,
+    "name": "Bengali",
+    "description": "Maîtrise du bengali, langue du Bengale et du Sultanat d'Arakan, importante pour le commerce dans le Golfe du Bengale.",
+    "iconIndex": 83,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 5,
+      "goldCost": 600,
+      "location": "Gaur",
+      "teacherNpcId": 625
+    }
+  },
+  {
+    "id": 27,
+    "name": "Mandarin",
+    "description": "Maîtrise du mandarin, langue administrative de la dynastie Ming et langue principale du commerce avec la Chine.",
+    "iconIndex": 83,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 7,
+      "goldCost": 800,
+      "location": "Pékin",
+      "teacherNpcId": 626
+    }
+  },
+  {
+    "id": 28,
+    "name": "Japonais",
+    "description": "Maîtrise du japonais, langue du Japon pendant la période Sengoku, essentielle pour le commerce avec les daimyos.",
+    "iconIndex": 83,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 7,
+      "goldCost": 800,
+      "location": "Kyoto",
+      "teacherNpcId": 627
+    }
+  },
+  {
+    "id": 29,
+    "name": "Malais",
+    "description": "Maîtrise du malais, lingua franca du commerce maritime en Asie du Sud-Est, parlée dans le Sultanat de Malacca.",
+    "iconIndex": 83,
+    "mpCost": 12,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 5,
+      "goldCost": 600,
+      "location": "Malacca",
+      "teacherNpcId": 628
+    }
+  },
+  {
+    "id": 30,
+    "name": "Wolof",
+    "description": "Maîtrise du wolof, langue principale de l'Empire Jolof et langue commerciale majeure en Afrique de l'Ouest.",
+    "iconIndex": 83,
+    "mpCost": 12,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 4,
+      "goldCost": 500,
+      "location": "Kayor",
+      "teacherNpcId": 629
+    }
+  },
+  {
+    "id": 31,
+    "name": "Yoruba",
+    "description": "Maîtrise du yoruba, langue des royaumes yoruba et langue commerciale importante dans le Golfe de Guinée.",
+    "iconIndex": 83,
+    "mpCost": 12,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 4,
+      "goldCost": 500,
+      "location": "Oyo",
+      "teacherNpcId": 630
+    }
+  },
+  {
+    "id": 32,
+    "name": "Maya",
+    "description": "Maîtrise des langues mayas, parlées dans le Yucatán et en Amérique centrale, essentielles pour communiquer avec les royaumes mayas.",
+    "iconIndex": 83,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 7,
+      "goldCost": 800,
+      "location": "Maní",
+      "teacherNpcId": 631
+    }
+  },
+  {
+    "id": 33,
+    "name": "Aymara",
+    "description": "Maîtrise de l'aymara, langue importante dans les Andes aux côtés du quechua, parlée dans la région du lac Titicaca.",
+    "iconIndex": 83,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 80,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 7,
+      "goldCost": 800,
+      "location": "Tiwanaku",
+      "teacherNpcId": 632
+    }
+  }
+]

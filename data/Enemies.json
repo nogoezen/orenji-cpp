@@ -1,0 +1,362 @@
+[
+  {
+    "id": 1,
+    "name": "Navire marchand",
+    "battlerName": "Ship_Small",
+    "battlerHue": 0,
+    "params": [200, 0, 15, 10, 5, 5, 10, 0],
+    "exp": 50,
+    "gold": 100,
+    "drop": {"kind": 1, "dataId": 1, "denominator": 2},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 1}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Caravelle",
+    "battlerName": "Ship_Medium",
+    "battlerHue": 0,
+    "params": [300, 0, 20, 15, 10, 10, 15, 0],
+    "exp": 100,
+    "gold": 200,
+    "drop": {"kind": 1, "dataId": 2, "denominator": 2},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 2}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Galion",
+    "battlerName": "Ship_Large",
+    "battlerHue": 0,
+    "params": [500, 0, 30, 25, 15, 15, 10, 0],
+    "exp": 200,
+    "gold": 400,
+    "drop": {"kind": 1, "dataId": 3, "denominator": 2},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 3}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Navire pirate",
+    "battlerName": "Ship_Pirate",
+    "battlerHue": 0,
+    "params": [400, 0, 35, 20, 10, 10, 20, 0],
+    "exp": 150,
+    "gold": 300,
+    "drop": {"kind": 1, "dataId": 4, "denominator": 2},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 4}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Frégate",
+    "battlerName": "Ship_Frigate",
+    "battlerHue": 0,
+    "params": [600, 0, 40, 30, 20, 20, 15, 0],
+    "exp": 250,
+    "gold": 500,
+    "drop": {"kind": 1, "dataId": 5, "denominator": 2},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 5}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Navire de guerre",
+    "battlerName": "Ship_Warship",
+    "battlerHue": 0,
+    "params": [800, 0, 50, 40, 25, 25, 10, 0],
+    "exp": 400,
+    "gold": 800,
+    "drop": {"kind": 1, "dataId": 6, "denominator": 2},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 6}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Marin",
+    "battlerName": "Sailor",
+    "battlerHue": 0,
+    "params": [100, 0, 10, 5, 5, 5, 15, 0],
+    "exp": 30,
+    "gold": 50,
+    "drop": {"kind": 1, "dataId": 7, "denominator": 3},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 1}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Pirate",
+    "battlerName": "Pirate",
+    "battlerHue": 0,
+    "params": [150, 0, 15, 10, 5, 5, 20, 0],
+    "exp": 50,
+    "gold": 100,
+    "drop": {"kind": 1, "dataId": 8, "denominator": 3},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 2}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Officier naval",
+    "battlerName": "Officer",
+    "battlerHue": 0,
+    "params": [200, 0, 20, 15, 10, 10, 15, 0],
+    "exp": 80,
+    "gold": 150,
+    "drop": {"kind": 1, "dataId": 9, "denominator": 3},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 3}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Capitaine pirate",
+    "battlerName": "PirateCaptain",
+    "battlerHue": 0,
+    "params": [300, 0, 25, 20, 15, 15, 20, 0],
+    "exp": 120,
+    "gold": 250,
+    "drop": {"kind": 1, "dataId": 10, "denominator": 3},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 4}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Tempête",
+    "battlerName": "Storm",
+    "battlerHue": 0,
+    "params": [500, 0, 40, 30, 30, 30, 30, 0],
+    "exp": 200,
+    "gold": 0,
+    "drop": {"kind": 1, "dataId": 11, "denominator": 5},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 5}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Kraken",
+    "battlerName": "Kraken",
+    "battlerHue": 0,
+    "params": [1000, 0, 60, 50, 40, 40, 10, 0],
+    "exp": 500,
+    "gold": 1000,
+    "drop": {"kind": 1, "dataId": 12, "denominator": 1},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 6}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Navire fantôme",
+    "battlerName": "Ship_Ghost",
+    "battlerHue": 180,
+    "params": [700, 0, 45, 35, 35, 35, 20, 0],
+    "exp": 300,
+    "gold": 600,
+    "drop": {"kind": 1, "dataId": 13, "denominator": 2},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 7}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Corsaire",
+    "battlerName": "Corsair",
+    "battlerHue": 0,
+    "params": [250, 0, 22, 18, 12, 12, 18, 0],
+    "exp": 100,
+    "gold": 200,
+    "drop": {"kind": 1, "dataId": 14, "denominator": 3},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 8}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Navire de la flotte royale",
+    "battlerName": "Ship_Royal",
+    "battlerHue": 0,
+    "params": [900, 0, 55, 45, 30, 30, 15, 0],
+    "exp": 450,
+    "gold": 900,
+    "drop": {"kind": 1, "dataId": 15, "denominator": 2},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 9}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Amiral",
+    "battlerName": "Admiral",
+    "battlerHue": 0,
+    "params": [400, 0, 30, 25, 20, 20, 15, 0],
+    "exp": 150,
+    "gold": 300,
+    "drop": {"kind": 1, "dataId": 16, "denominator": 3},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 10}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Récif caché",
+    "battlerName": "Reef",
+    "battlerHue": 0,
+    "params": [100, 0, 50, 50, 0, 0, 0, 0],
+    "exp": 0,
+    "gold": 0,
+    "drop": {"kind": 1, "dataId": 17, "denominator": 10},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 11}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Baleine",
+    "battlerName": "Whale",
+    "battlerHue": 0,
+    "params": [600, 0, 35, 30, 10, 10, 25, 0],
+    "exp": 200,
+    "gold": 400,
+    "drop": {"kind": 1, "dataId": 18, "denominator": 3},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 12}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Sirène",
+    "battlerName": "Mermaid",
+    "battlerHue": 0,
+    "params": [300, 0, 20, 15, 25, 25, 30, 0],
+    "exp": 150,
+    "gold": 300,
+    "drop": {"kind": 1, "dataId": 19, "denominator": 3},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 13}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Léviathan",
+    "battlerName": "Leviathan",
+    "battlerHue": 0,
+    "params": [2000, 0, 80, 70, 60, 60, 20, 0],
+    "exp": 1000,
+    "gold": 2000,
+    "drop": {"kind": 1, "dataId": 20, "denominator": 1},
+    "actions": [
+      {"conditionParam1": 0, "conditionParam2": 0, "conditionType": 0, "rating": 5, "skillId": 14}
+    ],
+    "traits": [
+      {"code": 22, "dataId": 0, "value": 0},
+      {"code": 22, "dataId": 1, "value": 0},
+      {"code": 31, "dataId": 1, "value": 0}
+    ]
+  }
+] 

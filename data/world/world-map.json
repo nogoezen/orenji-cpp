@@ -1,0 +1,119 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Europe",
+        "id": "europe"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-10, 35],
+            [40, 35],
+            [40, 70],
+            [-10, 70],
+            [-10, 35]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Africa",
+        "id": "africa"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-20, -35],
+            [50, -35],
+            [50, 35],
+            [-20, 35],
+            [-20, -35]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Asia",
+        "id": "asia"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [40, 0],
+            [150, 0],
+            [150, 70],
+            [40, 70],
+            [40, 0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "North America",
+        "id": "north_america"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-170, 15],
+            [-50, 15],
+            [-50, 70],
+            [-170, 70],
+            [-170, 15]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South America",
+        "id": "south_america"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-80, -55],
+            [-35, -55],
+            [-35, 15],
+            [-80, 15],
+            [-80, -55]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oceania",
+        "id": "oceania"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [110, -45],
+            [180, -45],
+            [180, 0],
+            [110, 0],
+            [110, -45]
+          ]
+        ]
+      }
+    }
+  ]
+} 

@@ -1,0 +1,362 @@
+[
+  {
+    "id": 1,
+    "name": "Navigateur",
+    "description": "Expert en navigation maritime, capable d'interpréter les vents et les courants pour tracer les meilleures routes.",
+    "maxLevel": 99,
+    "expParams": [30, 20, 30, 30],
+    "traits": [
+      { "code": 23, "dataId": 0, "value": 1 },
+      { "code": 22, "dataId": 0, "value": 0.95 },
+      { "code": 22, "dataId": 1, "value": 0.05 },
+      { "code": 22, "dataId": 2, "value": 0.04 },
+      { "code": 41, "dataId": 1, "value": 0 }
+    ],
+    "learnings": [
+      { "level": 1, "skillId": 1 },
+      { "level": 3, "skillId": 2 },
+      { "level": 5, "skillId": 3 },
+      { "level": 10, "skillId": 4 }
+    ],
+    "params": [
+      [100, 110, 120, 130, 140, 150, 160, 170, 180, 190],
+      [30, 35, 40, 45, 50, 55, 60, 65, 70, 75],
+      [15, 17, 19, 21, 23, 25, 27, 29, 31, 33],
+      [12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
+      [8, 10, 12, 14, 16, 18, 20, 22, 24, 26],
+      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28],
+      [14, 16, 18, 20, 22, 24, 26, 28, 30, 32],
+      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28]
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Marchand",
+    "description": "Maître dans l'art du commerce, doué pour négocier les prix et identifier les meilleures opportunités commerciales.",
+    "maxLevel": 99,
+    "expParams": [30, 20, 30, 30],
+    "traits": [
+      { "code": 23, "dataId": 0, "value": 1 },
+      { "code": 22, "dataId": 0, "value": 0.9 },
+      { "code": 22, "dataId": 1, "value": 0.05 },
+      { "code": 22, "dataId": 2, "value": 0.04 },
+      { "code": 41, "dataId": 1, "value": 0 }
+    ],
+    "learnings": [
+      { "level": 1, "skillId": 5 },
+      { "level": 3, "skillId": 6 },
+      { "level": 5, "skillId": 7 },
+      { "level": 10, "skillId": 8 }
+    ],
+    "params": [
+      [90, 100, 110, 120, 130, 140, 150, 160, 170, 180],
+      [25, 30, 35, 40, 45, 50, 55, 60, 65, 70],
+      [12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
+      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28],
+      [12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
+      [8, 10, 12, 14, 16, 18, 20, 22, 24, 26],
+      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28],
+      [15, 17, 19, 21, 23, 25, 27, 29, 31, 33]
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Aventurier",
+    "description": "Explorateur intrépide, toujours prêt à découvrir de nouvelles terres et à affronter l'inconnu.",
+    "maxLevel": 99,
+    "expParams": [30, 20, 30, 30],
+    "traits": [
+      { "code": 23, "dataId": 0, "value": 1 },
+      { "code": 22, "dataId": 0, "value": 1 },
+      { "code": 22, "dataId": 1, "value": 0.05 },
+      { "code": 22, "dataId": 2, "value": 0.04 },
+      { "code": 41, "dataId": 1, "value": 0 }
+    ],
+    "learnings": [
+      { "level": 1, "skillId": 9 },
+      { "level": 3, "skillId": 10 },
+      { "level": 5, "skillId": 11 },
+      { "level": 10, "skillId": 12 }
+    ],
+    "params": [
+      [110, 120, 130, 140, 150, 160, 170, 180, 190, 200],
+      [20, 25, 30, 35, 40, 45, 50, 55, 60, 65],
+      [18, 20, 22, 24, 26, 28, 30, 32, 34, 36],
+      [14, 16, 18, 20, 22, 24, 26, 28, 30, 32],
+      [6, 8, 10, 12, 14, 16, 18, 20, 22, 24],
+      [9, 11, 13, 15, 17, 19, 21, 23, 25, 27],
+      [16, 18, 20, 22, 24, 26, 28, 30, 32, 34],
+      [8, 10, 12, 14, 16, 18, 20, 22, 24, 26]
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Corsaire",
+    "description": "Capitaine aguerri spécialisé dans l'abordage et le combat naval, opérant sous lettres de marque.",
+    "maxLevel": 99,
+    "expParams": [30, 20, 30, 30],
+    "traits": [
+      { "code": 23, "dataId": 0, "value": 1 },
+      { "code": 22, "dataId": 0, "value": 1 },
+      { "code": 22, "dataId": 1, "value": 0.05 },
+      { "code": 22, "dataId": 2, "value": 0.04 },
+      { "code": 41, "dataId": 1, "value": 0 }
+    ],
+    "learnings": [
+      { "level": 1, "skillId": 13 },
+      { "level": 3, "skillId": 14 },
+      { "level": 5, "skillId": 15 },
+      { "level": 10, "skillId": 16 }
+    ],
+    "params": [
+      [95, 105, 115, 125, 135, 145, 155, 165, 175, 185],
+      [28, 33, 38, 43, 48, 53, 58, 63, 68, 73],
+      [16, 18, 20, 22, 24, 26, 28, 30, 32, 34],
+      [11, 13, 15, 17, 19, 21, 23, 25, 27, 29],
+      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28],
+      [12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
+      [15, 17, 19, 21, 23, 25, 27, 29, 31, 33],
+      [9, 11, 13, 15, 17, 19, 21, 23, 25, 27]
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Cartographe",
+    "description": "Artiste et scientifique, expert dans l'art de dresser des cartes précises des terres et mers explorées.",
+    "maxLevel": 99,
+    "expParams": [30, 20, 30, 30],
+    "traits": [
+      { "code": 23, "dataId": 0, "value": 1 },
+      { "code": 22, "dataId": 0, "value": 0.9 },
+      { "code": 22, "dataId": 1, "value": 0.05 },
+      { "code": 22, "dataId": 2, "value": 0.04 },
+      { "code": 41, "dataId": 1, "value": 0 }
+    ],
+    "learnings": [
+      { "level": 1, "skillId": 17 },
+      { "level": 3, "skillId": 18 },
+      { "level": 5, "skillId": 19 },
+      { "level": 10, "skillId": 20 }
+    ],
+    "params": [
+      [85, 95, 105, 115, 125, 135, 145, 155, 165, 175],
+      [35, 40, 45, 50, 55, 60, 65, 70, 75, 80],
+      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28],
+      [9, 11, 13, 15, 17, 19, 21, 23, 25, 27],
+      [16, 18, 20, 22, 24, 26, 28, 30, 32, 34],
+      [14, 16, 18, 20, 22, 24, 26, 28, 30, 32],
+      [12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
+      [12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Armateur",
+    "description": "Gestionnaire chevronné de flottes marchandes, spécialisé dans l'équipement et l'entretien des navires.",
+    "maxLevel": 99,
+    "expParams": [30, 20, 30, 30],
+    "traits": [
+      { "code": 23, "dataId": 0, "value": 1 },
+      { "code": 22, "dataId": 0, "value": 0.92 },
+      { "code": 22, "dataId": 1, "value": 0.05 },
+      { "code": 22, "dataId": 2, "value": 0.04 },
+      { "code": 41, "dataId": 1, "value": 0 }
+    ],
+    "learnings": [
+      { "level": 1, "skillId": 21 },
+      { "level": 3, "skillId": 22 },
+      { "level": 5, "skillId": 23 },
+      { "level": 10, "skillId": 24 }
+    ],
+    "params": [
+      [95, 105, 115, 125, 135, 145, 155, 165, 175, 185],
+      [22, 27, 32, 37, 42, 47, 52, 57, 62, 67],
+      [13, 15, 17, 19, 21, 23, 25, 27, 29, 31],
+      [15, 17, 19, 21, 23, 25, 27, 29, 31, 33],
+      [9, 11, 13, 15, 17, 19, 21, 23, 25, 27],
+      [11, 13, 15, 17, 19, 21, 23, 25, 27, 29],
+      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28],
+      [14, 16, 18, 20, 22, 24, 26, 28, 30, 32]
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Canonnier",
+    "description": "Maître artilleur, expert en balistique et en tactiques de combat à distance.",
+    "maxLevel": 99,
+    "expParams": [30, 20, 30, 30],
+    "traits": [
+      { "code": 23, "dataId": 0, "value": 1 },
+      { "code": 22, "dataId": 0, "value": 1.05 },
+      { "code": 22, "dataId": 1, "value": 0.05 },
+      { "code": 22, "dataId": 2, "value": 0.04 },
+      { "code": 41, "dataId": 1, "value": 0 }
+    ],
+    "learnings": [
+      { "level": 1, "skillId": 25 },
+      { "level": 3, "skillId": 26 },
+      { "level": 5, "skillId": 27 },
+      { "level": 10, "skillId": 28 }
+    ],
+    "params": [
+      [100, 110, 120, 130, 140, 150, 160, 170, 180, 190],
+      [25, 30, 35, 40, 45, 50, 55, 60, 65, 70],
+      [17, 19, 21, 23, 25, 27, 29, 31, 33, 35],
+      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28],
+      [9, 11, 13, 15, 17, 19, 21, 23, 25, 27],
+      [13, 15, 17, 19, 21, 23, 25, 27, 29, 31],
+      [12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
+      [11, 13, 15, 17, 19, 21, 23, 25, 27, 29]
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Diplomate",
+    "description": "Négociateur habile, capable de résoudre les conflits et d'établir des alliances profitables.",
+    "maxLevel": 99,
+    "expParams": [30, 20, 30, 30],
+    "traits": [
+      { "code": 23, "dataId": 0, "value": 1 },
+      { "code": 22, "dataId": 0, "value": 0.88 },
+      { "code": 22, "dataId": 1, "value": 0.05 },
+      { "code": 22, "dataId": 2, "value": 0.04 },
+      { "code": 41, "dataId": 1, "value": 0 }
+    ],
+    "learnings": [
+      { "level": 1, "skillId": 29 },
+      { "level": 3, "skillId": 30 },
+      { "level": 5, "skillId": 31 },
+      { "level": 10, "skillId": 32 }
+    ],
+    "params": [
+      [85, 95, 105, 115, 125, 135, 145, 155, 165, 175],
+      [20, 25, 30, 35, 40, 45, 50, 55, 60, 65],
+      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28],
+      [12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
+      [14, 16, 18, 20, 22, 24, 26, 28, 30, 32],
+      [18, 20, 22, 24, 26, 28, 30, 32, 34, 36],
+      [11, 13, 15, 17, 19, 21, 23, 25, 27, 29],
+      [17, 19, 21, 23, 25, 27, 29, 31, 33, 35]
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Médecin de Bord",
+    "description": "Guérisseur expérimenté, expert en médecine navale et en traitement des maladies exotiques.",
+    "maxLevel": 99,
+    "expParams": [30, 20, 30, 30],
+    "traits": [
+      { "code": 23, "dataId": 0, "value": 1 },
+      { "code": 22, "dataId": 0, "value": 0.9 },
+      { "code": 22, "dataId": 1, "value": 0.05 },
+      { "code": 22, "dataId": 2, "value": 0.04 },
+      { "code": 41, "dataId": 1, "value": 0 }
+    ],
+    "learnings": [
+      { "level": 1, "skillId": 33 },
+      { "level": 3, "skillId": 34 },
+      { "level": 5, "skillId": 35 },
+      { "level": 10, "skillId": 36 }
+    ],
+    "params": [
+      [90, 100, 110, 120, 130, 140, 150, 160, 170, 180],
+      [30, 35, 40, 45, 50, 55, 60, 65, 70, 75],
+      [11, 13, 15, 17, 19, 21, 23, 25, 27, 29],
+      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28],
+      [15, 17, 19, 21, 23, 25, 27, 29, 31, 33],
+      [16, 18, 20, 22, 24, 26, 28, 30, 32, 34],
+      [13, 15, 17, 19, 21, 23, 25, 27, 29, 31],
+      [12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Maître d'Équipage",
+    "description": "Chef d'équipage respecté, responsable de la discipline et de l'efficacité des marins.",
+    "maxLevel": 99,
+    "expParams": [30, 20, 30, 30],
+    "traits": [
+      { "code": 23, "dataId": 0, "value": 1 },
+      { "code": 22, "dataId": 0, "value": 0.98 },
+      { "code": 22, "dataId": 1, "value": 0.05 },
+      { "code": 22, "dataId": 2, "value": 0.04 },
+      { "code": 41, "dataId": 1, "value": 0 }
+    ],
+    "learnings": [
+      { "level": 1, "skillId": 37 },
+      { "level": 3, "skillId": 38 },
+      { "level": 5, "skillId": 39 },
+      { "level": 10, "skillId": 40 }
+    ],
+    "params": [
+      [105, 115, 125, 135, 145, 155, 165, 175, 185, 195],
+      [26, 31, 36, 41, 46, 51, 56, 61, 66, 71],
+      [14, 16, 18, 20, 22, 24, 26, 28, 30, 32],
+      [13, 15, 17, 19, 21, 23, 25, 27, 29, 31],
+      [11, 13, 15, 17, 19, 21, 23, 25, 27, 29],
+      [15, 17, 19, 21, 23, 25, 27, 29, 31, 33],
+      [13, 15, 17, 19, 21, 23, 25, 27, 29, 31],
+      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28]
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Astronome",
+    "description": "Savant spécialisé dans l'observation des astres pour guider la navigation nocturne.",
+    "maxLevel": 99,
+    "expParams": [30, 20, 30, 30],
+    "traits": [
+      { "code": 23, "dataId": 0, "value": 1 },
+      { "code": 22, "dataId": 0, "value": 0.85 },
+      { "code": 22, "dataId": 1, "value": 0.05 },
+      { "code": 22, "dataId": 2, "value": 0.04 },
+      { "code": 41, "dataId": 1, "value": 0 }
+    ],
+    "learnings": [
+      { "level": 1, "skillId": 41 },
+      { "level": 3, "skillId": 42 },
+      { "level": 5, "skillId": 43 },
+      { "level": 10, "skillId": 44 }
+    ],
+    "params": [
+      [80, 90, 100, 110, 120, 130, 140, 150, 160, 170],
+      [38, 43, 48, 53, 58, 63, 68, 73, 78, 83],
+      [9, 11, 13, 15, 17, 19, 21, 23, 25, 27],
+      [8, 10, 12, 14, 16, 18, 20, 22, 24, 26],
+      [18, 20, 22, 24, 26, 28, 30, 32, 34, 36],
+      [17, 19, 21, 23, 25, 27, 29, 31, 33, 35],
+      [11, 13, 15, 17, 19, 21, 23, 25, 27, 29],
+      [14, 16, 18, 20, 22, 24, 26, 28, 30, 32]
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Interprète",
+    "description": "Polyglotte érudit, facilitant les échanges commerciaux et diplomatiques avec les cultures étrangères.",
+    "maxLevel": 99,
+    "expParams": [30, 20, 30, 30],
+    "traits": [
+      { "code": 23, "dataId": 0, "value": 1 },
+      { "code": 22, "dataId": 0, "value": 0.87 },
+      { "code": 22, "dataId": 1, "value": 0.05 },
+      { "code": 22, "dataId": 2, "value": 0.04 },
+      { "code": 41, "dataId": 1, "value": 0 }
+    ],
+    "learnings": [
+      { "level": 1, "skillId": 45 },
+      { "level": 3, "skillId": 46 },
+      { "level": 5, "skillId": 47 },
+      { "level": 10, "skillId": 48 }
+    ],
+    "params": [
+      [88, 98, 108, 118, 128, 138, 148, 158, 168, 178],
+      [24, 29, 34, 39, 44, 49, 54, 59, 64, 69],
+      [11, 13, 15, 17, 19, 21, 23, 25, 27, 29],
+      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28],
+      [13, 15, 17, 19, 21, 23, 25, 27, 29, 31],
+      [17, 19, 21, 23, 25, 27, 29, 31, 33, 35],
+      [12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
+      [16, 18, 20, 22, 24, 26, 28, 30, 32, 34]
+    ]
+  }
+]

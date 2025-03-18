@@ -1,0 +1,3368 @@
+[
+  {
+    "id": 1,
+    "name": "Paris",
+    "regionId": 1,
+    "population": 200000,
+    "allegiance": {
+      "power": "France",
+      "color": "#0055A4",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 2.3,
+      "y": 48.9
+    },
+    "resources": [6, 9, 10],
+    "description": "Capitale du Royaume de France et l'une des plus grandes villes d'Europe. Centre culturel, politique et économique majeur."
+  },
+  {
+    "id": 2,
+    "name": "Madrid",
+    "regionId": 2,
+    "population": 30000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -3.7,
+      "y": 40.4
+    },
+    "resources": [7, 9],
+    "description": "Ville castillane en plein développement, siège occasionnel de la cour royale espagnole avant de devenir la capitale permanente."
+  },
+  {
+    "id": 3,
+    "name": "Florence",
+    "regionId": 2,
+    "population": 70000,
+    "allegiance": {
+      "power": "Indépendant",
+      "color": "#808080",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 11.3,
+      "y": 43.8
+    },
+    "resources": [2, 6, 9],
+    "description": "Centre de la Renaissance italienne, dominée par la famille Médicis. Célèbre pour ses artistes, banquiers et marchands."
+  },
+  {
+    "id": 4,
+    "name": "Rome",
+    "regionId": 2,
+    "population": 55000,
+    "allegiance": {
+      "power": "États Pontificaux",
+      "color": "#FFD700",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 12.5,
+      "y": 41.9
+    },
+    "resources": [6, 9],
+    "description": "Siège de la papauté et capitale des États pontificaux. Centre religieux de la chrétienté occidentale."
+  },
+  {
+    "id": 5,
+    "name": "Vienne",
+    "regionId": 1,
+    "population": 75000,
+    "allegiance": {
+      "power": "Saint-Empire",
+      "color": "#000000",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 16.4,
+      "y": 48.2
+    },
+    "resources": [4, 6, 9],
+    "description": "Capitale des Habsbourg et du Saint-Empire romain germanique. Bastion contre l'expansion ottomane en Europe."
+  },
+  {
+    "id": 6,
+    "name": "Prague",
+    "regionId": 1,
+    "population": 70000,
+    "allegiance": {
+      "power": "Saint-Empire",
+      "color": "#000000",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 14.4,
+      "y": 50.1
+    },
+    "resources": [4, 8],
+    "description": "Capitale du Royaume de Bohême et ville impériale. Centre culturel et intellectuel d'Europe centrale."
+  },
+  {
+    "id": 7,
+    "name": "Augsbourg",
+    "regionId": 1,
+    "population": 40000,
+    "allegiance": {
+      "power": "Saint-Empire",
+      "color": "#000000",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 10.9,
+      "y": 48.4
+    },
+    "resources": [6, 10],
+    "description": "Ville libre d'Empire et centre financier majeur. Siège de la puissante famille de banquiers Fugger."
+  },
+  {
+    "id": 8,
+    "name": "Anvers",
+    "regionId": 1,
+    "population": 100000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 4.4,
+      "y": 51.2
+    },
+    "resources": [2, 6, 10],
+    "description": "Principal centre commercial et financier d'Europe du Nord au début du XVIe siècle. Plaque tournante du commerce international."
+  },
+  {
+    "id": 9,
+    "name": "Grenade",
+    "regionId": 2,
+    "population": 50000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -3.6,
+      "y": 37.2
+    },
+    "resources": [1, 2, 6],
+    "description": "Ancienne capitale du dernier royaume musulman d'Espagne, conquise en 1492. Centre de fusion culturelle entre traditions islamiques et chrétiennes."
+  },
+  {
+    "id": 10,
+    "name": "Nuremberg",
+    "regionId": 1,
+    "population": 45000,
+    "allegiance": {
+      "power": "Saint-Empire",
+      "color": "#000000",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 11.1,
+      "y": 49.5
+    },
+    "resources": [4, 8, 10],
+    "description": "Ville libre d'Empire et centre culturel. Célèbre pour son artisanat, notamment l'horlogerie et l'imprimerie."
+  },
+  {
+    "id": 11,
+    "name": "Cracovie",
+    "regionId": 11,
+    "population": 30000,
+    "allegiance": {
+      "power": "Pologne-Lituanie",
+      "color": "#DC143C",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 19.9,
+      "y": 50.1
+    },
+    "resources": [4, 8],
+    "description": "Capitale du Royaume de Pologne. Centre intellectuel et commercial d'Europe de l'Est."
+  },
+  {
+    "id": 12,
+    "name": "Moscou",
+    "regionId": 12,
+    "population": 100000,
+    "allegiance": {
+      "power": "Russie",
+      "color": "#0039A6",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 37.6,
+      "y": 55.8
+    },
+    "resources": [4, 7, 8],
+    "description": "Capitale de la Moscovie en pleine expansion. Centre du pouvoir russe après la chute de Constantinople."
+  },
+  {
+    "id": 13,
+    "name": "Le Caire",
+    "regionId": 3,
+    "population": 400000,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1517
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 31.2,
+      "y": 30.0
+    },
+    "resources": [1, 2, 6],
+    "description": "Plus grande ville du monde arabe et centre culturel islamique. Conquise par les Ottomans en 1517."
+  },
+  {
+    "id": 14,
+    "name": "Damas",
+    "regionId": 5,
+    "population": 100000,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1516
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 36.3,
+      "y": 33.5
+    },
+    "resources": [1, 2, 6],
+    "description": "L'une des plus anciennes villes continuellement habitées au monde. Centre commercial et artisanal majeur du Levant, récemment conquise par les Ottomans."
+  },
+  {
+    "id": 15,
+    "name": "Ispahan",
+    "regionId": 5,
+    "population": 250000,
+    "allegiance": {
+      "power": "Perse Safavide",
+      "color": "#218C74",
+      "startYear": 1501
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 51.7,
+      "y": 32.7
+    },
+    "resources": [1, 2, 6],
+    "description": "Capitale de l'Empire safavide. Centre culturel et artistique persan en plein âge d'or."
+  },
+  {
+    "id": 16,
+    "name": "Delhi",
+    "regionId": 6,
+    "population": 150000,
+    "allegiance": {
+      "power": "Empire Moghol",
+      "color": "#FF9933",
+      "startYear": 1526
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 77.2,
+      "y": 28.6
+    },
+    "resources": [1, 2, 6],
+    "description": "Capitale du Sultanat de Delhi puis de l'Empire moghol après 1526. Centre politique majeur du sous-continent indien."
+  },
+  {
+    "id": 17,
+    "name": "Agra",
+    "regionId": 6,
+    "population": 100000,
+    "allegiance": {
+      "power": "Empire Moghol",
+      "color": "#FF9933",
+      "startYear": 1526
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 78.0,
+      "y": 27.2
+    },
+    "resources": [1, 2, 6],
+    "description": "Capitale moghole sous Akbar le Grand. Centre architectural et culturel de l'Inde du Nord."
+  },
+  {
+    "id": 18,
+    "name": "Pékin",
+    "regionId": 8,
+    "population": 700000,
+    "allegiance": {
+      "power": "Ming",
+      "color": "#DE2910",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 116.4,
+      "y": 39.9
+    },
+    "resources": [2, 6, 9],
+    "description": "Capitale de la dynastie Ming. L'une des plus grandes villes du monde et centre administratif de l'Empire chinois."
+  },
+  {
+    "id": 19,
+    "name": "Nankin",
+    "regionId": 8,
+    "population": 500000,
+    "allegiance": {
+      "power": "Ming",
+      "color": "#DE2910",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 118.8,
+      "y": 32.1
+    },
+    "resources": [2, 6, 9],
+    "description": "Ancienne capitale Ming et centre culturel. Ville prospère sur le Yangtsé, connue pour sa production de soie et sa flotte."
+  },
+  {
+    "id": 20,
+    "name": "Kyoto",
+    "regionId": 8,
+    "population": 300000,
+    "allegiance": {
+      "power": "Japon",
+      "color": "#BC002D",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 135.8,
+      "y": 35.0
+    },
+    "resources": [2, 6, 8],
+    "description": "Capitale impériale du Japon. Centre culturel et religieux pendant la période Sengoku (États en guerre)."
+  },
+  {
+    "id": 21,
+    "name": "Edo",
+    "regionId": 8,
+    "population": 50000,
+    "allegiance": {
+      "power": "Japon",
+      "color": "#BC002D",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 139.8,
+      "y": 35.7
+    },
+    "resources": [8, 10],
+    "description": "Petit village de pêcheurs qui deviendra plus tard Tokyo. Commence son développement sous le shogunat Tokugawa."
+  },
+  {
+    "id": 22,
+    "name": "Tenochtitlan",
+    "regionId": 9,
+    "population": 200000,
+    "allegiance": {
+      "power": "Aztèque",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -99.1,
+      "y": 19.4
+    },
+    "resources": [3, 5, 9],
+    "description": "Capitale de l'Empire aztèque. Impressionnante cité lacustre qui sera conquise par Cortés en 1521."
+  },
+  {
+    "id": 23,
+    "name": "Cuzco",
+    "regionId": 9,
+    "population": 150000,
+    "allegiance": {
+      "power": "Inca",
+      "color": "#B8860B",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -71.9,
+      "y": -13.5
+    },
+    "resources": [3, 5],
+    "description": "Capitale de l'Empire inca. Centre administratif et religieux d'un vaste territoire andin."
+  },
+  {
+    "id": 24,
+    "name": "Timbuktu",
+    "regionId": 4,
+    "population": 100000,
+    "allegiance": {
+      "power": "Songhaï",
+      "color": "#800080",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -3.0,
+      "y": 16.8
+    },
+    "resources": [3, 7],
+    "description": "Centre intellectuel et commercial d'Afrique de l'Ouest. Célèbre pour ses universités et son commerce transsaharien."
+  },
+  {
+    "id": 25,
+    "name": "Gao",
+    "regionId": 4,
+    "population": 75000,
+    "allegiance": {
+      "power": "Songhaï",
+      "color": "#800080",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -0.1,
+      "y": 16.3
+    },
+    "resources": [3, 7],
+    "description": "Capitale de l'Empire songhaï. Centre politique majeur d'Afrique occidentale avant sa chute en 1591."
+  },
+  {
+    "id": 26,
+    "name": "Fès",
+    "regionId": 3,
+    "population": 130000,
+    "allegiance": {
+      "power": "Maroc",
+      "color": "#C41E3A",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -5.0,
+      "y": 34.0
+    },
+    "resources": [1, 2, 6],
+    "description": "Capitale du Maroc et centre intellectuel du Maghreb. Abrite l'université Al Quaraouiyine, la plus ancienne du monde."
+  },
+  {
+    "id": 27,
+    "name": "Bruges",
+    "regionId": 1,
+    "population": 70000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 3.2,
+      "y": 51.2
+    },
+    "resources": [2, 6, 10],
+    "description": "Centre commercial des Flandres. Bien que son âge d'or soit passé, reste un important centre textile et financier."
+  },
+  {
+    "id": 28,
+    "name": "Milan",
+    "regionId": 2,
+    "population": 80000,
+    "allegiance": {
+      "power": "France",
+      "color": "#0055A4",
+      "startYear": 1515
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 9.2,
+      "y": 45.5
+    },
+    "resources": [2, 6, 8],
+    "description": "Centre économique de l'Italie du Nord. Sous contrôle français depuis la bataille de Marignan, disputée entre la France et les Habsbourg."
+  },
+  {
+    "id": 29,
+    "name": "Séville",
+    "regionId": 2,
+    "population": 90000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -6.0,
+      "y": 37.4
+    },
+    "resources": [7, 9],
+    "description": "Centre du commerce espagnol avec les Amériques. Siège de la Casa de Contratación qui contrôle tout le commerce colonial."
+  },
+  {
+    "id": 30,
+    "name": "Lyon",
+    "regionId": 1,
+    "population": 65000,
+    "allegiance": {
+      "power": "France",
+      "color": "#0055A4",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 4.8,
+      "y": 45.8
+    },
+    "resources": [2, 6, 10],
+    "description": "Deuxième ville de France et centre bancaire. Célèbre pour ses foires qui attirent des marchands de toute l'Europe."
+  },
+  {
+    "id": 31,
+    "name": "Tolède",
+    "regionId": 2,
+    "population": 60000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -4.0,
+      "y": 39.9
+    },
+    "resources": [8, 9],
+    "description": "Capitale de l'Espagne avant Madrid. Centre religieux et culturel, célèbre pour sa production d'acier et d'armes."
+  },
+  {
+    "id": 32,
+    "name": "Venise",
+    "regionId": 2,
+    "population": 170000,
+    "allegiance": {
+      "power": "Venise",
+      "color": "#1E4D2B",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 12.3,
+      "y": 45.4
+    },
+    "resources": [2, 6, 9],
+    "description": "Capitale de la République de Venise. Puissance maritime et commerciale majeure, bien que commençant à décliner face à la concurrence portugaise."
+  },
+  {
+    "id": 33,
+    "name": "Lisbonne",
+    "regionId": 2,
+    "population": 100000,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -9.1,
+      "y": 38.7
+    },
+    "resources": [7, 10],
+    "description": "Capitale du Portugal et centre de l'expansion maritime portugaise. Point de départ des expéditions vers l'Afrique, l'Inde et le Brésil."
+  },
+  {
+    "id": 34,
+    "name": "Cordoue",
+    "regionId": 2,
+    "population": 60000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -4.8,
+      "y": 37.9
+    },
+    "resources": [2, 6, 9],
+    "description": "Ancienne capitale du califat de Cordoue. Centre intellectuel et culturel important malgré la reconquête chrétienne."
+  },
+  {
+    "id": 35,
+    "name": "Bruges",
+    "regionId": 1,
+    "population": 70000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 3.2,
+      "y": 51.2
+    },
+    "resources": [2, 6, 10],
+    "description": "Centre commercial des Flandres. Bien que son âge d'or soit passé, reste un important centre textile et financier."
+  },
+  {
+    "id": 36,
+    "name": "Novgorod",
+    "regionId": 12,
+    "population": 40000,
+    "allegiance": {
+      "power": "Russie",
+      "color": "#0039A6",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 31.3,
+      "y": 58.5
+    },
+    "resources": [4, 7, 8],
+    "description": "Ancienne république marchande récemment annexée par Moscou. Centre commercial important reliant la Russie à la Baltique."
+  },
+  {
+    "id": 37,
+    "name": "Kazan",
+    "regionId": 12,
+    "population": 50000,
+    "allegiance": {
+      "power": "Khanat de Kazan",
+      "color": "#800000",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 49.1,
+      "y": 55.8
+    },
+    "resources": [4, 7, 8],
+    "description": "Capitale du Khanat de Kazan, État successeur de la Horde d'Or. Sera conquise par Ivan le Terrible en 1552."
+  },
+  {
+    "id": 38,
+    "name": "Samarkand",
+    "regionId": 5,
+    "population": 150000,
+    "allegiance": {
+      "power": "Ouzbeks",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 66.9,
+      "y": 39.7
+    },
+    "resources": [1, 2, 6],
+    "description": "Ancienne capitale de l'empire de Tamerlan. Centre majeur de la Route de la Soie et carrefour culturel entre Perse et Asie centrale."
+  },
+  {
+    "id": 39,
+    "name": "Tabriz",
+    "regionId": 5,
+    "population": 200000,
+    "allegiance": {
+      "power": "Perse Safavide",
+      "color": "#218C74",
+      "startYear": 1501
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 46.3,
+      "y": 38.1
+    },
+    "resources": [1, 2, 6],
+    "description": "Première capitale de l'Empire safavide. Centre commercial et culturel majeur, disputée entre Ottomans et Perses."
+  },
+  {
+    "id": 40,
+    "name": "Herat",
+    "regionId": 5,
+    "population": 120000,
+    "allegiance": {
+      "power": "Perse Safavide",
+      "color": "#218C74",
+      "startYear": 1510
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 62.2,
+      "y": 34.3
+    },
+    "resources": [1, 2, 6],
+    "description": "Centre culturel et artistique du monde persan. Conquise par les Safavides après avoir été la capitale des Timourides."
+  },
+  {
+    "id": 41,
+    "name": "Vijayanagar",
+    "regionId": 6,
+    "population": 500000,
+    "allegiance": {
+      "power": "Vijayanagar",
+      "color": "#9932CC",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 76.5,
+      "y": 15.3
+    },
+    "resources": [1, 2, 3],
+    "description": "Capitale du dernier grand empire hindou d'Inde du Sud. Centre culturel et commercial majeur avant sa destruction en 1565."
+  },
+  {
+    "id": 42,
+    "name": "Bijapur",
+    "regionId": 6,
+    "population": 100000,
+    "allegiance": {
+      "power": "Sultanat de Bijapur",
+      "color": "#4B0082",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 75.7,
+      "y": 16.8
+    },
+    "resources": [1, 2, 6],
+    "description": "Capitale d'un des sultanats du Deccan. Centre culturel indo-islamique important avec une architecture distinctive."
+  },
+  {
+    "id": 43,
+    "name": "Hangzhou",
+    "regionId": 8,
+    "population": 600000,
+    "allegiance": {
+      "power": "Ming",
+      "color": "#DE2910",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 120.2,
+      "y": 30.3
+    },
+    "resources": [2, 6, 9],
+    "description": "Ancienne capitale des Song et l'une des plus grandes villes du monde. Centre commercial et culturel majeur de la Chine du Sud."
+  },
+  {
+    "id": 44,
+    "name": "Suzhou",
+    "regionId": 8,
+    "population": 400000,
+    "allegiance": {
+      "power": "Ming",
+      "color": "#DE2910",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 120.6,
+      "y": 31.3
+    },
+    "resources": [2, 6, 9],
+    "description": "Centre de production de soie et ville culturelle majeure. Connue comme la 'Venise de l'Orient' pour ses nombreux canaux."
+  },
+  {
+    "id": 45,
+    "name": "Osaka",
+    "regionId": 8,
+    "population": 100000,
+    "allegiance": {
+      "power": "Japon",
+      "color": "#BC002D",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 135.5,
+      "y": 34.7
+    },
+    "resources": [6, 8, 10],
+    "description": "Centre commercial majeur du Japon. Deviendra un bastion important pendant la période Sengoku."
+  },
+  {
+    "id": 46,
+    "name": "Cahokia",
+    "regionId": 10,
+    "population": 15000,
+    "allegiance": {
+      "power": "Indépendant",
+      "color": "#808080",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -90.1,
+      "y": 38.7
+    },
+    "resources": [3, 7],
+    "description": "Plus grande ville amérindienne d'Amérique du Nord, en déclin mais encore habitée au début du XVIe siècle."
+  },
+  {
+    "id": 47,
+    "name": "Texcoco",
+    "regionId": 9,
+    "population": 60000,
+    "allegiance": {
+      "power": "Aztèque",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -98.9,
+      "y": 19.5
+    },
+    "resources": [3, 5, 9],
+    "description": "Deuxième ville de la Triple Alliance aztèque, centre intellectuel et culturel majeur de Mésoamérique."
+  },
+  {
+    "id": 48,
+    "name": "Cholula",
+    "regionId": 9,
+    "population": 100000,
+    "allegiance": {
+      "power": "Aztèque",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -98.3,
+      "y": 19.1
+    },
+    "resources": [3, 5, 9],
+    "description": "Centre religieux majeur de Mésoamérique avec la plus grande pyramide du monde. Lieu d'un massacre par Cortés en 1519."
+  },
+  {
+    "id": 49,
+    "name": "Quito",
+    "regionId": 9,
+    "population": 80000,
+    "allegiance": {
+      "power": "Inca",
+      "color": "#B8860B",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -78.5,
+      "y": -0.2
+    },
+    "resources": [3, 5],
+    "description": "Capitale septentrionale de l'Empire inca, centre administratif et religieux important."
+  },
+  {
+    "id": 50,
+    "name": "Cajamarca",
+    "regionId": 9,
+    "population": 35000,
+    "allegiance": {
+      "power": "Inca",
+      "color": "#B8860B",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -78.5,
+      "y": -7.2
+    },
+    "resources": [3, 5],
+    "description": "Ville inca où l'empereur Atahualpa fut capturé par Pizarro en 1532, marquant le début de la conquête espagnole."
+  },
+  {
+    "id": 51,
+    "name": "Tunis",
+    "regionId": 3,
+    "population": 80000,
+    "allegiance": {
+      "power": "Hafsides",
+      "color": "#4B0082",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 10.2,
+      "y": 36.8
+    },
+    "resources": [2, 6, 9],
+    "description": "Capitale de la dynastie hafside, important centre commercial et culturel d'Afrique du Nord, convoitée par les puissances méditerranéennes."
+  },
+  {
+    "id": 52,
+    "name": "Alger",
+    "regionId": 3,
+    "population": 60000,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1516
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 3.1,
+      "y": 36.8
+    },
+    "resources": [7, 9],
+    "description": "Base des corsaires barbaresques sous protection ottomane. Ville en pleine expansion après l'arrivée des frères Barberousse."
+  },
+  {
+    "id": 53,
+    "name": "Marrakech",
+    "regionId": 3,
+    "population": 100000,
+    "allegiance": {
+      "power": "Maroc",
+      "color": "#C41E3A",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -8.0,
+      "y": 31.6
+    },
+    "resources": [1, 2, 6],
+    "description": "Ancienne capitale du Maroc et centre commercial majeur reliant l'Afrique subsaharienne à la Méditerranée."
+  },
+  {
+    "id": 54,
+    "name": "Tombouctou",
+    "regionId": 4,
+    "population": 100000,
+    "allegiance": {
+      "power": "Songhaï",
+      "color": "#800080",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -3.0,
+      "y": 16.8
+    },
+    "resources": [3, 7],
+    "description": "Centre intellectuel et commercial d'Afrique de l'Ouest. Célèbre pour ses universités et son commerce transsaharien."
+  },
+  {
+    "id": 55,
+    "name": "Djénné",
+    "regionId": 4,
+    "population": 60000,
+    "allegiance": {
+      "power": "Songhaï",
+      "color": "#800080",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -4.6,
+      "y": 13.9
+    },
+    "resources": [3, 7],
+    "description": "Centre commercial et islamique majeur d'Afrique de l'Ouest, connue pour son architecture en terre cuite."
+  },
+  {
+    "id": 56,
+    "name": "Kano",
+    "regionId": 4,
+    "population": 75000,
+    "allegiance": {
+      "power": "Haoussa",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 8.5,
+      "y": 12.0
+    },
+    "resources": [3, 7],
+    "description": "Capitale d'un des États haoussa, centre commercial majeur entre l'Afrique du Nord et l'Afrique centrale."
+  },
+  {
+    "id": 57,
+    "name": "Gondar",
+    "regionId": 4,
+    "population": 60000,
+    "allegiance": {
+      "power": "Éthiopie",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 37.5,
+      "y": 12.6
+    },
+    "resources": [3, 7],
+    "description": "Capitale de l'Empire éthiopien chrétien, qui résista aux invasions musulmanes avec l'aide portugaise."
+  },
+  {
+    "id": 58,
+    "name": "Boukhara",
+    "regionId": 5,
+    "population": 200000,
+    "allegiance": {
+      "power": "Ouzbeks",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 64.4,
+      "y": 39.8
+    },
+    "resources": [1, 2, 6],
+    "description": "Capitale du khanat ouzbek et centre commercial majeur de la Route de la Soie. Ville sainte de l'islam en Asie centrale."
+  },
+  {
+    "id": 59,
+    "name": "Chiraz",
+    "regionId": 5,
+    "population": 150000,
+    "allegiance": {
+      "power": "Perse Safavide",
+      "color": "#218C74",
+      "startYear": 1503
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 52.5,
+      "y": 29.6
+    },
+    "resources": [1, 2, 6],
+    "description": "Centre culturel et scientifique persan. Célèbre pour ses poètes, ses jardins et sa production viticole."
+  },
+  {
+    "id": 60,
+    "name": "Bagdad",
+    "regionId": 5,
+    "population": 200000,
+    "allegiance": {
+      "power": "Perse Safavide",
+      "color": "#218C74",
+      "startYear": 1508
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 44.4,
+      "y": 33.3
+    },
+    "resources": [1, 2, 6],
+    "description": "Ancienne capitale abbasside, disputée entre Ottomans et Safavides. Encore un centre intellectuel et commercial important malgré son déclin."
+  },
+  {
+    "id": 61,
+    "name": "Siena",
+    "regionId": 2,
+    "population": 40000,
+    "allegiance": {
+      "power": "Indépendant",
+      "color": "#808080",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 11.3,
+      "y": 43.3
+    },
+    "resources": [2, 6, 9],
+    "description": "République italienne indépendante, rivale de Florence. Centre bancaire et artistique important de la Renaissance."
+  },
+  {
+    "id": 62,
+    "name": "Bologne",
+    "regionId": 2,
+    "population": 55000,
+    "allegiance": {
+      "power": "États Pontificaux",
+      "color": "#FFD700",
+      "startYear": 1506
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 11.3,
+      "y": 44.5
+    },
+    "resources": [6, 9, 10],
+    "description": "Siège de la plus ancienne université d'Europe. Centre intellectuel majeur sous contrôle papal depuis 1506."
+  },
+  {
+    "id": 63,
+    "name": "Anvers",
+    "regionId": 1,
+    "population": 100000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 4.4,
+      "y": 51.2
+    },
+    "resources": [2, 6, 10],
+    "description": "Principal centre commercial et financier d'Europe du Nord au début du XVIe siècle. Plaque tournante du commerce international."
+  },
+  {
+    "id": 64,
+    "name": "Gand",
+    "regionId": 1,
+    "population": 55000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 3.7,
+      "y": 51.1
+    },
+    "resources": [2, 6, 10],
+    "description": "Ville natale de Charles Quint et centre textile majeur des Pays-Bas espagnols."
+  },
+  {
+    "id": 65,
+    "name": "Cologne",
+    "regionId": 1,
+    "population": 40000,
+    "allegiance": {
+      "power": "Saint-Empire",
+      "color": "#000000",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 6.9,
+      "y": 50.9
+    },
+    "resources": [4, 6, 10],
+    "description": "Ville libre d'Empire et centre commercial majeur sur le Rhin. Siège d'un important archevêché."
+  },
+  {
+    "id": 66,
+    "name": "Strasbourg",
+    "regionId": 1,
+    "population": 25000,
+    "allegiance": {
+      "power": "Saint-Empire",
+      "color": "#000000",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 7.7,
+      "y": 48.6
+    },
+    "resources": [4, 6, 10],
+    "description": "Ville libre d'Empire et centre humaniste. Deviendra un foyer important de la Réforme protestante."
+  },
+  {
+    "id": 67,
+    "name": "Buda",
+    "regionId": 1,
+    "population": 50000,
+    "allegiance": {
+      "power": "Hongrie",
+      "color": "#CD5C5C",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 19.0,
+      "y": 47.5
+    },
+    "resources": [4, 7, 8],
+    "description": "Capitale du Royaume de Hongrie, menacée par l'expansion ottomane. Tombera aux mains des Turcs en 1541."
+  },
+  {
+    "id": 68,
+    "name": "Vilnius",
+    "regionId": 11,
+    "population": 25000,
+    "allegiance": {
+      "power": "Pologne-Lituanie",
+      "color": "#DC143C",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 25.3,
+      "y": 54.7
+    },
+    "resources": [4, 7, 8],
+    "description": "Capitale du Grand-Duché de Lituanie, partie de l'union polono-lituanienne. Centre culturel et religieux important."
+  },
+  {
+    "id": 69,
+    "name": "Pskov",
+    "regionId": 12,
+    "population": 30000,
+    "allegiance": {
+      "power": "Russie",
+      "color": "#0039A6",
+      "startYear": 1510
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 28.3,
+      "y": 57.8
+    },
+    "resources": [4, 7, 8],
+    "description": "Ancienne république marchande annexée par Moscou en 1510. Centre commercial important entre la Russie et la Baltique."
+  },
+  {
+    "id": 70,
+    "name": "Kazan",
+    "regionId": 12,
+    "population": 50000,
+    "allegiance": {
+      "power": "Khanat de Kazan",
+      "color": "#800000",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 49.1,
+      "y": 55.8
+    },
+    "resources": [4, 7, 8],
+    "description": "Capitale du Khanat de Kazan, État successeur de la Horde d'Or. Sera conquise par Ivan le Terrible en 1552."
+  },
+  {
+    "id": 71,
+    "name": "Astrakhan",
+    "regionId": 12,
+    "population": 40000,
+    "allegiance": {
+      "power": "Khanat d'Astrakhan",
+      "color": "#800000",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 48.0,
+      "y": 46.3
+    },
+    "resources": [4, 7, 8],
+    "description": "Capitale du Khanat d'Astrakhan à l'embouchure de la Volga. Centre commercial important entre la Russie, la Perse et l'Asie centrale."
+  },
+  {
+    "id": 72,
+    "name": "Chiang Mai",
+    "regionId": 7,
+    "population": 80000,
+    "allegiance": {
+      "power": "Lanna",
+      "color": "#B22222",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 98.9,
+      "y": 18.8
+    },
+    "resources": [1, 2, 7],
+    "description": "Capitale du royaume de Lanna dans le nord de la Thaïlande. Centre culturel et religieux bouddhiste important."
+  },
+  {
+    "id": 73,
+    "name": "Pagan",
+    "regionId": 7,
+    "population": 60000,
+    "allegiance": {
+      "power": "Birmanie",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 94.9,
+      "y": 21.2
+    },
+    "resources": [1, 2, 7],
+    "description": "Ancienne capitale birmane avec des milliers de temples bouddhistes. Centre religieux majeur d'Asie du Sud-Est."
+  },
+  {
+    "id": 74,
+    "name": "Hué",
+    "regionId": 7,
+    "population": 50000,
+    "allegiance": {
+      "power": "Vietnam",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 107.6,
+      "y": 16.5
+    },
+    "resources": [1, 2, 7],
+    "description": "Capitale du Vietnam sous la dynastie Lê. Centre politique et culturel important d'Asie du Sud-Est."
+  },
+  {
+    "id": 75,
+    "name": "Malacca",
+    "regionId": 7,
+    "population": 100000,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1511
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 102.2,
+      "y": 2.2
+    },
+    "resources": [1, 2, 6],
+    "description": "Centre commercial stratégique contrôlant le détroit de Malacca. Conquise par les Portugais en 1511, devenant leur principale base en Asie du Sud-Est."
+  },
+  {
+    "id": 76,
+    "name": "Damas",
+    "regionId": 5,
+    "population": 100000,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1516
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 36.3,
+      "y": 33.5
+    },
+    "resources": [1, 2, 6],
+    "description": "L'une des plus anciennes villes continuellement habitées au monde. Centre commercial et artisanal majeur du Levant, récemment conquise par les Ottomans."
+  },
+  {
+    "id": 77,
+    "name": "Alep",
+    "regionId": 5,
+    "population": 120000,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1516
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 37.1,
+      "y": 36.2
+    },
+    "resources": [1, 2, 6],
+    "description": "Carrefour commercial majeur entre l'Europe et l'Asie, point de jonction des routes caravanières. Conquise par les Ottomans en 1516."
+  },
+  {
+    "id": 78,
+    "name": "Jérusalem",
+    "regionId": 5,
+    "population": 15000,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1517
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 35.2,
+      "y": 31.8
+    },
+    "resources": [6, 9],
+    "description": "Ville sainte pour les trois religions monothéistes. Sous domination ottomane depuis la conquête de la Palestine par Selim Ier."
+  },
+  {
+    "id": 79,
+    "name": "La Mecque",
+    "regionId": 5,
+    "population": 30000,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1517
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 39.8,
+      "y": 21.4
+    },
+    "resources": [6, 9],
+    "description": "Ville la plus sainte de l'Islam, lieu de naissance de Mahomet et destination du pèlerinage annuel (Hajj). Sous protection ottomane depuis 1517."
+  },
+  {
+    "id": 80,
+    "name": "Médine",
+    "regionId": 5,
+    "population": 25000,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1517
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 39.6,
+      "y": 24.5
+    },
+    "resources": [6, 9],
+    "description": "Deuxième ville sainte de l'Islam, lieu où Mahomet établit la première communauté musulmane. Sous protection ottomane depuis 1517."
+  },
+  {
+    "id": 81,
+    "name": "Sanaa",
+    "regionId": 5,
+    "population": 50000,
+    "allegiance": {
+      "power": "Yémen",
+      "color": "#808080",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 44.2,
+      "y": 15.4
+    },
+    "resources": [1, 2, 6],
+    "description": "Capitale historique du Yémen, centre commercial et culturel de l'Arabie du Sud. Connue pour son architecture distinctive et ses manuscrits."
+  },
+  {
+    "id": 82,
+    "name": "Ormuz",
+    "regionId": 5,
+    "population": 40000,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1515
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 56.5,
+      "y": 27.1
+    },
+    "resources": [1, 2, 6],
+    "description": "Cité-État stratégique à l'entrée du golfe Persique, conquise par les Portugais en 1515. Centre du commerce entre l'Inde, la Perse et l'Arabie."
+  },
+  {
+    "id": 83,
+    "name": "Benin",
+    "regionId": 4,
+    "population": 60000,
+    "allegiance": {
+      "power": "Royaume du Bénin",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 5.6,
+      "y": 6.3
+    },
+    "resources": [3, 7],
+    "description": "Capitale du puissant royaume du Bénin en Afrique de l'Ouest. Célèbre pour ses sculptures en bronze et son organisation urbaine sophistiquée."
+  },
+  {
+    "id": 84,
+    "name": "Ife",
+    "regionId": 4,
+    "population": 70000,
+    "allegiance": {
+      "power": "Yoruba",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 4.6,
+      "y": 7.5
+    },
+    "resources": [3, 7, 9],
+    "description": "Centre spirituel et artistique de la civilisation yoruba. Célèbre pour ses sculptures en terre cuite et en bronze d'une grande finesse."
+  },
+  {
+    "id": 85,
+    "name": "Kilwa",
+    "regionId": 13,
+    "population": 30000,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1505
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 39.5,
+      "y": -8.9
+    },
+    "resources": [1, 3, 7],
+    "description": "Cité-État swahilie conquise par les Portugais en 1505. Important centre commercial pour l'or, l'ivoire et les esclaves d'Afrique orientale."
+  },
+  {
+    "id": 86,
+    "name": "Sofala",
+    "regionId": 13,
+    "population": 25000,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1505
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 34.7,
+      "y": -20.2
+    },
+    "resources": [3, 7],
+    "description": "Port mozambicain, principal point d'exportation de l'or d'Afrique orientale. Comptoir portugais important depuis 1505."
+  },
+  {
+    "id": 87,
+    "name": "Grand Zimbabwe",
+    "regionId": 13,
+    "population": 20000,
+    "allegiance": {
+      "power": "Royaume de Mutapa",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 30.9,
+      "y": -20.3
+    },
+    "resources": [3, 7],
+    "description": "Ancienne capitale du royaume de Zimbabwe, encore habitée au début du XVIe siècle. Centre politique et religieux du plateau zimbabwéen."
+  },
+  {
+    "id": 88,
+    "name": "Axoum",
+    "regionId": 4,
+    "population": 20000,
+    "allegiance": {
+      "power": "Éthiopie",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 38.7,
+      "y": 14.1
+    },
+    "resources": [3, 7, 9],
+    "description": "Ancienne capitale de l'Empire axoumite et ville sainte de l'Église éthiopienne orthodoxe. Centre religieux majeur d'Afrique de l'Est."
+  },
+  {
+    "id": 89,
+    "name": "Mexico-Tenochtitlan",
+    "regionId": 9,
+    "population": 200000,
+    "allegiance": {
+      "power": "Aztèque/Espagne",
+      "color": "#FFC400",
+      "startYear": 1521
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -99.1,
+      "y": 19.4
+    },
+    "resources": [3, 5, 9],
+    "description": "Capitale de l'Empire aztèque jusqu'à sa conquête par Cortés en 1521. Rebaptisée Mexico et reconstruite comme capitale de la Nouvelle-Espagne."
+  },
+  {
+    "id": 90,
+    "name": "Cuzco",
+    "regionId": 17,
+    "population": 150000,
+    "allegiance": {
+      "power": "Empire Inca",
+      "color": "#FFD700",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -71.9,
+      "y": -13.5
+    },
+    "resources": [3, 5],
+    "description": "Capitale de l'Empire inca au sommet de sa puissance, centre administratif et religieux des Andes, avec ses impressionnants temples et palais."
+  },
+  {
+    "id": 91,
+    "name": "Tiwanaku",
+    "regionId": 17,
+    "population": 10000,
+    "allegiance": {
+      "power": "Empire Inca",
+      "color": "#FFD700",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -68.7,
+      "y": -16.6
+    },
+    "resources": [3, 5],
+    "description": "Ancienne cité précolombienne sur les rives du lac Titicaca, intégrée à l'Empire inca, important centre cérémoniel et administratif de la région."
+  },
+  {
+    "id": 92,
+    "name": "Potosí",
+    "regionId": 17,
+    "population": 5000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1545
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -65.8,
+      "y": -19.6
+    },
+    "resources": [3, 5],
+    "description": "Ville minière fondée après la découverte d'immenses gisements d'argent. Deviendra la plus grande ville des Amériques au XVIIe siècle."
+  },
+  {
+    "id": 93,
+    "name": "Quito",
+    "regionId": 17,
+    "population": 80000,
+    "allegiance": {
+      "power": "Inca/Espagne",
+      "color": "#FFC400",
+      "startYear": 1534
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -78.5,
+      "y": -0.2
+    },
+    "resources": [3, 5],
+    "description": "Capitale septentrionale de l'Empire inca, centre administratif et religieux important."
+  },
+  {
+    "id": 94,
+    "name": "Santo Domingo",
+    "regionId": 16,
+    "population": 10000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -69.9,
+      "y": 18.5
+    },
+    "resources": [5, 7],
+    "description": "Première ville européenne permanente dans les Amériques, fondée en 1496. Centre administratif des possessions espagnoles dans les Caraïbes."
+  },
+  {
+    "id": 95,
+    "name": "Panama",
+    "regionId": 17,
+    "population": 5000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1519
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -79.5,
+      "y": 9.0
+    },
+    "resources": [3, 5],
+    "description": "Fondée en 1519 par Pedrarias Dávila, première ville européenne sur la côte pacifique des Amériques. Point de transit pour l'or et l'argent du Pérou."
+  },
+  {
+    "id": 96,
+    "name": "Tlaxcala",
+    "regionId": 9,
+    "population": 50000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1519
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -98.2,
+      "y": 19.3
+    },
+    "resources": [3, 5, 9],
+    "description": "Cité-État mésoaméricaine qui s'allia aux Espagnols contre les Aztèques. Reçut des privilèges spéciaux après la conquête."
+  },
+  {
+    "id": 97,
+    "name": "Mbanza Kongo",
+    "regionId": 4,
+    "population": 60000,
+    "allegiance": {
+      "power": "Royaume du Kongo",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 14.2,
+      "y": -6.3
+    },
+    "resources": [3, 7],
+    "description": "Capitale du Royaume du Kongo, qui entretient des relations diplomatiques avec le Portugal. Centre politique et religieux d'Afrique centrale."
+  },
+  {
+    "id": 98,
+    "name": "Ségou",
+    "regionId": 4,
+    "population": 40000,
+    "allegiance": {
+      "power": "Bambara",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -6.3,
+      "y": 13.5
+    },
+    "resources": [3, 7],
+    "description": "Centre du royaume bambara sur le fleuve Niger. Important carrefour commercial entre le Sahel et les forêts d'Afrique occidentale."
+  },
+  {
+    "id": 99,
+    "name": "Kumasi",
+    "regionId": 4,
+    "population": 50000,
+    "allegiance": {
+      "power": "Ashanti",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -1.6,
+      "y": 6.7
+    },
+    "resources": [3, 7],
+    "description": "Capitale du royaume ashanti en formation, qui deviendra une puissance majeure de la Côte-de-l'Or. Centre commercial et culturel."
+  },
+  {
+    "id": 100,
+    "name": "Lalibela",
+    "regionId": 4,
+    "population": 15000,
+    "allegiance": {
+      "power": "Éthiopie",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 39.0,
+      "y": 12.0
+    },
+    "resources": [6, 9],
+    "description": "Centre religieux de l'Éthiopie chrétienne, célèbre pour ses églises monolithiques taillées dans la roche. Lieu de pèlerinage majeur."
+  },
+  {
+    "id": 101,
+    "name": "Mombasa",
+    "regionId": 13,
+    "population": 20000,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1505
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 39.7,
+      "y": -4.0
+    },
+    "resources": [1, 3, 7],
+    "description": "Port swahili conquis par les Portugais. Centre du commerce de l'ivoire, de l'or et des esclaves en Afrique de l'Est."
+  },
+  {
+    "id": 102,
+    "name": "Mogadiscio",
+    "regionId": 13,
+    "population": 35000,
+    "allegiance": {
+      "power": "Sultanat d'Ajuran",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 45.3,
+      "y": 2.0
+    },
+    "resources": [1, 3, 7],
+    "description": "Principal port de la Corne de l'Afrique, contrôlé par le Sultanat d'Ajuran. Centre commercial reliant l'Afrique de l'Est à l'Arabie et à l'Inde."
+  },
+  {
+    "id": 103,
+    "name": "Mascate",
+    "regionId": 5,
+    "population": 30000,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1507
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 58.6,
+      "y": 23.6
+    },
+    "resources": [1, 2, 6],
+    "description": "Port omanais conquis par les Portugais en 1507. Base stratégique contrôlant l'entrée du golfe Persique et le commerce avec l'Inde."
+  },
+  {
+    "id": 104,
+    "name": "Tabriz",
+    "regionId": 5,
+    "population": 250000,
+    "allegiance": {
+      "power": "Perse Safavide",
+      "color": "#218C74",
+      "startYear": 1501
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 46.3,
+      "y": 38.1
+    },
+    "resources": [1, 2, 6],
+    "description": "Première capitale de l'Empire safavide fondé par Shah Ismaïl Ier. Centre commercial et culturel majeur, disputée entre Ottomans et Perses."
+  },
+  {
+    "id": 105,
+    "name": "Samarcande",
+    "regionId": 5,
+    "population": 150000,
+    "allegiance": {
+      "power": "Ouzbeks",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 66.9,
+      "y": 39.7
+    },
+    "resources": [1, 2, 6],
+    "description": "Ancienne capitale de l'empire de Tamerlan, désormais sous contrôle ouzbek. Centre majeur de la Route de la Soie et carrefour culturel."
+  },
+  {
+    "id": 106,
+    "name": "Havane",
+    "regionId": 16,
+    "population": 5000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1519
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -82.4,
+      "y": 23.1
+    },
+    "resources": [5, 7],
+    "description": "Fondée en 1519 après plusieurs tentatives, deviendra la principale base navale espagnole dans les Caraïbes et un point de rassemblement des flottes."
+  },
+  {
+    "id": 107,
+    "name": "San Juan de Puerto Rico",
+    "regionId": 16,
+    "population": 3000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1508
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -66.1,
+      "y": 18.5
+    },
+    "resources": [5, 7],
+    "description": "Établie en 1508 par Juan Ponce de León, première colonie européenne permanente à Porto Rico et base militaire stratégique."
+  },
+  {
+    "id": 108,
+    "name": "Veracruz",
+    "regionId": 9,
+    "population": 3000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1519
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -96.1,
+      "y": 19.2
+    },
+    "resources": [3, 5],
+    "description": "Premier établissement espagnol au Mexique, fondé par Cortés en 1519. Point d'entrée pour la conquête de l'Empire aztèque."
+  },
+  {
+    "id": 109,
+    "name": "Lima",
+    "regionId": 17,
+    "population": 2000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1535
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -77.0,
+      "y": -12.0
+    },
+    "resources": [3, 5],
+    "description": "Fondée en 1535 comme 'Ciudad de los Reyes', capitale du vice-royaume du Pérou et centre administratif de l'Amérique du Sud espagnole."
+  },
+  {
+    "id": 110,
+    "name": "Cartagena",
+    "regionId": 17,
+    "population": 4000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1533
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -75.5,
+      "y": 10.4
+    },
+    "resources": [3, 5],
+    "description": "Fondée en 1533, deviendra le principal port fortifié espagnol en Amérique du Sud et point d'exportation des richesses du continent."
+  },
+  {
+    "id": 111,
+    "name": "Salvador",
+    "regionId": 17,
+    "population": 3000,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1549
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -38.5,
+      "y": -13.0
+    },
+    "resources": [5, 7],
+    "description": "Première capitale du Brésil portugais, fondée en 1549. Centre de l'économie sucrière et de la traite négrière en Amérique du Sud."
+  },
+  {
+    "id": 112,
+    "name": "Palerme",
+    "regionId": 2,
+    "population": 100000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 13.4,
+      "y": 38.1
+    },
+    "resources": [2, 6, 9],
+    "description": "Capitale de la Sicile sous domination espagnole, centre commercial important de la Méditerranée occidentale."
+  },
+  {
+    "id": 113,
+    "name": "Barcelone",
+    "regionId": 2,
+    "population": 40000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 2.2,
+      "y": 41.4
+    },
+    "resources": [2, 6, 9],
+    "description": "Principal port de la Catalogne et centre commercial majeur de la Méditerranée occidentale, en déclin relatif après la découverte des Amériques."
+  },
+  {
+    "id": 114,
+    "name": "Valence",
+    "regionId": 2,
+    "population": 45000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -0.4,
+      "y": 39.5
+    },
+    "resources": [2, 5, 9],
+    "description": "Ville espagnole importante sur la Méditerranée, centre d'échanges avec l'Afrique du Nord et l'Italie, connue pour sa production de soie."
+  },
+  {
+    "id": 115,
+    "name": "Rhodes",
+    "regionId": 3,
+    "population": 20000,
+    "allegiance": {
+      "power": "Chevaliers de Saint-Jean",
+      "color": "#FFFFFF",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 28.2,
+      "y": 36.4
+    },
+    "resources": [2, 6, 9],
+    "description": "Capitale des Chevaliers de Saint-Jean jusqu'en 1522, avant leur conquête par les Ottomans. Forteresse chrétienne en Méditerranée orientale."
+  },
+  {
+    "id": 116,
+    "name": "Nicosie",
+    "regionId": 3,
+    "population": 25000,
+    "allegiance": {
+      "power": "Venise",
+      "color": "#1E4D2B",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 33.4,
+      "y": 35.2
+    },
+    "resources": [1, 2, 6],
+    "description": "Capitale de Chypre sous domination vénitienne jusqu'en 1571, centre administratif et commercial de l'île."
+  },
+  {
+    "id": 117,
+    "name": "Candie",
+    "regionId": 3,
+    "population": 20000,
+    "allegiance": {
+      "power": "Venise",
+      "color": "#1E4D2B",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 25.1,
+      "y": 35.3
+    },
+    "resources": [2, 6, 9],
+    "description": "Capitale de la Crète vénitienne (aujourd'hui Héraklion), base navale importante et centre du commerce méditerranéen."
+  },
+  {
+    "id": 118,
+    "name": "Ceuta",
+    "regionId": 3,
+    "population": 15000,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -5.3,
+      "y": 35.9
+    },
+    "resources": [7, 9],
+    "description": "Enclave portugaise en Afrique du Nord depuis 1415, point de contrôle du détroit de Gibraltar et porte d'entrée vers le Maghreb."
+  },
+  {
+    "id": 119,
+    "name": "Oran",
+    "regionId": 3,
+    "population": 30000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1509
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -0.6,
+      "y": 35.7
+    },
+    "resources": [7, 9],
+    "description": "Ville nord-africaine conquise par l'Espagne en 1509, base avancée contre l'expansion ottomane en Méditerranée occidentale."
+  },
+  {
+    "id": 120,
+    "name": "Safi",
+    "regionId": 3,
+    "population": 15000,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1508
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -9.2,
+      "y": 32.3
+    },
+    "resources": [3, 7],
+    "description": "Ville marocaine sous contrôle portugais, centre d'exportation du sucre et point d'accès au Maroc."
+  },
+  {
+    "id": 121,
+    "name": "Songhaï",
+    "regionId": 4,
+    "population": 80000,
+    "allegiance": {
+      "power": "Songhaï",
+      "color": "#800080",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -0.1,
+      "y": 16.3
+    },
+    "resources": [3, 7],
+    "description": "Capitale de l'Empire songhaï, puissance dominante en Afrique occidentale au début du XVIe siècle avant sa défaite face au Maroc en 1591."
+  },
+  {
+    "id": 122,
+    "name": "Loango",
+    "regionId": 4,
+    "population": 30000,
+    "allegiance": {
+      "power": "Royaume de Loango",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 11.8,
+      "y": -4.6
+    },
+    "resources": [3, 7],
+    "description": "Capitale du royaume de Loango sur la côte atlantique de l'Afrique centrale, centre commercial important avant l'arrivée des Européens."
+  },
+  {
+    "id": 123,
+    "name": "Niani",
+    "regionId": 4,
+    "population": 20000,
+    "allegiance": {
+      "power": "Mali",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -9.7,
+      "y": 10.7
+    },
+    "resources": [3, 7],
+    "description": "Capitale de l'Empire du Mali, en déclin mais encore influent au début du XVIe siècle, ancien centre du commerce transsaharien de l'or."
+  },
+  {
+    "id": 124,
+    "name": "Katsina",
+    "regionId": 4,
+    "population": 50000,
+    "allegiance": {
+      "power": "Haoussa",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 7.6,
+      "y": 13.0
+    },
+    "resources": [3, 7],
+    "description": "L'une des principales cités-États haoussa, centre commercial et intellectuel majeur de l'Afrique sahélienne."
+  },
+  {
+    "id": 125,
+    "name": "Bornu",
+    "regionId": 4,
+    "population": 40000,
+    "allegiance": {
+      "power": "Bornu",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 13.2,
+      "y": 13.5
+    },
+    "resources": [3, 7],
+    "description": "Capitale de l'Empire du Kanem-Bornu, puissance majeure de la région du lac Tchad, connue pour son commerce et son islamisation précoce."
+  },
+  {
+    "id": 126,
+    "name": "Adal",
+    "regionId": 4,
+    "population": 30000,
+    "allegiance": {
+      "power": "Sultanat d'Adal",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 42.7,
+      "y": 9.6
+    },
+    "resources": [3, 7],
+    "description": "Capitale du Sultanat d'Adal, puissance musulmane de la Corne de l'Afrique en guerre contre l'Empire chrétien d'Éthiopie."
+  },
+  {
+    "id": 127,
+    "name": "Calusa",
+    "regionId": 10,
+    "population": 3000,
+    "allegiance": {
+      "power": "Amérindien",
+      "color": "#8B4513",
+      "startYear": 1500
+    },
+    "type": "settlement",
+    "coordinates": {
+      "x": -81.8,
+      "y": 26.6
+    },
+    "resources": [7, 8],
+    "description": "Principal établissement de la puissante confédération Calusa en Floride, peuple amérindien qui dominait le sud de la péninsule avant l'arrivée des Européens."
+  },
+  {
+    "id": 128,
+    "name": "Mi'kma'ki",
+    "regionId": 10,
+    "population": 2000,
+    "allegiance": {
+      "power": "Mi'kmaq",
+      "color": "#8B4513",
+      "startYear": 1500
+    },
+    "type": "settlement",
+    "coordinates": {
+      "x": -64.5,
+      "y": 45.2
+    },
+    "resources": [7, 8],
+    "description": "Territoire des Mi'kmaq, peuple amérindien occupant les provinces maritimes du Canada actuel, avec un mode de vie basé sur la pêche et la chasse."
+  },
+  {
+    "id": 129,
+    "name": "Wendake",
+    "regionId": 10,
+    "population": 2500,
+    "allegiance": {
+      "power": "Huron-Wendat",
+      "color": "#8B4513",
+      "startYear": 1500
+    },
+    "type": "settlement",
+    "coordinates": {
+      "x": -79.4,
+      "y": 44.5
+    },
+    "resources": [7, 8],
+    "description": "Territoire de la confédération Huron-Wendat, peuple iroquoien établi dans la région des Grands Lacs, avec une économie basée sur l'agriculture et le commerce."
+  },
+  {
+    "id": 130,
+    "name": "Hochelaga",
+    "regionId": 10,
+    "population": 3000,
+    "allegiance": {
+      "power": "Indépendant",
+      "color": "#808080",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -73.6,
+      "y": 45.5
+    },
+    "resources": [7, 8],
+    "description": "Village iroquoien visité par Jacques Cartier en 1535, situé sur l'emplacement actuel de Montréal, important centre amérindien avant la colonisation."
+  },
+  {
+    "id": 131,
+    "name": "Stadacona",
+    "regionId": 10,
+    "population": 2500,
+    "allegiance": {
+      "power": "Indépendant",
+      "color": "#808080",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -71.2,
+      "y": 46.8
+    },
+    "resources": [7, 8],
+    "description": "Village iroquoien visité par Jacques Cartier en 1535, situé sur l'emplacement actuel de Québec, capitale du chef Donnacona."
+  },
+  {
+    "id": 132,
+    "name": "Teotihuacan",
+    "regionId": 9,
+    "population": 5000,
+    "allegiance": {
+      "power": "Aztèque",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -98.9,
+      "y": 19.7
+    },
+    "resources": [3, 5, 9],
+    "description": "Ancienne métropole précolombienne, lieu sacré pour les Aztèques qui y voyaient le site de création du cinquième soleil selon leur cosmogonie."
+  },
+  {
+    "id": 133,
+    "name": "Mayapan",
+    "regionId": 9,
+    "population": 12000,
+    "allegiance": {
+      "power": "Maya",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -89.5,
+      "y": 20.6
+    },
+    "resources": [3, 5, 9],
+    "description": "Dernier grand centre politique maya avant la conquête espagnole, abandonné vers 1450 mais dont l'influence culturelle persistait dans le Yucatán."
+  },
+  {
+    "id": 134,
+    "name": "Tulum",
+    "regionId": 9,
+    "population": 1500,
+    "allegiance": {
+      "power": "Maya",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -87.5,
+      "y": 20.2
+    },
+    "resources": [3, 5, 9],
+    "description": "Cité maya fortifiée sur la côte du Yucatán, l'un des derniers centres mayas encore habités lors de l'arrivée des Espagnols."
+  },
+  {
+    "id": 135,
+    "name": "Saint-Domingue",
+    "regionId": 16,
+    "population": 5000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -69.9,
+      "y": 18.5
+    },
+    "resources": [5, 7],
+    "description": "Première ville européenne permanente dans les Amériques, fondée en 1496. Centre administratif des possessions espagnoles dans les Caraïbes."
+  },
+  {
+    "id": 136,
+    "name": "Alexandrie",
+    "regionId": 3,
+    "population": 100000,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1517
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 29.9,
+      "y": 31.2
+    },
+    "resources": [1, 2, 6],
+    "description": "Port égyptien majeur à l'embouchure du Nil, récemment conquis par les Ottomans. Point de jonction entre le commerce méditerranéen et les routes vers l'Asie."
+  },
+  {
+    "id": 137,
+    "name": "Tripoli",
+    "regionId": 3,
+    "population": 40000,
+    "allegiance": {
+      "power": "Chevaliers de Saint-Jean",
+      "color": "#FFFFFF",
+      "startYear": 1510
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 13.2,
+      "y": 32.9
+    },
+    "resources": [2, 7, 9],
+    "description": "Port libyen contrôlé par les Chevaliers de Saint-Jean, important point de commerce entre la Méditerranée et l'Afrique subsaharienne."
+  },
+  {
+    "id": 138,
+    "name": "Antioche",
+    "regionId": 5,
+    "population": 30000,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1516
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 36.2,
+      "y": 36.2
+    },
+    "resources": [1, 2, 6],
+    "description": "Ancienne ville byzantine (aujourd'hui Antakya), récemment conquise par les Ottomans. Carrefour commercial entre l'Anatolie, la Syrie et la Méditerranée."
+  },
+  {
+    "id": 139,
+    "name": "Trébizonde",
+    "regionId": 12,
+    "population": 35000,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 39.7,
+      "y": 41.0
+    },
+    "resources": [1, 2, 4],
+    "description": "Port historique sur la mer Noire (aujourd'hui Trabzon), terminus de la route de la soie et point de contact entre l'Empire ottoman et la Perse."
+  },
+  {
+    "id": 140,
+    "name": "Caffa",
+    "regionId": 12,
+    "population": 25000,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1475
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 35.4,
+      "y": 45.0
+    },
+    "resources": [4, 7, 8],
+    "description": "Port de Crimée (aujourd'hui Féodossia), ancienne colonie génoise conquise par les Ottomans, centre du commerce des esclaves et du blé en mer Noire."
+  },
+  {
+    "id": 141,
+    "name": "Balkh",
+    "regionId": 5,
+    "population": 80000,
+    "allegiance": {
+      "power": "Ouzbeks",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 66.9,
+      "y": 36.8
+    },
+    "resources": [1, 2, 6],
+    "description": "Ancienne cité de Bactriane (dans l'actuel Afghanistan), carrefour commercial majeur de l'Asie centrale et centre intellectuel islamique."
+  },
+  {
+    "id": 142,
+    "name": "Kaboul",
+    "regionId": 5,
+    "population": 60000,
+    "allegiance": {
+      "power": "Empire Moghol",
+      "color": "#FF9933",
+      "startYear": 1526
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 69.2,
+      "y": 34.5
+    },
+    "resources": [1, 2, 6],
+    "description": "Capitale du royaume de Babur avant sa conquête de l'Inde et la fondation de l'Empire moghol. Point stratégique contrôlant les routes entre l'Asie centrale et le sous-continent indien."
+  },
+  {
+    "id": 143,
+    "name": "Qandahar",
+    "regionId": 5,
+    "population": 40000,
+    "allegiance": {
+      "power": "Empire Moghol",
+      "color": "#FF9933",
+      "startYear": 1526
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 65.7,
+      "y": 31.6
+    },
+    "resources": [1, 2, 6],
+    "description": "Ville stratégique (aujourd'hui Kandahar en Afghanistan) disputée entre Safavides et Moghols, contrôlant les routes commerciales entre l'Iran et l'Inde."
+  },
+  {
+    "id": 144,
+    "name": "Lahore",
+    "regionId": 6,
+    "population": 100000,
+    "allegiance": {
+      "power": "Empire Moghol",
+      "color": "#FF9933",
+      "startYear": 1526
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 74.3,
+      "y": 31.6
+    },
+    "resources": [1, 2, 6],
+    "description": "Centre culturel et commercial majeur du Pendjab, récemment conquis par Babur. Deviendra une capitale impériale moghole sous Akbar."
+  },
+  {
+    "id": 145,
+    "name": "Ahmadabad",
+    "regionId": 6,
+    "population": 100000,
+    "allegiance": {
+      "power": "Gujarat",
+      "color": "#FF9933",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 72.6,
+      "y": 23.0
+    },
+    "resources": [1, 2, 6],
+    "description": "Capitale du sultanat du Gujarat, centre textile majeur et l'une des villes les plus riches d'Inde avant son annexion par l'Empire moghol."
+  },
+  {
+    "id": 146,
+    "name": "Golconde",
+    "regionId": 6,
+    "population": 100000,
+    "allegiance": {
+      "power": "Sultanat de Golconde",
+      "color": "#4B0082",
+      "startYear": 1518
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 78.4,
+      "y": 17.4
+    },
+    "resources": [1, 2, 3],
+    "description": "Capitale du sultanat de Golconde dans le Deccan, célèbre pour ses mines de diamants et sa richesse légendaire."
+  },
+  {
+    "id": 147,
+    "name": "Ayutthaya",
+    "regionId": 7,
+    "population": 150000,
+    "allegiance": {
+      "power": "Siam",
+      "color": "#B22222",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 100.6,
+      "y": 14.4
+    },
+    "resources": [1, 2, 7],
+    "description": "Capitale du royaume de Siam (Thaïlande), important centre commercial reliant la Chine à l'Asie du Sud-Est, à son apogée au début du XVIe siècle."
+  },
+  {
+    "id": 148,
+    "name": "Pegu",
+    "regionId": 7,
+    "population": 100000,
+    "allegiance": {
+      "power": "Birmanie",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 96.5,
+      "y": 17.3
+    },
+    "resources": [1, 2, 7],
+    "description": "Capitale du royaume de Birmanie, centre commercial majeur pour le commerce des rubis, du teck et des épices, décrite comme l'une des villes les plus splendides d'Asie par les voyageurs européens."
+  },
+  {
+    "id": 149,
+    "name": "Majapahit",
+    "regionId": 7,
+    "population": 50000,
+    "allegiance": {
+      "power": "Majapahit",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 112.7,
+      "y": -7.5
+    },
+    "resources": [1, 2, 7],
+    "description": "Capitale du dernier grand empire hindou-bouddhiste de Java, en déclin face à l'expansion des sultanats musulmans au début du XVIe siècle."
+  },
+  {
+    "id": 150,
+    "name": "Demak",
+    "regionId": 7,
+    "population": 40000,
+    "allegiance": {
+      "power": "Sultanat de Demak",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 110.6,
+      "y": -6.9
+    },
+    "resources": [1, 2, 7],
+    "description": "Premier sultanat musulman puissant de Java, en pleine expansion au début du XVIe siècle, contribuant à l'islamisation de l'archipel indonésien."
+  },
+  {
+    "id": 151,
+    "name": "Ternate",
+    "regionId": 7,
+    "population": 10000,
+    "allegiance": {
+      "power": "Sultanat de Ternate",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 127.4,
+      "y": 0.8
+    },
+    "resources": [1],
+    "description": "Capitale du sultanat de Ternate dans les Moluques, centre mondial de production de clous de girofle, convoitée par les Portugais qui y établiront leur présence en 1522."
+  },
+  {
+    "id": 152,
+    "name": "Guangzhou",
+    "regionId": 8,
+    "population": 500000,
+    "allegiance": {
+      "power": "Ming",
+      "color": "#DE2910",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 113.3,
+      "y": 23.1
+    },
+    "resources": [2, 6, 9],
+    "description": "Principal port chinois ouvert au commerce étranger (connu des Européens sous le nom de Canton), unique point de contact officiel avec les marchands occidentaux."
+  },
+  {
+    "id": 153,
+    "name": "Malacca",
+    "regionId": 7,
+    "population": 100000,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1511
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 102.2,
+      "y": 2.2
+    },
+    "resources": [1, 2, 6],
+    "description": "Centre commercial stratégique contrôlant le détroit de Malacca, conquis par les Portugais en 1511, devenant leur principale base en Asie du Sud-Est."
+  },
+  {
+    "id": 154,
+    "name": "Kongo",
+    "regionId": 4,
+    "population": 60000,
+    "allegiance": {
+      "power": "Royaume du Kongo",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 14.2,
+      "y": -6.3
+    },
+    "resources": [3, 7],
+    "description": "Capitale du Royaume du Kongo (Mbanza Kongo), qui entretient des relations diplomatiques avec le Portugal. Centre politique et religieux d'Afrique centrale, partiellement christianisé."
+  },
+  {
+    "id": 155,
+    "name": "Zimbabwe",
+    "regionId": 13,
+    "population": 20000,
+    "allegiance": {
+      "power": "Royaume de Mutapa",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 30.9,
+      "y": -20.3
+    },
+    "resources": [3, 7],
+    "description": "Ancienne capitale du royaume de Zimbabwe, encore habitée au début du XVIe siècle. Centre politique et religieux du plateau zimbabwéen, célèbre pour ses impressionnantes constructions en pierre."
+  },
+  {
+    "id": 156,
+    "name": "Oyo",
+    "regionId": 4,
+    "population": 60000,
+    "allegiance": {
+      "power": "Oyo",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 4.0,
+      "y": 8.0
+    },
+    "resources": [3, 7],
+    "description": "Capitale de l'Empire d'Oyo, puissance yoruba en pleine expansion en Afrique de l'Ouest, connue pour son organisation politique sophistiquée."
+  },
+  {
+    "id": 157,
+    "name": "Tenochtitlan",
+    "regionId": 9,
+    "population": 200000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1521
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -99.1,
+      "y": 19.4
+    },
+    "resources": [3, 7, 9],
+    "description": "Ancienne capitale de l'Empire aztèque, conquise par Hernán Cortés en 1521. En cours de transformation en Mexico, capitale de la Nouvelle-Espagne, construite sur les ruines de la cité aztèque."
+  },
+  {
+    "id": 158,
+    "name": "Cuzco",
+    "regionId": 9,
+    "population": 125000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1533
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -71.9,
+      "y": -13.5
+    },
+    "resources": [3, 7, 9],
+    "description": "Ancienne capitale de l'Empire inca, centre religieux et politique majeur des Andes. En 1525, encore sous contrôle inca mais bientôt conquise par Francisco Pizarro."
+  },
+  {
+    "id": 159,
+    "name": "Vijayanagar",
+    "regionId": 5,
+    "population": 500000,
+    "allegiance": {
+      "power": "Empire Vijayanagar",
+      "color": "#FF9933",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 76.5,
+      "y": 15.3
+    },
+    "resources": [2, 6, 9],
+    "description": "Capitale de l'Empire Vijayanagar, plus grande ville d'Inde du Sud et l'une des plus peuplées au monde en 1525. Centre commercial et culturel hindou résistant à l'expansion musulmane dans le Deccan."
+  },
+  {
+    "id": 160,
+    "name": "Tabriz",
+    "regionId": 5,
+    "population": 250000,
+    "allegiance": {
+      "power": "Safavides",
+      "color": "#239f40",
+      "startYear": 1501
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 46.3,
+      "y": 38.1
+    },
+    "resources": [2, 6, 9],
+    "description": "Première capitale de l'Empire safavide sous le règne de Shah Ismail Ier, centre commercial majeur sur la Route de la Soie et foyer de la renaissance culturelle persane."
+  },
+  {
+    "id": 161,
+    "name": "Samarkand",
+    "regionId": 5,
+    "population": 150000,
+    "allegiance": {
+      "power": "Khanat de Boukhara",
+      "color": "#4B0082",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 66.9,
+      "y": 39.7
+    },
+    "resources": [2, 6, 9],
+    "description": "Ancienne capitale timouride et centre commercial majeur de l'Asie centrale, carrefour de la Route de la Soie. En 1525, sous le contrôle des Ouzbeks du Khanat de Boukhara."
+  },
+  {
+    "id": 162,
+    "name": "Kazan",
+    "regionId": 1,
+    "population": 100000,
+    "allegiance": {
+      "power": "Khanat de Kazan",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 49.1,
+      "y": 55.8
+    },
+    "resources": [3, 4, 7],
+    "description": "Capitale du Khanat de Kazan, État successeur de la Horde d'Or, en conflit avec la Moscovie qui finira par l'annexer en 1552."
+  },
+  {
+    "id": 163,
+    "name": "Timbuktu",
+    "regionId": 4,
+    "population": 100000,
+    "allegiance": {
+      "power": "Songhaï",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -3.0,
+      "y": 16.8
+    },
+    "resources": [2, 6, 9],
+    "description": "Centre intellectuel et commercial majeur de l'Afrique de l'Ouest, célèbre pour son université et ses manuscrits. Partie de l'Empire Songhaï à son apogée sous le règne d'Askia Mohammed."
+  },
+  {
+    "id": 164,
+    "name": "Gondar",
+    "regionId": 4,
+    "population": 60000,
+    "allegiance": {
+      "power": "Éthiopie",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 37.5,
+      "y": 12.6
+    },
+    "resources": [3, 7, 9],
+    "description": "Centre politique de l'Empire éthiopien sous le règne de Lebna Dengel, royaume chrétien résistant à l'expansion musulmane en Afrique de l'Est."
+  },
+  {
+    "id": 165,
+    "name": "Kyoto",
+    "regionId": 8,
+    "population": 300000,
+    "allegiance": {
+      "power": "Japon",
+      "color": "#BC002D",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 135.8,
+      "y": 35.0
+    },
+    "resources": [2, 6, 9],
+    "description": "Capitale impériale du Japon pendant la période Sengoku, centre culturel et religieux malgré les guerres civiles qui déchirent le pays."
+  },
+  {
+    "id": 166,
+    "name": "Ayutthaya",
+    "regionId": 7,
+    "population": 300000,
+    "allegiance": {
+      "power": "Royaume d'Ayutthaya",
+      "color": "#F4C800",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 100.6,
+      "y": 14.4
+    },
+    "resources": [1, 2, 6],
+    "description": "Capitale du royaume siamois d'Ayutthaya, centre commercial et culturel majeur de l'Asie du Sud-Est, entretenant des relations diplomatiques avec les puissances européennes."
+  },
+  {
+    "id": 167,
+    "name": "Hué",
+    "regionId": 7,
+    "population": 100000,
+    "allegiance": {
+      "power": "Đại Việt",
+      "color": "#DA251D",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 107.6,
+      "y": 16.5
+    },
+    "resources": [1, 2, 6],
+    "description": "Capitale du Đại Việt (Vietnam) sous la dynastie Lê, centre politique et culturel important en Asie du Sud-Est."
+  },
+  {
+    "id": 168,
+    "name": "Nanjing",
+    "regionId": 8,
+    "population": 500000,
+    "allegiance": {
+      "power": "Ming",
+      "color": "#DE2910",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 118.8,
+      "y": 32.1
+    },
+    "resources": [2, 6, 9],
+    "description": "Ancienne capitale des Ming, encore l'une des plus grandes villes de Chine et centre administratif secondaire de l'empire."
+  },
+  {
+    "id": 169,
+    "name": "Agra",
+    "regionId": 5,
+    "population": 200000,
+    "allegiance": {
+      "power": "Empire Moghol",
+      "color": "#006400",
+      "startYear": 1526
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 78.0,
+      "y": 27.2
+    },
+    "resources": [2, 6, 9],
+    "description": "Nouvelle capitale de l'Empire moghol établie par Babur après sa victoire à Panipat en 1526, marquant le début de la domination moghole en Inde du Nord."
+  },
+  {
+    "id": 170,
+    "name": "Chihuahua",
+    "regionId": 9,
+    "population": 15000,
+    "allegiance": {
+      "power": "Indépendant",
+      "color": "#808080",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -106.1,
+      "y": 28.6
+    },
+    "resources": [3, 4, 7],
+    "description": "Territoire des peuples apaches et rarámuris (tarahumaras), encore indépendant en 1525 mais bientôt exploré par les Espagnols à la recherche de gisements d'argent."
+  },
+  {
+    "id": 171,
+    "name": "Machu Picchu",
+    "regionId": 9,
+    "population": 5000,
+    "allegiance": {
+      "power": "Empire Inca",
+      "color": "#CD5C5C",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -72.5,
+      "y": -13.2
+    },
+    "resources": [3, 7],
+    "description": "Cité inca isolée dans les montagnes, probablement utilisée comme résidence royale et centre religieux. En 1525, encore habitée et inconnue des Européens."
+  },
+  {
+    "id": 172,
+    "name": "Caffa",
+    "regionId": 3,
+    "population": 70000,
+    "allegiance": {
+      "power": "Khanat de Crimée",
+      "color": "#006400",
+      "startYear": 1475
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 35.4,
+      "y": 45.0
+    },
+    "resources": [2, 6, 9],
+    "description": "Important port commercial en mer Noire, ancienne colonie génoise passée sous contrôle du Khanat de Crimée, vassal de l'Empire ottoman. Centre majeur du commerce des esclaves."
+  },
+  {
+    "id": 173,
+    "name": "Kilwa",
+    "regionId": 4,
+    "population": 30000,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1505
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 39.5,
+      "y": -8.9
+    },
+    "resources": [1, 2, 6],
+    "description": "Ancien sultanat swahili conquis par les Portugais, important centre commercial pour l'or, l'ivoire et les esclaves sur la côte est-africaine."
+  },
+  {
+    "id": 174,
+    "name": "Ispahan",
+    "regionId": 5,
+    "population": 250000,
+    "allegiance": {
+      "power": "Safavides",
+      "color": "#239f40",
+      "startYear": 1501
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 51.7,
+      "y": 32.7
+    },
+    "resources": [2, 6, 9],
+    "description": "Grande ville persane sous les Safavides, centre commercial et culturel majeur, célèbre pour son architecture et son artisanat. Deviendra plus tard la capitale de l'empire."
+  },
+  {
+    "id": 175,
+    "name": "Calicut",
+    "regionId": 5,
+    "population": 100000,
+    "allegiance": {
+      "power": "Sultanat de Calicut",
+      "color": "#8B4513",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 75.8,
+      "y": 11.2
+    },
+    "resources": [1, 2, 6],
+    "description": "Capitale du Sultanat de Calicut (Zamorin) sur la côte de Malabar, important centre du commerce des épices et premier point de contact de Vasco de Gama avec l'Inde en 1498."
+  },
+  {
+    "id": 176,
+    "name": "Bijapur",
+    "regionId": 5,
+    "population": 150000,
+    "allegiance": {
+      "power": "Sultanat de Bijapur",
+      "color": "#006400",
+      "startYear": 1490
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 75.7,
+      "y": 16.8
+    },
+    "resources": [2, 6, 9],
+    "description": "Capitale du Sultanat de Bijapur, l'un des États musulmans du Deccan issus de la fragmentation du Sultanat de Bahmani, en rivalité avec l'Empire Vijayanagar."
+  },
+  {
+    "id": 177,
+    "name": "Golconde",
+    "regionId": 5,
+    "population": 100000,
+    "allegiance": {
+      "power": "Sultanat de Golconde",
+      "color": "#006400",
+      "startYear": 1518
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 78.4,
+      "y": 17.4
+    },
+    "resources": [3, 6, 9],
+    "description": "Capitale du Sultanat de Golconde, célèbre pour ses mines de diamants et sa forteresse. Centre commercial et culturel important du Deccan."
+  },
+  {
+    "id": 178,
+    "name": "Gao",
+    "regionId": 4,
+    "population": 75000,
+    "allegiance": {
+      "power": "Songhaï",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": -0.1,
+      "y": 16.3
+    },
+    "resources": [2, 6, 7],
+    "description": "Capitale de l'Empire Songhaï à son apogée sous le règne d'Askia Mohammed, contrôlant le commerce transsaharien de l'or, du sel et des esclaves."
+  },
+  {
+    "id": 179,
+    "name": "Mbanza Kongo",
+    "regionId": 4,
+    "population": 60000,
+    "allegiance": {
+      "power": "Royaume du Kongo",
+      "color": "#006400",
+      "startYear": 1500
+    },
+    "type": "capital",
+    "coordinates": {
+      "x": 14.2,
+      "y": -6.3
+    },
+    "resources": [3, 7, 9],
+    "description": "Capitale du Royaume du Kongo, partiellement christianisé et entretenant des relations diplomatiques avec le Portugal. Centre politique et religieux d'Afrique centrale."
+  },
+  {
+    "id": 180,
+    "name": "Béjaïa",
+    "regionId": 4,
+    "population": 40000,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1517
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 5.1,
+      "y": 36.8
+    },
+    "resources": [2, 6, 9],
+    "description": "Important port commercial d'Afrique du Nord, récemment conquis par les Ottomans. Centre intellectuel et commercial du Maghreb central."
+  },
+  {
+    "id": 181,
+    "name": "Potosí",
+    "regionId": 9,
+    "population": 5000,
+    "allegiance": {
+      "power": "Empire Inca",
+      "color": "#CD5C5C",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -65.8,
+      "y": -19.6
+    },
+    "resources": [3, 4],
+    "description": "Site des futures mines d'argent les plus riches du monde, encore sous contrôle inca en 1525. Après la conquête espagnole, deviendra l'une des plus grandes villes des Amériques."
+  },
+  {
+    "id": 182,
+    "name": "Quito",
+    "regionId": 9,
+    "population": 50000,
+    "allegiance": {
+      "power": "Empire Inca",
+      "color": "#CD5C5C",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -78.5,
+      "y": -0.2
+    },
+    "resources": [3, 7, 9],
+    "description": "Importante cité inca, seconde capitale de l'empire et centre administratif de la région nord. Encore sous contrôle inca en 1525, bientôt conquise par les Espagnols."
+  },
+  {
+    "id": 183,
+    "name": "Texcoco",
+    "regionId": 9,
+    "population": 60000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1521
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -98.9,
+      "y": 19.5
+    },
+    "resources": [3, 7, 9],
+    "description": "Ancienne cité-État de la Triple Alliance aztèque, centre intellectuel et culturel de la vallée de Mexico, récemment conquise par les Espagnols."
+  },
+  {
+    "id": 184,
+    "name": "Tlaxcala",
+    "regionId": 9,
+    "population": 50000,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1521
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -98.2,
+      "y": 19.3
+    },
+    "resources": [3, 7, 9],
+    "description": "Cité-État indépendante qui s'allia aux Espagnols contre les Aztèques, jouissant d'un statut privilégié dans la Nouvelle-Espagne après la conquête."
+  },
+  {
+    "id": 185,
+    "name": "Chichen Itza",
+    "regionId": 9,
+    "population": 20000,
+    "allegiance": {
+      "power": "Mayas",
+      "color": "#8B4513",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": -88.6,
+      "y": 20.7
+    },
+    "resources": [3, 7, 9],
+    "description": "Important centre cérémoniel maya dans le Yucatán, encore actif au début du XVIe siècle mais en déclin. Les Espagnols n'ont pas encore conquis cette région en 1525."
+  },
+  {
+    "id": 186,
+    "name": "Edo",
+    "regionId": 8,
+    "population": 50000,
+    "allegiance": {
+      "power": "Japon",
+      "color": "#BC002D",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 139.8,
+      "y": 35.7
+    },
+    "resources": [3, 7, 9],
+    "description": "Petit château fortifié qui deviendra plus tard Tokyo. En 1525, sous le contrôle du clan Hojo pendant la période Sengoku (États en guerre)."
+  },
+  {
+    "id": 187,
+    "name": "Osaka",
+    "regionId": 8,
+    "population": 100000,
+    "allegiance": {
+      "power": "Japon",
+      "color": "#BC002D",
+      "startYear": 1500
+    },
+    "type": "city",
+    "coordinates": {
+      "x": 135.5,
+      "y": 34.7
+    },
+    "resources": [2, 6, 9],
+    "description": "Important centre commercial du Japon, dominé par le temple-forteresse d'Ishiyama Hongan-ji, bastion de la secte bouddhiste Ikko-ikki pendant la période Sengoku."
+  }
+] 

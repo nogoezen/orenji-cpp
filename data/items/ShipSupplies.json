@@ -1,0 +1,130 @@
+[
+  {
+    "id": 1,
+    "name": "Rations",
+    "description": "Nourriture de base pour l'équipage. Restaure l'endurance.",
+    "iconIndex": 32,
+    "price": 50,
+    "consumable": true,
+    "itypeId": 3,
+    "effects": [
+      {
+        "code": 11,
+        "dataId": 0,
+        "value1": 0,
+        "value2": 50
+      }
+    ],
+    "occasion": 2,
+    "scope": 7,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "categoryId": 1
+  },
+  {
+    "id": 2,
+    "name": "Eau douce",
+    "description": "Eau potable pour l'équipage. Restaure l'endurance.",
+    "iconIndex": 33,
+    "price": 30,
+    "consumable": true,
+    "itypeId": 3,
+    "effects": [
+      {
+        "code": 11,
+        "dataId": 0,
+        "value1": 0,
+        "value2": 30
+      }
+    ],
+    "occasion": 2,
+    "scope": 7,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "categoryId": 1
+  },
+  {
+    "id": 3,
+    "name": "Kit de réparation",
+    "description": "Matériel pour réparer les dommages du navire.",
+    "iconIndex": 220,
+    "price": 300,
+    "consumable": true,
+    "itypeId": 1,
+    "effects": [
+      {
+        "code": 11,
+        "dataId": 0,
+        "value1": 0,
+        "value2": 100
+      }
+    ],
+    "occasion": 3,
+    "scope": 8,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "categoryId": 2
+  },
+  {
+    "id": 4,
+    "name": "Médicaments",
+    "description": "Soigne les maladies de l'équipage.",
+    "iconIndex": 135,
+    "price": 200,
+    "consumable": true,
+    "itypeId": 3,
+    "effects": [
+      {
+        "code": 11,
+        "dataId": 0,
+        "value1": 0,
+        "value2": 80
+      }
+    ],
+    "occasion": 2,
+    "scope": 7,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "categoryId": 3
+  }
+]

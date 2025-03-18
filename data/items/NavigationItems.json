@@ -1,0 +1,352 @@
+[
+  {
+    "id": 1,
+    "name": "Boussole",
+    "description": "Indique le nord magnétique, essentiel pour la navigation.",
+    "iconIndex": 121,
+    "price": 500,
+    "consumable": false,
+    "itypeId": 1,
+    "categoryId": 8,
+    "effects": [],
+    "occasion": 0,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "baseItem": {
+      "type": "navigation",
+      "properties": {
+        "navigationBonus": 10,
+        "accuracy": 85,
+        "durability": 100
+      }
+    },
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 2,
+    "name": "Astrolabe",
+    "description": "Instrument permettant de déterminer la position en mer.",
+    "iconIndex": 122,
+    "price": 1200,
+    "consumable": false,
+    "itypeId": 1,
+    "categoryId": 8,
+    "effects": [],
+    "occasion": 0,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "baseItem": {
+      "type": "navigation",
+      "properties": {
+        "navigationBonus": 20,
+        "accuracy": 90,
+        "durability": 100
+      }
+    },
+    "rank": "B",
+    "origin": "Moyen-Orient"
+  },
+  {
+    "id": 3,
+    "name": "Sextant",
+    "description": "Instrument de navigation de haute précision.",
+    "iconIndex": 123,
+    "price": 2500,
+    "consumable": false,
+    "itypeId": 1,
+    "categoryId": 8,
+    "effects": [],
+    "occasion": 0,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "baseItem": {
+      "type": "navigation",
+      "properties": {
+        "navigationBonus": 30,
+        "accuracy": 95,
+        "durability": 100
+      }
+    },
+    "rank": "A",
+    "origin": "Europe"
+  },
+  {
+    "id": 4,
+    "name": "Carte maritime",
+    "description": "Carte détaillée des routes maritimes connues.",
+    "iconIndex": 176,
+    "price": 800,
+    "consumable": false,
+    "itypeId": 1,
+    "categoryId": 8,
+    "effects": [],
+    "occasion": 0,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "baseItem": {
+      "type": "navigation",
+      "properties": {
+        "navigationBonus": 15,
+        "accuracy": 80,
+        "durability": 50
+      }
+    },
+    "rank": "C",
+    "origin": "Commun sur tous les navires"
+  },
+  {
+    "id": 5,
+    "name": "Quadrant",
+    "description": "Instrument de précision moyenne utilisé pour la navigation céleste. Mesure la longitude et la latitude.",
+    "iconIndex": 125,
+    "price": 4000,
+    "consumable": false,
+    "itypeId": 1,
+    "categoryId": 8,
+    "effects": [],
+    "occasion": 0,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "baseItem": {
+      "type": "navigation",
+      "properties": {
+        "navigationBonus": 15,
+        "accuracy": 75,
+        "durability": 90
+      }
+    },
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 6,
+    "name": "Théodolite",
+    "description": "L'instrument le plus précis et fiable utilisé pour la navigation céleste. Mesure la longitude et la latitude.",
+    "iconIndex": 126,
+    "price": 12000,
+    "consumable": false,
+    "itypeId": 1,
+    "categoryId": 8,
+    "effects": [],
+    "occasion": 0,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "baseItem": {
+      "type": "navigation",
+      "properties": {
+        "navigationBonus": 35,
+        "accuracy": 98,
+        "durability": 95
+      }
+    },
+    "rank": "S",
+    "origin": "Europe"
+  },
+  {
+    "id": 7,
+    "name": "Montre de poche",
+    "description": "Une montre portable pratique. Avec elle, vous connaîtrez toujours l'heure exacte!",
+    "iconIndex": 127,
+    "price": 2000,
+    "consumable": false,
+    "itypeId": 1,
+    "categoryId": 8,
+    "effects": [],
+    "occasion": 0,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "baseItem": {
+      "type": "navigation",
+      "properties": {
+        "navigationBonus": 8,
+        "accuracy": 100,
+        "durability": 80
+      }
+    },
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 8,
+    "name": "Longue-vue",
+    "description": "Permet de voir à grande distance.",
+    "iconIndex": 124,
+    "price": 600,
+    "consumable": false,
+    "itypeId": 1,
+    "categoryId": 8,
+    "effects": [],
+    "occasion": 0,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "baseItem": {
+      "type": "navigation",
+      "properties": {
+        "navigationBonus": 5,
+        "accuracy": 100,
+        "durability": 75
+      }
+    },
+    "rank": "D",
+    "origin": "Europe"
+  },
+  {
+    "id": 9,
+    "name": "Télescope",
+    "description": "Un instrument optique qui vous aidera à repérer les objets et ports lointains en mer.",
+    "iconIndex": 128,
+    "price": 5000,
+    "consumable": false,
+    "itypeId": 1,
+    "categoryId": 8,
+    "effects": [],
+    "occasion": 0,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "baseItem": {
+      "type": "navigation",
+      "properties": {
+        "navigationBonus": 12,
+        "accuracy": 95,
+        "durability": 85
+      }
+    },
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 10,
+    "name": "Compas de navigation",
+    "description": "Un compas spécialement conçu pour la navigation maritime, permettant de tracer des routes précises.",
+    "iconIndex": 129,
+    "price": 1800,
+    "consumable": false,
+    "itypeId": 1,
+    "categoryId": 8,
+    "effects": [],
+    "occasion": 0,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "hitType": 0,
+    "repeats": 1,
+    "tpGain": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "baseItem": {
+      "type": "navigation",
+      "properties": {
+        "navigationBonus": 15,
+        "accuracy": 90,
+        "durability": 95
+      }
+    },
+    "rank": "C",
+    "origin": "Europe"
+  }
+]

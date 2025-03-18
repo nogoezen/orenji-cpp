@@ -1,0 +1,982 @@
+[
+  {
+    "id": 1,
+    "name": "Caravelle",
+    "description": "Navire polyvalent portugais, excellent compromis entre capacité de charge et maniabilité.",
+    "shipClass": "Moyen",
+    "nationality": "Portugal",
+    "maxCrew": 20,
+    "cargoCapacity": 100,
+    "maxPassengers": 10,
+    "speed": 8,
+    "maneuverability": 7,
+    "durability": 150,
+    "combatPower": 6,
+    "traits": [
+      {"id": 1, "name": "Voilure latine", "effect": "Meilleure navigation contre le vent"},
+      {"id": 2, "name": "Coque renforcée", "effect": "Résistance accrue aux dommages"}
+    ],
+    "weaponSlots": 2,
+    "cannonCapacity": 20,
+    "specializations": ["Commerce", "Exploration"],
+    "maintenanceCost": 50,
+    "requiredCrew": 15,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 2,
+    "name": "Galion",
+    "description": "Imposant navire espagnol conçu pour le transport de trésors et le combat naval.",
+    "shipClass": "Grand",
+    "nationality": "Espagne",
+    "maxCrew": 35,
+    "cargoCapacity": 200,
+    "maxPassengers": 15,
+    "speed": 6,
+    "maneuverability": 5,
+    "durability": 250,
+    "combatPower": 8,
+    "traits": [
+      {"id": 3, "name": "Cale profonde", "effect": "Capacité de charge augmentée"},
+      {"id": 4, "name": "Château arrière surélevé", "effect": "Avantage en combat"}
+    ],
+    "weaponSlots": 3,
+    "cannonCapacity": 40,
+    "specializations": ["Combat", "Transport"],
+    "maintenanceCost": 80,
+    "requiredCrew": 30,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 3,
+    "name": "Flûte",
+    "description": "Navire marchand hollandais efficace et économique.",
+    "shipClass": "Moyen",
+    "nationality": "Pays-Bas",
+    "maxCrew": 15,
+    "cargoCapacity": 150,
+    "maxPassengers": 8,
+    "speed": 7,
+    "maneuverability": 6,
+    "durability": 180,
+    "combatPower": 4,
+    "traits": [
+      {"id": 5, "name": "Design économique", "effect": "Coûts réduits"},
+      {"id": 6, "name": "Cale optimisée", "effect": "Meilleure organisation du cargo"}
+    ],
+    "weaponSlots": 1,
+    "cannonCapacity": 16,
+    "specializations": ["Commerce"],
+    "maintenanceCost": 40,
+    "requiredCrew": 12,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 4,
+    "name": "Pinasse",
+    "description": "Petit navire rapide idéal pour l'exploration côtière et la reconnaissance.",
+    "shipClass": "Petit",
+    "nationality": "France",
+    "maxCrew": 12,
+    "cargoCapacity": 60,
+    "maxPassengers": 6,
+    "speed": 9,
+    "maneuverability": 8,
+    "durability": 120,
+    "combatPower": 5,
+    "traits": [
+      {"id": 7, "name": "Faible tirant d'eau", "effect": "Navigation en eaux peu profondes"},
+      {"id": 8, "name": "Construction légère", "effect": "Vitesse accrue"}
+    ],
+    "weaponSlots": 1,
+    "cannonCapacity": 12,
+    "specializations": ["Exploration", "Reconnaissance"],
+    "maintenanceCost": 30,
+    "requiredCrew": 10,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 5,
+    "name": "Caraque",
+    "description": "Grand navire de commerce portugais pour les voyages au long cours.",
+    "shipClass": "Grand",
+    "nationality": "Portugal",
+    "maxCrew": 40,
+    "cargoCapacity": 250,
+    "maxPassengers": 20,
+    "speed": 5,
+    "maneuverability": 4,
+    "durability": 300,
+    "combatPower": 7,
+    "traits": [
+      {"id": 9, "name": "Grande autonomie", "effect": "Voyages plus longs"},
+      {"id": 10, "name": "Cales multiples", "effect": "Organisation cargo optimisée"}
+    ],
+    "weaponSlots": 3,
+    "cannonCapacity": 35,
+    "specializations": ["Commerce", "Transport"],
+    "maintenanceCost": 90,
+    "requiredCrew": 35,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 6,
+    "name": "Brick",
+    "description": "Navire rapide et maniable, favori des marchands et corsaires.",
+    "shipClass": "Moyen",
+    "nationality": "Angleterre",
+    "maxCrew": 18,
+    "cargoCapacity": 120,
+    "maxPassengers": 8,
+    "speed": 8,
+    "maneuverability": 7,
+    "durability": 160,
+    "combatPower": 6,
+    "traits": [
+      {"id": 11, "name": "Voilure optimisée", "effect": "Meilleure vitesse de pointe"},
+      {"id": 12, "name": "Polyvalent", "effect": "Adapté à diverses missions"}
+    ],
+    "weaponSlots": 2,
+    "cannonCapacity": 24,
+    "specializations": ["Commerce", "Combat"],
+    "maintenanceCost": 45,
+    "requiredCrew": 15,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 7,
+    "name": "Jonque",
+    "description": "Navire chinois robuste adapté à la navigation en mer de Chine.",
+    "shipClass": "Moyen",
+    "nationality": "Chine",
+    "maxCrew": 25,
+    "cargoCapacity": 180,
+    "maxPassengers": 12,
+    "speed": 6,
+    "maneuverability": 6,
+    "durability": 200,
+    "combatPower": 5,
+    "traits": [
+      {"id": 13, "name": "Cloisons étanches", "effect": "Meilleure survie aux dégâts"},
+      {"id": 14, "name": "Voiles battens", "effect": "Navigation par vents faibles"}
+    ],
+    "weaponSlots": 2,
+    "cannonCapacity": 18,
+    "specializations": ["Commerce", "Transport"],
+    "maintenanceCost": 55,
+    "requiredCrew": 20,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 8,
+    "name": "Dhow",
+    "description": "Navire arabe traditionnel excellent pour la navigation côtière.",
+    "shipClass": "Petit",
+    "nationality": "Arabie",
+    "maxCrew": 15,
+    "cargoCapacity": 90,
+    "maxPassengers": 8,
+    "speed": 7,
+    "maneuverability": 8,
+    "durability": 140,
+    "combatPower": 4,
+    "traits": [
+      {"id": 15, "name": "Voile triangulaire", "effect": "Navigation par vent latéral"},
+      {"id": 16, "name": "Construction légère", "effect": "Bonne maniabilité"}
+    ],
+    "weaponSlots": 1,
+    "cannonCapacity": 14,
+    "specializations": ["Commerce", "Pêche"],
+    "maintenanceCost": 35,
+    "requiredCrew": 12,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 9,
+    "name": "Galéasse",
+    "description": "Puissant navire de guerre vénitien combinant rames et voiles.",
+    "shipClass": "Grand",
+    "nationality": "Venise",
+    "maxCrew": 45,
+    "cargoCapacity": 160,
+    "maxPassengers": 15,
+    "speed": 6,
+    "maneuverability": 5,
+    "durability": 280,
+    "combatPower": 9,
+    "traits": [
+      {"id": 17, "name": "Propulsion mixte", "effect": "Navigation sans vent"},
+      {"id": 18, "name": "Plateformes de tir", "effect": "Avantage en combat"}
+    ],
+    "weaponSlots": 4,
+    "cannonCapacity": 45,
+    "specializations": ["Combat", "Transport"],
+    "maintenanceCost": 85,
+    "requiredCrew": 40,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 10,
+    "name": "Hourque",
+    "description": "Navire de charge hanséatique robuste et fiable.",
+    "shipClass": "Moyen",
+    "nationality": "Hanse",
+    "maxCrew": 20,
+    "cargoCapacity": 170,
+    "maxPassengers": 10,
+    "speed": 5,
+    "maneuverability": 5,
+    "durability": 220,
+    "combatPower": 5,
+    "traits": [
+      {"id": 19, "name": "Construction robuste", "effect": "Résistance accrue"},
+      {"id": 20, "name": "Fond plat", "effect": "Navigation en eaux peu profondes"}
+    ],
+    "weaponSlots": 2,
+    "cannonCapacity": 20,
+    "specializations": ["Commerce", "Transport"],
+    "maintenanceCost": 60,
+    "requiredCrew": 18,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 11,
+    "name": "Nef",
+    "description": "Navire médiéval robuste, ancêtre du galion, populaire en Méditerranée.",
+    "shipClass": "Moyen",
+    "nationality": "Italie",
+    "maxCrew": 25,
+    "cargoCapacity": 140,
+    "maxPassengers": 12,
+    "speed": 6,
+    "maneuverability": 5,
+    "durability": 200,
+    "combatPower": 6,
+    "traits": [
+      {"id": 21, "name": "Construction traditionnelle", "effect": "Facilité de réparation"},
+      {"id": 22, "name": "Château avant", "effect": "Protection équipage améliorée"}
+    ],
+    "weaponSlots": 2,
+    "cannonCapacity": 22,
+    "specializations": ["Transport", "Commerce"],
+    "maintenanceCost": 55,
+    "requiredCrew": 20,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 12,
+    "name": "Barque",
+    "description": "Petit navire agile idéal pour la navigation côtière et la pêche.",
+    "shipClass": "Petit",
+    "nationality": "Méditerranée",
+    "maxCrew": 10,
+    "cargoCapacity": 50,
+    "maxPassengers": 5,
+    "speed": 8,
+    "maneuverability": 9,
+    "durability": 100,
+    "combatPower": 3,
+    "traits": [
+      {"id": 23, "name": "Très maniable", "effect": "Navigation précise"},
+      {"id": 24, "name": "Pêche efficace", "effect": "Bonus aux activités de pêche"}
+    ],
+    "weaponSlots": 1,
+    "cannonCapacity": 8,
+    "specializations": ["Pêche", "Exploration"],
+    "maintenanceCost": 25,
+    "requiredCrew": 8,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 13,
+    "name": "Galère",
+    "description": "Navire de guerre méditerranéen à rames, redoutable en combat rapproché.",
+    "shipClass": "Grand",
+    "nationality": "Méditerranée",
+    "maxCrew": 50,
+    "cargoCapacity": 120,
+    "maxPassengers": 10,
+    "speed": 7,
+    "maneuverability": 6,
+    "durability": 220,
+    "combatPower": 8,
+    "traits": [
+      {"id": 25, "name": "Propulsion à rames", "effect": "Mobilité indépendante du vent"},
+      {"id": 26, "name": "Éperon", "effect": "Bonus en combat rapproché"}
+    ],
+    "weaponSlots": 3,
+    "cannonCapacity": 30,
+    "specializations": ["Combat", "Transport"],
+    "maintenanceCost": 75,
+    "requiredCrew": 45,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 14,
+    "name": "Fuste",
+    "description": "Version légère de la galère, rapide et maniable, favori des corsaires.",
+    "shipClass": "Moyen",
+    "nationality": "Méditerranée",
+    "maxCrew": 30,
+    "cargoCapacity": 90,
+    "maxPassengers": 8,
+    "speed": 8,
+    "maneuverability": 7,
+    "durability": 160,
+    "combatPower": 7,
+    "traits": [
+      {"id": 27, "name": "Hybride voile-rame", "effect": "Adaptabilité tactique"},
+      {"id": 28, "name": "Profil bas", "effect": "Discrétion améliorée"}
+    ],
+    "weaponSlots": 2,
+    "cannonCapacity": 20,
+    "specializations": ["Combat", "Reconnaissance"],
+    "maintenanceCost": 50,
+    "requiredCrew": 25,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 15,
+    "name": "Carraque de guerre",
+    "description": "Version militaire de la caraque, lourdement armée et renforcée.",
+    "shipClass": "Grand",
+    "nationality": "Portugal",
+    "maxCrew": 45,
+    "cargoCapacity": 200,
+    "maxPassengers": 15,
+    "speed": 5,
+    "maneuverability": 4,
+    "durability": 320,
+    "combatPower": 9,
+    "traits": [
+      {"id": 29, "name": "Blindage renforcé", "effect": "Résistance exceptionnelle"},
+      {"id": 30, "name": "Plateformes de tir élevées", "effect": "Portée de tir augmentée"}
+    ],
+    "weaponSlots": 4,
+    "cannonCapacity": 50,
+    "specializations": ["Combat", "Transport"],
+    "maintenanceCost": 95,
+    "requiredCrew": 40,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 16,
+    "name": "Baleinier",
+    "description": "Navire robuste conçu pour la chasse à la baleine et les mers difficiles.",
+    "shipClass": "Moyen",
+    "nationality": "Pays-Bas",
+    "maxCrew": 22,
+    "cargoCapacity": 160,
+    "maxPassengers": 8,
+    "speed": 6,
+    "maneuverability": 5,
+    "durability": 240,
+    "combatPower": 5,
+    "traits": [
+      {"id": 31, "name": "Coque renforcée", "effect": "Résistance aux tempêtes"},
+      {"id": 32, "name": "Équipement spécialisé", "effect": "Bonus à la pêche"}
+    ],
+    "weaponSlots": 2,
+    "cannonCapacity": 16,
+    "specializations": ["Pêche", "Transport"],
+    "maintenanceCost": 65,
+    "requiredCrew": 18,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 17,
+    "name": "Baghlah",
+    "description": "Grand dhow arabe pour le commerce en océan Indien.",
+    "shipClass": "Moyen",
+    "nationality": "Arabie",
+    "maxCrew": 20,
+    "cargoCapacity": 140,
+    "maxPassengers": 10,
+    "speed": 7,
+    "maneuverability": 6,
+    "durability": 180,
+    "combatPower": 5,
+    "traits": [
+      {"id": 33, "name": "Voile latine améliorée", "effect": "Performance par vent latéral"},
+      {"id": 34, "name": "Construction locale", "effect": "Réparations moins coûteuses"}
+    ],
+    "weaponSlots": 2,
+    "cannonCapacity": 18,
+    "specializations": ["Commerce", "Transport"],
+    "maintenanceCost": 45,
+    "requiredCrew": 16,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 18,
+    "name": "Patache",
+    "description": "Petit navire rapide utilisé pour la reconnaissance et le cabotage.",
+    "shipClass": "Petit",
+    "nationality": "Espagne",
+    "maxCrew": 14,
+    "cargoCapacity": 70,
+    "maxPassengers": 6,
+    "speed": 9,
+    "maneuverability": 8,
+    "durability": 130,
+    "combatPower": 4,
+    "traits": [
+      {"id": 35, "name": "Agilité supérieure", "effect": "Excellente maniabilité"},
+      {"id": 36, "name": "Discret", "effect": "Détection réduite"}
+    ],
+    "weaponSlots": 1,
+    "cannonCapacity": 10,
+    "specializations": ["Reconnaissance", "Messagerie"],
+    "maintenanceCost": 35,
+    "requiredCrew": 12,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 19,
+    "name": "Cogue",
+    "description": "Navire marchand hanséatique à fond plat pour les mers du Nord.",
+    "shipClass": "Moyen",
+    "nationality": "Hanse",
+    "maxCrew": 18,
+    "cargoCapacity": 190,
+    "maxPassengers": 8,
+    "speed": 5,
+    "maneuverability": 4,
+    "durability": 260,
+    "combatPower": 5,
+    "traits": [
+      {"id": 37, "name": "Fond renforcé", "effect": "Navigation en eaux peu profondes"},
+      {"id": 38, "name": "Grande cale", "effect": "Stockage optimisé"}
+    ],
+    "weaponSlots": 2,
+    "cannonCapacity": 16,
+    "specializations": ["Commerce", "Transport"],
+    "maintenanceCost": 70,
+    "requiredCrew": 16,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 20,
+    "name": "Chébec",
+    "description": "Navire hybride méditerranéen, combine vitesse et puissance de feu.",
+    "shipClass": "Moyen",
+    "nationality": "Méditerranée",
+    "maxCrew": 28,
+    "cargoCapacity": 110,
+    "maxPassengers": 10,
+    "speed": 8,
+    "maneuverability": 7,
+    "durability": 170,
+    "combatPower": 7,
+    "traits": [
+      {"id": 39, "name": "Triple voilure", "effect": "Adaptabilité aux vents"},
+      {"id": 40, "name": "Conception hybride", "effect": "Polyvalence tactique"}
+    ],
+    "weaponSlots": 3,
+    "cannonCapacity": 26,
+    "specializations": ["Combat", "Commerce"],
+    "maintenanceCost": 55,
+    "requiredCrew": 24,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 21,
+    "name": "Sloop",
+    "description": "Petit navire rapide à un mât, excellent pour la reconnaissance.",
+    "shipClass": "Petit",
+    "nationality": "Angleterre",
+    "maxCrew": 12,
+    "cargoCapacity": 60,
+    "maxPassengers": 4,
+    "speed": 9,
+    "maneuverability": 9,
+    "durability": 120,
+    "combatPower": 3,
+    "traits": [
+      {"id": 41, "name": "Voile bermudienne", "effect": "Navigation au près efficace"},
+      {"id": 42, "name": "Faible tirant d'eau", "effect": "Navigation côtière facilitée"}
+    ],
+    "weaponSlots": 1,
+    "cannonCapacity": 8,
+    "specializations": ["Exploration", "Messagerie"],
+    "maintenanceCost": 30,
+    "requiredCrew": 10,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 22,
+    "name": "Xebec armé",
+    "description": "Version combat du chébec, redoutable en Méditerranée.",
+    "shipClass": "Moyen",
+    "nationality": "Méditerranée",
+    "maxCrew": 35,
+    "cargoCapacity": 100,
+    "maxPassengers": 8,
+    "speed": 8,
+    "maneuverability": 7,
+    "durability": 190,
+    "combatPower": 8,
+    "traits": [
+      {"id": 43, "name": "Artillerie optimisée", "effect": "Précision de tir améliorée"},
+      {"id": 44, "name": "Voilure mixte", "effect": "Adaptation rapide au vent"}
+    ],
+    "weaponSlots": 3,
+    "cannonCapacity": 32,
+    "specializations": ["Combat", "Chasse"],
+    "maintenanceCost": 65,
+    "requiredCrew": 30,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 23,
+    "name": "Galéon de Manille",
+    "description": "Immense galion espagnol pour le commerce transpacifique.",
+    "shipClass": "Grand",
+    "nationality": "Espagne",
+    "maxCrew": 40,
+    "cargoCapacity": 280,
+    "maxPassengers": 20,
+    "speed": 4,
+    "maneuverability": 3,
+    "durability": 350,
+    "combatPower": 7,
+    "traits": [
+      {"id": 45, "name": "Cale immense", "effect": "Capacité de charge exceptionnelle"},
+      {"id": 46, "name": "Construction massive", "effect": "Résistance aux tempêtes"}
+    ],
+    "weaponSlots": 3,
+    "cannonCapacity": 40,
+    "specializations": ["Commerce", "Transport"],
+    "maintenanceCost": 100,
+    "requiredCrew": 35,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 24,
+    "name": "Tartane",
+    "description": "Petit navire méditerranéen rapide et polyvalent.",
+    "shipClass": "Petit",
+    "nationality": "Méditerranée",
+    "maxCrew": 15,
+    "cargoCapacity": 80,
+    "maxPassengers": 6,
+    "speed": 8,
+    "maneuverability": 8,
+    "durability": 140,
+    "combatPower": 4,
+    "traits": [
+      {"id": 47, "name": "Voile latine optimisée", "effect": "Grande manœuvrabilité"},
+      {"id": 48, "name": "Polyvalence", "effect": "Adaptation à diverses missions"}
+    ],
+    "weaponSlots": 1,
+    "cannonCapacity": 12,
+    "specializations": ["Commerce", "Pêche"],
+    "maintenanceCost": 40,
+    "requiredCrew": 12,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 25,
+    "name": "Jonque de guerre",
+    "description": "Version militaire de la jonque chinoise traditionnelle.",
+    "shipClass": "Grand",
+    "nationality": "Chine",
+    "maxCrew": 38,
+    "cargoCapacity": 160,
+    "maxPassengers": 12,
+    "speed": 6,
+    "maneuverability": 5,
+    "durability": 260,
+    "combatPower": 8,
+    "traits": [
+      {"id": 49, "name": "Compartiments étanches", "effect": "Survie améliorée"},
+      {"id": 50, "name": "Artillerie lourde", "effect": "Puissance de feu accrue"}
+    ],
+    "weaponSlots": 3,
+    "cannonCapacity": 36,
+    "specializations": ["Combat", "Transport"],
+    "maintenanceCost": 80,
+    "requiredCrew": 32,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 26,
+    "name": "Galeón Pequeño",
+    "description": "Petit galion espagnol, plus rapide que son grand frère.",
+    "shipClass": "Moyen",
+    "nationality": "Espagne",
+    "maxCrew": 25,
+    "cargoCapacity": 140,
+    "maxPassengers": 10,
+    "speed": 7,
+    "maneuverability": 6,
+    "durability": 200,
+    "combatPower": 7,
+    "traits": [
+      {"id": 51, "name": "Construction allégée", "effect": "Meilleure vitesse"},
+      {"id": 52, "name": "Artillerie compacte", "effect": "Efficacité en combat"}
+    ],
+    "weaponSlots": 2,
+    "cannonCapacity": 28,
+    "specializations": ["Combat", "Transport"],
+    "maintenanceCost": 60,
+    "requiredCrew": 20,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 27,
+    "name": "Urca",
+    "description": "Grand navire de charge flamand, stable et spacieux.",
+    "shipClass": "Grand",
+    "nationality": "Flandres",
+    "maxCrew": 30,
+    "cargoCapacity": 230,
+    "maxPassengers": 15,
+    "speed": 5,
+    "maneuverability": 4,
+    "durability": 280,
+    "combatPower": 5,
+    "traits": [
+      {"id": 53, "name": "Coque large", "effect": "Grande stabilité"},
+      {"id": 54, "name": "Pont renforcé", "effect": "Transport de charges lourdes"}
+    ],
+    "weaponSlots": 2,
+    "cannonCapacity": 24,
+    "specializations": ["Commerce", "Transport"],
+    "maintenanceCost": 75,
+    "requiredCrew": 25,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 28,
+    "name": "Saïque",
+    "description": "Navire de commerce ottoman adapté à la Méditerranée orientale.",
+    "shipClass": "Moyen",
+    "nationality": "Empire Ottoman",
+    "maxCrew": 20,
+    "cargoCapacity": 160,
+    "maxPassengers": 12,
+    "speed": 6,
+    "maneuverability": 7,
+    "durability": 170,
+    "combatPower": 4,
+    "traits": [
+      {"id": 55, "name": "Voilure orientale", "effect": "Navigation par vents variables"},
+      {"id": 56, "name": "Cale profonde", "effect": "Stockage optimisé"}
+    ],
+    "weaponSlots": 2,
+    "cannonCapacity": 16,
+    "specializations": ["Commerce", "Transport"],
+    "maintenanceCost": 50,
+    "requiredCrew": 16,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 29,
+    "name": "Gribane",
+    "description": "Caboteur normand à fond plat pour la navigation fluviale et côtière.",
+    "shipClass": "Petit",
+    "nationality": "France",
+    "maxCrew": 12,
+    "cargoCapacity": 100,
+    "maxPassengers": 6,
+    "speed": 6,
+    "maneuverability": 8,
+    "durability": 140,
+    "combatPower": 3,
+    "traits": [
+      {"id": 57, "name": "Fond ultra-plat", "effect": "Navigation en eaux très peu profondes"},
+      {"id": 58, "name": "Construction robuste", "effect": "Résistance aux échouages"}
+    ],
+    "weaponSlots": 1,
+    "cannonCapacity": 8,
+    "specializations": ["Commerce", "Transport"],
+    "maintenanceCost": 35,
+    "requiredCrew": 10,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 30,
+    "name": "Kraier",
+    "description": "Navire marchand hanséatique de taille moyenne.",
+    "shipClass": "Moyen",
+    "nationality": "Hanse",
+    "maxCrew": 16,
+    "cargoCapacity": 150,
+    "maxPassengers": 8,
+    "speed": 6,
+    "maneuverability": 6,
+    "durability": 190,
+    "combatPower": 4,
+    "traits": [
+      {"id": 59, "name": "Design baltique", "effect": "Adapté aux mers froides"},
+      {"id": 60, "name": "Pont couvert", "effect": "Protection du cargo"}
+    ],
+    "weaponSlots": 2,
+    "cannonCapacity": 14,
+    "specializations": ["Commerce", "Transport"],
+    "maintenanceCost": 55,
+    "requiredCrew": 14,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 31,
+    "name": "Atakebune",
+    "description": "Navire de guerre japonais lourdement armé, utilisé par les daimyos.",
+    "shipClass": "Grand",
+    "nationality": "Japon",
+    "maxCrew": 36,
+    "cargoCapacity": 140,
+    "maxPassengers": 10,
+    "speed": 5,
+    "maneuverability": 4,
+    "durability": 300,
+    "combatPower": 9,
+    "traits": [
+      {"id": 61, "name": "Château de combat", "effect": "Protection accrue en combat"},
+      {"id": 62, "name": "Plateforme d'arquebuses", "effect": "Bonus aux tirs de mousquets"}
+    ],
+    "weaponSlots": 4,
+    "cannonCapacity": 38,
+    "specializations": ["Combat", "Transport"],
+    "maintenanceCost": 85,
+    "requiredCrew": 30,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 32,
+    "name": "Shachuan",
+    "description": "Jonque de sable chinoise, spécialisée dans le transport fluvial.",
+    "shipClass": "Moyen",
+    "nationality": "Chine",
+    "maxCrew": 18,
+    "cargoCapacity": 200,
+    "maxPassengers": 8,
+    "speed": 5,
+    "maneuverability": 7,
+    "durability": 180,
+    "combatPower": 3,
+    "traits": [
+      {"id": 63, "name": "Fond renforcé", "effect": "Navigation en eaux peu profondes"},
+      {"id": 64, "name": "Cale modulaire", "effect": "Adaptation à différents types de cargo"}
+    ],
+    "weaponSlots": 1,
+    "cannonCapacity": 12,
+    "specializations": ["Commerce", "Transport"],
+    "maintenanceCost": 45,
+    "requiredCrew": 15,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 33,
+    "name": "Karamoussal",
+    "description": "Navire de commerce ottoman rapide pour la mer Noire.",
+    "shipClass": "Moyen",
+    "nationality": "Empire Ottoman",
+    "maxCrew": 22,
+    "cargoCapacity": 130,
+    "maxPassengers": 10,
+    "speed": 8,
+    "maneuverability": 7,
+    "durability": 160,
+    "combatPower": 5,
+    "traits": [
+      {"id": 65, "name": "Voilure adaptative", "effect": "Performance par tous temps"},
+      {"id": 66, "name": "Construction légère", "effect": "Vitesse accrue"}
+    ],
+    "weaponSlots": 2,
+    "cannonCapacity": 18,
+    "specializations": ["Commerce", "Exploration"],
+    "maintenanceCost": 50,
+    "requiredCrew": 18,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 34,
+    "name": "Panokseon",
+    "description": "Navire de guerre coréen, rapide et maniable.",
+    "shipClass": "Moyen",
+    "nationality": "Corée",
+    "maxCrew": 28,
+    "cargoCapacity": 100,
+    "maxPassengers": 8,
+    "speed": 8,
+    "maneuverability": 8,
+    "durability": 200,
+    "combatPower": 7,
+    "traits": [
+      {"id": 67, "name": "Pont couvert", "effect": "Protection des archers"},
+      {"id": 68, "name": "Conception effilée", "effect": "Excellente maniabilité"}
+    ],
+    "weaponSlots": 3,
+    "cannonCapacity": 22,
+    "specializations": ["Combat", "Patrouille"],
+    "maintenanceCost": 60,
+    "requiredCrew": 24,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  },
+  {
+    "id": 35,
+    "name": "Ghanja",
+    "description": "Grand navire indien pour le commerce en océan Indien.",
+    "shipClass": "Grand",
+    "nationality": "Inde",
+    "maxCrew": 32,
+    "cargoCapacity": 220,
+    "maxPassengers": 15,
+    "speed": 6,
+    "maneuverability": 5,
+    "durability": 240,
+    "combatPower": 6,
+    "traits": [
+      {"id": 69, "name": "Coque renforcée teck", "effect": "Résistance aux eaux tropicales"},
+      {"id": 70, "name": "Voilure monsoon", "effect": "Adaptation aux vents saisonniers"}
+    ],
+    "weaponSlots": 3,
+    "cannonCapacity": 26,
+    "specializations": ["Commerce", "Transport"],
+    "maintenanceCost": 70,
+    "requiredCrew": 28,
+    "upgrades": {
+      "hull": 0,
+      "rigging": 0,
+      "cannons": 0
+    }
+  }
+] 

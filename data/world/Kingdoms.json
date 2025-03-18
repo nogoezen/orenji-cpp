@@ -1,0 +1,352 @@
+[
+  {
+    "id": 1,
+    "name": "Espagne",
+    "fullName": "Monarchie Catholique Espagnole",
+    "color": "#FFC400",
+    "capital": "Tolède",
+    "ruler": {
+      "name": "Charles Quint",
+      "title": "Roi",
+      "reignStart": 1516
+    },
+    "regions": [2, 9],
+    "description": "Puissance montante en Europe et dans le Nouveau Monde, l'Espagne est dirigée par Charles Quint, également empereur du Saint-Empire. Après l'unification de la Castille et de l'Aragon, et la conquête récente des empires aztèque et inca, l'Espagne devient la première puissance mondiale."
+  },
+  {
+    "id": 2,
+    "name": "Portugal",
+    "fullName": "Royaume du Portugal",
+    "color": "#006600",
+    "capital": "Lisbonne",
+    "ruler": {
+      "name": "Jean III",
+      "title": "Roi",
+      "reignStart": 1521
+    },
+    "regions": [2, 6, 7, 13],
+    "description": "Pionnier des explorations maritimes, le Portugal a établi un vaste réseau commercial s'étendant de l'Afrique à l'Asie. Sous Jean III, le Portugal consolide son empire colonial avec des comptoirs en Inde, en Afrique et au Brésil."
+  },
+  {
+    "id": 3,
+    "name": "France",
+    "fullName": "Royaume de France",
+    "color": "#0055A4",
+    "capital": "Paris",
+    "ruler": {
+      "name": "François Ier",
+      "title": "Roi",
+      "reignStart": 1515
+    },
+    "regions": [1],
+    "description": "Sous François Ier, la France est un centre culturel majeur de la Renaissance. Rivale de la maison des Habsbourg, elle cherche à maintenir son influence en Europe tout en commençant à explorer le Nouveau Monde."
+  },
+  {
+    "id": 4,
+    "name": "Angleterre",
+    "fullName": "Royaume d'Angleterre",
+    "color": "#C41E3A",
+    "capital": "Londres",
+    "ruler": {
+      "name": "Henri VIII",
+      "title": "Roi",
+      "reignStart": 1509
+    },
+    "regions": [1],
+    "description": "Sous Henri VIII, l'Angleterre s'apprête à rompre avec l'Église catholique. Puissance maritime émergente, elle commence à développer sa marine et à s'intéresser aux explorations transatlantiques."
+  },
+  {
+    "id": 5,
+    "name": "Saint-Empire",
+    "fullName": "Saint-Empire Romain Germanique",
+    "color": "#F8C3CD",
+    "capital": "Vienne",
+    "ruler": {
+      "name": "Charles Quint",
+      "title": "Empereur",
+      "reignStart": 1519
+    },
+    "regions": [1],
+    "description": "Vaste confédération d'États germaniques dirigée par Charles Quint, également roi d'Espagne. Le Saint-Empire est confronté à la Réforme protestante et aux tensions religieuses croissantes."
+  },
+  {
+    "id": 6,
+    "name": "Empire Ottoman",
+    "fullName": "Empire Ottoman",
+    "color": "#00743F",
+    "capital": "Istanbul",
+    "ruler": {
+      "name": "Soliman le Magnifique",
+      "title": "Sultan",
+      "reignStart": 1520
+    },
+    "regions": [3, 12, 14],
+    "description": "Sous Soliman le Magnifique, l'Empire Ottoman atteint son apogée. Après avoir conquis Belgrade (1521) et Rhodes (1522), il menace l'Europe centrale et domine la Méditerranée orientale, le Moyen-Orient et l'Afrique du Nord."
+  },
+  {
+    "id": 7,
+    "name": "Venise",
+    "fullName": "République de Venise",
+    "color": "#1E4D2B",
+    "capital": "Venise",
+    "ruler": {
+      "name": "Andrea Gritti",
+      "title": "Doge",
+      "reignStart": 1523
+    },
+    "regions": [3],
+    "description": "République maritime majeure, Venise contrôle le commerce en Méditerranée orientale malgré la montée de l'Empire Ottoman. Son influence s'étend sur les côtes adriatiques et certaines îles grecques."
+  },
+  {
+    "id": 8,
+    "name": "États Pontificaux",
+    "fullName": "États Pontificaux",
+    "color": "#FFD700",
+    "capital": "Rome",
+    "ruler": {
+      "name": "Clément VII",
+      "title": "Pape",
+      "reignStart": 1523
+    },
+    "regions": [2],
+    "description": "Dirigés par le pape Clément VII, les États Pontificaux sont confrontés à la Réforme protestante et aux tensions politiques entre la France et l'Empire des Habsbourg."
+  },
+  {
+    "id": 9,
+    "name": "Pologne-Lituanie",
+    "fullName": "Union de Pologne-Lituanie",
+    "color": "#DC143C",
+    "capital": "Cracovie",
+    "ruler": {
+      "name": "Sigismond Ier",
+      "title": "Roi",
+      "reignStart": 1506
+    },
+    "regions": [11],
+    "description": "Puissance majeure d'Europe de l'Est, l'Union de Pologne-Lituanie sous Sigismond Ier est un État multiculturel et multiconfessionnel qui s'étend de la Baltique à la mer Noire."
+  },
+  {
+    "id": 10,
+    "name": "Russie",
+    "fullName": "Grand-Duché de Moscovie",
+    "color": "#B22222",
+    "capital": "Moscou",
+    "ruler": {
+      "name": "Vassili III",
+      "title": "Grand-Duc",
+      "reignStart": 1505
+    },
+    "regions": [11, 12],
+    "description": "Sous Vassili III, la Moscovie poursuit son expansion et sa centralisation, posant les bases du futur Empire russe. Elle est en conflit avec la Pologne-Lituanie et les khanats tatars."
+  },
+  {
+    "id": 11,
+    "name": "Perse Safavide",
+    "fullName": "Empire Safavide",
+    "color": "#800080",
+    "capital": "Tabriz",
+    "ruler": {
+      "name": "Ismaïl Ier",
+      "title": "Shah",
+      "reignStart": 1501
+    },
+    "regions": [14],
+    "description": "Dynastie chiite qui a unifié la Perse, les Safavides sous Ismaïl Ier sont en conflit avec l'Empire Ottoman sunnite et les Ouzbeks à l'est."
+  },
+  {
+    "id": 12,
+    "name": "Empire Moghol",
+    "fullName": "Empire Moghol",
+    "color": "#228B22",
+    "capital": "Agra",
+    "ruler": {
+      "name": "Babur",
+      "title": "Empereur",
+      "reignStart": 1526
+    },
+    "regions": [6],
+    "description": "Fondé par Babur en 1526 après sa victoire à Panipat, l'Empire Moghol commence son expansion en Inde du Nord, établissant une dynastie musulmane sur un territoire majoritairement hindou."
+  },
+  {
+    "id": 13,
+    "name": "Ming",
+    "fullName": "Dynastie Ming",
+    "color": "#E4007C",
+    "capital": "Pékin",
+    "ruler": {
+      "name": "Jiajing",
+      "title": "Empereur",
+      "reignStart": 1521
+    },
+    "regions": [8],
+    "description": "Sous l'empereur Jiajing, la Chine des Ming est l'une des civilisations les plus avancées du monde, mais adopte une politique isolationniste après les grandes expéditions maritimes du début du XVe siècle."
+  },
+  {
+    "id": 14,
+    "name": "Japon",
+    "fullName": "Japon (Période Sengoku)",
+    "color": "#BC002D",
+    "capital": "Kyoto",
+    "ruler": {
+      "name": "Go-Nara",
+      "title": "Empereur",
+      "reignStart": 1526
+    },
+    "regions": [8],
+    "description": "En pleine période Sengoku (États en guerre), le Japon est fragmenté entre daimyos rivaux, l'empereur n'ayant qu'un pouvoir symbolique. Les premiers contacts avec les Européens (Portugais) ont lieu en 1543."
+  },
+  {
+    "id": 15,
+    "name": "Empire Aztèque",
+    "fullName": "Triple Alliance",
+    "color": "#006400",
+    "capital": "Tenochtitlan",
+    "ruler": {
+      "name": "Cuauhtémoc",
+      "title": "Tlatoani",
+      "reignStart": 1520
+    },
+    "regions": [9],
+    "description": "Dernier empereur aztèque, Cuauhtémoc a résisté aux conquistadors espagnols jusqu'à la chute de Tenochtitlan en 1521. En 1525, l'empire est largement sous contrôle espagnol, mais des résistances persistent."
+  },
+  {
+    "id": 16,
+    "name": "Empire Inca",
+    "fullName": "Tahuantinsuyo",
+    "color": "#8B4513",
+    "capital": "Cuzco",
+    "ruler": {
+      "name": "Huayna Capac",
+      "title": "Sapa Inca",
+      "reignStart": 1493
+    },
+    "regions": [17],
+    "description": "En 1525, l'Empire Inca est affaibli par une guerre de succession entre Huáscar et Atahualpa après la mort de Huayna Capac, juste avant l'arrivée des conquistadors espagnols en 1532."
+  },
+  {
+    "id": 17,
+    "name": "Songhaï",
+    "fullName": "Empire Songhaï",
+    "color": "#8B008B",
+    "capital": "Gao",
+    "ruler": {
+      "name": "Askia Mohammed Touré",
+      "title": "Askia",
+      "reignStart": 1493
+    },
+    "regions": [4],
+    "description": "Plus grand État d'Afrique de l'Ouest, l'Empire Songhaï sous Askia Mohammed est un centre commercial et intellectuel majeur, contrôlant le commerce transsaharien."
+  },
+  {
+    "id": 18,
+    "name": "Éthiopie",
+    "fullName": "Empire d'Éthiopie",
+    "color": "#006400",
+    "capital": "Gondar",
+    "ruler": {
+      "name": "Lebna Dengel",
+      "title": "Négus",
+      "reignStart": 1508
+    },
+    "regions": [13],
+    "description": "Royaume chrétien ancien, l'Éthiopie sous Lebna Dengel résiste à l'expansion musulmane en Afrique de l'Est, mais sera bientôt confrontée à l'invasion de l'Adal soutenu par les Ottomans."
+  },
+  {
+    "id": 19,
+    "name": "Vijayanagar",
+    "fullName": "Empire de Vijayanagar",
+    "color": "#FF8C00",
+    "capital": "Vijayanagar",
+    "ruler": {
+      "name": "Krishna Deva Raya",
+      "title": "Maharaja",
+      "reignStart": 1509
+    },
+    "regions": [6],
+    "description": "Dernier grand royaume hindou d'Inde du Sud, Vijayanagar sous Krishna Deva Raya connaît son âge d'or, résistant aux sultanats musulmans du Deccan."
+  },
+  {
+    "id": 20,
+    "name": "Siam",
+    "fullName": "Royaume d'Ayutthaya",
+    "color": "#B22222",
+    "capital": "Ayutthaya",
+    "ruler": {
+      "name": "Ramathibodi II",
+      "title": "Roi",
+      "reignStart": 1491
+    },
+    "regions": [7],
+    "description": "Centre commercial important en Asie du Sud-Est, le royaume d'Ayutthaya (Siam) sous Ramathibodi II entretient des relations avec la Chine et commence à commercer avec les Portugais."
+  },
+  {
+    "id": 21,
+    "name": "Maroc",
+    "fullName": "Sultanat Wattasside",
+    "color": "#8B0000",
+    "capital": "Fès",
+    "ruler": {
+      "name": "Abu al-Abbas Ahmad",
+      "title": "Sultan",
+      "reignStart": 1524
+    },
+    "regions": [4],
+    "description": "Sous la dynastie Wattasside, le Maroc est confronté à l'expansion portugaise sur ses côtes et à l'émergence de la dynastie saadienne dans le sud."
+  },
+  {
+    "id": 22,
+    "name": "Hafsides",
+    "fullName": "Califat Hafside",
+    "color": "#4B0082",
+    "capital": "Tunis",
+    "ruler": {
+      "name": "Moulay Hassan",
+      "title": "Calife",
+      "reignStart": 1526
+    },
+    "regions": [3],
+    "description": "Dynastie berbère régnant sur l'Ifriqiya (Tunisie actuelle), les Hafsides sont pris entre l'expansion ottomane et les raids des corsaires barbaresques."
+  },
+  {
+    "id": 23,
+    "name": "Hongrie",
+    "fullName": "Royaume de Hongrie",
+    "color": "#FF4500",
+    "capital": "Buda",
+    "ruler": {
+      "name": "Louis II",
+      "title": "Roi",
+      "reignStart": 1516
+    },
+    "regions": [3],
+    "description": "En 1525, le royaume de Hongrie est menacé par l'expansion ottomane. Louis II sera défait et tué à la bataille de Mohács en 1526, marquant le début de la domination ottomane sur une partie de la Hongrie."
+  },
+  {
+    "id": 24,
+    "name": "Khanat de Crimée",
+    "fullName": "Khanat de Crimée",
+    "color": "#2E8B57",
+    "capital": "Bakhtchissaraï",
+    "ruler": {
+      "name": "Saadet Giray",
+      "title": "Khan",
+      "reignStart": 1524
+    },
+    "regions": [12],
+    "description": "État vassal de l'Empire Ottoman, le Khanat de Crimée est une puissance tatare qui contrôle la péninsule de Crimée et les steppes environnantes, menant des raids contre la Pologne-Lituanie et la Moscovie."
+  },
+  {
+    "id": 25,
+    "name": "Sultanat de Gujarat",
+    "fullName": "Sultanat de Gujarat",
+    "color": "#9932CC",
+    "capital": "Ahmedabad",
+    "ruler": {
+      "name": "Bahadur Shah",
+      "title": "Sultan",
+      "reignStart": 1526
+    },
+    "regions": [6],
+    "description": "Puissance maritime et commerciale de l'ouest de l'Inde, le Gujarat sous Bahadur Shah résiste à l'expansion moghole et portugaise, contrôlant d'importants ports commerciaux."
+  }
+] 

@@ -1,0 +1,418 @@
+[
+  {
+    "id": 70,
+    "name": "Escrime",
+    "description": "Techniques de base au combat à l'épée.",
+    "iconIndex": 76,
+    "mpCost": 0,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 1,
+      "formula": "a.atk * 2",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 10,
+    "rank": "D",
+    "acquisitionRequirements": {
+      "actorLevel": 1,
+      "goldCost": 100,
+      "location": "Lisbonne",
+      "teacherNpcId": 240
+    }
+  },
+  {
+    "id": 71,
+    "name": "Botte secrète",
+    "description": "Attaque spéciale difficile à parer.",
+    "iconIndex": 76,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 1,
+      "formula": "a.atk * 3",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 10,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 5,
+      "goldCost": 500,
+      "requiredSkills": [70],
+      "location": "Séville",
+      "teacherNpcId": 245
+    }
+  },
+  {
+    "id": 72,
+    "name": "Parade",
+    "description": "Technique défensive qui réduit les dégâts reçus.",
+    "iconIndex": 81,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [
+      {"code": 31, "dataId": 3, "value1": 3, "value2": 0}
+    ],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 7,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 4,
+      "goldCost": 400,
+      "requiredSkills": [70],
+      "location": "Venise",
+      "teacherNpcId": 250
+    }
+  },
+  {
+    "id": 73,
+    "name": "Coup de rapière",
+    "description": "Attaque rapide et précise avec une rapière.",
+    "iconIndex": 76,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 1,
+      "formula": "a.atk * 2.5",
+      "type": 1,
+      "variance": 10
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 2,
+    "scope": 1,
+    "speed": 2,
+    "successRate": 95,
+    "tpGain": 10,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 8,
+      "goldCost": 1000,
+      "requiredSkills": [71],
+      "location": "Florence",
+      "teacherNpcId": 255
+    }
+  },
+  {
+    "id": 74,
+    "name": "Charge de lance",
+    "description": "Attaque puissante avec une lance.",
+    "iconIndex": 76,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 1,
+      "formula": "a.atk * 3.5",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 10,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 9,
+      "goldCost": 1200,
+      "location": "Barcelone",
+      "teacherNpcId": 260
+    }
+  },
+  {
+    "id": 75,
+    "name": "Hallebarde",
+    "description": "Attaque avec une hallebarde qui peut toucher plusieurs ennemis.",
+    "iconIndex": 76,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 1,
+      "formula": "a.atk * 2.8",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 2,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 10,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 12,
+      "goldCost": 2000,
+      "requiredSkills": [74],
+      "location": "Milan",
+      "teacherNpcId": 265
+    }
+  },
+  {
+    "id": 76,
+    "name": "Coup de hache",
+    "description": "Attaque puissante avec une hache.",
+    "iconIndex": 76,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 1,
+      "formula": "a.atk * 4",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": -2,
+    "successRate": 85,
+    "tpGain": 10,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 13,
+      "goldCost": 2200,
+      "location": "Hambourg",
+      "teacherNpcId": 270
+    }
+  },
+  {
+    "id": 77,
+    "name": "Pugilat",
+    "description": "Combat à mains nues.",
+    "iconIndex": 76,
+    "mpCost": 0,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 1,
+      "formula": "a.atk * 1.8",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 2,
+    "scope": 1,
+    "speed": 1,
+    "successRate": 100,
+    "tpGain": 10,
+    "rank": "D",
+    "acquisitionRequirements": {
+      "actorLevel": 2,
+      "goldCost": 150,
+      "location": "Marseille",
+      "teacherNpcId": 275
+    }
+  },
+  {
+    "id": 78,
+    "name": "Tir à l'arc",
+    "description": "Attaque à distance avec un arc.",
+    "iconIndex": 77,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 1,
+      "formula": "a.atk * 2.5",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": 0,
+    "successRate": 95,
+    "tpGain": 10,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 5,
+      "goldCost": 500,
+      "location": "Londres",
+      "teacherNpcId": 280
+    }
+  },
+  {
+    "id": 79,
+    "name": "Tir d'arbalète",
+    "description": "Attaque puissante à distance avec une arbalète.",
+    "iconIndex": 77,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 1,
+      "formula": "a.atk * 3.2",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": -1,
+    "successRate": 90,
+    "tpGain": 10,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 9,
+      "goldCost": 1200,
+      "requiredSkills": [78],
+      "location": "Gênes",
+      "teacherNpcId": 285
+    }
+  },
+  {
+    "id": 80,
+    "name": "Tir de mousquet",
+    "description": "Attaque à distance avec un mousquet.",
+    "iconIndex": 77,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 1,
+      "formula": "a.atk * 4",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": -2,
+    "successRate": 85,
+    "tpGain": 10,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 14,
+      "goldCost": 2500,
+      "requiredItems": [
+        {
+          "itemId": 120,
+          "quantity": 1
+        }
+      ],
+      "location": "Anvers",
+      "teacherNpcId": 290
+    }
+  },
+  {
+    "id": 81,
+    "name": "Tir de pistolet",
+    "description": "Attaque rapide à distance avec un pistolet.",
+    "iconIndex": 77,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 1,
+      "formula": "a.atk * 3",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": 1,
+    "successRate": 90,
+    "tpGain": 10,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 10,
+      "goldCost": 1500,
+      "requiredItems": [
+        {
+          "itemId": 125,
+          "quantity": 1
+        }
+      ],
+      "location": "Venise",
+      "teacherNpcId": 295
+    }
+  },
+  {
+    "id": 82,
+    "name": "Dague cachée",
+    "description": "Attaque surprise avec une dague dissimulée.",
+    "iconIndex": 76,
+    "mpCost": 20,
+    "tpCost": 0,
+    "damage": {
+      "critical": true,
+      "elementId": 1,
+      "formula": "a.atk * 5",
+      "type": 1,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 1,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 1,
+    "speed": 2,
+    "successRate": 80,
+    "tpGain": 10,
+    "rank": "S",
+    "acquisitionRequirements": {
+      "actorLevel": 18,
+      "goldCost": 5000,
+      "requiredSkills": [71, 73],
+      "requiredItems": [
+        {
+          "itemId": 130,
+          "quantity": 1
+        }
+      ],
+      "location": "Florence",
+      "teacherNpcId": 300
+    }
+  }
+] 

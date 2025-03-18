@@ -1,0 +1,5801 @@
+[
+  {
+    "id": 1,
+    "name": "Londres",
+    "regionId": 1,
+    "prosperity": 9,
+    "allegiance": {
+      "power": "Angleterre",
+      "color": "#C41E3A",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 0,
+      "y": 51.5
+    },
+    "description": "Capitale de l'Angleterre et centre commercial majeur du nord de l'Europe.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Brick",
+        "Sloop",
+        "Hourque"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        6,
+        21,
+        10
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "name": "Amsterdam",
+    "regionId": 1,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Saint-Empire",
+      "color": "#F8C3CD",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      4,
+      10
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 4.9,
+      "y": 52.4
+    },
+    "description": "Port commercial en plein essor dans les Pays-Bas sous domination des Habsbourg.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "FlÃ»te",
+        "Baleinier",
+        "Hourque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        3,
+        16,
+        10
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "name": "Lisbonne",
+    "regionId": 2,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1500
+    },
+    "specialties": [
+      7,
+      10
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": -9.1,
+      "y": 38.7
+    },
+    "description": "Port principal du Portugal, point de dÃ©part des explorations maritimes.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caraque",
+        "Caravelle",
+        "Carraque de guerre"
+      ],
+      "maxShipClass": "Grand",
+      "special": "Arsenal royal portugais",
+      "availableShips": [
+        5,
+        1,
+        15
+      ]
+    }
+  },
+  {
+    "id": 4,
+    "name": "Seville",
+    "regionId": 2,
+    "prosperity": 8,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "specialties": [
+      7,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": -6,
+      "y": 37.4
+    },
+    "description": "Port espagnol contrÃ´lant le commerce avec les colonies amÃ©ricaines.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "GaleÃ³n PequeÃ±o",
+        "GalÃ©on de Manille"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        2,
+        26,
+        23
+      ]
+    }
+  },
+  {
+    "id": 5,
+    "name": "Venise",
+    "regionId": 3,
+    "prosperity": 9,
+    "allegiance": {
+      "power": "Venise",
+      "color": "#1E4D2B",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 12.3,
+      "y": 45.4
+    },
+    "description": "RÃ©publique maritime dominant le commerce mÃ©diterranÃ©en et avec l'Orient.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "GalÃ¨re",
+        "GalÃ©asse",
+        "Nef"
+      ],
+      "maxShipClass": "Grand",
+      "special": "Arsenal de Venise",
+      "availableShips": [
+        13,
+        9,
+        11
+      ]
+    }
+  },
+  {
+    "id": 6,
+    "name": "Istanbul",
+    "regionId": 3,
+    "prosperity": 10,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      3,
+      4,
+      8
+    ],
+    "coordinates": {
+      "x": 29,
+      "y": 41
+    },
+    "description": "Ancienne Constantinople, capitale de l'Empire ottoman et carrefour entre l'Europe et l'Asie.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "GalÃ¨re",
+        "SaÃ¯que",
+        "Karamoussal"
+      ],
+      "maxShipClass": "Grand",
+      "special": "Arsenal impÃ©rial ottoman",
+      "availableShips": [
+        13,
+        28,
+        33
+      ]
+    }
+  },
+  {
+    "id": 7,
+    "name": "Le Caire",
+    "regionId": 3,
+    "prosperity": 8,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1517
+    },
+    "specialties": [
+      1,
+      2,
+      6
+    ],
+    "demand": [
+      4,
+      8,
+      10
+    ],
+    "coordinates": {
+      "x": 30,
+      "y": 31.2
+    },
+    "description": "Port Ã©gyptien contrÃ´lant le commerce entre la MÃ©diterranÃ©e et la mer Rouge.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "GalÃ¨re",
+        "Fuste",
+        "Dhow"
+      ],
+      "maxShipClass": "Moyen",
+      "special": "Arsenal Ã©gyptien",
+      "availableShips": [
+        13,
+        14,
+        8
+      ]
+    }
+  },
+  {
+    "id": 9,
+    "name": "Le Cap",
+    "regionId": 4,
+    "prosperity": 7,
+    "specialties": [
+      7,
+      8
+    ],
+    "demand": [
+      1,
+      2,
+      6
+    ],
+    "coordinates": {
+      "x": 18.4,
+      "y": -33.9
+    },
+    "description": "Escale stratÃ©gique sur la route des Indes.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caraque",
+        "Caravelle",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        5,
+        1,
+        12
+      ]
+    }
+  },
+  {
+    "id": 10,
+    "name": "Aden",
+    "regionId": 5,
+    "prosperity": 7,
+    "specialties": [
+      1,
+      3
+    ],
+    "demand": [
+      2,
+      8,
+      10
+    ],
+    "coordinates": {
+      "x": 45,
+      "y": 12.5
+    },
+    "description": "Port contrÃ´lant l'entrÃ©e de la mer Rouge, point de transit pour les Ã©pices.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Baghlah",
+        "Barque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        8,
+        17,
+        12
+      ]
+    }
+  },
+  {
+    "id": 11,
+    "name": "Ormuz",
+    "regionId": 5,
+    "prosperity": 8,
+    "specialties": [
+      1,
+      3,
+      6
+    ],
+    "demand": [
+      2,
+      8,
+      10
+    ],
+    "coordinates": {
+      "x": 56.5,
+      "y": 25.5
+    },
+    "description": "ContrÃ´le le dÃ©troit d'Ormuz et le commerce du golfe Persique.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caraque",
+        "Dhow",
+        "Baghlah"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        5,
+        8,
+        17
+      ]
+    }
+  },
+  {
+    "id": 12,
+    "name": "Goa",
+    "regionId": 6,
+    "prosperity": 8,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1510
+    },
+    "specialties": [
+      1,
+      2,
+      6
+    ],
+    "demand": [
+      3,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": 75.2,
+      "y": 15.1
+    },
+    "description": "Comptoir portugais en Inde, centre du commerce des Ã©pices.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caraque",
+        "Carraque de guerre",
+        "Caravelle"
+      ],
+      "maxShipClass": "Grand",
+      "special": "Arsenal portugais des Indes",
+      "availableShips": [
+        5,
+        15,
+        1
+      ]
+    }
+  },
+  {
+    "id": 13,
+    "name": "Calicut",
+    "regionId": 6,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Indépendant",
+      "color": "#808080",
+      "startYear": 1500
+    },
+    "specialties": [
+      1,
+      2
+    ],
+    "demand": [
+      3,
+      4,
+      10
+    ],
+    "coordinates": {
+      "x": 75.2,
+      "y": 15.1
+    },
+    "description": "Important port indien pour le commerce des Ã©pices, premier point d'arrivÃ©e de Vasco de Gama en Inde.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Ghanja",
+        "Dhow",
+        "Patamari"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        35,
+        8,
+        38
+      ]
+    }
+  },
+  {
+    "id": 14,
+    "name": "Malacca",
+    "regionId": 7,
+    "prosperity": 9,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1511
+    },
+    "specialties": [
+      1,
+      2,
+      6
+    ],
+    "demand": [
+      3,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": 103.8,
+      "y": 1.3
+    },
+    "description": "ContrÃ´le le dÃ©troit de Malacca, point de passage obligÃ© du commerce asiatique.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Ghanja",
+        "Baghlah"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        7,
+        35,
+        17
+      ]
+    }
+  },
+  {
+    "id": 15,
+    "name": "Sunda Kelapa",
+    "regionId": 7,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Indépendant",
+      "color": "#808080",
+      "startYear": 1500
+    },
+    "specialties": [
+      1,
+      7
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": 106.8,
+      "y": -6.2
+    },
+    "description": "Important port commercial javanais, centre d'Ã©change du poivre et des Ã©pices.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Prahu",
+        "Ghanja"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        7,
+        36,
+        35
+      ]
+    }
+  },
+  {
+    "id": 16,
+    "name": "Canton",
+    "regionId": 8,
+    "prosperity": 9,
+    "allegiance": {
+      "power": "Ming",
+      "color": "#E4007C",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6
+    ],
+    "demand": [
+      3,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": 113.3,
+      "y": 23.1
+    },
+    "description": "Principal port chinois ouvert au commerce Ã©tranger.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Jonque de guerre",
+        "Shachuan"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        7,
+        25,
+        32
+      ]
+    }
+  },
+  {
+    "id": 18,
+    "name": "La Havane",
+    "regionId": 9,
+    "prosperity": 8,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "specialties": [
+      5,
+      7
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": -82.4,
+      "y": 23.1
+    },
+    "description": "Port stratÃ©gique des CaraÃ¯bes, escale des flottes espagnoles.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "GaleÃ³n PequeÃ±o",
+        "Patache"
+      ],
+      "maxShipClass": "Grand",
+      "special": "Arsenal des CaraÃ¯bes",
+      "availableShips": [
+        2,
+        26,
+        18
+      ]
+    }
+  },
+  {
+    "id": 19,
+    "name": "Santa Marta",
+    "regionId": 9,
+    "prosperity": 5,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1525
+    },
+    "specialties": [
+      3,
+      5
+    ],
+    "demand": [
+      2,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": -74.2,
+      "y": 11.2
+    },
+    "description": "Premier Ã©tablissement espagnol permanent en Colombie, point d'entrÃ©e pour l'exploration de l'intÃ©rieur des terres.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caravelle",
+        "Patache",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        1,
+        18,
+        12
+      ]
+    }
+  },
+  {
+    "id": 21,
+    "name": "Copenhague",
+    "regionId": 11,
+    "prosperity": 7,
+    "specialties": [
+      4,
+      8,
+      10
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": 12.5,
+      "y": 55.7
+    },
+    "description": "Capitale du Danemark et port principal de la Baltique.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Cogue",
+        "Kraier",
+        "Hourque"
+      ],
+      "maxShipClass": "Moyen",
+      "special": "Arsenal royal danois",
+      "availableShips": [
+        19,
+        30,
+        10
+      ]
+    }
+  },
+  {
+    "id": 22,
+    "name": "Stockholm",
+    "regionId": 11,
+    "prosperity": 6,
+    "specialties": [
+      4,
+      8
+    ],
+    "demand": [
+      1,
+      2,
+      7
+    ],
+    "coordinates": {
+      "x": 18.1,
+      "y": 59.3
+    },
+    "description": "Capitale suÃ©doise et centre commercial de la Baltique.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Cogue",
+        "Kraier",
+        "Hourque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        19,
+        30,
+        10
+      ]
+    }
+  },
+  {
+    "id": 23,
+    "name": "Gdansk",
+    "regionId": 11,
+    "prosperity": 7,
+    "specialties": [
+      4,
+      7,
+      8
+    ],
+    "demand": [
+      1,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": 18.6,
+      "y": 54.4
+    },
+    "description": "Port hansÃ©atique important pour le commerce du grain et du bois.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Cogue",
+        "Hourque",
+        "Kraier"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        19,
+        10,
+        30
+      ]
+    }
+  },
+  {
+    "id": 24,
+    "name": "Odessa",
+    "regionId": 12,
+    "prosperity": 6,
+    "specialties": [
+      4,
+      7
+    ],
+    "demand": [
+      2,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": 30.5,
+      "y": 46.5
+    },
+    "description": "Port majeur de la mer Noire, exportateur de cÃ©rÃ©ales."
+  },
+  {
+    "id": 25,
+    "name": "TrÃ©bizonde",
+    "regionId": 12,
+    "prosperity": 7,
+    "specialties": [
+      1,
+      2,
+      4
+    ],
+    "demand": [
+      6,
+      9,
+      10
+    ],
+    "coordinates": {
+      "x": 28.8,
+      "y": 41
+    },
+    "description": "Port historique sur la mer Noire, terminus de la route de la soie.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "GalÃ¨re",
+        "Fuste",
+        "SaÃ¯que"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        13,
+        14,
+        28
+      ]
+    }
+  },
+  {
+    "id": 26,
+    "name": "Mombasa",
+    "regionId": 13,
+    "prosperity": 6,
+    "specialties": [
+      1,
+      3,
+      7
+    ],
+    "demand": [
+      2,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": 39.7,
+      "y": -4
+    },
+    "description": "Port swahili, centre du commerce de l'ivoire et des esclaves.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Mtepe",
+        "Baghlah"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        8,
+        37,
+        17
+      ]
+    }
+  },
+  {
+    "id": 27,
+    "name": "Zanzibar",
+    "regionId": 13,
+    "prosperity": 7,
+    "specialties": [
+      1,
+      3
+    ],
+    "demand": [
+      2,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": 39.9,
+      "y": -6.1
+    },
+    "description": "ÃŽle-comptoir, centre du commerce des Ã©pices et des esclaves en Afrique de l'Est.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Mtepe",
+        "Baghlah"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        8,
+        37,
+        17
+      ]
+    }
+  },
+  {
+    "id": 28,
+    "name": "Bassora",
+    "regionId": 14,
+    "prosperity": 7,
+    "specialties": [
+      1,
+      6
+    ],
+    "demand": [
+      2,
+      4,
+      10
+    ],
+    "coordinates": {
+      "x": 48.5,
+      "y": 28
+    },
+    "description": "Port mÃ©sopotamien Ã  l'embouchure de l'Euphrate et du Tigre.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Baghlah",
+        "Barque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        8,
+        17,
+        12
+      ]
+    }
+  },
+  {
+    "id": 29,
+    "name": "Mascate",
+    "regionId": 14,
+    "prosperity": 6,
+    "specialties": [
+      1,
+      3
+    ],
+    "demand": [
+      2,
+      8,
+      10
+    ],
+    "coordinates": {
+      "x": 57.5,
+      "y": 24.8
+    },
+    "description": "Port omanais contrÃ´lant le commerce dans le golfe d'Oman.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Baghlah",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        8,
+        17,
+        12
+      ]
+    }
+  },
+  {
+    "id": 34,
+    "name": "Lima",
+    "regionId": 17,
+    "prosperity": 8,
+    "specialties": [
+      3,
+      5
+    ],
+    "demand": [
+      2,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": -77,
+      "y": -12
+    },
+    "description": "Capitale du vice-royaume du PÃ©rou, proche des mines d'argent."
+  },
+  {
+    "id": 36,
+    "name": "Makassar",
+    "regionId": 18,
+    "prosperity": 6,
+    "specialties": [
+      1,
+      7
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": 119.4,
+      "y": -5.1
+    },
+    "description": "Port des CÃ©lÃ¨bes, centre du commerce des Ã©pices.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Ghanja",
+        "Prahu"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        7,
+        35,
+        36
+      ]
+    }
+  },
+  {
+    "id": 37,
+    "name": "Hambourg",
+    "regionId": 1,
+    "prosperity": 8,
+    "specialties": [
+      4,
+      8,
+      10
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": 9.9,
+      "y": 53.5
+    },
+    "description": "Ville libre et port hansÃ©atique majeur.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Cogue",
+        "Hourque",
+        "Kraier"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        19,
+        10,
+        30
+      ]
+    }
+  },
+  {
+    "id": 38,
+    "name": "GÃªnes",
+    "regionId": 2,
+    "prosperity": 8,
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 8.8,
+      "y": 44.4
+    },
+    "description": "RÃ©publique maritime italienne, rivale de Venise.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "GalÃ¨re",
+        "Nef",
+        "ChÃ©bec"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        13,
+        11,
+        20
+      ]
+    }
+  },
+  {
+    "id": 39,
+    "name": "Alexandrie",
+    "regionId": 3,
+    "prosperity": 7,
+    "specialties": [
+      1,
+      2,
+      6
+    ],
+    "demand": [
+      4,
+      8,
+      10
+    ],
+    "coordinates": {
+      "x": 29.9,
+      "y": 31.2
+    },
+    "description": "Port Ã©gyptien Ã  l'embouchure du Nil, porte d'entrÃ©e vers l'Orient.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "GalÃ¨re",
+        "Dhow",
+        "Baghlah"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        13,
+        8,
+        17
+      ]
+    }
+  },
+  {
+    "id": 41,
+    "name": "Anvers",
+    "regionId": 1,
+    "prosperity": 9,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      10
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 4.4,
+      "y": 51.2
+    },
+    "description": "Principal port commercial d'Europe du Nord au dÃ©but du XVIe siÃ¨cle, plaque tournante du commerce international.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "FlÃ»te",
+        "Urca",
+        "Hourque"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        3,
+        27,
+        10
+      ]
+    }
+  },
+  {
+    "id": 43,
+    "name": "Hormuz",
+    "regionId": 5,
+    "prosperity": 8,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1515
+    },
+    "specialties": [
+      1,
+      3,
+      6
+    ],
+    "demand": [
+      2,
+      8,
+      10
+    ],
+    "coordinates": {
+      "x": 56.5,
+      "y": 27.1
+    },
+    "description": "Port stratÃ©gique Ã  l'entrÃ©e du golfe Persique, conquis par les Portugais en 1515, contrÃ´lant le commerce entre l'Inde et le Moyen-Orient.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caraque",
+        "Dhow",
+        "Baghlah"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        5,
+        8,
+        17
+      ]
+    }
+  },
+  {
+    "id": 44,
+    "name": "Sofala",
+    "regionId": 13,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1505
+    },
+    "specialties": [
+      3,
+      7
+    ],
+    "demand": [
+      2,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": 34.7,
+      "y": -20.2
+    },
+    "description": "Port mozambicain, principal point d'exportation de l'or d'Afrique orientale et comptoir portugais important.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caraque",
+        "Caravelle",
+        "Mtepe"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        5,
+        1,
+        37
+      ]
+    }
+  },
+  {
+    "id": 45,
+    "name": "Kilwa",
+    "regionId": 13,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1505
+    },
+    "specialties": [
+      1,
+      3,
+      7
+    ],
+    "demand": [
+      2,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": 39.5,
+      "y": -8.9
+    },
+    "description": "CitÃ©-Ã‰tat swahilie conquise par les Portugais, important centre commercial pour l'or, l'ivoire et les esclaves.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caravelle",
+        "Mtepe",
+        "Dhow"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        1,
+        37,
+        8
+      ]
+    }
+  },
+  {
+    "id": 47,
+    "name": "Ayutthaya",
+    "regionId": 7,
+    "prosperity": 8,
+    "allegiance": {
+      "power": "Siam",
+      "color": "#B22222",
+      "startYear": 1500
+    },
+    "specialties": [
+      1,
+      2,
+      7
+    ],
+    "demand": [
+      3,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": 100.6,
+      "y": 14.4
+    },
+    "description": "Capitale du royaume de Siam (ThaÃ¯lande), important centre commercial reliant la Chine Ã  l'Asie du Sud-Est.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Ghanja",
+        "Barque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        7,
+        35,
+        12
+      ]
+    }
+  },
+  {
+    "id": 48,
+    "name": "Veracruz",
+    "regionId": 9,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1519
+    },
+    "specialties": [
+      3,
+      5
+    ],
+    "demand": [
+      2,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": -96.1,
+      "y": 19.2
+    },
+    "description": "Premier port Ã©tabli par les Espagnols au Mexique, point d'entrÃ©e pour la conquÃªte de l'Empire aztÃ¨que.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Patache",
+        "Caravelle"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        2,
+        18,
+        1
+      ]
+    }
+  },
+  {
+    "id": 49,
+    "name": "Malindi",
+    "regionId": 13,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1500
+    },
+    "specialties": [
+      1,
+      3,
+      7
+    ],
+    "demand": [
+      2,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": 40.1,
+      "y": -3.2
+    },
+    "description": "Port swahili alliÃ© des Portugais, point de ravitaillement sur la route des Indes et centre du commerce de l'ivoire.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Mtepe",
+        "Dhow",
+        "Caravelle"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        37,
+        8,
+        1
+      ]
+    }
+  },
+  {
+    "id": 50,
+    "name": "Bruges",
+    "regionId": 1,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      10
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 3.2,
+      "y": 51.2
+    },
+    "description": "Port des Flandres, bien que son Ã¢ge d'or soit passÃ©, reste un important centre commercial et financier.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Cogue",
+        "Hourque",
+        "Kraier"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        19,
+        10,
+        30
+      ]
+    }
+  },
+  {
+    "id": 51,
+    "name": "Marseille",
+    "regionId": 2,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "France",
+      "color": "#0055A4",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 5.4,
+      "y": 43.3
+    },
+    "description": "Principal port franÃ§ais sur la MÃ©diterranÃ©e, point de contact avec l'Empire ottoman et le Levant.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "GalÃ¨re",
+        "Tartane",
+        "Pinasse"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        13,
+        24,
+        4
+      ]
+    }
+  },
+  {
+    "id": 52,
+    "name": "Naples",
+    "regionId": 2,
+    "prosperity": 8,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1504
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 14.3,
+      "y": 40.8
+    },
+    "description": "Plus grande ville d'Italie et port majeur de la MÃ©diterranÃ©e, rÃ©cemment conquise par l'Espagne.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "GalÃ¨re",
+        "Nef",
+        "ChÃ©bec"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        13,
+        11,
+        20
+      ]
+    }
+  },
+  {
+    "id": 53,
+    "name": "Raguse",
+    "regionId": 3,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Indépendant",
+      "color": "#808080",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 18.1,
+      "y": 42.6
+    },
+    "description": "RÃ©publique maritime indÃ©pendante (aujourd'hui Dubrovnik), intermÃ©diaire commercial entre l'Empire ottoman et l'Europe.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "GalÃ¨re",
+        "Fuste",
+        "Nef"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        13,
+        14,
+        11
+      ]
+    }
+  },
+  {
+    "id": 54,
+    "name": "Alger",
+    "regionId": 3,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1516
+    },
+    "specialties": [
+      7,
+      9
+    ],
+    "demand": [
+      2,
+      6,
+      10
+    ],
+    "coordinates": {
+      "x": 3.1,
+      "y": 36.8
+    },
+    "description": "Base des corsaires barbaresques sous protection ottomane, menace pour le commerce chrÃ©tien en MÃ©diterranÃ©e.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "GalÃ¨re",
+        "Fuste",
+        "Xebec armÃ©"
+      ],
+      "maxShipClass": "Moyen",
+      "special": "Arsenal des corsaires",
+      "availableShips": [
+        13,
+        14,
+        22
+      ]
+    }
+  },
+  {
+    "id": 55,
+    "name": "Tunis",
+    "regionId": 3,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Hafsides",
+      "color": "#4B0082",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      7,
+      9
+    ],
+    "demand": [
+      3,
+      6,
+      10
+    ],
+    "coordinates": {
+      "x": 10.2,
+      "y": 36.8
+    },
+    "description": "Port nord-africain sous contrÃ´le de la dynastie hafside, centre commercial important entre l'Europe et l'Afrique.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "GalÃ¨re",
+        "Fuste",
+        "ChÃ©bec"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        13,
+        14,
+        20
+      ]
+    }
+  },
+  {
+    "id": 102,
+    "name": "Beyrouth",
+    "regionId": 3,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1516
+    },
+    "specialties": [
+      1,
+      2,
+      6
+    ],
+    "demand": [
+      3,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": 35.5,
+      "y": 33.9
+    },
+    "description": "Port levantin rÃ©cemment conquis par les Ottomans, servant d'interface commerciale entre la MÃ©diterranÃ©e et les routes caravaniÃ¨res de Syrie et de MÃ©sopotamie.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "GalÃ¨re",
+        "SaÃ¯que",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        13,
+        28,
+        12
+      ]
+    }
+  },
+  {
+    "id": 103,
+    "name": "Sidon",
+    "regionId": 3,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1516
+    },
+    "specialties": [
+      1,
+      2,
+      6
+    ],
+    "demand": [
+      3,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": 35.4,
+      "y": 33.6
+    },
+    "description": "Ancien port phÃ©nicien (aujourd'hui SaÃ¯da au Liban), centre commercial important du Levant sous domination ottomane, exportant soie et coton vers l'Europe.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "GalÃ¨re",
+        "SaÃ¯que",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        13,
+        28,
+        12
+      ]
+    }
+  },
+  {
+    "id": 71,
+    "name": "Jeddah",
+    "regionId": 5,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1517
+    },
+    "specialties": [
+      1,
+      2,
+      6
+    ],
+    "demand": [
+      3,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": 39.2,
+      "y": 21.5
+    },
+    "description": "Principal port de la mer Rouge et porte d'entrÃ©e vers La Mecque. Centre du commerce entre l'Ã‰gypte ottomane, l'Arabie et l'ocÃ©an Indien.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Baghlah",
+        "Barque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        8,
+        17,
+        12
+      ]
+    }
+  },
+  {
+    "id": 62,
+    "name": "Quanzhou",
+    "regionId": 8,
+    "prosperity": 8,
+    "allegiance": {
+      "power": "Ming",
+      "color": "#E4007C",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 118.6,
+      "y": 24.9
+    },
+    "description": "Ancien terminus oriental de la Route de la Soie maritime, encore important malgrÃ© les restrictions commerciales Ming.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Jonque de guerre",
+        "Shachuan"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        7,
+        25,
+        32
+      ]
+    }
+  },
+  {
+    "id": 104,
+    "name": "Abidjan",
+    "regionId": 4,
+    "prosperity": 6,
+    "specialties": [
+      1,
+      3
+    ],
+    "coordinates": {
+      "x": -5,
+      "y": 6
+    },
+    "description": "Port de commerce sur la côte ouest-africaine, connu pour son commerce de musc.",
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Barque",
+        "Fuste"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        8,
+        12,
+        14
+      ]
+    }
+  },
+  {
+    "id": 105,
+    "name": "Argin",
+    "regionId": 4,
+    "prosperity": 5,
+    "specialties": [
+      7,
+      8
+    ],
+    "coordinates": {
+      "x": -18,
+      "y": 20
+    },
+    "description": "Comptoir commercial portugais sur la côte ouest-africaine.",
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1500
+    },
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caravelle",
+        "Barque",
+        "Dhow"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        1,
+        12,
+        8
+      ]
+    }
+  },
+  {
+    "id": 106,
+    "name": "Bathurst",
+    "regionId": 4,
+    "prosperity": 5,
+    "specialties": [
+      3,
+      7
+    ],
+    "coordinates": {
+      "x": -18,
+      "y": 14
+    },
+    "description": "Port commercial à l'embouchure du fleuve Gambie, point d'accès au commerce intérieur africain.",
+    "demand": [
+      1,
+      3,
+      5
+    ]
+  },
+  {
+    "id": 107,
+    "name": "Bissau",
+    "regionId": 4,
+    "prosperity": 5,
+    "specialties": [
+      3,
+      7
+    ],
+    "coordinates": {
+      "x": -17,
+      "y": 13
+    },
+    "description": "Comptoir commercial sur la côte de Guinée-Bissau.",
+    "demand": [
+      1,
+      3,
+      5
+    ]
+  },
+  {
+    "id": 108,
+    "name": "Calicut",
+    "regionId": 6,
+    "prosperity": 7,
+    "specialties": [
+      1,
+      2
+    ],
+    "coordinates": {
+      "x": 74,
+      "y": 12
+    },
+    "description": "Important port indien pour le commerce des épices, premier point d'arrivée de Vasco de Gama en Inde.",
+    "allegiance": {
+      "power": "Indépendant",
+      "color": "#808080",
+      "startYear": 1500
+    },
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Ghanja",
+        "Dhow",
+        "Patamari"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        35,
+        8,
+        38
+      ]
+    }
+  },
+  {
+    "id": 109,
+    "name": "Candia",
+    "regionId": 3,
+    "prosperity": 6,
+    "specialties": [
+      2,
+      6
+    ],
+    "coordinates": {
+      "x": 25,
+      "y": 35
+    },
+    "description": "Port principal de l'île de Crète, carrefour commercial en Méditerranée orientale.",
+    "demand": [
+      1,
+      3,
+      5
+    ]
+  },
+  {
+    "id": 110,
+    "name": "Cochin",
+    "regionId": 6,
+    "prosperity": 6,
+    "specialties": [
+      1,
+      2
+    ],
+    "coordinates": {
+      "x": 75,
+      "y": 10
+    },
+    "description": "Port indien important pour le commerce des épices, sous influence portugaise.",
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1505
+    },
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caraque",
+        "Caravelle",
+        "Dhow"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        5,
+        1,
+        8
+      ]
+    }
+  },
+  {
+    "id": 111,
+    "name": "Diu",
+    "regionId": 6,
+    "prosperity": 5,
+    "specialties": [
+      2,
+      6
+    ],
+    "coordinates": {
+      "x": 66,
+      "y": 25
+    },
+    "description": "Comptoir portugais sur la côte nord-ouest de l'Inde, point stratégique pour le contrôle du commerce dans l'océan Indien.",
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1509
+    },
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Baghlah",
+        "Ghanja"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        8,
+        17,
+        35
+      ]
+    }
+  },
+  {
+    "id": 112,
+    "name": "Hanoi",
+    "regionId": 8,
+    "prosperity": 7,
+    "specialties": [
+      1,
+      3
+    ],
+    "coordinates": {
+      "x": 105,
+      "y": 21
+    },
+    "description": "Centre commercial important du Vietnam, connu pour son commerce de corail.",
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Jonque de guerre",
+        "Barque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        7,
+        25,
+        12
+      ]
+    }
+  },
+  {
+    "id": 113,
+    "name": "Kaffa",
+    "regionId": 3,
+    "prosperity": 7,
+    "specialties": [
+      4,
+      8
+    ],
+    "coordinates": {
+      "x": 34,
+      "y": 45
+    },
+    "description": "Port important de la mer Noire, centre du commerce entre l'Europe et l'Asie.",
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1475
+    },
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galère",
+        "Fuste",
+        "Saïque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        13,
+        14,
+        28
+      ]
+    }
+  },
+  {
+    "id": 114,
+    "name": "Macao",
+    "regionId": 8,
+    "prosperity": 8,
+    "specialties": [
+      2,
+      6
+    ],
+    "coordinates": {
+      "x": 114,
+      "y": 23
+    },
+    "description": "Comptoir portugais en Chine, porte d'entrée du commerce européen avec la Chine.",
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1557
+    },
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Jonque de guerre",
+        "Caraque"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        7,
+        25,
+        5
+      ]
+    }
+  },
+  {
+    "id": 115,
+    "name": "Massawa",
+    "regionId": 5,
+    "prosperity": 6,
+    "specialties": [
+      1,
+      3
+    ],
+    "coordinates": {
+      "x": 41,
+      "y": 15
+    },
+    "description": "Port important de la mer Rouge, point de transit pour le commerce entre l'Afrique et l'Arabie.",
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Baghlah",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        8,
+        17,
+        12
+      ]
+    }
+  },
+  {
+    "id": 116,
+    "name": "Mogadishu",
+    "regionId": 13,
+    "prosperity": 6,
+    "specialties": [
+      3,
+      7
+    ],
+    "coordinates": {
+      "x": 45,
+      "y": 3
+    },
+    "description": "Port commercial important de la corne de l'Afrique, centre du commerce de l'ivoire.",
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Mtepe",
+        "Baghlah"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        8,
+        37,
+        17
+      ]
+    }
+  },
+  {
+    "id": 117,
+    "name": "Mozambique",
+    "regionId": 13,
+    "prosperity": 6,
+    "specialties": [
+      3,
+      7
+    ],
+    "coordinates": {
+      "x": 40,
+      "y": -13
+    },
+    "description": "Port colonial portugais en Afrique de l'Est, point de ravitaillement sur la route des Indes.",
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1507
+    },
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caravelle",
+        "Mtepe",
+        "Dhow"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        1,
+        37,
+        8
+      ]
+    }
+  },
+  {
+    "id": 118,
+    "name": "Pasei",
+    "regionId": 7,
+    "prosperity": 5,
+    "specialties": [
+      1,
+      7
+    ],
+    "coordinates": {
+      "x": 96,
+      "y": 4
+    },
+    "description": "Port commercial sur la côte nord de Sumatra, important pour le commerce des épices.",
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Ghanja",
+        "Prahu"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        7,
+        35,
+        36
+      ]
+    }
+  },
+  {
+    "id": 119,
+    "name": "Quelimane",
+    "regionId": 13,
+    "prosperity": 5,
+    "specialties": [
+      3,
+      7
+    ],
+    "coordinates": {
+      "x": 36,
+      "y": -15
+    },
+    "description": "Port mozambicain, centre du commerce de l'écaille de tortue et point d'accès au fleuve Zambèze.",
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Mtepe",
+        "Dhow",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        37,
+        8,
+        12
+      ]
+    }
+  },
+  {
+    "id": 120,
+    "name": "Quatar",
+    "regionId": 5,
+    "prosperity": 6,
+    "specialties": [
+      1,
+      3
+    ],
+    "coordinates": {
+      "x": 53,
+      "y": 25
+    },
+    "description": "Port du golfe Persique, connu pour son commerce d'écaille de tortue.",
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1521
+    },
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Baghlah",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        8,
+        17,
+        12
+      ]
+    }
+  },
+  {
+    "id": 121,
+    "name": "Salonika",
+    "regionId": 3,
+    "prosperity": 7,
+    "specialties": [
+      2,
+      6
+    ],
+    "coordinates": {
+      "x": 22,
+      "y": 41
+    },
+    "description": "Important port ottoman en mer Égée, centre commercial entre l'Europe et l'Asie.",
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1430
+    },
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galère",
+        "Fuste",
+        "Saïque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        13,
+        14,
+        28
+      ]
+    }
+  },
+  {
+    "id": 122,
+    "name": "San Jorge",
+    "regionId": 4,
+    "prosperity": 6,
+    "specialties": [
+      3,
+      7
+    ],
+    "coordinates": {
+      "x": -2,
+      "y": 5
+    },
+    "description": "Comptoir portugais sur la côte de l'or (actuel Ghana), centre du commerce de l'ivoire.",
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1482
+    },
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caravelle",
+        "Barque",
+        "Dhow"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        1,
+        12,
+        8
+      ]
+    }
+  },
+  {
+    "id": 123,
+    "name": "Santa Cruz",
+    "regionId": 4,
+    "prosperity": 5,
+    "specialties": [
+      7,
+      10
+    ],
+    "coordinates": {
+      "x": -17,
+      "y": 28
+    },
+    "description": "Port des îles Canaries, escale importante sur les routes maritimes atlantiques.",
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caravelle",
+        "Barque",
+        "Hourque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        1,
+        12,
+        10
+      ]
+    }
+  },
+  {
+    "id": 124,
+    "name": "Shiraz",
+    "regionId": 14,
+    "prosperity": 6,
+    "specialties": [
+      2,
+      6
+    ],
+    "coordinates": {
+      "x": 53,
+      "y": 26
+    },
+    "description": "Port persan du golfe Persique, point de transit pour le commerce entre l'Inde et le Moyen-Orient.",
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1514
+    },
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Baghlah",
+        "Saïque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        8,
+        17,
+        28
+      ]
+    }
+  },
+  {
+    "id": 125,
+    "name": "Ternate",
+    "regionId": 7,
+    "prosperity": 6,
+    "specialties": [
+      1,
+      2
+    ],
+    "coordinates": {
+      "x": 125,
+      "y": 2
+    },
+    "description": "Île des Moluques, centre du commerce du clou de girofle.",
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Prahu",
+        "Ghanja"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        7,
+        36,
+        35
+      ]
+    }
+  },
+  {
+    "id": 126,
+    "name": "Timbuktu",
+    "regionId": 4,
+    "prosperity": 7,
+    "specialties": [
+      3,
+      7
+    ],
+    "coordinates": {
+      "x": -4,
+      "y": 15
+    },
+    "description": "Centre commercial majeur du Sahel, point de jonction des routes caravanières transsahariennes.",
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "shipbuilding": {
+      "available": false
+    }
+  },
+  {
+    "id": 127,
+    "name": "Lubeck",
+    "regionId": 1,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Saint-Empire",
+      "color": "#F8C3CD",
+      "startYear": 1500
+    },
+    "specialties": [
+      4,
+      8,
+      10
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": 11,
+      "y": 56
+    },
+    "description": "Port hanséatique majeur de la Baltique, centre commercial important pour le commerce du nord de l'Europe.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Cogue",
+        "Hourque",
+        "Kraier"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        19,
+        10,
+        30
+      ]
+    }
+  },
+  {
+    "id": 128,
+    "name": "Danzig",
+    "regionId": 1,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Saint-Empire",
+      "color": "#F8C3CD",
+      "startYear": 1500
+    },
+    "specialties": [
+      4,
+      7,
+      8
+    ],
+    "demand": [
+      1,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": 18,
+      "y": 56
+    },
+    "description": "Port hanséatique important pour le commerce du grain et du bois, connu également sous le nom de Gdansk.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Cogue",
+        "Hourque",
+        "Kraier"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        19,
+        10,
+        30
+      ]
+    }
+  },
+  {
+    "id": 129,
+    "name": "Copenhague",
+    "regionId": 1,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Danemark",
+      "color": "#C8102E",
+      "startYear": 1500
+    },
+    "specialties": [
+      4,
+      8,
+      10
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": 12,
+      "y": 57
+    },
+    "description": "Capitale du Danemark et port principal de la Baltique, centre du commerce scandinave.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Cogue",
+        "Kraier",
+        "Hourque"
+      ],
+      "maxShipClass": "Moyen",
+      "special": "Arsenal royal danois",
+      "availableShips": [
+        19,
+        30,
+        10
+      ]
+    }
+  },
+  {
+    "id": 130,
+    "name": "Dublin",
+    "regionId": 1,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Angleterre",
+      "color": "#C41E3A",
+      "startYear": 1500
+    },
+    "specialties": [
+      4,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": -6,
+      "y": 54
+    },
+    "description": "Principal port d'Irlande, sous domination anglaise, important pour le commerce avec l'Atlantique Nord.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Brick",
+        "Sloop",
+        "Barque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        6,
+        21,
+        12
+      ]
+    }
+  },
+  {
+    "id": 131,
+    "name": "Bristol",
+    "regionId": 1,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Angleterre",
+      "color": "#C41E3A",
+      "startYear": 1500
+    },
+    "specialties": [
+      4,
+      8,
+      10
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": -3,
+      "y": 52
+    },
+    "description": "Port anglais majeur sur la côte ouest, point de départ pour les explorations de l'Atlantique.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Brick",
+        "Sloop",
+        "Barque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        6,
+        21,
+        12
+      ]
+    }
+  },
+  {
+    "id": 132,
+    "name": "Nantes",
+    "regionId": 2,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "France",
+      "color": "#0055A4",
+      "startYear": 1500
+    },
+    "specialties": [
+      4,
+      8,
+      10
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": -2,
+      "y": 48
+    },
+    "description": "Port français sur l'Atlantique, centre du commerce maritime et point de départ pour les expéditions vers le Nouveau Monde.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Pinasse",
+        "Flûte",
+        "Barque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        4,
+        3,
+        12
+      ]
+    }
+  },
+  {
+    "id": 133,
+    "name": "Bordeaux",
+    "regionId": 2,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "France",
+      "color": "#0055A4",
+      "startYear": 1500
+    },
+    "specialties": [
+      4,
+      7,
+      10
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": -1,
+      "y": 46
+    },
+    "description": "Port français réputé pour son commerce de vin, point d'échange important avec l'Atlantique.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Pinasse",
+        "Flûte",
+        "Barque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        4,
+        3,
+        12
+      ]
+    }
+  },
+  {
+    "id": 134,
+    "name": "Barcelone",
+    "regionId": 2,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 2,
+      "y": 41
+    },
+    "description": "Port catalan sous domination espagnole, centre commercial important de la Méditerranée occidentale.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Galeón Pequeño",
+        "Patache"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        2,
+        26,
+        18
+      ]
+    }
+  },
+  {
+    "id": 135,
+    "name": "Valence",
+    "regionId": 2,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      7,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 0,
+      "y": 39
+    },
+    "description": "Port espagnol sur la Méditerranée, centre d'échanges commerciaux et culturels.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Galeón Pequeño",
+        "Patache"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        2,
+        26,
+        18
+      ]
+    }
+  },
+  {
+    "id": 136,
+    "name": "Gênes",
+    "regionId": 3,
+    "prosperity": 8,
+    "allegiance": {
+      "power": "Indépendant",
+      "color": "#808080",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 8,
+      "y": 44
+    },
+    "description": "République maritime italienne, rivale de Venise, puissance commerciale majeure en Méditerranée.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galère",
+        "Nef",
+        "Chébec"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        13,
+        11,
+        20
+      ]
+    }
+  },
+  {
+    "id": 137,
+    "name": "Pise",
+    "regionId": 3,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Indépendant",
+      "color": "#808080",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 9,
+      "y": 43
+    },
+    "description": "Port toscan, ancienne puissance maritime en déclin mais toujours centre commercial important.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galère",
+        "Nef",
+        "Tartane"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        13,
+        11,
+        24
+      ]
+    }
+  },
+  {
+    "id": 138,
+    "name": "Syracuse",
+    "regionId": 3,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      7,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 15,
+      "y": 37
+    },
+    "description": "Port sicilien sous domination espagnole, point stratégique en Méditerranée centrale.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galère",
+        "Tartane",
+        "Chébec"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        13,
+        24,
+        20
+      ]
+    }
+  },
+  {
+    "id": 139,
+    "name": "Palma",
+    "regionId": 3,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      7,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 2,
+      "y": 39
+    },
+    "description": "Port principal des îles Baléares, position stratégique pour le commerce méditerranéen.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galère",
+        "Tartane",
+        "Chébec"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        13,
+        24,
+        20
+      ]
+    }
+  },
+  {
+    "id": 140,
+    "name": "Raguse",
+    "regionId": 3,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Indépendant",
+      "color": "#808080",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 17,
+      "y": 42
+    },
+    "description": "République maritime indépendante (aujourd'hui Dubrovnik), intermédiaire commercial entre l'Empire ottoman et l'Europe.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galère",
+        "Fuste",
+        "Nef"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        13,
+        14,
+        11
+      ]
+    }
+  },
+  {
+    "id": 141,
+    "name": "Venise",
+    "regionId": 3,
+    "prosperity": 9,
+    "allegiance": {
+      "power": "Venise",
+      "color": "#1E4D2B",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 13,
+      "y": 44
+    },
+    "description": "République maritime dominant le commerce méditerranéen et avec l'Orient, puissance navale majeure.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galère",
+        "Galéasse",
+        "Nef"
+      ],
+      "maxShipClass": "Grand",
+      "special": "Arsenal de Venise",
+      "availableShips": [
+        13,
+        9,
+        11
+      ]
+    }
+  },
+  {
+    "id": 142,
+    "name": "Athènes",
+    "regionId": 3,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 23,
+      "y": 38
+    },
+    "description": "Port grec sous domination ottomane, héritier d'un riche passé maritime et commercial.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galère",
+        "Fuste",
+        "Saïque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        13,
+        14,
+        28
+      ]
+    }
+  },
+  {
+    "id": 143,
+    "name": "Nicosie",
+    "regionId": 3,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Venise",
+      "color": "#1E4D2B",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 33,
+      "y": 35
+    },
+    "description": "Capitale de Chypre sous domination vénitienne, point stratégique pour le commerce en Méditerranée orientale.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galère",
+        "Fuste",
+        "Nef"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        13,
+        14,
+        11
+      ]
+    }
+  },
+  {
+    "id": 144,
+    "name": "Alexandrie",
+    "regionId": 3,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1517
+    },
+    "specialties": [
+      1,
+      2,
+      6
+    ],
+    "demand": [
+      4,
+      8,
+      10
+    ],
+    "coordinates": {
+      "x": 29,
+      "y": 31
+    },
+    "description": "Port égyptien à l'embouchure du Nil, porte d'entrée vers l'Orient et point de transit pour les épices.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galère",
+        "Dhow",
+        "Baghlah"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        13,
+        8,
+        17
+      ]
+    }
+  },
+  {
+    "id": 145,
+    "name": "Jaffa",
+    "regionId": 3,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1517
+    },
+    "specialties": [
+      1,
+      2,
+      6
+    ],
+    "demand": [
+      4,
+      8,
+      10
+    ],
+    "coordinates": {
+      "x": 34,
+      "y": 32
+    },
+    "description": "Port de Palestine sous domination ottomane, point d'accès à Jérusalem et centre commercial du Levant.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galère",
+        "Saïque",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        13,
+        28,
+        12
+      ]
+    }
+  },
+  {
+    "id": 146,
+    "name": "Trébizonde",
+    "regionId": 3,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1500
+    },
+    "specialties": [
+      1,
+      2,
+      4
+    ],
+    "demand": [
+      6,
+      9,
+      10
+    ],
+    "coordinates": {
+      "x": 39,
+      "y": 41
+    },
+    "description": "Port historique sur la mer Noire (aujourd'hui Trabzon), terminus de la route de la soie et point de transit commercial.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galère",
+        "Fuste",
+        "Saïque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        13,
+        14,
+        28
+      ]
+    }
+  },
+  {
+    "id": 147,
+    "name": "Azov",
+    "regionId": 3,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1500
+    },
+    "specialties": [
+      4,
+      7,
+      8
+    ],
+    "demand": [
+      1,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": 38,
+      "y": 47
+    },
+    "description": "Port à l'embouchure du Don (aujourd'hui Rostov), point de contrôle du commerce entre la mer Noire et l'intérieur des terres russes.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galère",
+        "Fuste",
+        "Saïque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        13,
+        14,
+        28
+      ]
+    }
+  },
+  {
+    "id": 148,
+    "name": "La Mecque",
+    "regionId": 5,
+    "prosperity": 8,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1517
+    },
+    "specialties": [
+      1,
+      2,
+      6
+    ],
+    "demand": [
+      3,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": 39,
+      "y": 21
+    },
+    "description": "Centre religieux de l'Islam, point de convergence des routes commerciales arabes et lieu de pèlerinage majeur.",
+    "shipbuilding": {
+      "available": false
+    }
+  },
+  {
+    "id": 149,
+    "name": "Le Caire",
+    "regionId": 5,
+    "prosperity": 8,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1517
+    },
+    "specialties": [
+      1,
+      2,
+      6
+    ],
+    "demand": [
+      4,
+      8,
+      10
+    ],
+    "coordinates": {
+      "x": 33,
+      "y": 29
+    },
+    "description": "Capitale de l'Égypte ottomane, centre commercial majeur contrôlant le commerce entre la Méditerranée et la mer Rouge.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galère",
+        "Fuste",
+        "Dhow"
+      ],
+      "maxShipClass": "Moyen",
+      "special": "Arsenal égyptien",
+      "availableShips": [
+        13,
+        14,
+        8
+      ]
+    }
+  },
+  {
+    "id": 150,
+    "name": "Mascate",
+    "regionId": 5,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1507
+    },
+    "specialties": [
+      1,
+      3
+    ],
+    "demand": [
+      2,
+      8,
+      10
+    ],
+    "coordinates": {
+      "x": 59,
+      "y": 24
+    },
+    "description": "Port omanais contrôlant le commerce dans le golfe d'Oman, récemment conquis par les Portugais.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Baghlah",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        8,
+        17,
+        12
+      ]
+    }
+  },
+  {
+    "id": 151,
+    "name": "Basra",
+    "regionId": 5,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1500
+    },
+    "specialties": [
+      1,
+      6
+    ],
+    "demand": [
+      2,
+      4,
+      10
+    ],
+    "coordinates": {
+      "x": 48,
+      "y": 30
+    },
+    "description": "Port mésopotamien à l'embouchure de l'Euphrate et du Tigre, point de jonction des routes commerciales entre le golfe Persique et l'intérieur des terres.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Baghlah",
+        "Barque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        8,
+        17,
+        12
+      ]
+    }
+  },
+  {
+    "id": 152,
+    "name": "Ceuta",
+    "regionId": 4,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      7,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": -5,
+      "y": 36
+    },
+    "description": "Enclave portugaise sur la côte nord-africaine, point stratégique contrôlant l'entrée de la Méditerranée.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caraque",
+        "Caravelle",
+        "Barque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        5,
+        1,
+        12
+      ]
+    }
+  },
+  {
+    "id": 153,
+    "name": "Madère",
+    "regionId": 4,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1500
+    },
+    "specialties": [
+      7,
+      10
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": -17,
+      "y": 33
+    },
+    "description": "Archipel portugais dans l'Atlantique, centre de production de sucre et escale importante sur les routes maritimes.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caravelle",
+        "Barque",
+        "Caraque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        1,
+        12,
+        5
+      ]
+    }
+  },
+  {
+    "id": 154,
+    "name": "Luanda",
+    "regionId": 4,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1500
+    },
+    "specialties": [
+      3,
+      7
+    ],
+    "demand": [
+      1,
+      2,
+      6
+    ],
+    "coordinates": {
+      "x": 12,
+      "y": -8
+    },
+    "description": "Comptoir portugais en Angola, centre du commerce d'esclaves et point d'accès à l'intérieur de l'Afrique.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caravelle",
+        "Barque",
+        "Caraque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        1,
+        12,
+        5
+      ]
+    }
+  },
+  {
+    "id": 155,
+    "name": "Le Cap",
+    "regionId": 4,
+    "prosperity": 7,
+    "specialties": [
+      7,
+      8
+    ],
+    "demand": [
+      1,
+      2,
+      6
+    ],
+    "coordinates": {
+      "x": 17,
+      "y": -31
+    },
+    "description": "Escale stratégique sur la route des Indes, point de ravitaillement pour les navires contournant l'Afrique.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caraque",
+        "Caravelle",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        5,
+        1,
+        12
+      ]
+    }
+  },
+  {
+    "id": 156,
+    "name": "Tamatave",
+    "regionId": 13,
+    "prosperity": 5,
+    "specialties": [
+      3,
+      7
+    ],
+    "demand": [
+      1,
+      2,
+      6
+    ],
+    "coordinates": {
+      "x": 49,
+      "y": -16
+    },
+    "description": "Port sur la côte est de Madagascar (aujourd'hui Toamasina), point d'escale sur la route des Indes.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Mtepe",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        8,
+        37,
+        12
+      ]
+    }
+  },
+  {
+    "id": 157,
+    "name": "Belgrade",
+    "regionId": 3,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1521
+    },
+    "specialties": [
+      4,
+      7,
+      8
+    ],
+    "demand": [
+      1,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": 19,
+      "y": 45
+    },
+    "description": "Forteresse ottomane sur le Danube, point stratégique pour le contrôle des Balkans et du commerce fluvial.",
+    "shipbuilding": {
+      "available": false
+    }
+  },
+  {
+    "id": 158,
+    "name": "Colombo",
+    "regionId": 6,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1505
+    },
+    "specialties": [
+      1,
+      2
+    ],
+    "demand": [
+      3,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": 79,
+      "y": 8
+    },
+    "description": "Port principal de Ceylan (Sri Lanka), centre du commerce de la cannelle et des épices, sous contrôle portugais.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caraque",
+        "Caravelle",
+        "Dhow"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        5,
+        1,
+        8
+      ]
+    }
+  },
+  {
+    "id": 159,
+    "name": "Nagasaki",
+    "regionId": 8,
+    "prosperity": 7,
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 129,
+      "y": 33
+    },
+    "description": "Port japonais ouvert au commerce extérieur, point de contact avec les marchands européens et chinois.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Atakebune",
+        "Sekibune"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        7,
+        29,
+        31
+      ]
+    }
+  },
+  {
+    "id": 160,
+    "name": "Sakai",
+    "regionId": 8,
+    "prosperity": 8,
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 135,
+      "y": 35
+    },
+    "description": "Port commercial japonais majeur, centre de production artisanale et d'échanges avec la Chine et la Corée.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Atakebune",
+        "Sekibune"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        7,
+        29,
+        31
+      ]
+    }
+  },
+  {
+    "id": 161,
+    "name": "Zeiton",
+    "regionId": 8,
+    "prosperity": 8,
+    "allegiance": {
+      "power": "Ming",
+      "color": "#E4007C",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 119,
+      "y": 26
+    },
+    "description": "Port chinois majeur (aujourd'hui Quanzhou), ancien terminus oriental de la Route de la Soie maritime.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Jonque de guerre",
+        "Shachuan"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        7,
+        25,
+        32
+      ]
+    }
+  },
+  {
+    "id": 162,
+    "name": "Changan",
+    "regionId": 8,
+    "prosperity": 9,
+    "allegiance": {
+      "power": "Ming",
+      "color": "#E4007C",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      4
+    ],
+    "coordinates": {
+      "x": 110,
+      "y": 35
+    },
+    "description": "Ancienne capitale impériale chinoise (aujourd'hui Xi'an), terminus de la Route de la Soie terrestre.",
+    "shipbuilding": {
+      "available": false
+    }
+  },
+  {
+    "id": 163,
+    "name": "Ezo",
+    "regionId": 8,
+    "prosperity": 5,
+    "specialties": [
+      4,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": 140,
+      "y": 42
+    },
+    "description": "Port septentrional du Japon (aujourd'hui Hakodate), point de commerce avec les Aïnous et les marchands russes.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Sekibune",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        7,
+        31,
+        12
+      ]
+    }
+  },
+  {
+    "id": 164,
+    "name": "Lushun",
+    "regionId": 8,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Ming",
+      "color": "#E4007C",
+      "startYear": 1500
+    },
+    "specialties": [
+      4,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": 122,
+      "y": 39
+    },
+    "description": "Port stratégique chinois (aujourd'hui Lüda), contrôlant l'accès à la mer de Bohai et à Pékin.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Jonque de guerre",
+        "Shachuan"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        7,
+        25,
+        32
+      ]
+    }
+  },
+  {
+    "id": 165,
+    "name": "Banda",
+    "regionId": 7,
+    "prosperity": 6,
+    "specialties": [
+      1,
+      2
+    ],
+    "demand": [
+      3,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": 128,
+      "y": -3
+    },
+    "description": "Archipel des Moluques, centre du commerce de la noix de muscade et du macis.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Prahu",
+        "Ghanja"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        7,
+        36,
+        35
+      ]
+    }
+  },
+  {
+    "id": 166,
+    "name": "Amboa",
+    "regionId": 7,
+    "prosperity": 6,
+    "specialties": [
+      1,
+      2
+    ],
+    "demand": [
+      3,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": 125,
+      "y": -1
+    },
+    "description": "Port des Moluques (aujourd'hui Ambon), centre du commerce du clou de girofle.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Prahu",
+        "Ghanja"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        7,
+        36,
+        35
+      ]
+    }
+  },
+  {
+    "id": 167,
+    "name": "Dili",
+    "regionId": 7,
+    "prosperity": 5,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1515
+    },
+    "specialties": [
+      1,
+      7
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": 126,
+      "y": -5
+    },
+    "description": "Comptoir portugais sur l'île de Timor, centre du commerce du bois de santal.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caravelle",
+        "Prahu",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        1,
+        36,
+        12
+      ]
+    }
+  },
+  {
+    "id": 168,
+    "name": "Mindanao",
+    "regionId": 7,
+    "prosperity": 6,
+    "specialties": [
+      1,
+      7
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": 126,
+      "y": 8
+    },
+    "description": "Île méridionale des Philippines (aujourd'hui Davao), point de commerce entre les marchands asiatiques et les premiers explorateurs européens.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Prahu",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        7,
+        36,
+        12
+      ]
+    }
+  },
+  {
+    "id": 169,
+    "name": "Moresby",
+    "regionId": 7,
+    "prosperity": 5,
+    "specialties": [
+      3,
+      7
+    ],
+    "demand": [
+      1,
+      2,
+      6
+    ],
+    "coordinates": {
+      "x": 145,
+      "y": -6
+    },
+    "description": "Port sur la côte sud-est de la Nouvelle-Guinée, point de contact entre les marchands asiatiques et les populations mélanésiennes.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Prahu",
+        "Barque",
+        "Jonque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        36,
+        12,
+        7
+      ]
+    }
+  },
+  {
+    "id": 170,
+    "name": "Guam",
+    "regionId": 8,
+    "prosperity": 5,
+    "specialties": [
+      3,
+      7
+    ],
+    "demand": [
+      1,
+      2,
+      6
+    ],
+    "coordinates": {
+      "x": 143,
+      "y": 14
+    },
+    "description": "Île des Mariannes, point de ravitaillement stratégique sur la route transpacifique entre les Philippines et le Mexique.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Prahu",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        7,
+        36,
+        12
+      ]
+    }
+  },
+  {
+    "id": 171,
+    "name": "Narvik",
+    "regionId": 1,
+    "prosperity": 5,
+    "specialties": [
+      4,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": 16,
+      "y": 73
+    },
+    "description": "Port septentrional de Norvège, point d'accès aux ressources de l'Arctique et aux routes maritimes nordiques.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Cogue",
+        "Kraier",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        19,
+        30,
+        12
+      ]
+    }
+  },
+  {
+    "id": 172,
+    "name": "Hekla",
+    "regionId": 1,
+    "prosperity": 5,
+    "specialties": [
+      4,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": -19,
+      "y": 60
+    },
+    "description": "Port islandais près du célèbre volcan, point de ravitaillement pour les navires traversant l'Atlantique Nord.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Cogue",
+        "Kraier",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        19,
+        30,
+        12
+      ]
+    }
+  },
+  {
+    "id": 173,
+    "name": "La Havane",
+    "regionId": 9,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1515
+    },
+    "specialties": [
+      5,
+      7
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": -87,
+      "y": 19
+    },
+    "description": "Port stratégique des Caraïbes, escale des flottes espagnoles transportant les richesses du Nouveau Monde vers l'Europe.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Galeón Pequeño",
+        "Patache"
+      ],
+      "maxShipClass": "Grand",
+      "special": "Arsenal des Caraïbes",
+      "availableShips": [
+        2,
+        26,
+        18
+      ]
+    }
+  },
+  {
+    "id": 174,
+    "name": "Saint-Domingue",
+    "regionId": 9,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "specialties": [
+      5,
+      7
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": -74,
+      "y": 13
+    },
+    "description": "Premier établissement espagnol permanent dans les Amériques, centre administratif des possessions espagnoles dans les Caraïbes.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Patache",
+        "Caravelle"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        2,
+        18,
+        1
+      ]
+    }
+  },
+  {
+    "id": 175,
+    "name": "Santiago",
+    "regionId": 9,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1500
+    },
+    "specialties": [
+      5,
+      7
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": -81,
+      "y": 15
+    },
+    "description": "Port important de Cuba orientale (Santiago de Cuba), base pour les explorations espagnoles dans les Caraïbes et l'Amérique centrale.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Patache",
+        "Caravelle"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        2,
+        18,
+        1
+      ]
+    }
+  },
+  {
+    "id": 176,
+    "name": "Porto Velho",
+    "regionId": 9,
+    "prosperity": 5,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1510
+    },
+    "specialties": [
+      5,
+      7
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": -81,
+      "y": 6
+    },
+    "description": "Port sur l'isthme de Panama (aujourd'hui Colón), point de transit entre l'Atlantique et le Pacifique.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caravelle",
+        "Patache",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        1,
+        18,
+        12
+      ]
+    }
+  },
+  {
+    "id": 177,
+    "name": "Carthagène",
+    "regionId": 9,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1533
+    },
+    "specialties": [
+      5,
+      7
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": -81,
+      "y": 6
+    },
+    "description": "Port fortifié sur la côte colombienne, point de rassemblement des flottes espagnoles transportant l'or et l'argent vers l'Europe.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Patache",
+        "Caravelle"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        2,
+        18,
+        1
+      ]
+    }
+  },
+  {
+    "id": 178,
+    "name": "Maracaibo",
+    "regionId": 9,
+    "prosperity": 5,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1529
+    },
+    "specialties": [
+      5,
+      7
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": -77,
+      "y": 7
+    },
+    "description": "Port vénézuélien sur le lac du même nom, centre de commerce et point d'accès à l'intérieur des terres.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caravelle",
+        "Patache",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        1,
+        18,
+        12
+      ]
+    }
+  },
+  {
+    "id": 179,
+    "name": "Rio de Janeiro",
+    "regionId": 17,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1565
+    },
+    "specialties": [
+      5,
+      7
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": -50,
+      "y": -26
+    },
+    "description": "Port brésilien en développement, point d'exportation de l'or et des ressources du Brésil vers l'Europe.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caraque",
+        "Caravelle",
+        "Barque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        5,
+        1,
+        12
+      ]
+    }
+  },
+  {
+    "id": 180,
+    "name": "Montevideo",
+    "regionId": 17,
+    "prosperity": 6,
+    "specialties": [
+      5,
+      7
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": -64,
+      "y": -37
+    },
+    "description": "Port sur l'estuaire du Río de la Plata, point d'accès aux vastes plaines de l'Amérique du Sud.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caravelle",
+        "Barque",
+        "Patache"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        1,
+        12,
+        18
+      ]
+    }
+  },
+  {
+    "id": 181,
+    "name": "Valparaiso",
+    "regionId": 17,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1536
+    },
+    "specialties": [
+      5,
+      7
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": -79,
+      "y": -35
+    },
+    "description": "Port chilien sur le Pacifique, point d'accès aux ressources de l'Amérique du Sud occidentale.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Patache",
+        "Barque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        2,
+        18,
+        12
+      ]
+    }
+  },
+  {
+    "id": 182,
+    "name": "Callao",
+    "regionId": 17,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1537
+    },
+    "specialties": [
+      3,
+      5
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": -84,
+      "y": -11
+    },
+    "description": "Port péruvien sur le Pacifique, point d'exportation de l'argent des mines de Potosí vers l'Europe via Panama.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Patache",
+        "Barque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        2,
+        18,
+        12
+      ]
+    }
+  },
+  {
+    "id": 183,
+    "name": "Panama",
+    "regionId": 9,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1519
+    },
+    "specialties": [
+      5,
+      7
+    ],
+    "demand": [
+      2,
+      4,
+      9
+    ],
+    "coordinates": {
+      "x": -85,
+      "y": 5
+    },
+    "description": "Port sur la côte pacifique de l'isthme, point de transit des richesses du Pérou vers l'Atlantique et l'Europe.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Patache",
+        "Caravelle"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        2,
+        18,
+        1
+      ]
+    }
+  },
+  {
+    "id": 184,
+    "name": "Tahiti",
+    "regionId": 18,
+    "prosperity": 5,
+    "specialties": [
+      3,
+      7
+    ],
+    "demand": [
+      1,
+      2,
+      6
+    ],
+    "coordinates": {
+      "x": -154,
+      "y": -12
+    },
+    "description": "Île de Polynésie, point de ravitaillement pour les navires traversant le Pacifique Sud.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Prahu",
+        "Barque",
+        "Jonque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        36,
+        12,
+        7
+      ]
+    }
+  },
+  {
+    "id": 185,
+    "name": "Naalehu",
+    "regionId": 18,
+    "prosperity": 5,
+    "specialties": [
+      3,
+      7
+    ],
+    "demand": [
+      1,
+      2,
+      6
+    ],
+    "coordinates": {
+      "x": -156,
+      "y": 19
+    },
+    "description": "Port des îles Hawaii (aujourd'hui Honolulu), point de ravitaillement stratégique dans le Pacifique Nord.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Prahu",
+        "Barque",
+        "Jonque"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        36,
+        12,
+        7
+      ]
+    }
+  },
+  {
+    "id": 186,
+    "name": "Nome",
+    "regionId": 10,
+    "prosperity": 4,
+    "specialties": [
+      4,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": -166,
+      "y": 67
+    },
+    "description": "Port septentrional de l'Alaska, point d'accès aux ressources de l'Arctique.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Barque",
+        "Cogue",
+        "Kraier"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        12,
+        19,
+        30
+      ]
+    }
+  },
+  {
+    "id": 187,
+    "name": "Cap Cod",
+    "regionId": 10,
+    "prosperity": 5,
+    "specialties": [
+      4,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      6
+    ],
+    "coordinates": {
+      "x": -71,
+      "y": 37
+    },
+    "description": "Péninsule sur la côte est de l'Amérique du Nord, point de ravitaillement pour les navires de pêche et d'exploration.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Barque",
+        "Sloop",
+        "Brick"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        12,
+        21,
+        6
+      ]
+    }
+  },
+  {
+    "id": 188,
+    "name": "Calicut",
+    "regionId": 5,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Sultanat de Calicut",
+      "color": "#8B4513",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 75.8,
+      "y": 11.2
+    },
+    "description": "Important port commercial de la côte de Malabar en Inde, célèbre pour son commerce d'épices.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Baghlah",
+        "Kotia"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        31,
+        32,
+        34
+      ]
+    }
+  },
+  {
+    "id": 189,
+    "name": "Sofala",
+    "regionId": 4,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1505
+    },
+    "specialties": [
+      1,
+      4,
+      8
+    ],
+    "demand": [
+      2,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": 34.7,
+      "y": -20.2
+    },
+    "description": "Port commercial sur la côte est-africaine, important pour le commerce de l'or et de l'ivoire.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Sambuk",
+        "Baghlah"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        31,
+        35,
+        32
+      ]
+    }
+  },
+  {
+    "id": 190,
+    "name": "Nagasaki",
+    "regionId": 6,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Japon",
+      "color": "#BC002D",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 129.9,
+      "y": 32.8
+    },
+    "description": "Port japonais ouvert au commerce extérieur, point de contact avec les marchands portugais.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Atakebune",
+        "Sekibune"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        7,
+        37,
+        38
+      ]
+    }
+  },
+  {
+    "id": 191,
+    "name": "Aden",
+    "regionId": 4,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Empire Ottoman",
+      "color": "#00743F",
+      "startYear": 1517
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      8
+    ],
+    "coordinates": {
+      "x": 45.0,
+      "y": 12.8
+    },
+    "description": "Port stratégique à l'entrée de la mer Rouge, contrôlant le commerce entre l'océan Indien et la Méditerranée.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Baghlah",
+        "Sambuk"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        31,
+        32,
+        35
+      ]
+    }
+  },
+  {
+    "id": 192,
+    "name": "Malacca",
+    "regionId": 6,
+    "prosperity": 8,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1511
+    },
+    "specialties": [
+      2,
+      6,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 102.2,
+      "y": 2.2
+    },
+    "description": "Centre commercial stratégique contrôlant le détroit de Malacca, capturé par les Portugais en 1511.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Prahu",
+        "Karakoa"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        7,
+        36,
+        39
+      ]
+    }
+  },
+  {
+    "id": 193,
+    "name": "Acapulco",
+    "regionId": 9,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1521
+    },
+    "specialties": [
+      1,
+      7,
+      9
+    ],
+    "demand": [
+      2,
+      6,
+      8
+    ],
+    "coordinates": {
+      "x": -99.9,
+      "y": 16.8
+    },
+    "description": "Port mexicain sur la côte Pacifique, point de départ du Galion de Manille vers les Philippines.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Galéon Pequeño",
+        "Patache"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        2,
+        26,
+        27
+      ]
+    }
+  },
+  {
+    "id": 194,
+    "name": "Callao",
+    "regionId": 9,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1535
+    },
+    "specialties": [
+      1,
+      7,
+      9
+    ],
+    "demand": [
+      2,
+      6,
+      8
+    ],
+    "coordinates": {
+      "x": -77.1,
+      "y": -12.0
+    },
+    "description": "Port principal du vice-royaume du Pérou, point d'exportation de l'argent des mines de Potosí.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Galéon Pequeño",
+        "Patache"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        2,
+        26,
+        27
+      ]
+    }
+  },
+  {
+    "id": 195,
+    "name": "Macao",
+    "regionId": 6,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1557
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 113.5,
+      "y": 22.2
+    },
+    "description": "Comptoir portugais en Chine, servant d'intermédiaire pour le commerce avec l'Empire du Milieu.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Caraque",
+        "Caravelle"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        7,
+        5,
+        1
+      ]
+    }
+  },
+  {
+    "id": 196,
+    "name": "Manille",
+    "regionId": 6,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1571
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 120.9,
+      "y": 14.6
+    },
+    "description": "Capitale des Philippines espagnoles, terminus oriental du Galion de Manille.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Galéon de Manille",
+        "Patache"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        2,
+        23,
+        27
+      ]
+    }
+  },
+  {
+    "id": 197,
+    "name": "Carthagène",
+    "regionId": 9,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1533
+    },
+    "specialties": [
+      1,
+      7,
+      9
+    ],
+    "demand": [
+      2,
+      6,
+      8
+    ],
+    "coordinates": {
+      "x": -75.5,
+      "y": 10.4
+    },
+    "description": "Port fortifié sur la côte caraïbe de la Nouvelle-Grenade, escale importante de la Flotte des Indes.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Galéon Pequeño",
+        "Patache"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        2,
+        26,
+        27
+      ]
+    }
+  },
+  {
+    "id": 198,
+    "name": "Hormuz",
+    "regionId": 5,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1515
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 56.5,
+      "y": 27.1
+    },
+    "description": "Île stratégique contrôlant l'entrée du golfe Persique, conquise par les Portugais en 1515.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Baghlah",
+        "Caraque"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        31,
+        32,
+        5
+      ]
+    }
+  },
+  {
+    "id": 199,
+    "name": "Mozambique",
+    "regionId": 4,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1505
+    },
+    "specialties": [
+      1,
+      4,
+      8
+    ],
+    "demand": [
+      2,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": 40.7,
+      "y": -15.0
+    },
+    "description": "Port portugais sur la côte est-africaine, escale importante sur la route des Indes.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caraque",
+        "Caravelle",
+        "Sambuk"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        5,
+        1,
+        35
+      ]
+    }
+  },
+  {
+    "id": 200,
+    "name": "Diu",
+    "regionId": 5,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1535
+    },
+    "specialties": [
+      2,
+      6,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 70.9,
+      "y": 20.7
+    },
+    "description": "Forteresse portugaise sur la côte du Gujarat, point stratégique pour le contrôle du commerce dans l'océan Indien.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caraque",
+        "Caravelle",
+        "Kotia"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        5,
+        1,
+        34
+      ]
+    }
+  },
+  {
+    "id": 201,
+    "name": "Goa",
+    "regionId": 5,
+    "prosperity": 8,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1510
+    },
+    "specialties": [
+      2,
+      6,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 73.8,
+      "y": 15.5
+    },
+    "description": "Capitale de l'Inde portugaise, centre administratif et commercial majeur sur la côte occidentale de l'Inde.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Caraque",
+        "Caravelle",
+        "Nau"
+      ],
+      "maxShipClass": "Grand",
+      "special": "Arsenal portugais des Indes",
+      "availableShips": [
+        5,
+        1,
+        4
+      ]
+    }
+  },
+  {
+    "id": 202,
+    "name": "Zanzibar",
+    "regionId": 4,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Sultanat d'Oman",
+      "color": "#A52A2A",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 39.2,
+      "y": -6.2
+    },
+    "description": "Île commerciale sur la côte est-africaine, centre du commerce des épices, de l'ivoire et des esclaves.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Sambuk",
+        "Baghlah"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        31,
+        35,
+        32
+      ]
+    }
+  },
+  {
+    "id": 203,
+    "name": "Kilwa",
+    "regionId": 4,
+    "prosperity": 5,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1505
+    },
+    "specialties": [
+      1,
+      4,
+      8
+    ],
+    "demand": [
+      2,
+      6,
+      9
+    ],
+    "coordinates": {
+      "x": 39.5,
+      "y": -8.9
+    },
+    "description": "Ancien sultanat swahili conquis par les Portugais, important pour le commerce de l'or et de l'ivoire.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Dhow",
+        "Sambuk",
+        "Caravelle"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        31,
+        35,
+        1
+      ]
+    }
+  },
+  {
+    "id": 204,
+    "name": "Surat",
+    "regionId": 5,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Empire Moghol",
+      "color": "#006400",
+      "startYear": 1526
+    },
+    "specialties": [
+      2,
+      6,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 72.8,
+      "y": 21.2
+    },
+    "description": "Principal port du Gujarat et de l'Empire moghol, centre du commerce avec le Moyen-Orient et l'Europe.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Kotia",
+        "Baghlah",
+        "Dhow"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        34,
+        32,
+        31
+      ]
+    }
+  },
+  {
+    "id": 205,
+    "name": "Canton",
+    "regionId": 6,
+    "prosperity": 8,
+    "allegiance": {
+      "power": "Chine (Ming)",
+      "color": "#E4007F",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      9
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 113.3,
+      "y": 23.1
+    },
+    "description": "Principal port chinois ouvert au commerce extérieur sous la dynastie Ming.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Jonque de guerre",
+        "Jonque de trésor"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        7,
+        40,
+        41
+      ]
+    }
+  },
+  {
+    "id": 206,
+    "name": "Ayutthaya",
+    "regionId": 6,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Royaume d'Ayutthaya",
+      "color": "#F4C800",
+      "startYear": 1500
+    },
+    "specialties": [
+      2,
+      6,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 100.6,
+      "y": 14.4
+    },
+    "description": "Capitale du royaume siamois d'Ayutthaya, centre commercial important en Asie du Sud-Est.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Jonque",
+        "Prahu",
+        "Karakoa"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        7,
+        36,
+        39
+      ]
+    }
+  },
+  {
+    "id": 207,
+    "name": "Ternate",
+    "regionId": 6,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Portugal",
+      "color": "#006600",
+      "startYear": 1522
+    },
+    "specialties": [
+      2,
+      6,
+      8
+    ],
+    "demand": [
+      1,
+      3,
+      5
+    ],
+    "coordinates": {
+      "x": 127.4,
+      "y": 0.8
+    },
+    "description": "Île des Moluques, centre du commerce des épices, notamment du clou de girofle.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Prahu",
+        "Karakoa",
+        "Caravelle"
+      ],
+      "maxShipClass": "Petit",
+      "availableShips": [
+        36,
+        39,
+        1
+      ]
+    }
+  },
+  {
+    "id": 208,
+    "name": "Veracruz",
+    "regionId": 9,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1519
+    },
+    "specialties": [
+      1,
+      7,
+      9
+    ],
+    "demand": [
+      2,
+      6,
+      8
+    ],
+    "coordinates": {
+      "x": -96.1,
+      "y": 19.2
+    },
+    "description": "Principal port de la Nouvelle-Espagne sur le golfe du Mexique, point de départ de la Flotte des Indes vers l'Espagne.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Galéon Pequeño",
+        "Patache"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        2,
+        26,
+        27
+      ]
+    }
+  },
+  {
+    "id": 209,
+    "name": "La Havane",
+    "regionId": 9,
+    "prosperity": 7,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1519
+    },
+    "specialties": [
+      1,
+      7,
+      9
+    ],
+    "demand": [
+      2,
+      6,
+      8
+    ],
+    "coordinates": {
+      "x": -82.4,
+      "y": 23.1
+    },
+    "description": "Port fortifié de Cuba, point de rassemblement de la Flotte des Indes avant la traversée de l'Atlantique.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Galéon Pequeño",
+        "Patache"
+      ],
+      "maxShipClass": "Grand",
+      "availableShips": [
+        2,
+        26,
+        27
+      ]
+    }
+  },
+  {
+    "id": 210,
+    "name": "Porto Belo",
+    "regionId": 9,
+    "prosperity": 6,
+    "allegiance": {
+      "power": "Espagne",
+      "color": "#FFC400",
+      "startYear": 1597
+    },
+    "specialties": [
+      1,
+      7,
+      9
+    ],
+    "demand": [
+      2,
+      6,
+      8
+    ],
+    "coordinates": {
+      "x": -79.6,
+      "y": 9.5
+    },
+    "description": "Port sur l'isthme de Panama, point de transit pour l'argent du Pérou vers l'Espagne.",
+    "shipbuilding": {
+      "available": true,
+      "specialization": [
+        "Galion",
+        "Galéon Pequeño",
+        "Patache"
+      ],
+      "maxShipClass": "Moyen",
+      "availableShips": [
+        2,
+        26,
+        27
+      ]
+    }
+  }
+]

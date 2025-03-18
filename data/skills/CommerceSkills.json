@@ -1,0 +1,390 @@
+[
+  {
+    "id": 5,
+    "name": "Négociation",
+    "description": "Améliore les prix lors des transactions commerciales.",
+    "iconIndex": 35,
+    "mpCost": 0,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "D",
+    "acquisitionRequirements": {
+      "actorLevel": 1,
+      "goldCost": 100,
+      "location": "Lisbonne",
+      "teacherNpcId": 15
+    }
+  },
+  {
+    "id": 6,
+    "name": "Connaissance du marché",
+    "description": "Permet de connaître les prix des marchandises dans différents ports.",
+    "iconIndex": 83,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 3,
+      "goldCost": 300,
+      "requiredSkills": [5],
+      "location": "Séville",
+      "teacherNpcId": 22
+    }
+  },
+  {
+    "id": 7,
+    "name": "Réseau commercial",
+    "description": "Établit des relations commerciales privilégiées dans certains ports.",
+    "iconIndex": 87,
+    "mpCost": 10,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 7,
+      "goldCost": 800,
+      "requiredSkills": [6],
+      "location": "Venise",
+      "teacherNpcId": 45
+    }
+  },
+  {
+    "id": 8,
+    "name": "Monopole",
+    "description": "Contrôle temporairement le marché d'une marchandise spécifique.",
+    "iconIndex": 89,
+    "mpCost": 20,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 12,
+      "goldCost": 2000,
+      "requiredSkills": [7],
+      "requiredItems": [
+        {
+          "itemId": 45,
+          "quantity": 1
+        }
+      ],
+      "location": "Anvers",
+      "teacherNpcId": 67
+    }
+  },
+  {
+    "id": 21,
+    "name": "Gestion de cargaison",
+    "description": "Optimise l'espace de stockage du navire.",
+    "iconIndex": 83,
+    "mpCost": 0,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "D",
+    "acquisitionRequirements": {
+      "actorLevel": 2,
+      "goldCost": 150,
+      "location": "Porto",
+      "teacherNpcId": 18
+    }
+  },
+  {
+    "id": 22,
+    "name": "Évaluation de marchandises",
+    "description": "Permet d'estimer précisément la valeur des marchandises.",
+    "iconIndex": 83,
+    "mpCost": 5,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 4,
+      "goldCost": 350,
+      "requiredSkills": [21],
+      "location": "Marseille",
+      "teacherNpcId": 32
+    }
+  },
+  {
+    "id": 23,
+    "name": "Contrebande",
+    "description": "Permet de transporter des marchandises illégales sans être détecté.",
+    "iconIndex": 87,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 90,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 8,
+      "goldCost": 1200,
+      "requiredSkills": [22],
+      "location": "Tunis",
+      "teacherNpcId": 89
+    }
+  },
+  {
+    "id": 24,
+    "name": "Compagnie commerciale",
+    "description": "Établit une compagnie commerciale pour augmenter les profits.",
+    "iconIndex": 87,
+    "mpCost": 30,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "A",
+    "acquisitionRequirements": {
+      "actorLevel": 15,
+      "goldCost": 5000,
+      "requiredSkills": [7, 23],
+      "requiredItems": [
+        {
+          "itemId": 52,
+          "quantity": 1
+        }
+      ],
+      "location": "Amsterdam",
+      "teacherNpcId": 75
+    }
+  },
+  {
+    "id": 90,
+    "name": "Comptabilité",
+    "description": "Techniques avancées de gestion financière.",
+    "iconIndex": 87,
+    "mpCost": 0,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "C",
+    "acquisitionRequirements": {
+      "actorLevel": 5,
+      "goldCost": 400,
+      "requiredSkills": [5],
+      "location": "Florence",
+      "teacherNpcId": 56
+    }
+  },
+  {
+    "id": 91,
+    "name": "Lettres de change",
+    "description": "Utilisation de lettres de change pour faciliter les transactions internationales.",
+    "iconIndex": 87,
+    "mpCost": 8,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 9,
+      "goldCost": 1000,
+      "requiredSkills": [90],
+      "location": "Gênes",
+      "teacherNpcId": 62
+    }
+  },
+  {
+    "id": 92,
+    "name": "Assurance maritime",
+    "description": "Souscrit une assurance pour protéger les cargaisons contre les pertes.",
+    "iconIndex": 87,
+    "mpCost": 15,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 100,
+    "tpGain": 0,
+    "rank": "B",
+    "acquisitionRequirements": {
+      "actorLevel": 10,
+      "goldCost": 1500,
+      "requiredSkills": [90],
+      "location": "Londres",
+      "teacherNpcId": 48
+    }
+  },
+  {
+    "id": 93,
+    "name": "Investissement",
+    "description": "Investit dans des entreprises commerciales pour générer des revenus passifs.",
+    "iconIndex": 87,
+    "mpCost": 25,
+    "tpCost": 0,
+    "damage": {
+      "critical": false,
+      "elementId": 0,
+      "formula": "0",
+      "type": 0,
+      "variance": 20
+    },
+    "effects": [],
+    "hitType": 0,
+    "occasion": 1,
+    "repeats": 1,
+    "scope": 0,
+    "speed": 0,
+    "successRate": 85,
+    "tpGain": 0,
+    "rank": "S",
+    "acquisitionRequirements": {
+      "actorLevel": 18,
+      "goldCost": 8000,
+      "requiredSkills": [91, 92],
+      "requiredItems": [
+        {
+          "itemId": 60,
+          "quantity": 1
+        }
+      ],
+      "location": "Anvers",
+      "teacherNpcId": 68
+    }
+  }
+] 

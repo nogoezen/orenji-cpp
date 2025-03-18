@@ -1,0 +1,814 @@
+[
+  {
+    "id": 1,
+    "name": "Épée courte",
+    "description": "Arme de base pour le combat rapproché.",
+    "iconIndex": 97,
+    "price": 300,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 5, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Europe"
+  },
+  {
+    "id": 2,
+    "name": "Rapière",
+    "description": "Épée fine et élégante, privilégiant la rapidité.",
+    "iconIndex": 97,
+    "price": 600,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 8, 2, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Espagne, France, Italie"
+  },
+  {
+    "id": 3,
+    "name": "Sabre",
+    "description": "Lame courbe, idéale pour le combat naval.",
+    "iconIndex": 97,
+    "price": 900,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 12, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe de l'Est, Moyen-Orient"
+  },
+  {
+    "id": 4,
+    "name": "Épée longue",
+    "description": "Arme polyvalente à deux mains.",
+    "iconIndex": 97,
+    "price": 1200,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 15, -2, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 5,
+    "name": "Pistolet à silex",
+    "description": "Arme à feu primitive mais efficace.",
+    "iconIndex": 101,
+    "price": 800,
+    "wtypeId": 2,
+    "animationId": 1,
+    "params": [0, 0, 10, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 2, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 6,
+    "name": "Mousquet",
+    "description": "Arme à feu à longue portée.",
+    "iconIndex": 101,
+    "price": 1500,
+    "wtypeId": 2,
+    "animationId": 1,
+    "params": [0, 0, 18, -3, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 2, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 7,
+    "name": "Tromblon",
+    "description": "Canon court à bouche évasée, idéal pour les abordages.",
+    "iconIndex": 101,
+    "price": 1200,
+    "wtypeId": 2,
+    "animationId": 1,
+    "params": [0, 0, 14, -1, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 2, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 8,
+    "name": "Arc long",
+    "description": "Arme silencieuse à longue portée.",
+    "iconIndex": 102,
+    "price": 500,
+    "wtypeId": 3,
+    "animationId": 1,
+    "params": [0, 0, 7, 3, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 3, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Angleterre"
+  },
+  {
+    "id": 9,
+    "name": "Arbalète",
+    "description": "Arme puissante mais lente à recharger.",
+    "iconIndex": 102,
+    "price": 700,
+    "wtypeId": 3,
+    "animationId": 1,
+    "params": [0, 0, 11, -1, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 3, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 10,
+    "name": "Dague",
+    "description": "Petite lame facile à dissimuler.",
+    "iconIndex": 97,
+    "price": 200,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 3, 5, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Commun dans toute l'Europe"
+  },
+  {
+    "id": 11,
+    "name": "Hache de bord",
+    "description": "Outil et arme polyvalente pour les marins.",
+    "iconIndex": 98,
+    "price": 400,
+    "wtypeId": 4,
+    "animationId": 1,
+    "params": [0, 0, 9, -2, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 4, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Europe"
+  },
+  {
+    "id": 12,
+    "name": "Hallebarde",
+    "description": "Arme d'hast combinant lance et hache.",
+    "iconIndex": 107,
+    "price": 1000,
+    "wtypeId": 5,
+    "animationId": 1,
+    "params": [0, 0, 13, -2, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 5, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 13,
+    "name": "Grappin d'abordage",
+    "description": "Permet d'agripper un navire ennemi pour l'abordage.",
+    "iconIndex": 99,
+    "price": 350,
+    "wtypeId": 6,
+    "animationId": 1,
+    "params": [0, 0, 4, 2, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 6, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Commun sur tous les navires"
+  },
+  {
+    "id": 14,
+    "name": "Bâton de combat",
+    "description": "Arme simple mais efficace en mains expertes.",
+    "iconIndex": 100,
+    "price": 250,
+    "wtypeId": 7,
+    "animationId": 1,
+    "params": [0, 0, 6, 1, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 7, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Universel"
+  },
+  {
+    "id": 15,
+    "name": "Épée de capitaine",
+    "description": "Symbole d'autorité et arme redoutable.",
+    "iconIndex": 97,
+    "price": 2000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 20, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "A",
+    "origin": "Europe"
+  },
+  {
+    "id": 16,
+    "name": "Pistolet à répétition",
+    "description": "Arme à feu avancée permettant plusieurs tirs.",
+    "iconIndex": 101,
+    "price": 3000,
+    "wtypeId": 2,
+    "animationId": 1,
+    "params": [0, 0, 25, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 2, "value": 0}
+    ],
+    "rank": "A",
+    "origin": "Europe"
+  },
+  {
+    "id": 17,
+    "name": "Couteau de lancer",
+    "description": "Petit couteau équilibré pour être lancé.",
+    "iconIndex": 97,
+    "price": 300,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 4, 4, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Europe"
+  },
+  {
+    "id": 18,
+    "name": "Cimeterre",
+    "description": "Lame courbe orientale, redoutable en combat.",
+    "iconIndex": 97,
+    "price": 1800,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 17, 1, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Moyen-Orient"
+  },
+  {
+    "id": 19,
+    "name": "Fléau d'armes",
+    "description": "Arme contondante difficile à manier mais dévastatrice.",
+    "iconIndex": 99,
+    "price": 1100,
+    "wtypeId": 6,
+    "animationId": 1,
+    "params": [0, 0, 16, -3, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 6, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 20,
+    "name": "Épée de corsaire",
+    "description": "Lame légendaire ayant appartenu à un célèbre corsaire.",
+    "iconIndex": 97,
+    "price": 50000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 30, 5, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0},
+      {"code": 22, "dataId": 0, "value": 0.05}
+    ],
+    "rank": "S",
+    "origin": "Caraïbes"
+  },
+  {
+    "id": 21,
+    "name": "Épée courte",
+    "description": "Arme de base pour le combat rapproché avec une lame de 80 cm.",
+    "iconIndex": 97,
+    "price": 1000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 5, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Europe"
+  },
+  {
+    "id": 22,
+    "name": "Rapière",
+    "description": "Épée fine et élégante, privilégiant la rapidité et les attaques d'estoc.",
+    "iconIndex": 97,
+    "price": 3000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 8, 2, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Espagne, France, Italie"
+  },
+  {
+    "id": 23,
+    "name": "Épée longue",
+    "description": "Arme polyvalente à deux mains, populaire parmi les chevaliers médiévaux.",
+    "iconIndex": 97,
+    "price": 4000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 12, -2, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 24,
+    "name": "Sabre",
+    "description": "Lame courbe à un tranchant, idéale pour le combat naval.",
+    "iconIndex": 97,
+    "price": 3000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 9, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe de l'Est, Moyen-Orient"
+  },
+  {
+    "id": 25,
+    "name": "Cimeterre",
+    "description": "Lame courbe orientale, redoutable en combat, utilisée par les Arabes et les Perses.",
+    "iconIndex": 97,
+    "price": 8000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 17, 1, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Moyen-Orient"
+  },
+  {
+    "id": 26,
+    "name": "Épée de capitaine",
+    "description": "Symbole d'autorité et arme redoutable, portée par les capitaines de navire.",
+    "iconIndex": 97,
+    "price": 20000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 20, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "A",
+    "origin": "Europe"
+  },
+  {
+    "id": 27,
+    "name": "Épée de corsaire",
+    "description": "Lame légendaire ayant appartenu à un célèbre corsaire.",
+    "iconIndex": 97,
+    "price": 50000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 30, 5, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0},
+      {"code": 22, "dataId": 0, "value": 0.05}
+    ],
+    "rank": "S",
+    "origin": "Caraïbes"
+  },
+  {
+    "id": 28,
+    "name": "Pistolet à silex",
+    "description": "Arme à feu primitive mais efficace, utilisée par les marins et pirates.",
+    "iconIndex": 101,
+    "price": 800,
+    "wtypeId": 2,
+    "animationId": 1,
+    "params": [0, 0, 10, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 2, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 29,
+    "name": "Mousquet",
+    "description": "Arme à feu à longue portée, précise mais lente à recharger.",
+    "iconIndex": 101,
+    "price": 1500,
+    "wtypeId": 2,
+    "animationId": 1,
+    "params": [0, 0, 18, -3, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 2, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 30,
+    "name": "Tromblon",
+    "description": "Canon court à bouche évasée, idéal pour les abordages à courte distance.",
+    "iconIndex": 101,
+    "price": 1200,
+    "wtypeId": 2,
+    "animationId": 1,
+    "params": [0, 0, 14, -1, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 2, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 31,
+    "name": "Pistolet à répétition",
+    "description": "Arme à feu avancée permettant plusieurs tirs sans rechargement.",
+    "iconIndex": 101,
+    "price": 30000,
+    "wtypeId": 2,
+    "animationId": 1,
+    "params": [0, 0, 25, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 2, "value": 0}
+    ],
+    "rank": "A",
+    "origin": "Europe"
+  },
+  {
+    "id": 32,
+    "name": "Arc long",
+    "description": "Arme silencieuse à longue portée, utilisée par les marins anglais.",
+    "iconIndex": 102,
+    "price": 500,
+    "wtypeId": 3,
+    "animationId": 1,
+    "params": [0, 0, 7, 3, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 3, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Angleterre"
+  },
+  {
+    "id": 33,
+    "name": "Arbalète",
+    "description": "Arme puissante mais lente à recharger, utilisée sur les navires.",
+    "iconIndex": 102,
+    "price": 700,
+    "wtypeId": 3,
+    "animationId": 1,
+    "params": [0, 0, 11, -1, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 3, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 34,
+    "name": "Hache de bord",
+    "description": "Outil et arme polyvalente pour les marins, utilisée pour les réparations et le combat.",
+    "iconIndex": 98,
+    "price": 400,
+    "wtypeId": 4,
+    "animationId": 1,
+    "params": [0, 0, 9, -2, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 4, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Europe"
+  },
+  {
+    "id": 35,
+    "name": "Hallebarde",
+    "description": "Arme d'hast combinant lance et hache, utilisée pour repousser les abordages.",
+    "iconIndex": 107,
+    "price": 1000,
+    "wtypeId": 5,
+    "animationId": 1,
+    "params": [0, 0, 13, -2, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 5, "value": 0}
+    ],
+    "rank": "C",
+    "origin": "Europe"
+  },
+  {
+    "id": 36,
+    "name": "Fléau d'armes",
+    "description": "Arme contondante difficile à manier mais dévastatrice lors des abordages.",
+    "iconIndex": 99,
+    "price": 1100,
+    "wtypeId": 6,
+    "animationId": 1,
+    "params": [0, 0, 16, -3, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 6, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 37,
+    "name": "Bâton de combat",
+    "description": "Arme simple mais efficace en mains expertes, utilisée par les marins.",
+    "iconIndex": 100,
+    "price": 250,
+    "wtypeId": 7,
+    "animationId": 1,
+    "params": [0, 0, 6, 1, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 7, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Universel"
+  },
+  {
+    "id": 38,
+    "name": "Couteau de lancer",
+    "description": "Petit couteau équilibré pour être lancé, utile lors des abordages.",
+    "iconIndex": 97,
+    "price": 300,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 4, 4, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Europe"
+  },
+  {
+    "id": 39,
+    "name": "Sabre court",
+    "description": "Lame légère utilisée par la cavalerie, populaire parmi les officiers de marine.",
+    "iconIndex": 97,
+    "price": 1000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 6, 2, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Europe, Moyen-Orient"
+  },
+  {
+    "id": 40,
+    "name": "Épée large",
+    "description": "Épée à lame large et droite, particulièrement efficace pour les attaques de taille.",
+    "iconIndex": 97,
+    "price": 5000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 14, -1, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 41,
+    "name": "Claymore",
+    "description": "Grande épée à deux mains d'Écosse pouvant peser jusqu'à 5 kg, redoutable en combat.",
+    "iconIndex": 97,
+    "price": 15000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 22, -3, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "A",
+    "origin": "Écosse"
+  },
+  {
+    "id": 42,
+    "name": "Épée bâtarde",
+    "description": "Épée polyvalente pouvant être maniée à une ou deux mains, très prisée des aventuriers.",
+    "iconIndex": 97,
+    "price": 14000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 19, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "A",
+    "origin": "Europe"
+  },
+  {
+    "id": 43,
+    "name": "Cutlass",
+    "description": "Sabre court et lourd traditionnellement utilisé par les marins et pirates.",
+    "iconIndex": 97,
+    "price": 1500,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 7, 1, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "Marine européenne, Caraïbes"
+  },
+  {
+    "id": 44,
+    "name": "Épée japonaise",
+    "description": "Katana très tranchant fabriqué au Japon, particulièrement efficace pour les attaques de taille.",
+    "iconIndex": 97,
+    "price": 20000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 21, 1, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "A",
+    "origin": "Japon"
+  },
+  {
+    "id": 45,
+    "name": "Épée",
+    "description": "Arme d'escrime légère sans tranchant, utilisée uniquement pour les attaques d'estoc.",
+    "iconIndex": 97,
+    "price": 2000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 6, 3, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "D",
+    "origin": "France, Italie"
+  },
+  {
+    "id": 46,
+    "name": "Estoc",
+    "description": "Épée développée pour percer les armures, plus puissante qu'une rapière.",
+    "iconIndex": 97,
+    "price": 6000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 15, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "B",
+    "origin": "Europe"
+  },
+  {
+    "id": 47,
+    "name": "Flamberge",
+    "description": "Longue épée décorative à lame ondulée, supérieure à la rapière et à l'estoc.",
+    "iconIndex": 97,
+    "price": 14000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 20, 1, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "A",
+    "origin": "Allemagne, Suisse"
+  },
+  {
+    "id": 48,
+    "name": "Dragon d'Or",
+    "description": "Épée chinoise unique à lame large, redoutable pour les attaques de taille.",
+    "iconIndex": 97,
+    "price": 18000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 25, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "A",
+    "origin": "Chine"
+  },
+  {
+    "id": 49,
+    "name": "Croissant Bleu",
+    "description": "Épée chinoise unique à lame en forme de croissant, particulièrement puissante.",
+    "iconIndex": 97,
+    "price": 24000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 30, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "S",
+    "origin": "Chine"
+  },
+  {
+    "id": 50,
+    "name": "Épée de Damas",
+    "description": "Lame légendaire forgée à Damas, réputée pour sa qualité et son tranchant.",
+    "iconIndex": 97,
+    "price": 35000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 28, 2, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "S",
+    "origin": "Syrie"
+  },
+  {
+    "id": 51,
+    "name": "Épée du Croisé",
+    "description": "Épée spéciale à la lame tranchante comme un rasoir, forgée par le célèbre forgeron Michelangelo.",
+    "iconIndex": 97,
+    "price": 380000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 35, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "S",
+    "origin": "Italie"
+  },
+  {
+    "id": 52,
+    "name": "Lame Runique",
+    "description": "Épée avec des runes gravées sur la poignée. Sa puissance destructrice est sans égale.",
+    "iconIndex": 97,
+    "price": 360000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 40, 0, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "S",
+    "origin": "Scandinavie"
+  },
+  {
+    "id": 53,
+    "name": "Muramasa Magique",
+    "description": "Épée légendaire forgée au XVe siècle par le célèbre forgeron japonais Muramasa.",
+    "iconIndex": 97,
+    "price": 380000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 38, 5, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "S",
+    "origin": "Japon"
+  },
+  {
+    "id": 54,
+    "name": "Épée de Shiva",
+    "description": "Épée légendaire qui contiendrait le pouvoir de Shiva, dieu hindou de la destruction.",
+    "iconIndex": 97,
+    "price": 280000,
+    "wtypeId": 1,
+    "animationId": 1,
+    "params": [0, 0, 36, 3, 0, 0, 0, 0],
+    "traits": [
+      {"code": 31, "dataId": 1, "value": 0}
+    ],
+    "rank": "S",
+    "origin": "Inde"
+  }
+] 

@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "name": "Europe du Nord",
+    "description": "Angleterre, Pays-Bas, pays scandinaves",
+    "color": "#5470C6"
+  },
+  {
+    "id": 2,
+    "name": "Europe du Sud",
+    "description": "Espagne, Portugal, Italie",
+    "color": "#91CC75"
+  },
+  {
+    "id": 3,
+    "name": "Méditerranée",
+    "description": "Venise, Empire Ottoman, Afrique du Nord",
+    "color": "#FAC858"
+  },
+  {
+    "id": 4,
+    "name": "Afrique",
+    "description": "Côtes ouest et est de l'Afrique",
+    "color": "#EE6666"
+  },
+  {
+    "id": 5,
+    "name": "Moyen-Orient",
+    "description": "Arabie, Perse",
+    "color": "#73C0DE"
+  },
+  {
+    "id": 6,
+    "name": "Inde",
+    "description": "Sous-continent indien",
+    "color": "#3BA272"
+  },
+  {
+    "id": 7,
+    "name": "Asie du Sud-Est",
+    "description": "Malaisie, Indonésie",
+    "color": "#FC8452"
+  },
+  {
+    "id": 8,
+    "name": "Extrême-Orient",
+    "description": "Chine, Japon",
+    "color": "#9A60B4"
+  },
+  {
+    "id": 9,
+    "name": "Amériques",
+    "description": "Caraïbes, Amérique centrale et du Sud",
+    "color": "#EA7CCC"
+  },
+  {
+    "id": 10,
+    "name": "Amérique du Nord",
+    "description": "Côte est de l'Amérique du Nord",
+    "color": "#FEA7B3"
+  },
+  {
+    "id": 11,
+    "name": "Mer Baltique",
+    "description": "Danemark, Suède, Pologne, États baltes",
+    "color": "#64C8C8"
+  },
+  {
+    "id": 12,
+    "name": "Mer Noire",
+    "description": "Crimée, Caucase, Anatolie orientale",
+    "color": "#8B5D33"
+  },
+  {
+    "id": 13,
+    "name": "Afrique de l'Est",
+    "description": "Côte est africaine, Madagascar, Zanzibar",
+    "color": "#D46A6A"
+  },
+  {
+    "id": 14,
+    "name": "Golfe Persique",
+    "description": "Mésopotamie, côtes de la péninsule arabique",
+    "color": "#A2D1E1"
+  },
+  {
+    "id": 15,
+    "name": "Océanie",
+    "description": "Australie, Nouvelle-Zélande, îles du Pacifique",
+    "color": "#56B4E9"
+  },
+  {
+    "id": 16,
+    "name": "Mer des Caraïbes",
+    "description": "Îles des Caraïbes, côtes d'Amérique centrale",
+    "color": "#F0E442"
+  },
+  {
+    "id": 17,
+    "name": "Côte Pacifique",
+    "description": "Côte ouest des Amériques",
+    "color": "#CC79A7"
+  },
+  {
+    "id": 18,
+    "name": "Îles de la Sonde",
+    "description": "Archipels indonésiens, Philippines",
+    "color": "#D89614"
+  }
+] 
