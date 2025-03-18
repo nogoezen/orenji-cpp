@@ -42,66 +42,66 @@ void World::createCities() {
     // Vider la liste des villes
     m_cities.clear();
     
-    // Créer quelques villes de base
-    m_cities.push_back({
-        1, "Lisbonne", "Capitale du Portugal, point de départ des explorateurs.", 
-        "Europe", 20, 15, 
-        { {1, 0.8f}, {2, 1.2f}, {3, 1.5f}, {4, 1.8f}, {5, 0.9f} }
-    });
+    // Créer les villes avec le constructeur
+    m_cities.push_back(City(
+        1, "Lisbonne", "Capitale du Portugal, point de départ des explorateurs.",
+        "Europe", 20, 15,
+        {{1, 0.8f}, {2, 1.2f}, {3, 1.5f}, {4, 1.8f}, {5, 0.9f}}
+    ));
     
-    m_cities.push_back({
-        2, "Séville", "Port espagnol, porte vers le Nouveau Monde.", 
+    m_cities.push_back(City(
+        2, "Séville", "Port espagnol, porte vers le Nouveau Monde.",
         "Europe", 18, 16,
-        { {1, 0.9f}, {2, 1.0f}, {3, 1.3f}, {4, 1.6f}, {5, 1.1f} }
-    });
+        {{1, 0.9f}, {2, 1.0f}, {3, 1.3f}, {4, 1.6f}, {5, 1.1f}}
+    ));
     
-    m_cities.push_back({
-        3, "Londres", "Centre commercial anglais en plein essor.", 
+    m_cities.push_back(City(
+        3, "Londres", "Centre commercial anglais en plein essor.",
         "Europe", 22, 10,
-        { {1, 1.1f}, {2, 0.8f}, {3, 1.3f}, {4, 1.4f}, {5, 1.2f} }
-    });
+        {{1, 1.1f}, {2, 0.8f}, {3, 1.3f}, {4, 1.4f}, {5, 1.2f}}
+    ));
     
-    m_cities.push_back({
-        4, "Amsterdam", "Puissant port commercial hollandais.", 
+    m_cities.push_back(City(
+        4, "Amsterdam", "Puissant port commercial hollandais.",
         "Europe", 25, 12,
-        { {1, 1.0f}, {2, 0.9f}, {3, 1.2f}, {4, 1.5f}, {5, 1.3f} }
-    });
+        {{1, 1.0f}, {2, 0.9f}, {3, 1.2f}, {4, 1.5f}, {5, 1.3f}}
+    ));
     
-    m_cities.push_back({
-        5, "Venise", "République marchande prospère en Méditerranée.", 
+    m_cities.push_back(City(
+        5, "Venise", "République marchande prospère en Méditerranée.",
         "Europe", 30, 18,
-        { {1, 0.7f}, {2, 1.3f}, {3, 1.1f}, {4, 1.7f}, {5, 1.0f} }
-    });
+        {{1, 0.7f}, {2, 1.3f}, {3, 1.1f}, {4, 1.7f}, {5, 1.0f}}
+    ));
     
-    m_cities.push_back({
-        6, "Marrakech", "Carrefour commercial du Maghreb.", 
+    m_cities.push_back(City(
+        6, "Marrakech", "Carrefour commercial du Maghreb.",
         "Afrique", 16, 20,
-        { {1, 0.6f}, {2, 1.1f}, {3, 1.4f}, {4, 1.3f}, {5, 1.5f} }
-    });
+        {{1, 0.6f}, {2, 1.1f}, {3, 1.4f}, {4, 1.3f}, {5, 1.5f}}
+    ));
     
-    m_cities.push_back({
-        7, "Istanbul", "Ancienne Constantinople, lien entre l'Europe et l'Asie.", 
+    m_cities.push_back(City(
+        7, "Istanbul", "Ancienne Constantinople, lien entre l'Europe et l'Asie.",
         "Europe/Asie", 35, 17,
-        { {1, 0.8f}, {2, 1.4f}, {3, 1.0f}, {4, 1.9f}, {5, 1.1f} }
-    });
+        {{1, 0.8f}, {2, 1.4f}, {3, 1.0f}, {4, 1.9f}, {5, 1.1f}}
+    ));
     
-    m_cities.push_back({
-        8, "La Havane", "Port des Caraïbes riche en ressources exotiques.", 
+    m_cities.push_back(City(
+        8, "La Havane", "Port des Caraïbes riche en ressources exotiques.",
         "Amériques", 50, 25,
-        { {1, 1.2f}, {2, 0.7f}, {3, 0.8f}, {4, 1.1f}, {5, 1.6f} }
-    });
+        {{1, 1.2f}, {2, 0.7f}, {3, 0.8f}, {4, 1.1f}, {5, 1.6f}}
+    ));
     
-    m_cities.push_back({
-        9, "Goa", "Comptoir portugais en Inde.", 
+    m_cities.push_back(City(
+        9, "Goa", "Comptoir portugais en Inde.",
         "Asie", 60, 30,
-        { {1, 0.5f}, {2, 1.0f}, {3, 2.0f}, {4, 1.5f}, {5, 1.4f} }
-    });
+        {{1, 0.5f}, {2, 1.0f}, {3, 2.0f}, {4, 1.5f}, {5, 1.4f}}
+    ));
     
-    m_cities.push_back({
-        10, "Nagasaki", "Port japonais ouvert au commerce étranger.", 
+    m_cities.push_back(City(
+        10, "Nagasaki", "Port japonais ouvert au commerce étranger.",
         "Asie", 80, 20,
-        { {1, 0.6f}, {2, 0.9f}, {3, 1.7f}, {4, 2.1f}, {5, 1.2f} }
-    });
+        {{1, 0.6f}, {2, 0.9f}, {3, 1.7f}, {4, 2.1f}, {5, 1.2f}}
+    ));
 }
 
 // Placer les villes sur la carte

@@ -41,43 +41,43 @@ private:
 public:
     // Constructeur
     Ship(const nlohmann::json& shipData) {
-        m_id = shipData["id"];
-        m_name = shipData["name"];
-        m_description = shipData["description"];
-        m_shipClass = shipData["shipClass"];
-        m_nationality = shipData["nationality"];
-        m_maxCrew = shipData["maxCrew"];
-        m_cargoCapacity = shipData["cargoCapacity"];
-        m_maxPassengers = shipData["maxPassengers"];
-        m_speed = shipData["speed"];
-        m_maneuverability = shipData["maneuverability"];
-        m_durability = shipData["durability"];
-        m_combatPower = shipData["combatPower"];
+        m_id = shipData["id"].get<int>();
+        m_name = shipData["name"].get<std::string>();
+        m_description = shipData["description"].get<std::string>();
+        m_shipClass = shipData["shipClass"].get<std::string>();
+        m_nationality = shipData["nationality"].get<std::string>();
+        m_maxCrew = shipData["maxCrew"].get<int>();
+        m_cargoCapacity = shipData["cargoCapacity"].get<int>();
+        m_maxPassengers = shipData["maxPassengers"].get<int>();
+        m_speed = shipData["speed"].get<int>();
+        m_maneuverability = shipData["maneuverability"].get<int>();
+        m_durability = shipData["durability"].get<int>();
+        m_combatPower = shipData["combatPower"].get<int>();
         
         // Charger les traits
         for (const auto& trait : shipData["traits"]) {
             m_traits.push_back({
-                trait["id"],
-                trait["name"],
-                trait["effect"]
+                trait["id"].get<int>(),
+                trait["name"].get<std::string>(),
+                trait["effect"].get<std::string>()
             });
         }
         
-        m_weaponSlots = shipData["weaponSlots"];
-        m_cannonCapacity = shipData["cannonCapacity"];
+        m_weaponSlots = shipData["weaponSlots"].get<int>();
+        m_cannonCapacity = shipData["cannonCapacity"].get<int>();
         
         // Charger les spécialisations
         for (const auto& spec : shipData["specializations"]) {
-            m_specializations.push_back(spec);
+            m_specializations.push_back(spec.get<std::string>());
         }
         
-        m_maintenanceCost = shipData["maintenanceCost"];
-        m_requiredCrew = shipData["requiredCrew"];
+        m_maintenanceCost = shipData["maintenanceCost"].get<int>();
+        m_requiredCrew = shipData["requiredCrew"].get<int>();
         
         // Charger les upgrades
-        m_upgrades.hull = shipData["upgrades"]["hull"];
-        m_upgrades.rigging = shipData["upgrades"]["rigging"];
-        m_upgrades.cannons = shipData["upgrades"]["cannons"];
+        m_upgrades.hull = shipData["upgrades"]["hull"].get<int>();
+        m_upgrades.rigging = shipData["upgrades"]["rigging"].get<int>();
+        m_upgrades.cannons = shipData["upgrades"]["cannons"].get<int>();
     }
     
     // Getters

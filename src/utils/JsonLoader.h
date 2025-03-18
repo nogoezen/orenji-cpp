@@ -144,4 +144,6 @@ public:
         }
         
         // Charger à nouveau
+        return loadJsonFile(filePath, true);
+    }
 }; 

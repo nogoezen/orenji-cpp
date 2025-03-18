@@ -16,6 +16,15 @@ struct City {
     int posY;
     // Facteurs de prix pour les différents biens (goodId -> facteur)
     std::map<int, float> marketFactors;
+    
+    // Constructeur par défaut
+    City() : id(0), posX(0), posY(0) {}
+    
+    // Constructeur avec tous les paramètres
+    City(int _id, const std::string& _name, const std::string& _desc, const std::string& _region, 
+         int _posX, int _posY, const std::map<int, float>& _factors) 
+        : id(_id), name(_name), description(_desc), region(_region), 
+          posX(_posX), posY(_posY), marketFactors(_factors) {}
 };
 
 // Structure pour représenter un élément de terrain

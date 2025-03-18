@@ -5,17 +5,6 @@ project(UnchartedWaters VERSION 1.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Include external dependencies
-include(FetchContent)
-
-# Fetch nlohmann/json
-FetchContent_Declare(
-    json
-    GIT_REPOSITORY https://github.com/nlohmann/json.git
-    GIT_TAG v3.11.2
-)
-FetchContent_MakeAvailable(json)
-
 # Sources files
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 file(GLOB_RECURSE HEADERS "src/*.h")
@@ -24,10 +13,10 @@ file(GLOB_RECURSE HEADERS "src/*.h")
 add_executable(unchartedwaters ${SOURCES} ${HEADERS})
 
 # Include directories
-target_include_directories(unchartedwaters PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
-
-# Link libraries
-target_link_libraries(unchartedwaters PRIVATE nlohmann_json::nlohmann_json)
+target_include_directories(unchartedwaters PRIVATE 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 
 # Copy data directory to build directory
 add_custom_command(TARGET unchartedwaters POST_BUILD
