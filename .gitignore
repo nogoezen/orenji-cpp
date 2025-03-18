@@ -1,0 +1,46 @@
+# Fichiers compilés
+*.o
+*.obj
+*.exe
+*.out
+*.app
+*.dll
+*.so
+*.dylib
+
+# Dossiers de compilation
+/bin/
+/obj/
+/build/
+
+# Fichiers de projet Visual Studio / Cursor
+.vs/
+*.suo
+*.user
+*.sln.docstates
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+# Fichiers spécifiques à Cursor (optionnel - décommentez si nécessaire)
+# .cursor/
+
+# Fichiers de dépendances et de bibliothèques (à adapter selon vos besoins)
+# /lib/
+# /deps/
+
+# Fichiers temporaires
+*.tmp
+*.log
+*.bak
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Autres fichiers à ignorer
+*.layout
+*.depend
+*.win
+Makefile.win 
