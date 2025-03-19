@@ -4,13 +4,23 @@
 #include <vector>
 #include <map>
 #include <nlohmann/json.hpp>
+#include <memory>
 
+/**
+ * @brief Classe représentant un personnage joueur
+ *
+ * Cette classe contient les attributs et méthodes liés au personnage du joueur,
+ * comme son nom, sa classe, ses compétences, etc.
+ */
 class Character
 {
 private:
     int m_id;
     std::string m_name;
     std::string m_nickname;
+    std::string m_description;
+    std::string m_class;  // Classe principale (Navigateur, Marchand, etc.)
+    std::string m_origin; // Royaume d'origine
 
     struct Title
     {
@@ -29,8 +39,16 @@ private:
 
     int m_classId;
     std::vector<int> m_secondaryClasses;
-    int m_level;
+    int m_level = 1;
     int m_maxLevel;
+    int m_experience = 0;
+    int m_health = 100;
+    int m_maxHealth = 100;
+    int m_navigation = 10; // Compétence de navigation
+    int m_commerce = 10;   // Compétence de commerce
+    int m_diplomacy = 10;  // Compétence de diplomatie
+    int m_combat = 10;     // Compétence de combat
+    int m_leadership = 10; // Compétence de commandement
     std::string m_profile;
     std::string m_characterName;
     int m_characterIndex;
@@ -38,119 +56,52 @@ private:
     int m_faceIndex;
     std::vector<int> m_params;
     std::vector<int> m_equips;
+    std::vector<std::string> m_skills;
 
 public:
-    // Constructeur par défaut
-    Character() : m_id(0), m_classId(0), m_level(1), m_maxLevel(99) {}
+    /**
+     * Constructeur par défaut
+     */
+    Character() : m_id(0), m_classId(0), m_maxLevel(99) {}
 
-    // Constructeur à partir de données JSON
-    Character(const nlohmann::json &actorData)
-    {
-        fromJson(actorData);
-    }
+    /**
+     * Constructeur avec paramètres de base
+     * @param name Nom du personnage
+     * @param characterClass Classe du personnage
+     */
+    Character(const std::string &name, const std::string &characterClass);
 
-    // Chargement depuis JSON
-    void fromJson(const nlohmann::json &actorData)
-    {
-        m_id = actorData["id"].get<int>();
-        m_name = actorData["name"].get<std::string>();
-        m_nickname = actorData["nickname"].get<std::string>();
+    /**
+     * Destructeur
+     */
+    ~Character() = default;
 
-        // Chargement du titre
-        m_title.current = actorData["title"]["current"].get<std::string>();
-        m_title.rank = actorData["title"]["rank"].get<int>();
-        m_title.points = actorData["title"]["points"].get<int>();
-        m_title.nextRankRequirement = actorData["title"]["nextRankRequirement"].get<int>();
+    /**
+     * Conversion en JSON pour sauvegarde
+     */
+    nlohmann::json toJson() const;
 
-        // Chargement de la moralité
-        m_morality.value = actorData["morality"]["value"].get<int>();
-        m_morality.alignment = actorData["morality"]["alignment"].get<std::string>();
+    /**
+     * Chargement depuis JSON
+     */
+    static std::shared_ptr<Character> fromJson(const nlohmann::json &data);
 
-        // Chargement des réputations
-        for (auto &[nation, rep] : actorData["morality"]["reputation"].items())
-        {
-            m_morality.reputation[nation] = rep.get<int>();
-        }
-
-        m_classId = actorData["classId"].get<int>();
-
-        // Chargement des classes secondaires
-        for (const auto &cls : actorData["secondaryClasses"])
-        {
-            m_secondaryClasses.push_back(cls.get<int>());
-        }
-
-        m_level = actorData["initialLevel"].get<int>();
-        m_maxLevel = actorData["maxLevel"].get<int>();
-        m_profile = actorData["profile"].get<std::string>();
-        m_characterName = actorData["characterName"].get<std::string>();
-        m_characterIndex = actorData["characterIndex"].get<int>();
-        m_faceName = actorData["faceName"].get<std::string>();
-        m_faceIndex = actorData["faceIndex"].get<int>();
-
-        // Chargement des paramètres
-        for (const auto &param : actorData["params"])
-        {
-            m_params.push_back(param.get<int>());
-        }
-
-        // Chargement des équipements
-        for (const auto &equip : actorData["equips"])
-        {
-            m_equips.push_back(equip.get<int>());
-        }
-    }
-
-    // Sauvegarde en JSON
-    nlohmann::json toJson() const
-    {
-        nlohmann::json data;
-
-        data["id"] = m_id;
-        data["name"] = m_name;
-        data["nickname"] = m_nickname;
-
-        // Sauvegarde du titre
-        data["title"]["current"] = m_title.current;
-        data["title"]["rank"] = m_title.rank;
-        data["title"]["points"] = m_title.points;
-        data["title"]["nextRankRequirement"] = m_title.nextRankRequirement;
-
-        // Sauvegarde de la moralité
-        data["morality"]["value"] = m_morality.value;
-        data["morality"]["alignment"] = m_morality.alignment;
-
-        // Sauvegarde des réputations
-        for (const auto &[nation, rep] : m_morality.reputation)
-        {
-            data["morality"]["reputation"][nation] = rep;
-        }
-
-        data["classId"] = m_classId;
-        data["secondaryClasses"] = m_secondaryClasses;
-        data["initialLevel"] = m_level;
-        data["maxLevel"] = m_maxLevel;
-        data["profile"] = m_profile;
-        data["characterName"] = m_characterName;
-        data["characterIndex"] = m_characterIndex;
-        data["faceName"] = m_faceName;
-        data["faceIndex"] = m_faceIndex;
-        data["params"] = m_params;
-        data["equips"] = m_equips;
-
-        return data;
-    }
-
-    // Getters
+    // Accesseurs
     int getId() const { return m_id; }
     const std::string &getName() const { return m_name; }
     const std::string &getNickname() const { return m_nickname; }
+    const std::string &getDescription() const { return m_description; }
+    const std::string &getCharacterClass() const { return m_class; }
+    const std::string &getOrigin() const { return m_origin; }
     const Title &getTitle() const { return m_title; }
     const Morality &getMorality() const { return m_morality; }
     int getClassId() const { return m_classId; }
     const std::vector<int> &getSecondaryClasses() const { return m_secondaryClasses; }
     std::vector<int> &getSecondaryClasses() { return m_secondaryClasses; }
     int getLevel() const { return m_level; }
+    int getExperience() const { return m_experience; }
+    int getHealth() const { return m_health; }
+    int getMaxHealth() const { return m_maxHealth; }
     int getMaxLevel() const { return m_maxLevel; }
     const std::string &getProfile() const { return m_profile; }
     const std::string &getCharacterName() const { return m_characterName; }
@@ -159,16 +110,43 @@ public:
     int getFaceIndex() const { return m_faceIndex; }
     const std::vector<int> &getParams() const { return m_params; }
     const std::vector<int> &getEquips() const { return m_equips; }
+    int getNavigation() const { return m_navigation; }
+    int getCommerce() const { return m_commerce; }
+    int getDiplomacy() const { return m_diplomacy; }
+    int getCombat() const { return m_combat; }
+    int getLeadership() const { return m_leadership; }
+    const std::vector<std::string> &getSkills() const { return m_skills; }
 
-    // Setters
+    // Mutateurs
     void setId(int id) { m_id = id; }
     void setName(const std::string &name) { m_name = name; }
     void setNickname(const std::string &nickname) { m_nickname = nickname; }
+    void setDescription(const std::string &description) { m_description = description; }
+    void setClass(const std::string &characterClass) { m_class = characterClass; }
+    void setOrigin(const std::string &origin) { m_origin = origin; }
     void setClassId(int classId) { m_classId = classId; }
     void addSecondaryClass(int classId) { m_secondaryClasses.push_back(classId); }
     void clearSecondaryClasses() { m_secondaryClasses.clear(); }
     void setLevel(int level) { m_level = level; }
+    void setExperience(int experience) { m_experience = experience; }
+    void setHealth(int health) { m_health = health; }
+    void setMaxHealth(int maxHealth) { m_maxHealth = maxHealth; }
     void setProfile(const std::string &profile) { m_profile = profile; }
+    void setCharacterName(const std::string &characterName) { m_characterName = characterName; }
+    void setCharacterIndex(int characterIndex) { m_characterIndex = characterIndex; }
+    void setFaceName(const std::string &faceName) { m_faceName = faceName; }
+    void setFaceIndex(int faceIndex) { m_faceIndex = faceIndex; }
+    void setNavigation(int navigation) { m_navigation = navigation; }
+    void setCommerce(int commerce) { m_commerce = commerce; }
+    void setDiplomacy(int diplomacy) { m_diplomacy = diplomacy; }
+    void setCombat(int combat) { m_combat = combat; }
+    void setLeadership(int leadership) { m_leadership = leadership; }
+
+    // Méthodes
+    void addSkill(const std::string &skill) { m_skills.push_back(skill); }
+    bool hasSkill(const std::string &skill) const { return std::find(m_skills.begin(), m_skills.end(), skill) != m_skills.end(); }
+    void addExperience(int experience) { m_experience += experience; }
+    void levelUp() { m_level++; }
 
     // Méthodes pour définir les paramètres
     void setParam(int index, int value)

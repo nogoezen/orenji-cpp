@@ -5,115 +5,115 @@
 #include <vector>
 #include <iostream>
 #include <limits>
+#include "../models/Player.h"
+#include "../models/World.h"
+#include "TradingSystem.h"
 
-// Déclarations anticipées
-class Player;
-class World;
-class GameData;
-class TradingSystem;
+// Forward declaration pour éviter les inclusions circulaires
+class MainMenu;
 
 /**
- * @brief Classe centrale du jeu qui gère la logique principale
- *
- * Cette classe sert de point d'entrée pour toutes les fonctionnalités du jeu
- * et coordonne les différents systèmes.
+ * @brief Énumération des différents états possibles du jeu
+ */
+enum class GameState
+{
+    MainMenu,
+    Exploring,
+    Trading,
+    Port,
+    Combat,
+    Paused,
+    GameOver
+};
+
+/**
+ * @brief Classe principale gérant le jeu
  */
 class Game
 {
 private:
-    // État du jeu
-    bool m_initialized = false;
-    bool m_gameRunning = false;
-
-    // Composants principaux
+    // Composants de jeu
     std::shared_ptr<Player> m_player;
     std::shared_ptr<World> m_world;
     std::shared_ptr<TradingSystem> m_tradingSystem;
-
-    // Chemin du fichier de sauvegarde
-    std::string m_saveFilePath = "save.json";
-
-    // Méthodes privées
-    bool initialize();
-    void cleanup();
-
-    // Méthodes utilitaires
-    void clearScreen();
-    void waitForEnter(const std::string &message = "Appuyez sur ENTRÉE pour continuer...");
+    std::shared_ptr<MainMenu> m_mainMenu;
 
     // État du jeu
-    enum class GameState
-    {
-        MainMenu,
-        Exploring,
-        Trading,
-        ShipManagement,
-        CharacterMenu,
-        Paused
-    };
-
+    bool m_initialized = false;
+    bool m_gameRunning = false;
     GameState m_currentState = GameState::MainMenu;
+
+    // Utilitaires
+    void clearScreen();
+    void waitForEnter(const std::string &message = "Appuyez sur Entrée pour continuer...");
 
 public:
     /**
-     * Constructeur
+     * @brief Constructeur par défaut
      */
     Game();
 
     /**
-     * Destructeur
+     * @brief Destructeur
      */
     ~Game();
 
     /**
-     * Démarre une nouvelle partie
-     * @return true si le jeu a démarré avec succès
+     * @brief Initialise le jeu
+     * @return true si l'initialisation a réussi, false sinon
      */
-    bool startNewGame();
+    bool initialize();
 
     /**
-     * Charge une partie existante
-     * @return true si le jeu a été chargé avec succès
-     */
-    bool loadGame();
-
-    /**
-     * Sauvegarde la partie en cours
-     * @return true si le jeu a été sauvegardé avec succès
-     */
-    bool saveGame();
-
-    /**
-     * Vérifie si une sauvegarde existe
-     * @return true si une sauvegarde valide existe
-     */
-    bool hasSaveGame() const;
-
-    /**
-     * Exécute la boucle principale du jeu
+     * @brief Exécute le jeu
      */
     void run();
 
     /**
-     * Met fin à la partie en cours
+     * @brief Lance le menu principal
+     */
+    void launchMainMenu();
+
+    /**
+     * @brief Démarre une nouvelle partie
+     */
+    void startNewGame();
+
+    /**
+     * @brief Charge une partie sauvegardée
+     * @param saveName Nom de la sauvegarde à charger
+     * @return true si le chargement a réussi, false sinon
+     */
+    bool loadGame(const std::string &saveName);
+
+    /**
+     * @brief Sauvegarde la partie actuelle
+     * @param saveName Nom de la sauvegarde
+     * @return true si la sauvegarde a réussi, false sinon
+     */
+    bool saveGame(const std::string &saveName);
+
+    /**
+     * @brief Termine le jeu actuel
      */
     void endGame();
 
     /**
-     * Obtient le joueur actuel
-     * @return référence partagée vers le joueur
+     * @brief Quitte l'application
      */
-    std::shared_ptr<Player> getPlayer() const { return m_player; }
+    void quit();
 
-    /**
-     * Obtient le monde de jeu
-     * @return référence partagée vers le monde
-     */
-    std::shared_ptr<World> getWorld() const { return m_world; }
+    // Accesseurs
+    inline bool isRunning() const { return m_gameRunning; }
+    inline bool isInitialized() const { return m_initialized; }
+    inline GameState getCurrentState() const { return m_currentState; }
 
-    /**
-     * Obtient le système de commerce
-     * @return référence partagée vers le système de commerce
-     */
-    std::shared_ptr<TradingSystem> getTradingSystem() const { return m_tradingSystem; }
+    inline std::shared_ptr<Player> getPlayer() { return m_player; }
+    inline std::shared_ptr<World> getWorld() { return m_world; }
+    inline std::shared_ptr<TradingSystem> getTradingSystem() { return m_tradingSystem; }
+    inline void setMainMenu(std::shared_ptr<MainMenu> mainMenu) { m_mainMenu = mainMenu; }
+
+    // Mutateurs
+    inline void setGameRunning(bool running) { m_gameRunning = running; }
+    inline void setCurrentState(GameState state) { m_currentState = state; }
 };

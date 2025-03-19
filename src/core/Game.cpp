@@ -3,7 +3,13 @@
 #include "World.h"
 #include "TradingSystem.h"
 #include "../data/GameData.h"
+#include "../ui/MainMenu.h"
+#include "../ui/CharacterCreationMenu.h"
+#include "../models/TradeGood.h"
 #include <iostream>
+#include <thread>
+#include <chrono>
+#include <limits>
 #include <fstream>
 #include <filesystem>
 #include <nlohmann/json.hpp>
@@ -60,49 +66,43 @@ void Game::cleanup()
     m_gameRunning = false;
 }
 
-bool Game::startNewGame()
+void Game::startNewGame()
 {
-    try
+    clearScreen();
+    std::cout << "=== NOUVEL EMBARQUEMENT ===" << std::endl;
+
+    // Création du joueur
+    m_player = std::make_shared<Player>();
+
+    // Lancer le menu de création de personnage
+    CharacterCreationMenu characterCreation(this);
+    if (!characterCreation.run())
     {
-        // S'assurer que le jeu est initialisé
-        if (!m_initialized && !initialize())
-        {
-            return false;
-        }
-
-        // Créer un nouveau joueur
-        m_player = std::make_shared<Player>();
-
-        // Configuration initiale du joueur
-        // TODO: Ajouter un écran de création de personnage
-        m_player->setName("Capitaine");
-        m_player->setGold(1000);
-
-        // Initialiser le monde pour une nouvelle partie
-        if (m_world)
-        {
-            m_world->initialize();
-        }
-
-        // Initialiser le système de commerce
-        if (m_tradingSystem)
-        {
-            m_tradingSystem->initialize();
-        }
-
-        m_gameRunning = true;
-        m_currentState = GameState::Exploring;
-
-        // Exécuter le jeu
-        run();
-
-        return true;
+        // Si l'utilisateur annule la création, on revient au menu principal
+        std::cout << "Création de personnage annulée." << std::endl;
+        waitForEnter("Appuyez sur Entrée pour revenir au menu principal...");
+        return;
     }
-    catch (const std::exception &e)
+
+    // Initialisation du monde
+    m_world = std::make_shared<World>();
+    if (!m_world->initialize())
     {
-        std::cerr << "Erreur lors du démarrage d'une nouvelle partie: " << e.what() << std::endl;
-        return false;
+        std::cout << "Erreur lors de l'initialisation du monde." << std::endl;
+        waitForEnter("Appuyez sur Entrée pour revenir au menu principal...");
+        return;
     }
+
+    // Initialisation du système de commerce
+    m_tradingSystem = std::make_shared<TradingSystem>();
+    m_tradingSystem->initialize();
+
+    std::cout << "Nouveau jeu initialisé !" << std::endl;
+    std::cout << "Bienvenue, " << m_player->getName() << " !" << std::endl;
+    waitForEnter("Appuyez sur Entrée pour commencer votre voyage...");
+
+    m_gameRunning = true;
+    run();
 }
 
 bool Game::loadGame()

@@ -1,6 +1,8 @@
 #include "MainMenu.h"
 #include "../core/Game.h"
+#include "../utils/FileSystem.h"
 #include <iostream>
+#include <limits>
 
 MainMenu::MainMenu(std::shared_ptr<Game> game)
     : m_game(game)
@@ -9,13 +11,16 @@ MainMenu::MainMenu(std::shared_ptr<Game> game)
 
 void MainMenu::run()
 {
-    m_running = true;
+    bool running = true;
+    int choice;
 
-    displayWelcomeScreen();
-
-    while (m_running)
+    while (running)
     {
         displayMainMenu();
+        std::cin >> choice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        running = handleMenuChoice(choice);
     }
 }
 
@@ -41,25 +46,30 @@ void MainMenu::displayWelcomeScreen()
 
 void MainMenu::displayMainMenu()
 {
-    std::vector<MenuItem> menuItems = {
-        {"Nouvelle partie", [this]()
-         { startNewGame(); }},
-        {"Continuer partie", [this]()
-         { continueGame(); }, false}, // Désactivé par défaut
-        {"Options", [this]()
-         { showOptions(); }},
-        {"Crédits", [this]()
-         { showCredits(); }},
-        {"Quitter", [this]()
-         { exit(); }}};
+    clearScreen();
 
-    // Activer l'option Continuer s'il y a une sauvegarde valide
-    if (m_game && m_game->hasSaveGame())
+    displayLogo();
+
+    std::cout << "=== MENU PRINCIPAL ===" << std::endl
+              << std::endl;
+    std::cout << "1. Nouvelle partie" << std::endl;
+
+    // Option "Continuer partie" disponible uniquement si une sauvegarde existe
+    if (m_game && FileSystem::fileExists("bin/save.json"))
     {
-        menuItems[1].enabled = true;
+        std::cout << "2. Continuer partie" << std::endl;
+    }
+    else
+    {
+        std::cout << "2. Continuer partie (non disponible)" << std::endl;
     }
 
-    displayMenu("MENU PRINCIPAL", menuItems);
+    std::cout << "3. Options" << std::endl;
+    std::cout << "4. Crédits" << std::endl;
+    std::cout << "5. Quitter" << std::endl;
+
+    std::cout << std::endl
+              << "Votre choix: ";
 }
 
 void MainMenu::startNewGame()
@@ -77,18 +87,34 @@ void MainMenu::startNewGame()
 
 void MainMenu::continueGame()
 {
+    clearScreen();
+    std::cout << "=== CONTINUER PARTIE ===" << std::endl
+              << std::endl;
+
+    // Vérifier que le jeu est initialisé
     if (m_game)
     {
-        if (!m_game->loadGame())
+        if (FileSystem::fileExists("bin/save.json"))
         {
-            displayError("Erreur: Impossible de charger la partie");
-            waitForEnter();
+            if (!m_game->loadGame("bin/save.json"))
+            {
+                std::cout << "Erreur: Impossible de charger la partie sauvegardée." << std::endl;
+                waitForKeyPress();
+                return;
+            }
+
+            std::cout << "Partie chargée !" << std::endl;
+            std::cout << "Bienvenue, " << m_game->getPlayer()->getName() << " !" << std::endl;
+            waitForKeyPress();
+
+            // Lancer le jeu
+            m_game->run();
         }
-    }
-    else
-    {
-        displayError("Erreur: Gestionnaire de jeu non initialisé");
-        waitForEnter();
+        else
+        {
+            std::cout << "Aucune partie sauvegardée trouvée." << std::endl;
+            waitForKeyPress();
+        }
     }
 }
 
@@ -122,6 +148,92 @@ void MainMenu::showCredits()
 void MainMenu::exit()
 {
     clearScreen();
+    std::cout << "=== AU REVOIR ===" << std::endl
+              << std::endl;
     std::cout << "Merci d'avoir joué!" << std::endl;
-    m_running = false;
+}
+
+void MainMenu::clearScreen() const
+{
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+}
+
+void MainMenu::waitForKeyPress() const
+{
+    std::cout << "Appuyez sur Entrée pour continuer...";
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+void MainMenu::displayLogo() const
+{
+    std::cout << " _    _            _                _           _  " << std::endl;
+    std::cout << "| |  | |          | |              | |         | | " << std::endl;
+    std::cout << "| |  | |_ __   ___| |__   __ _ _ __| |_ ___  __| | " << std::endl;
+    std::cout << "| |  | | '_ \\ / __| '_ \\ / _` | '__| __/ _ \\/ _` | " << std::endl;
+    std::cout << "| |__| | | | | (__| | | | (_| | |  | ||  __/ (_| | " << std::endl;
+    std::cout << " \\____/|_| |_|\\___|_| |_|\\__,_|_|   \\__\\___|\\__,_| " << std::endl;
+    std::cout << "                                                   " << std::endl;
+    std::cout << "                  W A T E R S                      " << std::endl;
+    std::cout << "---------------------------------------------------" << std::endl;
+    std::cout << std::endl;
+}
+
+void MainMenu::displayMenu(const std::string &title, const std::vector<std::string> &options) const
+{
+    clearScreen();
+    displayLogo();
+
+    std::cout << "=== " << title << " ===" << std::endl
+              << std::endl;
+
+    for (size_t i = 0; i < options.size(); i++)
+    {
+        std::cout << (i + 1) << ". " << options[i] << std::endl;
+    }
+
+    std::cout << std::endl
+              << "Votre choix: ";
+}
+
+void MainMenu::displayError(const std::string &message) const
+{
+    std::cout << "\nERREUR: " << message << std::endl;
+}
+
+bool MainMenu::handleMenuChoice(int choice)
+{
+    switch (choice)
+    {
+    case 1:
+        startNewGame();
+        return true;
+    case 2:
+        if (FileSystem::fileExists("bin/save.json"))
+        {
+            continueGame();
+        }
+        else
+        {
+            std::cout << "Option non disponible." << std::endl;
+            waitForKeyPress();
+        }
+        return true;
+    case 3:
+        showOptions();
+        return true;
+    case 4:
+        showCredits();
+        return true;
+    case 5:
+        exit();
+        return false;
+    default:
+        std::cout << "Choix invalide. Réessayez." << std::endl;
+        waitForKeyPress();
+        return true;
+    }
 }

@@ -83,6 +83,15 @@ private:
 
 public:
     /**
+     * Constructeur par défaut
+     */
+    Player()
+        : m_name(""), m_gold(1000), m_level(1), m_experience(0),
+          m_cargoCapacity(100), m_currentCargoWeight(0),
+          m_fleet(std::make_shared<Fleet>("Fleet")),
+          m_posX(0), m_posY(0), m_currentMode(PlayerMode::LAND) {}
+
+    /**
      * Constructeur avec données de base
      */
     Player(const std::string &name, int gold = 1000, int level = 1, int experience = 0)
@@ -98,23 +107,12 @@ public:
           m_cargoCapacity(100), m_currentCargoWeight(0), m_fleet(std::make_shared<Fleet>(name + "'s Fleet")),
           m_character(character), m_posX(0), m_posY(0), m_currentMode(PlayerMode::LAND)
     {
-        // Récupérer les réputations du personnage
         if (character)
         {
-            const auto &morality = character->getMorality();
-            for (const auto &[nation, rep] : morality.reputation)
-            {
-                m_reputation[nation] = rep;
-            }
+            m_level = character->getLevel();
+            m_experience = character->getExperience();
         }
     }
-
-    /**
-     * Constructeur par défaut
-     */
-    Player() : m_name("Joueur"), m_gold(1000), m_level(1), m_experience(0),
-               m_cargoCapacity(100), m_currentCargoWeight(0), m_fleet(std::make_shared<Fleet>("Joueur's Fleet")),
-               m_posX(0), m_posY(0), m_currentMode(PlayerMode::LAND) {}
 
     /**
      * Constructeur à partir de données JSON
