@@ -34,6 +34,9 @@ struct CargoItem
     int quantity;
     int unitWeight;
 
+    // Ajout d'un constructeur par défaut pour résoudre les problèmes de compilation
+    CargoItem() : id(0), name(""), quantity(0), unitWeight(0) {}
+
     CargoItem(int _id, const std::string &_name, int _quantity, int _unitWeight)
         : id(_id), name(_name), quantity(_quantity), unitWeight(_unitWeight) {}
 };
@@ -542,11 +545,13 @@ public:
     void addGold(int amount) { m_gold += amount; }
     bool removeGold(int amount)
     {
-        m_gold = std::max(0, m_gold - amount);
-        return m_gold > 0;
+        if (m_gold < amount)
+            return false;
+        m_gold -= amount;
+        return true;
     }
     void setLevel(int level) { m_level = level; }
-    void addExperience(int experience) { m_experience += experience; }
+    void addExperience(int experience);
     void addDebt(int amount) { m_debt += amount; }
     bool payDebt(int amount)
     {

@@ -71,9 +71,9 @@ void MainMenuState::handleInput()
                 handleMenuSelection();
                 break;
             case sf::Keyboard::Escape:
-                if (m_manager)
+                if (getManager())
                 {
-                    m_manager->pushState("TitleScreen");
+                    getManager()->pushState("TitleScreen");
                 }
                 break;
             }
@@ -172,23 +172,23 @@ void MainMenuState::handleMenuSelection()
     switch (m_selectedItem)
     {
     case 0: // Nouvelle Partie
-        if (m_manager)
+        if (getManager())
         {
-            m_manager->pushState("CharacterCreation");
+            getManager()->pushState("CharacterCreation");
         }
         break;
     case 1: // Charger Partie
-        if (m_hasSaveGame && m_manager)
+        if (m_hasSaveGame && getManager())
         {
             // TODO: Implémenter le chargement de partie
-            m_manager->pushState("Game");
+            getManager()->pushState("Game");
         }
         break;
     case 2: // Options
-        if (m_manager)
+        if (getManager())
         {
             // TODO: Implémenter l'état des options
-            // m_manager->pushState("Options");
+            // getManager()->pushState("Options");
         }
         break;
     case 3: // Quitter

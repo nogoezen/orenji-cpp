@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <functional>
-#include "../ui/ConsoleUI.h"
+#include "../ui/GuiUI.h"
 #include "../models/Player.h"
 #include "../models/Ship.h"
 #include "../models/Fleet.h"
@@ -12,11 +12,11 @@
 class FleetManager
 {
 private:
-    ConsoleUI &m_ui;
+    GuiUI &m_ui;
     std::shared_ptr<Player> m_player;
 
 public:
-    FleetManager(ConsoleUI &ui, std::shared_ptr<Player> player)
+    FleetManager(GuiUI &ui, std::shared_ptr<Player> player)
         : m_ui(ui), m_player(player) {}
 
     // Méthode principale pour afficher le menu de gestion de flotte
@@ -28,6 +28,28 @@ public:
     void manageCrewStations();
     void reassignCrewStations(std::shared_ptr<Ship> ship);
     void rotateCrewShifts(std::shared_ptr<Ship> ship);
+
+    // Méthodes de gestion de la flotaison
+    void showFleetMenu();
+    void showShipDetails(const Ship &ship);
+    void showAllShipDetails();
+    void buyShip(int portId);
+    void sellShip(int shipIndex);
+    void repairShip(int shipIndex);
+    void upgradeShip(int shipIndex);
+    void recruitCrew(int shipIndex);
+    void setFlagship(int shipIndex);
+
+    // Méthodes de gestion de la cargaison
+    void transferCargo(int sourceShipIndex, int targetShipIndex);
+    void loadCargo(int shipIndex, int portId);
+    void unloadCargo(int shipIndex, int portId);
+    void showCargoCapacity(int shipIndex);
+
+    // Méthodes avancées
+    void formFleet(const std::vector<int> &shipIndices);
+    void disbandFleet(int fleetIndex);
+    void manageFleets();
 
 private:
     // Options principales du menu de gestion de flotte

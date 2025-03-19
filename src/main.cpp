@@ -1,48 +1,69 @@
 #include <SFML/Graphics.hpp>
-#include "core/StateManager.h"
-#include "states/TitleScreenState.h"
-#include "states/MainMenuState.h"
-#include "states/CharacterCreationState.h"
-#include "states/GameState.h"
 #include <iostream>
-
-// Variable globale pour la fenêtre
-sf::RenderWindow *g_window = nullptr;
 
 int main()
 {
     // Création de la fenêtre
-    g_window = new sf::RenderWindow(sf::VideoMode(800, 600), "Uncharted Waters");
-    g_window->setFramerateLimit(60);
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Orenji - Uncharted Waters");
+    window.setFramerateLimit(60);
 
-    // Création du gestionnaire d'états
-    StateManager stateManager;
-
-    // Enregistrement des états
-    stateManager.registerState("TitleScreen", std::make_shared<TitleScreenState>());
-    stateManager.registerState("MainMenu", std::make_shared<MainMenuState>());
-    stateManager.registerState("CharacterCreation", std::make_shared<CharacterCreationState>());
-    stateManager.registerState("Game", std::make_shared<GameState>());
-
-    // Démarrage avec l'écran titre
-    stateManager.pushState("TitleScreen");
-
-    // Boucle principale
-    sf::Clock clock;
-    while (g_window->isOpen())
+    // Police pour le texte
+    sf::Font font;
+    if (!font.loadFromFile("assets/font/UbuntuMono-Regular.ttf"))
     {
-        float deltaTime = clock.restart().asSeconds();
-
-        // Mise à jour des états
-        stateManager.update(deltaTime);
-
-        // Rendu
-        g_window->clear(sf::Color::Black);
-        stateManager.render();
-        g_window->display();
+        std::cerr << "Erreur: Impossible de charger la police" << std::endl;
+        return EXIT_FAILURE;
     }
 
-    // Nettoyage
-    delete g_window;
-    return 0;
+    // Texte de titre
+    sf::Text titleText;
+    titleText.setFont(font);
+    titleText.setString("Uncharted Waters");
+    titleText.setCharacterSize(48);
+    titleText.setFillColor(sf::Color::White);
+    titleText.setStyle(sf::Text::Bold);
+
+    // Centrer le texte
+    sf::FloatRect textRect = titleText.getLocalBounds();
+    titleText.setOrigin(textRect.width / 2, textRect.height / 2);
+    titleText.setPosition(window.getSize().x / 2, window.getSize().y / 3);
+
+    // Texte "Appuyez sur Entrée"
+    sf::Text startText;
+    startText.setFont(font);
+    startText.setString("Appuyez sur une touche pour quitter");
+    startText.setCharacterSize(24);
+    startText.setFillColor(sf::Color::White);
+
+    // Centrer le texte
+    textRect = startText.getLocalBounds();
+    startText.setOrigin(textRect.width / 2, textRect.height / 2);
+    startText.setPosition(window.getSize().x / 2, window.getSize().y * 2 / 3);
+
+    // Boucle principale
+    while (window.isOpen())
+    {
+        // Gestion des événements
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed ||
+                event.type == sf::Event::KeyPressed)
+            {
+                window.close();
+            }
+        }
+
+        // Effacer l'écran
+        window.clear(sf::Color::Blue);
+
+        // Dessiner les textes
+        window.draw(titleText);
+        window.draw(startText);
+
+        // Afficher le résultat
+        window.display();
+    }
+
+    return EXIT_SUCCESS;
 }

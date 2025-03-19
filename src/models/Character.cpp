@@ -7,6 +7,15 @@ Character::Character() : m_id(0), m_classId(0), m_maxLevel(99), m_level(1),
                          m_navigation(10), m_commerce(10), m_diplomacy(10),
                          m_combat(10), m_leadership(10) {}
 
+Character::Character(const std::string &name)
+    : m_id(0), m_classId(0), m_maxLevel(99), m_level(1),
+      m_experience(0), m_health(100), m_maxHealth(100),
+      m_navigation(10), m_commerce(10), m_diplomacy(10),
+      m_combat(10), m_leadership(10), m_name(name), m_class("Aventurier")
+{
+    // Construction avec seulement le nom (classe de base "Aventurier")
+}
+
 Character::Character(const std::string &name, const std::string &characterClass)
     : m_id(0), m_classId(0), m_maxLevel(99), m_level(1),
       m_experience(0), m_health(100), m_maxHealth(100),

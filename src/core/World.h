@@ -1,9 +1,11 @@
-#pragma once
+#ifndef CORE_WORLD_H
+#define CORE_WORLD_H
 
 #include <string>
 #include <vector>
 #include <unordered_map>
 #include <nlohmann/json.hpp>
+#include "../models/TradeGood.h"
 
 // Structure pour représenter une ville
 struct City
@@ -15,9 +17,11 @@ struct City
     std::string description;
     std::vector<int> availableGoods; // IDs des biens disponibles
     std::vector<int> availableShips; // IDs des navires disponibles
+    int population = 5000;           // Population (pour le calcul des facteurs économiques)
 
     nlohmann::json toJson() const;
     static City fromJson(const nlohmann::json &json);
+    void updateFromJson(const nlohmann::json &json);
 };
 
 // Structure pour représenter une région
@@ -38,7 +42,7 @@ struct Region
  * Cette classe représente l'environnement du jeu, avec les villes,
  * régions, et autres éléments géographiques.
  */
-class World
+class CoreWorld
 {
 private:
     // Villes par ID
@@ -58,17 +62,29 @@ public:
     /**
      * Constructeur
      */
-    World();
+    CoreWorld();
 
     /**
-     * Initialise le monde
-     * @param saveData Données optionnelles pour charger un état sauvegardé
+     * Destructeur
      */
-    bool initialize(const nlohmann::json &saveData = nlohmann::json());
+    ~CoreWorld();
 
     /**
-     * Convertit l'état du monde en JSON pour la sauvegarde
-     * @return Objet JSON contenant l'état du monde
+     * Initialise le monde en chargeant les données
+     * @return true si l'initialisation a réussi, false sinon
+     */
+    bool initialize();
+
+    /**
+     * Initialise le monde à partir de données JSON
+     * @param data Données JSON du monde
+     * @return true si l'initialisation a réussi, false sinon
+     */
+    bool initialize(const nlohmann::json &data);
+
+    /**
+     * Convertit le monde en JSON
+     * @return JSON représentant le monde
      */
     nlohmann::json toJson() const;
 
@@ -99,6 +115,12 @@ public:
     const std::unordered_map<int, Region> &getAllRegions() const { return m_regions; }
 
     /**
+     * Obtient tous les biens commerciaux
+     * @return Map des biens commerciaux indexés par ID
+     */
+    const std::unordered_map<int, std::shared_ptr<TradeGood>> getAllTradeGoods() const;
+
+    /**
      * Obtient la ville actuelle du joueur
      * @return Pointeur vers la ville actuelle ou nullptr si le joueur n'est pas dans une ville
      */
@@ -119,3 +141,5 @@ public:
      */
     float calculateDistance(int fromCityId, int toCityId) const;
 };
+
+#endif // CORE_WORLD_H

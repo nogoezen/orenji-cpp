@@ -65,6 +65,12 @@ public:
     Character();
 
     /**
+     * Constructeur avec nom seulement
+     * @param name Nom du personnage
+     */
+    Character(const std::string &name);
+
+    /**
      * Constructeur avec paramètres de base
      * @param name Nom du personnage
      * @param characterClass Classe du personnage

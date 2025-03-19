@@ -56,7 +56,7 @@ private:
 class Component
 {
 public:
-    Component() : m_entity(nullptr) {}
+    Component() {}
     virtual ~Component() = default;
 
     virtual void initialize() {}

@@ -1,9 +1,11 @@
-#pragma once
+#ifndef MODEL_WORLD_H
+#define MODEL_WORLD_H
 
 #include <string>
 #include <vector>
 #include <memory>
 #include <nlohmann/json.hpp>
+#include <unordered_map>
 
 /**
  * @brief Classe représentant le monde du jeu
@@ -13,10 +15,7 @@
  */
 class World
 {
-private:
-    // Données du monde
-    bool m_initialized = false;
-
+public:
     // Structure pour les villes
     struct City
     {
@@ -26,7 +25,12 @@ private:
         int posX;
         int posY;
         std::vector<int> connections;
+        int population = 5000; // Population par défaut (nécessaire pour calculateLocalEconomyFactor)
     };
+
+private:
+    // Données du monde
+    bool m_initialized = false;
 
     // Liste des villes du monde
     std::vector<City> m_cities;
@@ -96,4 +100,18 @@ public:
      * @return Liste des villes du royaume
      */
     std::vector<const City *> getCitiesByKingdom(const std::string &kingdom) const;
+
+    /**
+     * @brief Obtient une map de toutes les villes indexées par ID
+     * @return Map des villes indexées par ID
+     */
+    std::unordered_map<int, const City*> getAllCities() const {
+        std::unordered_map<int, const City*> cities;
+        for (const auto& city : m_cities) {
+            cities[city.id] = &city;
+        }
+        return cities;
+    }
 };
+
+#endif // MODEL_WORLD_H

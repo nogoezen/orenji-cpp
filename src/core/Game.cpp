@@ -3,9 +3,7 @@
 #include "World.h"
 #include "TradingSystem.h"
 #include "../data/GameData.h"
-#include "../ui/MainMenu.h"
-#include "../ui/TitleScreen.h"
-#include "../ui/CharacterCreationMenu.h"
+#include "../ui/GuiUI.h"
 #include "../models/TradeGood.h"
 #include "../game/MapScene.h"
 #include "../states/MainMenuState.h"
@@ -142,41 +140,11 @@ void Game::cleanup()
 
 void Game::startNewGame()
 {
-    clearScreen();
-    std::cout << "=== NOUVEL EMBARQUEMENT ===" << std::endl;
+    // Au lieu d'utiliser CharacterCreationMenu, utiliser le StateManager
+    m_stateManager->pushState("CharacterCreation");
 
-    // Création du joueur
-    m_player = std::make_shared<Player>();
-
-    // Lancer le menu de création de personnage
-    CharacterCreationMenu characterCreation(this);
-    if (!characterCreation.run())
-    {
-        // Si l'utilisateur annule la création, on revient au menu principal
-        std::cout << "Création de personnage annulée." << std::endl;
-        waitForEnter("Appuyez sur Entrée pour revenir au menu principal...");
-        return;
-    }
-
-    // Initialisation du monde
-    m_world = std::make_shared<World>();
-    if (!m_world->initialize())
-    {
-        std::cout << "Erreur lors de l'initialisation du monde." << std::endl;
-        waitForEnter("Appuyez sur Entrée pour revenir au menu principal...");
-        return;
-    }
-
-    // Initialisation du système de commerce
-    m_tradingSystem = std::make_shared<TradingSystem>();
-    m_tradingSystem->initialize();
-
-    std::cout << "Nouveau jeu initialisé !" << std::endl;
-    std::cout << "Bienvenue, " << m_player->getName() << " !" << std::endl;
-    waitForEnter("Appuyez sur Entrée pour commencer votre voyage...");
-
-    m_gameRunning = true;
-    run();
+    // Création du joueur et initialisation du monde sera fait dans l'état CharacterCreation
+    // Une fois que le joueur est créé, l'état CharacterCreation peut transitionner vers l'état de jeu
 }
 
 bool Game::loadGame(const std::string &saveName)
@@ -221,7 +189,7 @@ bool Game::loadGame(const std::string &saveName)
         // Initialiser le monde avec les données sauvegardées
         if (m_world)
         {
-            m_world->initialize(saveData["world"]);
+            m_world->initialize();
         }
 
         // Initialiser le système de commerce avec les données sauvegardées
@@ -230,11 +198,10 @@ bool Game::loadGame(const std::string &saveName)
             m_tradingSystem->initialize(saveData["trading"]);
         }
 
-        m_gameRunning = true;
-        m_currentState = GameState::Exploring;
+        m_running = true;
 
-        // Exécuter le jeu
-        run();
+        // Au lieu d'utiliser GameState::Exploring, utiliser StateManager
+        m_stateManager->pushState("Exploring");
 
         return true;
     }
@@ -256,7 +223,7 @@ bool Game::saveGame(const std::string &saveName)
     try
     {
         // Vérifier que le jeu est en cours
-        if (!m_gameRunning || !m_player)
+        if (!m_running || !m_player)
         {
             std::cerr << "Aucune partie en cours à sauvegarder." << std::endl;
             return false;
@@ -328,48 +295,26 @@ void Game::clearScreen()
 void Game::endGame()
 {
     std::cout << "Fin de la partie." << std::endl;
-    m_gameRunning = false;
+    m_running = false;
 }
 
 void Game::launchMainMenu()
 {
-    // Créer et initialiser l'écran titre
-    m_titleScreen = std::make_shared<TitleScreen>(shared_from_this());
-
-    // Lancer l'écran titre
-    m_titleScreen->run();
+    // Au lieu d'utiliser TitleScreen, utiliser StateManager
+    m_stateManager->pushState("MainMenu");
 }
 
 void Game::launchMapScene(const std::string &mapFilePath)
 {
-    // Créer et initialiser la scène de carte
-    m_mapScene = std::make_shared<MapScene>(shared_from_this(), mapFilePath);
-
-    // Mettre à jour l'état du jeu
-    m_currentState = GameState::MapView;
-
-    // Lancer la scène de carte
-    m_mapScene->run();
-
-    // Une fois la scène terminée, revenir à l'état précédent ou au menu principal
-    if (m_gameRunning)
-    {
-        m_currentState = GameState::Exploring;
-    }
-    else
-    {
-        returnToTitleScreen();
-    }
+    // Au lieu de créer une nouvelle instance de MapScene,
+    // utiliser StateManager et passer mapFilePath à l'état
+    // Cette fonctionnalité devrait être déplacée dans un état dédié
+    m_stateManager->pushState("MapView");
 }
 
 void Game::returnToTitleScreen()
 {
-    // Créer et initialiser l'écran titre
-    m_titleScreen = std::make_shared<TitleScreen>(shared_from_this());
-
-    // Mettre à jour l'état du jeu
-    m_currentState = GameState::MainMenu;
-
-    // Lancer l'écran titre
-    m_titleScreen->run();
+    // Au lieu de créer une instance de TitleScreen,
+    // utiliser StateManager pour retourner au menu principal
+    m_stateManager->pushState("MainMenu");
 }

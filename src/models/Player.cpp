@@ -48,9 +48,9 @@ Player::Player(const nlohmann::json &data)
         {
             const auto &cargo = item.value();
             int id = std::stoi(item.key());
-            std::string name = cargo["name"];
-            int quantity = cargo["quantity"];
-            int unitWeight = cargo.contains("unitWeight") ? cargo["unitWeight"] : 1;
+            std::string name = cargo.contains("name") ? cargo["name"].get<std::string>() : "Inconnu";
+            int quantity = cargo.contains("quantity") ? cargo["quantity"].get<int>() : 0;
+            int unitWeight = cargo.contains("unitWeight") ? cargo["unitWeight"].get<int>() : 1;
 
             m_cargo[id] = CargoItem(id, name, quantity, unitWeight);
             m_currentCargoWeight += quantity * unitWeight;
@@ -72,7 +72,7 @@ Player::Player(const nlohmann::json &data)
 
     if (data.contains("character") && data["character"].is_object())
     {
-        m_character = std::make_shared<Character>(data["character"]);
+        m_character = Character::fromJson(data["character"]);
     }
 
     if (data.contains("fleet") && data["fleet"].is_object())
@@ -448,66 +448,50 @@ bool Player::removeTradeRoute(size_t index)
     return true;
 }
 
-// Implémentation de TradeRoute::toJson
+// Implémentation des méthodes de TradeRoute
 nlohmann::json TradeRoute::toJson() const
 {
     nlohmann::json j;
     j["sourceCity"] = sourceCity;
     j["destinationCity"] = destinationCity;
-
-    nlohmann::json goods = nlohmann::json::array();
-    for (const auto &pair : tradedGoods)
-    {
-        nlohmann::json good;
-        good["id"] = pair.first;
-        good["quantity"] = pair.second;
-        goods.push_back(good);
-    }
-    j["tradedGoods"] = goods;
-
     j["tripDuration"] = tripDuration;
     j["securityLevel"] = securityLevel;
     j["profitMargin"] = profitMargin;
     j["currentTime"] = currentTime;
 
+    nlohmann::json goods = nlohmann::json::array();
+    for (const auto &[goodId, quantity] : tradedGoods)
+    {
+        nlohmann::json good;
+        good["id"] = goodId;
+        good["quantity"] = quantity;
+        goods.push_back(good);
+    }
+    j["tradedGoods"] = goods;
+
     return j;
 }
 
-// Implémentation de TradeRoute::fromJson
 TradeRoute TradeRoute::fromJson(const nlohmann::json &data)
 {
     TradeRoute route;
 
-    if (data.contains("sourceCity"))
-        route.sourceCity = data["sourceCity"];
-
-    if (data.contains("destinationCity"))
-        route.destinationCity = data["destinationCity"];
+    route.sourceCity = data["sourceCity"];
+    route.destinationCity = data["destinationCity"];
+    route.tripDuration = data["tripDuration"];
+    route.securityLevel = data["securityLevel"];
+    route.profitMargin = data["profitMargin"];
+    route.currentTime = data["currentTime"];
 
     if (data.contains("tradedGoods") && data["tradedGoods"].is_array())
     {
         for (const auto &goodData : data["tradedGoods"])
         {
-            if (goodData.contains("id") && goodData.contains("quantity"))
-            {
-                int id = goodData["id"];
-                int quantity = goodData["quantity"];
-                route.tradedGoods.push_back(std::make_pair(id, quantity));
-            }
+            int goodId = goodData["id"];
+            int quantity = goodData["quantity"];
+            route.tradedGoods.push_back(std::make_pair(goodId, quantity));
         }
     }
-
-    if (data.contains("tripDuration"))
-        route.tripDuration = data["tripDuration"];
-
-    if (data.contains("securityLevel"))
-        route.securityLevel = data["securityLevel"];
-
-    if (data.contains("profitMargin"))
-        route.profitMargin = data["profitMargin"];
-
-    if (data.contains("currentTime"))
-        route.currentTime = data["currentTime"];
 
     return route;
 }

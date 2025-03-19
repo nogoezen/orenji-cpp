@@ -13,8 +13,6 @@
 
 // Forward declarations pour éviter les inclusions circulaires
 class MainMenu;
-class TitleScreen;
-class MapScene;
 
 /**
  * @brief Énumération des différents états possibles du jeu
@@ -132,16 +130,14 @@ private:
     std::shared_ptr<World> m_world;
     std::shared_ptr<TradingSystem> m_tradingSystem;
     std::shared_ptr<MainMenu> m_mainMenu;
-    std::shared_ptr<TitleScreen> m_titleScreen;
-    std::shared_ptr<MapScene> m_mapScene;
 
     // État du jeu
-    bool m_initialized = false;
-    bool m_running = false;
+    bool m_running;
+    bool m_initialized;
     GameState m_currentState = GameState::MainMenu;
 
     // Chemin du fichier de sauvegarde
-    std::string m_saveFilePath = "bin/save.json";
+    std::string m_saveFilePath = "save.json";
 
     // Game loop methods
     void processInput();
@@ -172,9 +168,11 @@ private:
     inline std::shared_ptr<World> getWorld() { return m_world; }
     inline std::shared_ptr<TradingSystem> getTradingSystem() { return m_tradingSystem; }
     inline void setMainMenu(std::shared_ptr<MainMenu> mainMenu) { m_mainMenu = mainMenu; }
-    inline void setTitleScreen(std::shared_ptr<TitleScreen> titleScreen) { m_titleScreen = titleScreen; }
-    inline std::shared_ptr<TitleScreen> getTitleScreen() { return m_titleScreen; }
-    inline std::shared_ptr<MapScene> getMapScene() { return m_mapScene; }
+    inline void setPlayerName(const std::string &name)
+    {
+        if (m_player)
+            m_player->setName(name);
+    }
 
     // Mutateurs
     inline void setRunning(bool running) { m_running = running; }

@@ -1,12 +1,43 @@
 #include "TradingUI.h"
+#include "../data/GameData.h"
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
 #include <sstream>
 
-TradingUI::TradingUI(Player &player, ConsoleUI &ui, TradingSystem &tradingSystem)
-    : m_player(player), m_ui(ui), m_tradingSystem(tradingSystem)
+TradingUI::TradingUI(Player &player, GuiUI &ui, TradingSystem &tradingSystem)
+    : m_player(player), m_ui(ui), m_tradingSystem(tradingSystem), m_currentCityId(-1)
 {
+}
+
+void TradingUI::showTradeMenu(int cityId)
+{
+    m_currentCityId = cityId;
+
+    m_ui.clearScreen();
+    m_ui.displayTitle("Centre commercial de " + getCityName(cityId));
+
+    std::vector<GuiUI::MenuItem> menuItems = {
+        {"Voir les prix du marché", "Consulter les prix actuels des marchandises"},
+        {"Acheter des marchandises", "Acheter des marchandises à ce port"},
+        {"Vendre des marchandises", "Vendre des marchandises de votre cargaison"},
+        {"Consulter votre cargaison", "Voir ce que vous transportez actuellement"},
+        {"Routes commerciales", "Gérer vos routes commerciales"},
+        {"Événements commerciaux", "Voir les événements affectant le commerce"},
+        {"Compétences commerciales", "Améliorer vos compétences de négociation"},
+        {"Marché noir", "Accéder au marché noir (réputation basse requise)"},
+        {"Retour", "Retourner à l'écran principal"}};
+
+    // Désactiver les options non disponibles
+    if (!m_tradingSystem.hasBlackMarket(cityId, m_player))
+    {
+        menuItems[7].enabled = false;
+    }
+
+    int choice = m_ui.displayMenu("Que souhaitez-vous faire?", menuItems);
+
+    // Implémenter les différentes options du menu
+    // en appelant les méthodes appropriées en fonction du choix
 }
 
 void TradingUI::showTradingMenu(int cityId)

@@ -1,9 +1,12 @@
 #include "World.h"
+#include "../utils/JsonLoader.h"
 #include "../data/GameData.h"
 #include <iostream>
 #include <cmath>
+#include <algorithm>
+#include <random>
 
-// Implémentation des méthodes de City
+// Implémentation de City::toJson
 nlohmann::json City::toJson() const
 {
     nlohmann::json j;
@@ -13,11 +16,26 @@ nlohmann::json City::toJson() const
     j["y"] = y;
     j["region"] = region;
     j["description"] = description;
-    j["availableGoods"] = availableGoods;
-    j["availableShips"] = availableShips;
+    j["population"] = population;
+
+    nlohmann::json goods = nlohmann::json::array();
+    for (int goodId : availableGoods)
+    {
+        goods.push_back(goodId);
+    }
+    j["availableGoods"] = goods;
+
+    nlohmann::json ships = nlohmann::json::array();
+    for (int shipId : availableShips)
+    {
+        ships.push_back(shipId);
+    }
+    j["availableShips"] = ships;
+
     return j;
 }
 
+// Implémentation de City::fromJson
 City City::fromJson(const nlohmann::json &json)
 {
     City city;
@@ -28,71 +46,135 @@ City City::fromJson(const nlohmann::json &json)
     city.region = json["region"];
     city.description = json.value("description", "");
 
+    if (json.contains("population"))
+    {
+        city.population = json["population"];
+    }
+
     if (json.contains("availableGoods") && json["availableGoods"].is_array())
     {
-        city.availableGoods = json["availableGoods"].get<std::vector<int>>();
+        for (const auto &good : json["availableGoods"])
+        {
+            city.availableGoods.push_back(good);
+        }
     }
 
     if (json.contains("availableShips") && json["availableShips"].is_array())
     {
-        city.availableShips = json["availableShips"].get<std::vector<int>>();
+        for (const auto &ship : json["availableShips"])
+        {
+            city.availableShips.push_back(ship);
+        }
     }
 
     return city;
 }
 
-// Implémentation des méthodes de Region
+void City::updateFromJson(const nlohmann::json &json)
+{
+    // Ne mettre à jour que les champs présents dans le JSON
+    if (json.contains("name") && json["name"].is_string())
+    {
+        name = json["name"];
+    }
+
+    if (json.contains("x") && json["x"].is_number())
+    {
+        x = json["x"];
+    }
+
+    if (json.contains("y") && json["y"].is_number())
+    {
+        y = json["y"];
+    }
+
+    if (json.contains("region") && json["region"].is_string())
+    {
+        region = json["region"];
+    }
+
+    if (json.contains("description") && json["description"].is_string())
+    {
+        description = json["description"];
+    }
+
+    if (json.contains("population") && json["population"].is_number())
+    {
+        population = json["population"];
+    }
+
+    if (json.contains("availableGoods") && json["availableGoods"].is_array())
+    {
+        availableGoods.clear();
+        for (const auto &good : json["availableGoods"])
+        {
+            availableGoods.push_back(good);
+        }
+    }
+
+    if (json.contains("availableShips") && json["availableShips"].is_array())
+    {
+        availableShips.clear();
+        for (const auto &ship : json["availableShips"])
+        {
+            availableShips.push_back(ship);
+        }
+    }
+}
+
+// Implémentation de Region::toJson
 nlohmann::json Region::toJson() const
 {
     nlohmann::json j;
     j["id"] = id;
     j["name"] = name;
     j["description"] = description;
-    j["cities"] = cities;
+
+    nlohmann::json citiesArray = nlohmann::json::array();
+    for (int cityId : cities)
+    {
+        citiesArray.push_back(cityId);
+    }
+    j["cities"] = citiesArray;
+
     return j;
 }
 
+// Implémentation de Region::fromJson
 Region Region::fromJson(const nlohmann::json &json)
 {
     Region region;
     region.id = json["id"];
     region.name = json["name"];
-    region.description = json.value("description", "");
+
+    if (json.contains("description"))
+        region.description = json["description"];
 
     if (json.contains("cities") && json["cities"].is_array())
     {
-        region.cities = json["cities"].get<std::vector<int>>();
+        for (const auto &cityId : json["cities"])
+        {
+            region.cities.push_back(cityId);
+        }
     }
 
     return region;
 }
 
-// Implémentation de World
-World::World()
+CoreWorld::CoreWorld()
 {
-    // Le chargement complet se fait dans initialize()
+    // L'initialisation complète se fait dans initialize()
 }
 
-bool World::initialize(const nlohmann::json &saveData)
+bool CoreWorld::initialize()
 {
     try
     {
-        // Si des données de sauvegarde sont fournies, les utiliser
-        if (!saveData.is_null())
-        {
-            if (saveData.contains("currentCityId"))
-            {
-                m_currentCityId = saveData["currentCityId"];
-            }
-
-            // D'autres données de sauvegarde pourraient être chargées ici
-        }
-
-        // Charger les données du monde
+        // Charger les données des villes et des régions
         loadCities();
         loadRegions();
 
-        // Si aucune ville actuelle n'est définie, en définir une par défaut
+        // Si aucune ville active n'est définie, choisir la première disponible
         if (m_currentCityId == -1 && !m_cities.empty())
         {
             m_currentCityId = m_cities.begin()->first;
@@ -107,14 +189,57 @@ bool World::initialize(const nlohmann::json &saveData)
     }
 }
 
-void World::loadCities()
+bool CoreWorld::initialize(const nlohmann::json &data)
+{
+    try
+    {
+        // D'abord initialiser normalement
+        if (!initialize())
+        {
+            return false;
+        }
+
+        // Ensuite charger les données spécifiques depuis le JSON
+        if (data.contains("currentCityId") && data["currentCityId"].is_number())
+        {
+            m_currentCityId = data["currentCityId"];
+        }
+
+        // Mise à jour des villes si présentes dans les données
+        if (data.contains("cities") && data["cities"].is_array())
+        {
+            for (const auto &cityData : data["cities"])
+            {
+                if (cityData.contains("id") && cityData["id"].is_number())
+                {
+                    int cityId = cityData["id"];
+                    auto it = m_cities.find(cityId);
+                    if (it != m_cities.end())
+                    {
+                        // Mettre à jour la ville existante
+                        it->second.updateFromJson(cityData);
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Erreur lors de l'initialisation du monde depuis JSON: " << e.what() << std::endl;
+        return false;
+    }
+}
+
+void CoreWorld::loadCities()
 {
     try
     {
         // Charger les données des villes depuis le fichier JSON
-        const auto &citiesData = GameData::getInstance().getJsonData("cities");
+        auto citiesJson = JsonLoader::loadJsonFile("data/cities.json");
 
-        for (const auto &cityData : citiesData)
+        for (const auto &cityData : citiesJson)
         {
             City city = City::fromJson(cityData);
             m_cities[city.id] = city;
@@ -128,38 +253,28 @@ void World::loadCities()
     }
 }
 
-void World::loadRegions()
+void CoreWorld::loadRegions()
 {
     try
     {
-        // Pour cet exemple, nous supposons que les données des régions sont dans un fichier séparé
-        // Dans un vrai jeu, cela pourrait être dans le même fichier que les villes ou dans une autre source
+        // Créer d'abord un mapping des villes par région
+        std::unordered_map<std::string, std::vector<int>> citiesByRegion;
 
-        // Exemple simplifié: Créer des régions basées sur les villes existantes
-        std::unordered_map<std::string, Region> regionsByName;
-
-        // Regrouper les villes par région
         for (const auto &[cityId, city] : m_cities)
         {
-            if (!city.region.empty())
-            {
-                if (regionsByName.find(city.region) == regionsByName.end())
-                {
-                    // Créer une nouvelle région
-                    Region newRegion;
-                    newRegion.id = regionsByName.size() + 1;
-                    newRegion.name = city.region;
-                    newRegion.description = "Région de " + city.region;
-                    regionsByName[city.region] = newRegion;
-                }
-
-                regionsByName[city.region].cities.push_back(cityId);
-            }
+            citiesByRegion[city.region].push_back(cityId);
         }
 
-        // Stocker les régions dans la map par ID
-        for (const auto &[name, region] : regionsByName)
+        // Créer les régions
+        int regionId = 1;
+        for (const auto &[regionName, cityIds] : citiesByRegion)
         {
+            Region region;
+            region.id = regionId++;
+            region.name = regionName;
+            region.description = "Région de " + regionName;
+            region.cities = cityIds;
+
             m_regions[region.id] = region;
         }
 
@@ -171,37 +286,35 @@ void World::loadRegions()
     }
 }
 
-nlohmann::json World::toJson() const
+nlohmann::json CoreWorld::toJson() const
 {
     nlohmann::json j;
-    j["currentCityId"] = m_currentCityId;
 
-    // On n'a pas besoin de sauvegarder toutes les villes et régions puisqu'elles
-    // sont chargées à partir des fichiers de données. On ne sauvegarde que l'état.
+    j["currentCityId"] = m_currentCityId;
 
     return j;
 }
 
-const City *World::getCityById(int cityId) const
+const City *CoreWorld::getCityById(int cityId) const
 {
     auto it = m_cities.find(cityId);
-    return (it != m_cities.end()) ? &(it->second) : nullptr;
+    return (it != m_cities.end()) ? &it->second : nullptr;
 }
 
-const Region *World::getRegionById(int regionId) const
+const Region *CoreWorld::getRegionById(int regionId) const
 {
     auto it = m_regions.find(regionId);
-    return (it != m_regions.end()) ? &(it->second) : nullptr;
+    return (it != m_regions.end()) ? &it->second : nullptr;
 }
 
-const City *World::getCurrentCity() const
+const City *CoreWorld::getCurrentCity() const
 {
     return getCityById(m_currentCityId);
 }
 
-bool World::setCurrentCity(int cityId)
+bool CoreWorld::setCurrentCity(int cityId)
 {
-    // Vérifier si la ville existe
+    // Vérifier que la ville existe
     if (m_cities.find(cityId) == m_cities.end())
     {
         return false;
@@ -211,19 +324,34 @@ bool World::setCurrentCity(int cityId)
     return true;
 }
 
-float World::calculateDistance(int fromCityId, int toCityId) const
+float CoreWorld::calculateDistance(int fromCityId, int toCityId) const
 {
     const City *fromCity = getCityById(fromCityId);
     const City *toCity = getCityById(toCityId);
 
     if (!fromCity || !toCity)
     {
-        return -1.0f; // Erreur: ville non trouvée
+        return -1.0f; // Erreur : ville(s) non trouvée(s)
     }
 
-    // Calculer la distance euclidienne entre les deux villes
-    int dx = toCity->x - fromCity->x;
-    int dy = toCity->y - fromCity->y;
+    // Calcul de la distance euclidienne entre les deux villes
+    float deltaX = static_cast<float>(toCity->x - fromCity->x);
+    float deltaY = static_cast<float>(toCity->y - fromCity->y);
 
-    return std::sqrt(dx * dx + dy * dy);
+    return std::sqrt(deltaX * deltaX + deltaY * deltaY);
+}
+
+const std::unordered_map<int, std::shared_ptr<TradeGood>> CoreWorld::getAllTradeGoods() const
+{
+    std::unordered_map<int, std::shared_ptr<TradeGood>> tradeGoods;
+    const auto &gameData = GameData::getInstance();
+    const auto &allTradeGoods = gameData.getTradeGoods();
+
+    // Convertir de unordered_map<int, TradeGood> à unordered_map<int, shared_ptr<TradeGood>>
+    for (const auto &[id, good] : allTradeGoods)
+    {
+        tradeGoods[id] = std::make_shared<TradeGood>(good);
+    }
+
+    return tradeGoods;
 }

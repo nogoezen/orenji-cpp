@@ -8,6 +8,7 @@
 #include <random>
 #include <nlohmann/json.hpp>
 #include "../models/World.h"
+#include "../models/Player.h"
 
 // Déclarations anticipées
 class Player;
@@ -79,6 +80,7 @@ struct TradeEvent
     std::vector<int> affectedGoods;
     float priceModifier;
     int duration; // En jours
+    std::chrono::system_clock::time_point expiryTime;
 
     static std::string getTypeName(Type type)
     {
@@ -98,35 +100,6 @@ struct TradeEvent
             return "Inconnu";
         }
     }
-};
-
-/**
- * Classe pour gérer les routes commerciales
- */
-class TradeRoute
-{
-public:
-    int sourceCity;
-    int destinationCity;
-    std::vector<std::pair<int, int>> tradedGoods; // Paire (goodId, quantity)
-    int tripDuration;                             // En jours
-    int securityLevel;                            // Niveau de sécurité (investissement)
-    float profitMargin;                           // Marge bénéficiaire estimée
-    float currentTime;                            // Temps écoulé depuis le départ
-
-    TradeRoute() : sourceCity(0), destinationCity(0), tripDuration(0),
-                   securityLevel(0), profitMargin(0.0f), currentTime(0.0f) {}
-
-    TradeRoute(int source, int destination, const std::vector<std::pair<int, int>> &goods,
-               int duration, int security)
-        : sourceCity(source), destinationCity(destination), tradedGoods(goods),
-          tripDuration(duration), securityLevel(security), profitMargin(0.0f), currentTime(0.0f) {}
-
-    bool calculateRisks() const;
-    int estimateProfit(class TradingSystem &system) const;
-
-    nlohmann::json toJson() const;
-    static TradeRoute fromJson(const nlohmann::json &data);
 };
 
 /**
@@ -159,10 +132,14 @@ private:
     // Méthodes privées
     void initializePrices();
     void updatePrices();
+    void updatePriceHistory();
+    int generatePriceDelta(int cityId, int goodId) const;
     float calculatePriceFactor(int cityId, int goodId) const;
     void generateRandomEvents();
+    void updateEvents();
     void applyEventEffects();
-    float calculateLocalEconomyFactor(const World::City *city) const;
+    float calculateLocalEconomyFactor(int cityId) const;
+    nlohmann::json serializeEvents() const;
 
 public:
     /**

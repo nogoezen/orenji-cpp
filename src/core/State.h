@@ -30,6 +30,8 @@ public:
     EntityManager &getEntityManager() { return m_entityManager; }
     const EntityManager &getEntityManager() const { return m_entityManager; }
 
+    StateManager *getManager() { return m_manager; }
+
 private:
     friend class StateManager;
     std::string m_name;

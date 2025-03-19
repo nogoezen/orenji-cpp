@@ -90,11 +90,7 @@ g++ -std=c++17 -Wall -Wextra -D__USE_MINGW_ANSI_STDIO=1 -D_GLIBCXX_USE_CXX11_ABI
     src/core/World.cpp ^
     src/core/TradingSystem.cpp ^
     src/data/GameData.cpp ^
-    src/ui/MainMenu.cpp ^
-    src/ui/ConsoleUI.cpp ^
-    src/ui/TitleScreen.cpp ^
-    src/ui/CharacterCreationMenu.cpp ^
-    src/game/TiledMap.cpp ^
+    src/ui/GuiUI.cpp ^
     src/game/MapScene.cpp ^
     -o bin/UnchartedWaters_new.exe ^
     -L"%SFML_LIB%" -lsfml-graphics -lsfml-window -lsfml-system ^
