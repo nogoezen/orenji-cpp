@@ -1,3 +1,143 @@
+# Uncharted Waters: New Horizons
+
+Un jeu de simulation maritime et commerciale inspiré de la série Uncharted Waters, développé en C++ avec SFML.
+
+## Fonctionnalités
+
+### Système de Navigation
+- Navigation en temps réel avec SFML
+- Système de flotte avec gestion des navires
+- Système de voyage avec calcul de distance et de coût
+- Gestion des provisions et de l'équipage
+
+### Système Commercial
+- Marchés dynamiques avec prix fluctuants
+- Système de cargaison et de stockage
+- Gestion des biens et des ressources
+- Système de commerce entre villes et royaumes
+
+### Système de Combat
+- Combat naval en temps réel
+- Gestion des dégâts et des réparations
+- Système d'équipement et d'armement
+- Tactiques de combat et formations
+
+### Système de Diplomatie
+- Relations entre royaumes
+- Système d'alliances et de guerres
+- Gestion des traités commerciaux
+- Système de réputation et d'influence
+
+### Système d'IA
+- **DiplomaticAI** : Gestion des relations diplomatiques entre royaumes
+  - Évaluation des actions diplomatiques
+  - Calcul des relations et des influences
+  - Gestion des alliances et des conflits
+  - Système de cache pour les performances
+
+- **CityAI** : Gestion du développement des villes
+  - Gestion des ressources et de la production
+  - Développement des infrastructures
+  - Politiques commerciales
+  - Gestion de la population
+
+- **EventAI** : Gestion des événements aléatoires
+  - Catastrophes naturelles
+  - Crises politiques
+  - Événements économiques
+  - Découvertes et explorations
+
+- **NPCAI** : Gestion des personnages non-joueurs
+  - Comportements autonomes
+  - Système de prise de décision
+  - Gestion des relations entre NPCs
+  - Actions spécifiques (voyage, commerce, combat, etc.)
+
+### Système de Personnages
+- Création et personnalisation des personnages
+- Système de compétences et d'expérience
+- Gestion des relations entre personnages
+- Système de réputation et d'influence
+
+### Système de Quêtes
+- Quêtes principales et secondaires
+- Système de récompenses
+- Événements aléatoires
+- Découvertes et explorations
+
+## Structure du Projet
+
+```
+src/
+├── core/           # Classes de base et utilitaires
+├── game/           # Logique principale du jeu
+├── ui/             # Interface utilisateur
+├── world/          # Gestion du monde de jeu
+├── ai/             # Systèmes d'intelligence artificielle
+│   ├── DiplomaticAI.h/cpp
+│   ├── CityAI.h/cpp
+│   ├── EventAI.h/cpp
+│   └── NPCAI.h/cpp
+└── main.cpp        # Point d'entrée
+```
+
+## Prérequis
+
+- C++17 ou supérieur
+- SFML 2.6.0 ou supérieur
+- CMake 3.15 ou supérieur
+- Compilateur compatible C++17 (MSVC, GCC, Clang)
+
+## Installation
+
+1. Cloner le dépôt :
+```bash
+git clone https://github.com/votre-username/orenji-cpp.git
+cd orenji-cpp
+```
+
+2. Créer un dossier de build :
+```bash
+mkdir build
+cd build
+```
+
+3. Configurer avec CMake :
+```bash
+cmake ..
+```
+
+4. Compiler :
+```bash
+cmake --build .
+```
+
+## Utilisation
+
+Lancer le jeu :
+```bash
+./orenji-cpp
+```
+
+## Contribution
+
+Les contributions sont les bienvenues ! N'hésitez pas à :
+1. Fork le projet
+2. Créer une branche pour votre fonctionnalité
+3. Commiter vos changements
+4. Pousser vers la branche
+5. Ouvrir une Pull Request
+
+## Licence
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+
+## Crédits
+
+- Inspiré de la série Uncharted Waters de Koei
+- Développé avec SFML (Simple and Fast Multimedia Library)
+- Créé par [Votre Nom]
+
 # Uncharted Waters - Clone
 
 Un jeu de commerce maritime inspiré par la série Uncharted Waters (Koei).
