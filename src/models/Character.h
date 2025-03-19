@@ -62,7 +62,7 @@ public:
     /**
      * Constructeur par défaut
      */
-    Character() : m_id(0), m_classId(0), m_maxLevel(99) {}
+    Character();
 
     /**
      * Constructeur avec paramètres de base
@@ -145,8 +145,8 @@ public:
     // Méthodes
     void addSkill(const std::string &skill) { m_skills.push_back(skill); }
     bool hasSkill(const std::string &skill) const { return std::find(m_skills.begin(), m_skills.end(), skill) != m_skills.end(); }
-    void addExperience(int experience) { m_experience += experience; }
-    void levelUp() { m_level++; }
+    void addExperience(int experience);
+    void levelUp();
 
     // Méthodes pour définir les paramètres
     void setParam(int index, int value)

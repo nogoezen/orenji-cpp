@@ -4,8 +4,10 @@
 #include "TradingSystem.h"
 #include "../data/GameData.h"
 #include "../ui/MainMenu.h"
+#include "../ui/TitleScreen.h"
 #include "../ui/CharacterCreationMenu.h"
 #include "../models/TradeGood.h"
+#include "../game/MapScene.h"
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -105,8 +107,15 @@ void Game::startNewGame()
     run();
 }
 
-bool Game::loadGame()
+bool Game::loadGame(const std::string &saveName)
 {
+    // Si un nom de sauvegarde est fourni, le stocker
+    if (!saveName.empty())
+    {
+        m_saveFilePath = saveName;
+    }
+
+    // Utiliser l'implémentation directement au lieu d'appeler loadGame() sans paramètre
     try
     {
         // Vérifier si le fichier de sauvegarde existe
@@ -164,8 +173,14 @@ bool Game::loadGame()
     }
 }
 
-bool Game::saveGame()
+bool Game::saveGame(const std::string &saveName)
 {
+    // Si un nom de sauvegarde est fourni, le stocker
+    if (!saveName.empty())
+    {
+        m_saveFilePath = saveName;
+    }
+
     try
     {
         // Vérifier que le jeu est en cours
@@ -305,4 +320,47 @@ void Game::endGame()
 {
     std::cout << "Fin de la partie." << std::endl;
     m_gameRunning = false;
+}
+
+void Game::launchMainMenu()
+{
+    // Créer et initialiser l'écran titre
+    m_titleScreen = std::make_shared<TitleScreen>(shared_from_this());
+
+    // Lancer l'écran titre
+    m_titleScreen->run();
+}
+
+void Game::launchMapScene(const std::string &mapFilePath)
+{
+    // Créer et initialiser la scène de carte
+    m_mapScene = std::make_shared<MapScene>(shared_from_this(), mapFilePath);
+
+    // Mettre à jour l'état du jeu
+    m_currentState = GameState::MapView;
+
+    // Lancer la scène de carte
+    m_mapScene->run();
+
+    // Une fois la scène terminée, revenir à l'état précédent ou au menu principal
+    if (m_gameRunning)
+    {
+        m_currentState = GameState::Exploring;
+    }
+    else
+    {
+        returnToTitleScreen();
+    }
+}
+
+void Game::returnToTitleScreen()
+{
+    // Créer et initialiser l'écran titre
+    m_titleScreen = std::make_shared<TitleScreen>(shared_from_this());
+
+    // Mettre à jour l'état du jeu
+    m_currentState = GameState::MainMenu;
+
+    // Lancer l'écran titre
+    m_titleScreen->run();
 }

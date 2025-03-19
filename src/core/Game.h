@@ -6,11 +6,13 @@
 #include <iostream>
 #include <limits>
 #include "../models/Player.h"
-#include "../models/World.h"
+#include "World.h"
 #include "TradingSystem.h"
 
-// Forward declaration pour éviter les inclusions circulaires
+// Forward declarations pour éviter les inclusions circulaires
 class MainMenu;
+class TitleScreen;
+class MapScene;
 
 /**
  * @brief Énumération des différents états possibles du jeu
@@ -23,13 +25,14 @@ enum class GameState
     Port,
     Combat,
     Paused,
-    GameOver
+    GameOver,
+    MapView // Nouvel état pour l'affichage de carte
 };
 
 /**
  * @brief Classe principale gérant le jeu
  */
-class Game
+class Game : public std::enable_shared_from_this<Game>
 {
 private:
     // Composants de jeu
@@ -37,15 +40,23 @@ private:
     std::shared_ptr<World> m_world;
     std::shared_ptr<TradingSystem> m_tradingSystem;
     std::shared_ptr<MainMenu> m_mainMenu;
+    std::shared_ptr<TitleScreen> m_titleScreen;
+    std::shared_ptr<MapScene> m_mapScene;
 
     // État du jeu
     bool m_initialized = false;
     bool m_gameRunning = false;
     GameState m_currentState = GameState::MainMenu;
 
+    // Chemin du fichier de sauvegarde
+    std::string m_saveFilePath = "bin/save.json";
+
     // Utilitaires
     void clearScreen();
     void waitForEnter(const std::string &message = "Appuyez sur Entrée pour continuer...");
+
+    // Nettoyage des ressources
+    void cleanup();
 
 public:
     /**
@@ -81,39 +92,68 @@ public:
 
     /**
      * @brief Charge une partie sauvegardée
-     * @param saveName Nom de la sauvegarde à charger
+     * @param saveName Nom de la sauvegarde à charger (optionnel)
      * @return true si le chargement a réussi, false sinon
      */
-    bool loadGame(const std::string &saveName);
+    bool loadGame(const std::string &saveName = "");
 
     /**
-     * @brief Sauvegarde la partie actuelle
-     * @param saveName Nom de la sauvegarde
+     * @brief Sauvegarde la partie en cours
+     * @param saveName Nom de la sauvegarde (optionnel)
      * @return true si la sauvegarde a réussi, false sinon
      */
-    bool saveGame(const std::string &saveName);
+    bool saveGame(const std::string &saveName = "");
 
     /**
-     * @brief Termine le jeu actuel
+     * @brief Vérifie si une sauvegarde existe
+     * @return true si une sauvegarde existe, false sinon
+     */
+    bool hasSaveGame() const;
+
+    /**
+     * @brief Vérifie si le jeu est en cours d'exécution
+     * @return true si le jeu est en cours d'exécution, false sinon
+     */
+    bool isRunning() const { return m_gameRunning; }
+
+    /**
+     * @brief Obtient l'état actuel du jeu
+     * @return L'état actuel du jeu
+     */
+    GameState getCurrentState() const { return m_currentState; }
+
+    /**
+     * @brief Définit l'état actuel du jeu
+     * @param state Nouvel état du jeu
+     */
+    void setCurrentState(GameState state) { m_currentState = state; }
+
+    /**
+     * @brief Termine le jeu
      */
     void endGame();
 
     /**
-     * @brief Quitte l'application
+     * @brief Lance une scène avec une carte Tiled
+     * @param mapFilePath Chemin vers le fichier de carte Tiled
      */
-    void quit();
+    void launchMapScene(const std::string &mapFilePath);
+
+    /**
+     * @brief Retourne à l'écran titre
+     */
+    void returnToTitleScreen();
 
     // Accesseurs
-    inline bool isRunning() const { return m_gameRunning; }
     inline bool isInitialized() const { return m_initialized; }
-    inline GameState getCurrentState() const { return m_currentState; }
-
     inline std::shared_ptr<Player> getPlayer() { return m_player; }
     inline std::shared_ptr<World> getWorld() { return m_world; }
     inline std::shared_ptr<TradingSystem> getTradingSystem() { return m_tradingSystem; }
     inline void setMainMenu(std::shared_ptr<MainMenu> mainMenu) { m_mainMenu = mainMenu; }
+    inline void setTitleScreen(std::shared_ptr<TitleScreen> titleScreen) { m_titleScreen = titleScreen; }
+    inline std::shared_ptr<TitleScreen> getTitleScreen() { return m_titleScreen; }
+    inline std::shared_ptr<MapScene> getMapScene() { return m_mapScene; }
 
     // Mutateurs
     inline void setGameRunning(bool running) { m_gameRunning = running; }
-    inline void setCurrentState(GameState state) { m_currentState = state; }
 };

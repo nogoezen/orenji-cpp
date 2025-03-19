@@ -21,10 +21,13 @@ private:
     void displayLogo() const;
     void displayMenu(const std::string &title, const std::vector<std::string> &options) const;
     void displayError(const std::string &message) const;
+    void displayTitle(const std::string &title) const;
+    void displayWelcomeScreen();
 
     // Méthodes utilitaires
     void clearScreen() const;
     void waitForKeyPress() const;
+    void waitForEnter(const std::string &message = "Appuyez sur Entrée pour continuer...") const;
 
     // Actions du menu
     void startNewGame();

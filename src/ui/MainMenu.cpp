@@ -204,6 +204,22 @@ void MainMenu::displayError(const std::string &message) const
     std::cout << "\nERREUR: " << message << std::endl;
 }
 
+void MainMenu::displayTitle(const std::string &title) const
+{
+    clearScreen();
+    displayLogo();
+    std::cout << "=== " << title << " ===" << std::endl
+              << std::endl;
+}
+
+void MainMenu::waitForEnter(const std::string &message) const
+{
+    std::cout << std::endl
+              << message;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.get();
+}
+
 bool MainMenu::handleMenuChoice(int choice)
 {
     switch (choice)

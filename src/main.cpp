@@ -18,11 +18,15 @@ int main()
         // Créer l'instance du jeu
         auto game = std::make_shared<Game>();
 
-        // Créer le menu principal avec une référence au jeu
-        MainMenu mainMenu(game);
+        // Initialiser le jeu
+        if (!game->initialize())
+        {
+            std::cerr << "Erreur lors de l'initialisation du jeu" << std::endl;
+            return 1;
+        }
 
-        // Exécuter le menu principal
-        mainMenu.run();
+        // Lancer le menu principal graphique
+        game->launchMainMenu();
 
         std::cout << "Merci d'avoir joué !" << std::endl;
         std::cout << "Appuyez sur ENTRÉE pour quitter..." << std::endl;
