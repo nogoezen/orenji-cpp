@@ -1,44 +1,48 @@
+#include <SFML/Graphics.hpp>
+#include "core/StateManager.h"
+#include "states/TitleScreenState.h"
+#include "states/MainMenuState.h"
+#include "states/CharacterCreationState.h"
+#include "states/GameState.h"
 #include <iostream>
-#include <memory>
-#include "core/Game.h"
-#include "ui/MainMenu.h"
-#include "data/GameData.h"
+
+// Variable globale pour la fenêtre
+sf::RenderWindow *g_window = nullptr;
 
 int main()
 {
-    try
+    // Création de la fenêtre
+    g_window = new sf::RenderWindow(sf::VideoMode(800, 600), "Uncharted Waters");
+    g_window->setFramerateLimit(60);
+
+    // Création du gestionnaire d'états
+    StateManager stateManager;
+
+    // Enregistrement des états
+    stateManager.registerState("TitleScreen", std::make_shared<TitleScreenState>());
+    stateManager.registerState("MainMenu", std::make_shared<MainMenuState>());
+    stateManager.registerState("CharacterCreation", std::make_shared<CharacterCreationState>());
+    stateManager.registerState("Game", std::make_shared<GameState>());
+
+    // Démarrage avec l'écran titre
+    stateManager.pushState("TitleScreen");
+
+    // Boucle principale
+    sf::Clock clock;
+    while (g_window->isOpen())
     {
-        // Définir l'encodage pour les caractères spéciaux (Windows)
-#ifdef _WIN32
-        system("chcp 65001");
-#endif
+        float deltaTime = clock.restart().asSeconds();
 
-        std::cout << "Chargement du jeu..." << std::endl;
+        // Mise à jour des états
+        stateManager.update(deltaTime);
 
-        // Créer l'instance du jeu
-        auto game = std::make_shared<Game>();
-
-        // Initialiser le jeu
-        if (!game->initialize())
-        {
-            std::cerr << "Erreur lors de l'initialisation du jeu" << std::endl;
-            return 1;
-        }
-
-        // Lancer le menu principal graphique
-        game->launchMainMenu();
-
-        std::cout << "Merci d'avoir joué !" << std::endl;
-        std::cout << "Appuyez sur ENTRÉE pour quitter..." << std::endl;
-        std::cin.get();
-
-        return 0;
+        // Rendu
+        g_window->clear(sf::Color::Black);
+        stateManager.render();
+        g_window->display();
     }
-    catch (const std::exception &e)
-    {
-        std::cerr << "ERREUR: " << e.what() << std::endl;
-        std::cout << "Appuyez sur ENTRÉE pour quitter..." << std::endl;
-        std::cin.get();
-        return 1;
-    }
+
+    // Nettoyage
+    delete g_window;
+    return 0;
 }

@@ -6,41 +6,25 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <iostream>
 
-// Assuming this is available or will be created
+// Variable globale pour la fenêtre
 extern sf::RenderWindow *g_window;
 
 MainMenuState::MainMenuState()
-    : State("MainMenu"), m_currentItemIndex(0), m_menuChanged(true)
+    : State("MainMenu"), m_selectedItem(0), m_hasSaveGame(false)
 {
-    m_font = std::make_shared<sf::Font>();
-    if (!m_font->loadFromFile("assets/fonts/default.ttf"))
-    {
-        std::cerr << "Failed to load font" << std::endl;
-    }
+    initializeGraphics();
+    loadSaveGameStatus();
 }
 
 void MainMenuState::enter()
 {
     setActive(true);
-
-    // Initialize the entity manager and create menu entities
-    auto &entityManager = getEntityManager();
-
-    // Create a background entity
-    auto backgroundEntity = entityManager.createEntity("Background");
-    auto transform = backgroundEntity->addComponent<TransformComponent>(400.0f, 300.0f);
-    auto sprite = backgroundEntity->addComponent<SpriteComponent>("assets/images/menu_background.png");
-
-    // Initialize the menu items
-    initMenu();
-
     std::cout << "Main Menu State Entered" << std::endl;
 }
 
 void MainMenuState::exit()
 {
     setActive(false);
-    getEntityManager().destroyAllEntities();
     std::cout << "Main Menu State Exited" << std::endl;
 }
 
@@ -53,7 +37,6 @@ void MainMenuState::pause()
 void MainMenuState::resume()
 {
     State::resume();
-    m_menuChanged = true;
     std::cout << "Main Menu State Resumed" << std::endl;
 }
 
@@ -68,32 +51,31 @@ void MainMenuState::handleInput()
         }
         else if (event.type == sf::Event::KeyPressed)
         {
-            if (event.key.code == sf::Keyboard::Escape)
+            switch (event.key.code)
             {
-                g_window->close();
-            }
-            else if (event.key.code == sf::Keyboard::Up)
-            {
-                if (m_currentItemIndex > 0)
+            case sf::Keyboard::Up:
+                if (m_selectedItem > 0)
                 {
-                    m_currentItemIndex--;
-                    m_menuChanged = true;
+                    m_selectedItem--;
+                    updateMenuSelection();
                 }
-            }
-            else if (event.key.code == sf::Keyboard::Down)
-            {
-                if (m_currentItemIndex < m_menuItems.size() - 1)
+                break;
+            case sf::Keyboard::Down:
+                if (m_selectedItem < m_menuItems.size() - 1)
                 {
-                    m_currentItemIndex++;
-                    m_menuChanged = true;
+                    m_selectedItem++;
+                    updateMenuSelection();
                 }
-            }
-            else if (event.key.code == sf::Keyboard::Return)
-            {
-                if (m_currentItemIndex >= 0 && m_currentItemIndex < m_menuItems.size())
+                break;
+            case sf::Keyboard::Return:
+                handleMenuSelection();
+                break;
+            case sf::Keyboard::Escape:
+                if (m_manager)
                 {
-                    m_menuItems[m_currentItemIndex].action();
+                    m_manager->pushState("TitleScreen");
                 }
+                break;
             }
         }
     }
@@ -101,117 +83,122 @@ void MainMenuState::handleInput()
 
 void MainMenuState::update(float deltaTime)
 {
-    // Update all entities in the state
-    getEntityManager().update(deltaTime);
-
-    if (m_menuChanged)
-    {
-        updateMenuDisplay();
-        m_menuChanged = false;
-    }
+    if (!isActive())
+        return;
 }
 
 void MainMenuState::render()
 {
-    // Render all entities in the state
-    getEntityManager().render();
+    if (!isActive())
+        return;
 
-    // Render the menu items
+    // Rendu du fond
+    if (m_background)
+    {
+        g_window->draw(*m_background);
+    }
+
+    // Rendu des éléments du menu
     for (const auto &item : m_menuItems)
     {
-        g_window->draw(item.text);
+        if (item)
+        {
+            g_window->draw(*item);
+        }
     }
 }
 
-void MainMenuState::initMenu()
+void MainMenuState::initializeGraphics()
 {
-    // Clear existing menu items
-    m_menuItems.clear();
-
-    // Define menu items and their actions
-    MenuItem newGameItem;
-    newGameItem.text.setFont(*m_font);
-    newGameItem.text.setString("New Game");
-    newGameItem.text.setCharacterSize(30);
-    newGameItem.text.setFillColor(sf::Color::White);
-    newGameItem.action = [this]()
+    // Chargement de la police
+    m_font = std::make_shared<sf::Font>();
+    if (!m_font->loadFromFile("assets/fonts/VeniceClassic.ttf"))
     {
-        std::cout << "Starting new game..." << std::endl;
-        // Here you would transition to the game state
-        // Example: stateManager->pushState("GameState");
-    };
+        std::cerr << "Failed to load font" << std::endl;
+    }
 
-    MenuItem loadGameItem;
-    loadGameItem.text.setFont(*m_font);
-    loadGameItem.text.setString("Load Game");
-    loadGameItem.text.setCharacterSize(30);
-    loadGameItem.text.setFillColor(sf::Color::White);
-    loadGameItem.action = [this]()
+    // Création des éléments du menu
+    std::vector<std::string> menuTexts = {
+        "Nouvelle Partie",
+        "Charger Partie",
+        "Options",
+        "Quitter"};
+
+    float startY = g_window->getSize().y / 2;
+    float spacing = 50.0f;
+
+    for (size_t i = 0; i < menuTexts.size(); ++i)
     {
-        std::cout << "Loading game..." << std::endl;
-        // Here you would open a load game dialog or state
-    };
+        auto text = std::make_shared<sf::Text>();
+        text->setFont(*m_font);
+        text->setString(menuTexts[i]);
+        text->setCharacterSize(32);
+        text->setFillColor(sf::Color::White);
 
-    MenuItem optionsItem;
-    optionsItem.text.setFont(*m_font);
-    optionsItem.text.setString("Options");
-    optionsItem.text.setCharacterSize(30);
-    optionsItem.text.setFillColor(sf::Color::White);
-    optionsItem.action = [this]()
-    {
-        std::cout << "Opening options..." << std::endl;
-        // Here you would transition to the options state
-    };
+        // Centrer le texte
+        sf::FloatRect textRect = text->getLocalBounds();
+        text->setOrigin(textRect.width / 2, textRect.height / 2);
+        text->setPosition(g_window->getSize().x / 2, startY + (i * spacing));
 
-    MenuItem exitItem;
-    exitItem.text.setFont(*m_font);
-    exitItem.text.setString("Exit");
-    exitItem.text.setCharacterSize(30);
-    exitItem.text.setFillColor(sf::Color::White);
-    exitItem.action = [this]()
-    {
-        std::cout << "Exiting game..." << std::endl;
-        g_window->close();
-    };
+        m_menuItems.push_back(text);
+    }
 
-    // Add items to the menu
-    m_menuItems.push_back(newGameItem);
-    m_menuItems.push_back(loadGameItem);
-    m_menuItems.push_back(optionsItem);
-    m_menuItems.push_back(exitItem);
-
-    // Initial positioning of menu items
-    updateMenuDisplay();
+    // Mise à jour de la sélection initiale
+    updateMenuSelection();
 }
 
-void MainMenuState::handleMenuNavigation()
+void MainMenuState::updateMenuSelection()
 {
-    // This functionality is now in handleInput
-}
-
-void MainMenuState::updateMenuDisplay()
-{
-    // Position and style the menu items
-    const float yStart = 200.0f;
-    const float ySpacing = 50.0f;
-
     for (size_t i = 0; i < m_menuItems.size(); ++i)
     {
-        // Set position
-        m_menuItems[i].text.setPosition(400.0f, yStart + i * ySpacing);
-
-        // Center the text
-        sf::FloatRect textBounds = m_menuItems[i].text.getLocalBounds();
-        m_menuItems[i].text.setOrigin(textBounds.width / 2.0f, textBounds.height / 2.0f);
-
-        // Set color based on selection
-        if (i == m_currentItemIndex)
+        if (m_menuItems[i])
         {
-            m_menuItems[i].text.setFillColor(sf::Color::Yellow);
-        }
-        else
-        {
-            m_menuItems[i].text.setFillColor(sf::Color::White);
+            if (i == m_selectedItem)
+            {
+                m_menuItems[i]->setFillColor(sf::Color::Yellow);
+                m_menuItems[i]->setStyle(sf::Text::Bold);
+            }
+            else
+            {
+                m_menuItems[i]->setFillColor(sf::Color::White);
+                m_menuItems[i]->setStyle(sf::Text::Regular);
+            }
         }
     }
+}
+
+void MainMenuState::handleMenuSelection()
+{
+    switch (m_selectedItem)
+    {
+    case 0: // Nouvelle Partie
+        if (m_manager)
+        {
+            m_manager->pushState("CharacterCreation");
+        }
+        break;
+    case 1: // Charger Partie
+        if (m_hasSaveGame && m_manager)
+        {
+            // TODO: Implémenter le chargement de partie
+            m_manager->pushState("Game");
+        }
+        break;
+    case 2: // Options
+        if (m_manager)
+        {
+            // TODO: Implémenter l'état des options
+            // m_manager->pushState("Options");
+        }
+        break;
+    case 3: // Quitter
+        g_window->close();
+        break;
+    }
+}
+
+void MainMenuState::loadSaveGameStatus()
+{
+    // TODO: Vérifier si une partie sauvegardée existe
+    m_hasSaveGame = false;
 }

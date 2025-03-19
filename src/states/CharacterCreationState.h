@@ -1,17 +1,18 @@
 #pragma once
 
 #include "../core/State.h"
+#include "../models/Player.h"
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <vector>
 #include <memory>
 
-class MainMenuState : public State
+class CharacterCreationState : public State
 {
 public:
-    MainMenuState();
-    ~MainMenuState() override = default;
+    CharacterCreationState();
+    ~CharacterCreationState() override = default;
 
     void enter() override;
     void exit() override;
@@ -28,13 +29,16 @@ private:
     std::shared_ptr<sf::Sprite> m_background;
     std::vector<std::shared_ptr<sf::Text>> m_menuItems;
 
-    // État du menu
+    // État de création
     int m_selectedItem;
-    bool m_hasSaveGame;
+    std::string m_characterName;
+    std::string m_currentInput;
+    bool m_isEnteringName;
 
     // Méthodes utilitaires
     void initializeGraphics();
     void updateMenuSelection();
     void handleMenuSelection();
-    void loadSaveGameStatus();
+    void handleNameInput();
+    void createCharacter();
 };

@@ -4,14 +4,13 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
-#include <vector>
 #include <memory>
 
-class MainMenuState : public State
+class TitleScreenState : public State
 {
 public:
-    MainMenuState();
-    ~MainMenuState() override = default;
+    TitleScreenState();
+    ~TitleScreenState() override = default;
 
     void enter() override;
     void exit() override;
@@ -26,15 +25,14 @@ private:
     // Ressources graphiques
     std::shared_ptr<sf::Font> m_font;
     std::shared_ptr<sf::Sprite> m_background;
-    std::vector<std::shared_ptr<sf::Text>> m_menuItems;
+    std::shared_ptr<sf::Text> m_titleText;
+    std::shared_ptr<sf::Text> m_pressStartText;
 
-    // État du menu
-    int m_selectedItem;
-    bool m_hasSaveGame;
+    // Animation
+    float m_blinkTimer;
+    bool m_showPressStart;
 
     // Méthodes utilitaires
     void initializeGraphics();
-    void updateMenuSelection();
-    void handleMenuSelection();
-    void loadSaveGameStatus();
+    void updateAnimation(float deltaTime);
 };
