@@ -1,102 +1,155 @@
 [
   {
     "id": 1,
-    "name": "Bois",
-    "description": "Matériau de construction essentiel pour les navires et les bâtiments.",
-    "basePrice": 50,
-    "weight": 10,
-    "category": "Matériaux",
-    "rarity": 1,
-    "origin": ["Europe du Nord", "Amériques"]
+    "name": "Épices",
+    "description": "Des épices exotiques très demandées en Europe.",
+    "category": "Luxe",
+    "weight": 5,
+    "basePrice": 500,
+    "demandFactor": 1.5,
+    "specialtyRegions": [
+      "Asie",
+      "Afrique"
+    ]
   },
   {
     "id": 2,
-    "name": "Vin",
-    "description": "Boisson alcoolisée produite à partir de raisins fermentés.",
-    "basePrice": 100,
-    "weight": 5,
-    "category": "Nourriture",
-    "rarity": 2,
-    "origin": ["Europe du Sud", "France"]
+    "name": "Textile",
+    "description": "Des étoffes fines et des tissus de qualité.",
+    "category": "Consommation",
+    "weight": 10,
+    "basePrice": 200,
+    "demandFactor": 1.2,
+    "specialtyRegions": [
+      "Europe",
+      "Asie"
+    ]
   },
   {
     "id": 3,
-    "name": "Épices",
-    "description": "Substances aromatiques utilisées pour assaisonner les aliments.",
-    "basePrice": 200,
-    "weight": 2,
+    "name": "Or",
+    "description": "Métal précieux utilisé pour la monnaie et les bijoux.",
     "category": "Luxe",
-    "rarity": 3,
-    "origin": ["Inde", "Asie du Sud-Est"]
+    "weight": 15,
+    "basePrice": 1000,
+    "demandFactor": 1.3,
+    "specialtyRegions": [
+      "Amériques",
+      "Afrique"
+    ]
   },
   {
     "id": 4,
-    "name": "Soie",
-    "description": "Tissu luxueux produit à partir de fils de soie.",
+    "name": "Vin",
+    "description": "Boisson alcoolisée de qualité, prisée par les nobles.",
+    "category": "Consommation",
+    "weight": 20,
     "basePrice": 300,
-    "weight": 3,
-    "category": "Luxe",
-    "rarity": 4,
-    "origin": ["Chine", "Japon"]
+    "demandFactor": 1.1,
+    "specialtyRegions": [
+      "Europe"
+    ]
   },
   {
     "id": 5,
-    "name": "Or",
-    "description": "Métal précieux utilisé pour la fabrication de bijoux et de monnaie.",
-    "basePrice": 500,
-    "weight": 8,
-    "category": "Métaux précieux",
-    "rarity": 5,
-    "origin": ["Amériques", "Afrique"]
+    "name": "Sucre",
+    "description": "Denrée rare et précieuse extraite de la canne à sucre.",
+    "category": "Consommation",
+    "weight": 25,
+    "basePrice": 350,
+    "demandFactor": 1.4,
+    "specialtyRegions": [
+      "Amériques",
+      "Asie"
+    ]
   },
   {
     "id": 6,
-    "name": "Poisson",
-    "description": "Aliment de base pour de nombreuses populations côtières.",
-    "basePrice": 30,
-    "weight": 4,
-    "category": "Nourriture",
-    "rarity": 1,
-    "origin": ["Partout"]
+    "name": "Café",
+    "description": "Grains de café utilisés pour préparer une boisson stimulante.",
+    "category": "Consommation",
+    "weight": 8,
+    "basePrice": 400,
+    "demandFactor": 1.3,
+    "specialtyRegions": [
+      "Afrique",
+      "Amériques"
+    ]
   },
   {
     "id": 7,
-    "name": "Sel",
-    "description": "Minéral essentiel pour la conservation des aliments.",
-    "basePrice": 40,
-    "weight": 5,
-    "category": "Matériaux",
-    "rarity": 2,
-    "origin": ["Méditerranée", "Mines de sel"]
+    "name": "Porcelaine",
+    "description": "Vaisselle fine et objets d'art en céramique vitrifiée.",
+    "category": "Luxe",
+    "weight": 15,
+    "basePrice": 600,
+    "demandFactor": 1.25,
+    "specialtyRegions": [
+      "Asie"
+    ]
   },
   {
     "id": 8,
-    "name": "Coton",
-    "description": "Fibre naturelle utilisée pour la fabrication de textiles.",
-    "basePrice": 80,
-    "weight": 4,
-    "category": "Textiles",
-    "rarity": 2,
-    "origin": ["Égypte", "Inde"]
+    "name": "Fourrure",
+    "description": "Peaux d'animaux précieuses utilisées pour les vêtements.",
+    "category": "Luxe",
+    "weight": 12,
+    "basePrice": 450,
+    "demandFactor": 1.15,
+    "specialtyRegions": [
+      "Europe",
+      "Amériques"
+    ]
   },
   {
     "id": 9,
-    "name": "Café",
-    "description": "Boisson stimulante préparée à partir de grains torréfiés.",
-    "basePrice": 120,
-    "weight": 3,
-    "category": "Nourriture",
-    "rarity": 3,
-    "origin": ["Éthiopie", "Arabie"]
+    "name": "Bois exotique",
+    "description": "Bois rares et précieux pour l'ébénisterie de luxe.",
+    "category": "Matériau",
+    "weight": 50,
+    "basePrice": 250,
+    "demandFactor": 1.1,
+    "specialtyRegions": [
+      "Amériques",
+      "Asie"
+    ]
   },
   {
     "id": 10,
-    "name": "Sucre",
-    "description": "Édulcorant extrait principalement de la canne à sucre.",
-    "basePrice": 150,
-    "weight": 6,
-    "category": "Nourriture",
-    "rarity": 3,
-    "origin": ["Caraïbes", "Brésil"]
+    "name": "Ivoire",
+    "description": "Matériau précieux provenant des défenses d'éléphant.",
+    "category": "Luxe",
+    "weight": 30,
+    "basePrice": 800,
+    "demandFactor": 1.4,
+    "specialtyRegions": [
+      "Afrique",
+      "Asie"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Sel",
+    "description": "Conservateur alimentaire essentiel et épice de base.",
+    "category": "Consommation",
+    "weight": 40,
+    "basePrice": 100,
+    "demandFactor": 1.05,
+    "specialtyRegions": [
+      "Europe",
+      "Afrique"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Tabac",
+    "description": "Plante exotique utilisée pour la fabrication de produits à fumer.",
+    "category": "Consommation",
+    "weight": 15,
+    "basePrice": 350,
+    "demandFactor": 1.2,
+    "specialtyRegions": [
+      "Amériques"
+    ]
   }
-] 
+]

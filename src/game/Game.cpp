@@ -180,6 +180,8 @@ void Game::navigationMenu()
          { navigate(1, 0); }},
         {"Ouest", [this]()
          { navigate(-1, 0); }},
+        {"Gestion de la flotte", [this]()
+         { fleetManagementMenu(); }},
         {"Statut", [this]()
          { statusMenu(); }},
         {"Inventaire", [this]()
@@ -808,4 +810,28 @@ void Game::tavernMenu()
 
     m_ui.displayMessage("\nFonctionnalité non implémentée.");
     m_ui.waitForKeyPress();
+}
+
+// Menu de gestion de la flotte
+void Game::fleetManagementMenu()
+{
+    if (!m_player)
+    {
+        m_ui.displayError("Erreur: Joueur non initialisé.");
+        m_ui.waitForKeyPress();
+        return;
+    }
+
+    // Vérifier si le joueur est en mode maritime
+    if (m_player->getCurrentMode() != PlayerMode::SEA)
+    {
+        m_ui.displayMessage("Vous devez être en mode navigation maritime pour gérer votre flotte.");
+        m_ui.displayMessage("Utilisez la commande 'changer mode' pour passer en mode maritime.");
+        m_ui.waitForKeyPress();
+        return;
+    }
+
+    // Créer le gestionnaire de flotte et afficher le menu
+    FleetManager fleetManager(m_ui, m_player);
+    fleetManager.showFleetManagementMenu();
 }

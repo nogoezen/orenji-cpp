@@ -38,7 +38,27 @@ int ConsoleUI::displayMenu(const std::string &title, const std::vector<MenuItem>
         }
     }
 
-    return choice;
+    return choice - 1; // Return 0-based index
+}
+
+// Implementation of the string vector overload
+int ConsoleUI::displayMenu(const std::string &title, const std::vector<std::string> &options)
+{
+    clearScreen();
+    displayTitle(title);
+
+    // Afficher les options du menu
+    for (size_t i = 0; i < options.size(); ++i)
+    {
+        std::cout << (i + 1) << ". " << options[i] << std::endl;
+    }
+    std::cout << std::endl;
+
+    // Demander un choix à l'utilisateur
+    int choice = getIntInput("Votre choix (" + std::to_string(1) + "-" + std::to_string(options.size()) + "): ", 1, options.size());
+
+    // Return 0-based index
+    return choice - 1;
 }
 
 std::string ConsoleUI::getInput(const std::string &prompt)

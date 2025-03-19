@@ -6,6 +6,7 @@
 #include <memory>
 #include <algorithm> // Pour std::min, std::max, std::clamp
 #include "Ship.h"
+#include "Fleet.h"
 #include "TradeGood.h"
 #include "Character.h"
 
@@ -19,7 +20,7 @@ T customClamp(const T &value, const T &min, const T &max)
 enum class PlayerMode
 {
     LAND, // Mode terrestre (utilise Character)
-    SEA   // Mode maritime (utilise Ship)
+    SEA   // Mode maritime (utilise Fleet/Ship)
 };
 
 class Player
@@ -30,17 +31,14 @@ private:
     int m_level;
     int m_experience;
 
-    // Navire actuel du joueur
-    std::shared_ptr<Ship> m_currentShip;
+    // Flotte du joueur (remplace le navire unique)
+    std::shared_ptr<Fleet> m_fleet;
 
     // Personnage du joueur
     std::shared_ptr<Character> m_character;
 
     // Inventaire du joueur (ID de l'article, quantité)
     std::map<int, int> m_inventory;
-
-    // Cargaison du navire (ID du bien commercial, quantité)
-    std::map<int, int> m_cargo;
 
     // Position du joueur (x, y)
     int m_posX;
@@ -49,12 +47,18 @@ private:
     // Mode actuel du joueur (terre ou mer)
     PlayerMode m_currentMode;
 
-    // Équipage du navire
-    int m_currentCrew;
-    int m_maxCrew;
-
     // Système de réputation envers les nations
     std::map<std::string, int> m_reputation;
+
+    // Added cargo management for trade goods
+    struct CargoItem
+    {
+        int goodId;
+        std::string name;
+        int quantity;
+        int unitWeight;
+    };
+    std::vector<CargoItem> m_cargo;
 
 public:
     // Constructeur
@@ -63,13 +67,11 @@ public:
           m_gold(gold),
           m_level(level),
           m_experience(experience),
-          m_currentShip(nullptr),
+          m_fleet(std::make_shared<Fleet>(name + "'s Fleet")),
           m_character(nullptr),
           m_posX(0),
           m_posY(0),
-          m_currentMode(PlayerMode::LAND),
-          m_currentCrew(0),
-          m_maxCrew(0) {}
+          m_currentMode(PlayerMode::LAND) {}
 
     // Constructeur avec personnage
     Player(const std::string &name, std::shared_ptr<Character> character, int gold = 1000)
@@ -77,13 +79,11 @@ public:
           m_gold(gold),
           m_level(character ? character->getLevel() : 1),
           m_experience(0),
-          m_currentShip(nullptr),
+          m_fleet(std::make_shared<Fleet>(name + "'s Fleet")),
           m_character(character),
           m_posX(0),
           m_posY(0),
-          m_currentMode(PlayerMode::LAND),
-          m_currentCrew(0),
-          m_maxCrew(0)
+          m_currentMode(PlayerMode::LAND)
     {
         // Récupérer les réputations du personnage
         if (character)
@@ -101,14 +101,12 @@ public:
     int getGold() const { return m_gold; }
     int getLevel() const { return m_level; }
     int getExperience() const { return m_experience; }
-    const std::shared_ptr<Ship> &getCurrentShip() const { return m_currentShip; }
+    const std::shared_ptr<Fleet> &getFleet() const { return m_fleet; }
+    std::shared_ptr<Ship> getFlagship() const { return m_fleet ? m_fleet->getFlagship() : nullptr; }
     const std::map<int, int> &getInventory() const { return m_inventory; }
-    const std::map<int, int> &getCargo() const { return m_cargo; }
     int getPosX() const { return m_posX; }
     int getPosY() const { return m_posY; }
     PlayerMode getCurrentMode() const { return m_currentMode; }
-    int getCurrentCrew() const { return m_currentCrew; }
-    int getMaxCrew() const { return m_maxCrew; }
     const std::map<std::string, int> &getReputation() const { return m_reputation; }
 
     // Getter pour le personnage
@@ -123,11 +121,21 @@ public:
     {
         m_posX = x;
         m_posY = y;
+        // Mettre à jour la position de la flotte également
+        if (m_fleet)
+        {
+            m_fleet->setPosition(x, y);
+        }
     }
     void move(int deltaX, int deltaY)
     {
         m_posX += deltaX;
         m_posY += deltaY;
+        // Mettre à jour la position de la flotte également
+        if (m_fleet)
+        {
+            m_fleet->setPosition(m_posX, m_posY);
+        }
     }
 
     // Définir le personnage
@@ -146,21 +154,52 @@ public:
         }
     }
 
-    // Méthodes liées au navire
-    void setShip(std::shared_ptr<Ship> ship)
+    // Méthodes liées à la flotte
+    void setFleet(std::shared_ptr<Fleet> fleet)
     {
-        m_currentShip = ship;
-        if (ship)
+        m_fleet = fleet;
+        if (fleet)
         {
-            m_maxCrew = ship->getMaxCrew();
-            // Définir un équipage initial minimum requis
-            m_currentCrew = ship->getRequiredCrew();
+            // Synchroniser la position de la flotte avec celle du joueur
+            fleet->setPosition(m_posX, m_posY);
         }
-        else
+    }
+
+    // Ajouter/supprimer des navires à la flotte
+    bool addShipToFleet(std::shared_ptr<Ship> ship)
+    {
+        if (!m_fleet)
         {
-            m_maxCrew = 0;
-            m_currentCrew = 0;
+            m_fleet = std::make_shared<Fleet>(m_name + "'s Fleet");
         }
+        return m_fleet->addShip(ship);
+    }
+
+    bool removeShipFromFleet(size_t index)
+    {
+        return m_fleet ? m_fleet->removeShip(index) : false;
+    }
+
+    std::shared_ptr<Ship> getShipFromFleet(size_t index) const
+    {
+        return m_fleet ? m_fleet->getShip(index) : nullptr;
+    }
+
+    bool setFlagship(size_t index)
+    {
+        return m_fleet ? m_fleet->setFlagship(index) : false;
+    }
+
+    size_t getFleetSize() const
+    {
+        return m_fleet ? m_fleet->getSize() : 0;
+    }
+
+    // Création d'une nouvelle flotte
+    void createNewFleet(const std::string &name)
+    {
+        m_fleet = std::make_shared<Fleet>(name);
+        m_fleet->setPosition(m_posX, m_posY);
     }
 
     // Gestion du mode (terre/mer)
@@ -173,7 +212,7 @@ public:
     {
         // Basculer entre mode terrestre et maritime
         // Seulement si les deux modes sont disponibles
-        if (m_character && m_currentShip)
+        if (m_character && m_fleet && m_fleet->getSize() > 0)
         {
             m_currentMode = (m_currentMode == PlayerMode::LAND) ? PlayerMode::SEA : PlayerMode::LAND;
         }
@@ -182,17 +221,35 @@ public:
     // Gestion de l'équipage
     void addCrew(int amount)
     {
-        m_currentCrew = std::min(m_currentCrew + amount, m_maxCrew);
+        auto flagship = getFlagship();
+        if (flagship)
+        {
+            flagship->addCrew(amount);
+        }
     }
 
     void removeCrew(int amount)
     {
-        m_currentCrew = std::max(0, m_currentCrew - amount);
+        auto flagship = getFlagship();
+        if (flagship)
+        {
+            flagship->removeCrew(amount);
+        }
+    }
+
+    int getCurrentCrew() const
+    {
+        return m_fleet ? m_fleet->getCurrentCrew() : 0;
+    }
+
+    int getTotalCrew() const
+    {
+        return m_fleet ? m_fleet->getTotalCrew() : 0;
     }
 
     bool hasMinimumCrew() const
     {
-        return m_currentShip && (m_currentCrew >= m_currentShip->getRequiredCrew());
+        return m_fleet && m_fleet->canNavigate();
     }
 
     // Gestion de la réputation
@@ -212,37 +269,70 @@ public:
     void removeFromInventory(int itemId, int quantity = 1);
     int getItemQuantity(int itemId) const;
 
-    // Méthodes de cargaison
-    bool addToCargo(int goodId, int quantity = 1);
-    void removeFromCargo(int goodId, int quantity = 1);
-    int getCargoQuantity(int goodId) const;
-    int getTotalCargoWeight() const;
-    int getRemainingCargoCapacity() const;
+    // Méthodes de cargaison (maintenant déléguées à la flotte)
+    bool addToCargo(int goodId, const std::string &name, int quantity = 1, int unitWeight = 1);
+    bool removeFromCargo(int goodId, int quantity = 1);
+    int getTotalCargoCapacity() const { return m_fleet ? m_fleet->getTotalCargo() : 0; }
+    int getUsedCargo() const { return m_fleet ? m_fleet->getUsedCargo() : 0; }
+    int getRemainingCargoCapacity() const { return m_fleet ? m_fleet->getRemainingCargo() : 0; }
 
     // Méthodes pour obtenir les attributs selon le mode actuel
     std::string getCurrentEntityName() const
     {
-        return (m_currentMode == PlayerMode::LAND) ? (m_character ? m_character->getName() : m_name) : (m_currentShip ? m_currentShip->getName() : "Sans navire");
+        if (m_currentMode == PlayerMode::LAND)
+        {
+            return m_character ? m_character->getName() : m_name;
+        }
+        else
+        {
+            auto flagship = getFlagship();
+            return flagship ? flagship->getName() : "Sans navire";
+        }
     }
 
     int getSpeed() const
     {
         return (m_currentMode == PlayerMode::LAND) ? 5 : // Vitesse de base sur terre
-                   (m_currentShip ? m_currentShip->getSpeed() : 0);
+                   (m_fleet ? m_fleet->getSpeed() : 0);
     }
 
     int getManeuverability() const
     {
-        return (m_currentMode == PlayerMode::SEA && m_currentShip) ? m_currentShip->getManeuverability() : 0;
+        if (m_currentMode == PlayerMode::SEA)
+        {
+            auto flagship = getFlagship();
+            return flagship ? flagship->getManeuverability() : 0;
+        }
+        return 0;
     }
 
     int getDurability() const
     {
-        return (m_currentMode == PlayerMode::SEA && m_currentShip) ? m_currentShip->getDurability() : 0;
+        if (m_currentMode == PlayerMode::SEA)
+        {
+            auto flagship = getFlagship();
+            return flagship ? flagship->getDurability() : 0;
+        }
+        return 0;
     }
 
     int getCombatPower() const
     {
-        return (m_currentMode == PlayerMode::SEA && m_currentShip) ? m_currentShip->getCombatPower() : 0;
+        if (m_currentMode == PlayerMode::SEA)
+        {
+            auto flagship = getFlagship();
+            return flagship ? flagship->getCombatPower() : 0;
+        }
+        return 0;
     }
+
+    // Cargo management methods
+    bool addCargo(int goodId, const std::string &name, int quantity, int unitWeight);
+    bool removeCargo(int goodId, int quantity);
+    int getCargoQuantity(int goodId) const;
+    const std::vector<CargoItem> &getCargo() const { return m_cargo; }
+    int getTotalCargoWeight() const;
+
+    // Check if player has enough of a specific cargo
+    bool hasCargo(int goodId, int quantity) const;
 };

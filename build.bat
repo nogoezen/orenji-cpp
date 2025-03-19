@@ -37,7 +37,29 @@ echo Compilation en cours...
 :: Définir le chemin absolu du projet
 set PROJECT_PATH=%CD%
 
-:: Compiler avec des chemins d'inclusion explicites
+:: Afficher les répertoires pour le débogage
+echo Répertoire du projet: %PROJECT_PATH%
+echo Vérification des fichiers:
+dir src\main.cpp
+echo.
+
+:: Compiler les fichiers individuellement pour identifier les erreurs
+echo Compilation des fichiers individuels...
+g++ -std=c++17 -Wall -Wextra -c -D__USE_MINGW_ANSI_STDIO=1 -D_GLIBCXX_USE_CXX11_ABI=1 -I"%PROJECT_PATH%" -I"%PROJECT_PATH%\include" src/main.cpp -o obj/main.o
+if %ERRORLEVEL% NEQ 0 (
+    echo ERREUR: Compilation de main.cpp a échoué.
+    pause
+    exit /b 1
+)
+
+g++ -std=c++17 -Wall -Wextra -c -D__USE_MINGW_ANSI_STDIO=1 -D_GLIBCXX_USE_CXX11_ABI=1 -I"%PROJECT_PATH%" -I"%PROJECT_PATH%\include" src/utils/JsonLoader.cpp -o obj/utils/JsonLoader.o
+if %ERRORLEVEL% NEQ 0 (
+    echo ERREUR: Compilation de JsonLoader.cpp a échoué.
+    pause
+    exit /b 1
+)
+
+echo Compilation de tous les fichiers...
 g++ -std=c++17 -Wall -Wextra -D__USE_MINGW_ANSI_STDIO=1 -D_GLIBCXX_USE_CXX11_ABI=1 ^
     -I"%PROJECT_PATH%" -I"%PROJECT_PATH%\include" ^
     src/main.cpp ^

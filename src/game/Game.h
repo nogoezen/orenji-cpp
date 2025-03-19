@@ -4,10 +4,12 @@
 #include <memory>
 #include "../models/Player.h"
 #include "../models/Ship.h"
+#include "../models/Fleet.h"
 #include "GameData.h"
 #include "World.h"
 #include "ConsoleUI.h"
 #include "CharacterEditor.h"
+#include "FleetManager.h"
 
 class Game
 {
@@ -38,6 +40,7 @@ private:
     void tavernMenu();
     void inventoryMenu();
     void statusMenu();
+    void fleetManagementMenu(); // Gestion de la flotte
 
     // Affichage de la carte
     void displayMap(int centerX, int centerY, int radius = 5) const;

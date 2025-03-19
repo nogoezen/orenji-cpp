@@ -15,6 +15,10 @@ public:
     {
         std::string name;
         std::function<void()> action;
+
+        // Constructor for easier creation
+        MenuItem(const std::string &n, std::function<void()> a = nullptr)
+            : name(n), action(a) {}
     };
 
 private:
@@ -26,7 +30,7 @@ public:
         : m_screenWidth(width), m_screenHeight(height) {}
 
     // Effacer l'écran
-    void clearScreen()
+    void clearScreen() const
     {
 #ifdef _WIN32
         system("cls");
@@ -36,7 +40,7 @@ public:
     }
 
     // Afficher un titre
-    void displayTitle(const std::string &title)
+    void displayTitle(const std::string &title) const
     {
         clearScreen();
 
@@ -47,19 +51,22 @@ public:
     }
 
     // Afficher un message
-    void displayMessage(const std::string &message)
+    void displayMessage(const std::string &message) const
     {
         std::cout << message << std::endl;
     }
 
     // Afficher une erreur
-    void displayError(const std::string &message)
+    void displayError(const std::string &message) const
     {
         std::cout << "ERREUR: " << message << std::endl;
     }
 
     // Afficher un menu et obtenir le choix de l'utilisateur
     int displayMenu(const std::string &title, const std::vector<MenuItem> &items);
+
+    // Overload to accept string vectors directly
+    int displayMenu(const std::string &title, const std::vector<std::string> &options);
 
     // Obtenir une entrée de texte
     std::string getInput(const std::string &prompt);
@@ -75,7 +82,7 @@ public:
     template <typename T>
     void displayTable(const std::vector<std::string> &headers,
                       const std::vector<std::vector<T>> &data,
-                      const std::vector<int> &columnWidths)
+                      const std::vector<int> &columnWidths) const
     {
         // Afficher les en-têtes
         for (size_t i = 0; i < headers.size(); ++i)
