@@ -8,6 +8,7 @@
 #include "../ui/CharacterCreationMenu.h"
 #include "../models/TradeGood.h"
 #include "../game/MapScene.h"
+#include "../states/MainMenuState.h"
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -15,8 +16,13 @@
 #include <fstream>
 #include <filesystem>
 #include <nlohmann/json.hpp>
+#include <SFML/Window/Event.hpp>
+
+// Global pointer to the window for use by states
+sf::RenderWindow *g_window = nullptr;
 
 Game::Game()
+    : m_running(false), m_targetFPS(60.0f)
 {
     // L'initialisation complète se fait dans la méthode initialize()
 }
@@ -28,44 +34,110 @@ Game::~Game()
 
 bool Game::initialize()
 {
-    if (m_initialized)
+    // Initialize window
+    initWindow();
+
+    // Set the global window pointer
+    g_window = m_window.get();
+
+    // Initialize state manager
+    m_stateManager = std::make_unique<StateManager>();
+
+    // Initialize game states
+    initStates();
+
+    m_running = true;
+    return true;
+}
+
+void Game::run()
+{
+    if (!m_window || !m_stateManager)
     {
-        return true;
+        std::cerr << "Game not properly initialized" << std::endl;
+        return;
     }
 
-    try
+    sf::Clock clock;
+    sf::Time timeSinceLastUpdate = sf::Time::Zero;
+    sf::Time timePerFrame = sf::seconds(1.0f / m_targetFPS);
+
+    while (m_running && m_window->isOpen())
     {
-        std::cout << "Initialisation du jeu..." << std::endl;
+        sf::Time elapsedTime = clock.restart();
+        timeSinceLastUpdate += elapsedTime;
 
-        // Charger les données du jeu
-        GameData::getInstance().loadAllData();
+        while (timeSinceLastUpdate >= timePerFrame)
+        {
+            timeSinceLastUpdate -= timePerFrame;
 
-        // Créer le monde
-        m_world = std::make_shared<World>();
+            processInput();
+            update(timePerFrame.asSeconds());
+        }
 
-        // Créer le système de commerce
-        m_tradingSystem = std::make_shared<TradingSystem>();
-
-        m_initialized = true;
-        return true;
+        render();
     }
-    catch (const std::exception &e)
+}
+
+void Game::processInput()
+{
+    if (!m_stateManager->isEmpty())
     {
-        std::cerr << "Erreur lors de l'initialisation du jeu: " << e.what() << std::endl;
-        cleanup();
-        return false;
+        m_stateManager->handleInput();
     }
+}
+
+void Game::update(float deltaTime)
+{
+    if (!m_stateManager->isEmpty())
+    {
+        m_stateManager->update(deltaTime);
+    }
+}
+
+void Game::render()
+{
+    m_window->clear();
+
+    if (!m_stateManager->isEmpty())
+    {
+        m_stateManager->render();
+    }
+
+    m_window->display();
+}
+
+void Game::initWindow()
+{
+    m_window = std::make_unique<sf::RenderWindow>(
+        sf::VideoMode(800, 600),
+        "Orenji - Uncharted Waters",
+        sf::Style::Close);
+    m_window->setFramerateLimit(static_cast<unsigned int>(m_targetFPS));
+}
+
+void Game::initStates()
+{
+    // Create and register states
+    auto mainMenuState = m_stateManager->createState<MainMenuState>();
+
+    // Push the initial state
+    m_stateManager->pushState("MainMenu");
 }
 
 void Game::cleanup()
 {
-    // Libérer explicitement les ressources
-    m_player.reset();
-    m_world.reset();
-    m_tradingSystem.reset();
+    if (m_stateManager)
+    {
+        m_stateManager->clearStates();
+    }
 
-    m_initialized = false;
-    m_gameRunning = false;
+    if (m_window && m_window->isOpen())
+    {
+        m_window->close();
+    }
+
+    g_window = nullptr;
 }
 
 void Game::startNewGame()
@@ -234,71 +306,6 @@ bool Game::hasSaveGame() const
     // Vérifier si le fichier de sauvegarde existe
     std::ifstream file(m_saveFilePath);
     return file.good();
-}
-
-void Game::run()
-{
-    if (!m_gameRunning)
-    {
-        return;
-    }
-
-    std::cout << "Démarrage du jeu..." << std::endl;
-
-    // Boucle principale
-    while (m_gameRunning)
-    {
-        clearScreen(); // Ajout pour effacer l'écran
-        std::cout << "=== MODE JEU EN COURS DE DÉVELOPPEMENT ===" << std::endl;
-        std::cout << "Joueur: " << m_player->getName() << std::endl;
-        std::cout << "Or: " << m_player->getGold() << std::endl;
-        std::cout << std::endl;
-
-        // Menu temporaire du jeu
-        std::cout << "1. Explorer (non implémenté)" << std::endl;
-        std::cout << "2. Commerce (non implémenté)" << std::endl;
-        std::cout << "3. Gestion de flotte (non implémenté)" << std::endl;
-        std::cout << "4. Menu du personnage (non implémenté)" << std::endl;
-        std::cout << "5. Retour au menu principal" << std::endl;
-
-        std::cout << std::endl
-                  << "Votre choix: ";
-        int choice;
-        std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-        switch (choice)
-        {
-        case 1: // Explorer
-            std::cout << "Exploration non implémentée." << std::endl;
-            waitForEnter();
-            break;
-
-        case 2: // Commerce
-            std::cout << "Commerce non implémenté." << std::endl;
-            waitForEnter();
-            break;
-
-        case 3: // Gestion de flotte
-            std::cout << "Gestion de flotte non implémentée." << std::endl;
-            waitForEnter();
-            break;
-
-        case 4: // Menu du personnage
-            std::cout << "Menu du personnage non implémenté." << std::endl;
-            waitForEnter();
-            break;
-
-        case 5: // Retour au menu principal
-            endGame();
-            break;
-
-        default:
-            std::cout << "Choix invalide!" << std::endl;
-            waitForEnter();
-            break;
-        }
-    }
 }
 
 // Utilitaire pour attendre l'entrée de l'utilisateur

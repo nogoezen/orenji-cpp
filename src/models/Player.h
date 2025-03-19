@@ -76,6 +76,72 @@ struct TradeSkills
 };
 
 /**
+ * Structure pour les compétences d'amirauté
+ */
+struct AdmiraltySkills
+{
+    int navigation = 0;      // Navigation (vitesse, précision)
+    int tactics = 0;         // Tactiques (formations, combat)
+    int leadership = 0;      // Leadership (moral, cohésion)
+    int resourcefulness = 0; // Débrouillardise (provisions, réparations)
+    int crewManagement = 0;  // Gestion d'équipage
+    int shipMaintenance = 0; // Entretien des navires
+
+    nlohmann::json toJson() const
+    {
+        nlohmann::json j;
+        j["navigation"] = navigation;
+        j["tactics"] = tactics;
+        j["leadership"] = leadership;
+        j["resourcefulness"] = resourcefulness;
+        j["crewManagement"] = crewManagement;
+        j["shipMaintenance"] = shipMaintenance;
+        return j;
+    }
+
+    void fromJson(const nlohmann::json &data)
+    {
+        if (data.contains("navigation"))
+            navigation = data["navigation"];
+        if (data.contains("tactics"))
+            tactics = data["tactics"];
+        if (data.contains("leadership"))
+            leadership = data["leadership"];
+        if (data.contains("resourcefulness"))
+            resourcefulness = data["resourcefulness"];
+        if (data.contains("crewManagement"))
+            crewManagement = data["crewManagement"];
+        if (data.contains("shipMaintenance"))
+            shipMaintenance = data["shipMaintenance"];
+    }
+
+    // Calculer les différents bonus basés sur les compétences
+    float getNavigationBonus() const { return navigation * 0.05f; }           // 5% par niveau
+    float getTacticsBonus() const { return tactics * 0.05f; }                 // 5% par niveau
+    float getLeadershipBonus() const { return leadership * 0.05f; }           // 5% par niveau
+    float getResourcefulnessBonus() const { return resourcefulness * 0.05f; } // 5% par niveau
+    float getCrewManagementBonus() const { return crewManagement * 0.05f; }   // 5% par niveau
+    float getShipMaintenanceBonus() const { return shipMaintenance * 0.05f; } // 5% par niveau
+};
+
+/**
+ * Structure pour les routes commerciales
+ */
+struct TradeRoute
+{
+    int sourceCity;
+    int destinationCity;
+    std::vector<std::pair<int, int>> tradedGoods; // Paire (goodId, quantity)
+    int tripDuration;                             // En jours
+    int securityLevel;                            // Niveau de sécurité (investissement)
+    float profitMargin;                           // Marge bénéficiaire estimée
+    float currentTime;                            // Temps écoulé depuis le départ
+
+    nlohmann::json toJson() const;
+    static TradeRoute fromJson(const nlohmann::json &data);
+};
+
+/**
  * @brief Classe représentant le joueur
  *
  * Cette classe gère les données et les actions du joueur, comme l'inventaire,
@@ -123,12 +189,21 @@ private:
     // Compétences commerciales
     TradeSkills m_tradeSkills;
 
+    // Compétences d'amirauté
+    AdmiraltySkills m_admiraltySkills;
+
     // Réputation par ville/royaume
     std::unordered_map<int, float> m_cityReputations;
     std::unordered_map<std::string, float> m_kingdomReputations;
 
     // Routes commerciales
     std::vector<TradeRoute> m_tradeRoutes;
+
+    // Date du dernier paiement pour la dette
+    int m_lastDebtPaymentDay = 0;
+
+    // Taux d'intérêt de la dette (en pourcentage)
+    float m_debtInterestRate = 5.0f;
 
 public:
     /**
@@ -450,12 +525,14 @@ public:
 
     // Getters pour les compétences commerciales
     const TradeSkills &getTradeSkills() const { return m_tradeSkills; }
+    const AdmiraltySkills &getAdmiraltySkills() const { return m_admiraltySkills; }
     float getCityReputation(int cityId) const;
     float getKingdomReputation(const std::string &kingdom) const;
     const std::vector<TradeRoute> &getTradeRoutes() const { return m_tradeRoutes; }
 
     // Setters pour les compétences commerciales
     void improveTradeSkill(const std::string &skillName, int amount);
+    void improveAdmiraltySkill(const std::string &skillName, int amount);
     void setCityReputation(int cityId, float reputation);
     void setKingdomReputation(const std::string &kingdom, float reputation);
 
@@ -482,4 +559,45 @@ public:
     bool removeTradeRoute(size_t index);
     void updateCityReputation(int cityId, float amount);
     void updateKingdomReputation(const std::string &kingdom, float amount);
+
+    // Gestion de la dette
+    float getDebtInterestRate() const { return m_debtInterestRate; }
+    int getLastDebtPaymentDay() const { return m_lastDebtPaymentDay; }
+
+    // Méthodes pour la gestion de la flotte
+    int getFleetSpeed() const { return m_fleet ? m_fleet->getSpeed() * (1.0f + m_admiraltySkills.getNavigationBonus()) : 0; }
+    int getFleetVisibility() const { return m_fleet ? m_fleet->getVisibilityRange() * (1.0f + m_admiraltySkills.getNavigationBonus()) : 0; }
+    float getFleetMorale() const { return m_fleet ? m_fleet->getMorale() * (1.0f + m_admiraltySkills.getLeadershipBonus()) : 0.0f; }
+    float getFormationBonus(const std::string &bonusType) const
+    {
+        if (!m_fleet)
+            return 0.0f;
+
+        float baseBonus = m_fleet->getFormationBonus(bonusType);
+        float tacticsBonus = m_admiraltySkills.getTacticsBonus();
+
+        return baseBonus * (1.0f + tacticsBonus);
+    }
+
+    // Simulation d'une journée
+    void simulateDay(bool inCombat = false)
+    {
+        if (m_fleet)
+        {
+            // Simuler une journée pour la flotte
+            m_fleet->simulateDay(inCombat);
+
+            // Bonus de leadership pour le moral
+            if (m_admiraltySkills.leadership > 0)
+            {
+                m_fleet->adjustMorale(m_admiraltySkills.leadership * 0.2f);
+            }
+
+            // Bonus de gestion d'équipage pour la fatigue
+            if (m_admiraltySkills.crewManagement > 0)
+            {
+                m_fleet->restCrew(m_admiraltySkills.crewManagement * 0.5f);
+            }
+        }
+    }
 };

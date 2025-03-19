@@ -8,6 +8,8 @@
 #include "../models/Player.h"
 #include "World.h"
 #include "TradingSystem.h"
+#include <SFML/Graphics/RenderWindow.hpp>
+#include "StateManager.h"
 
 // Forward declarations pour éviter les inclusions circulaires
 class MainMenu;
@@ -32,32 +34,8 @@ enum class GameState
 /**
  * @brief Classe principale gérant le jeu
  */
-class Game : public std::enable_shared_from_this<Game>
+class Game
 {
-private:
-    // Composants de jeu
-    std::shared_ptr<Player> m_player;
-    std::shared_ptr<World> m_world;
-    std::shared_ptr<TradingSystem> m_tradingSystem;
-    std::shared_ptr<MainMenu> m_mainMenu;
-    std::shared_ptr<TitleScreen> m_titleScreen;
-    std::shared_ptr<MapScene> m_mapScene;
-
-    // État du jeu
-    bool m_initialized = false;
-    bool m_gameRunning = false;
-    GameState m_currentState = GameState::MainMenu;
-
-    // Chemin du fichier de sauvegarde
-    std::string m_saveFilePath = "bin/save.json";
-
-    // Utilitaires
-    void clearScreen();
-    void waitForEnter(const std::string &message = "Appuyez sur Entrée pour continuer...");
-
-    // Nettoyage des ressources
-    void cleanup();
-
 public:
     /**
      * @brief Constructeur par défaut
@@ -114,7 +92,7 @@ public:
      * @brief Vérifie si le jeu est en cours d'exécution
      * @return true si le jeu est en cours d'exécution, false sinon
      */
-    bool isRunning() const { return m_gameRunning; }
+    bool isRunning() const { return m_running; }
 
     /**
      * @brief Obtient l'état actuel du jeu
@@ -144,6 +122,50 @@ public:
      */
     void returnToTitleScreen();
 
+    // Access methods
+    sf::RenderWindow &getWindow() { return *m_window; }
+    StateManager &getStateManager() { return *m_stateManager; }
+
+private:
+    // Composants de jeu
+    std::shared_ptr<Player> m_player;
+    std::shared_ptr<World> m_world;
+    std::shared_ptr<TradingSystem> m_tradingSystem;
+    std::shared_ptr<MainMenu> m_mainMenu;
+    std::shared_ptr<TitleScreen> m_titleScreen;
+    std::shared_ptr<MapScene> m_mapScene;
+
+    // État du jeu
+    bool m_initialized = false;
+    bool m_running = false;
+    GameState m_currentState = GameState::MainMenu;
+
+    // Chemin du fichier de sauvegarde
+    std::string m_saveFilePath = "bin/save.json";
+
+    // Game loop methods
+    void processInput();
+    void update(float deltaTime);
+    void render();
+
+    // Init methods
+    void initWindow();
+    void initStates();
+
+    // Game window and states
+    std::unique_ptr<sf::RenderWindow> m_window;
+    std::unique_ptr<StateManager> m_stateManager;
+
+    // Game loop control
+    float m_targetFPS;
+
+    // Utilitaires
+    void clearScreen();
+    void waitForEnter(const std::string &message = "Appuyez sur Entrée pour continuer...");
+
+    // Nettoyage des ressources
+    void cleanup();
+
     // Accesseurs
     inline bool isInitialized() const { return m_initialized; }
     inline std::shared_ptr<Player> getPlayer() { return m_player; }
@@ -155,5 +177,5 @@ public:
     inline std::shared_ptr<MapScene> getMapScene() { return m_mapScene; }
 
     // Mutateurs
-    inline void setGameRunning(bool running) { m_gameRunning = running; }
+    inline void setRunning(bool running) { m_running = running; }
 };
