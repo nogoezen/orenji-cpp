@@ -16,6 +16,21 @@ TiledMap::~TiledMap()
 
 void TiledMap::load(const std::string &filePath)
 {
+    // Déterminer le type de fichier (TMX ou JSON)
+    bool isTmxFile = filePath.substr(filePath.find_last_of(".") + 1) == "tmx";
+
+    if (isTmxFile)
+    {
+        loadTMX(filePath);
+    }
+    else
+    {
+        loadJSON(filePath);
+    }
+}
+
+void TiledMap::loadJSON(const std::string &filePath)
+{
     // Charger le fichier JSON
     std::ifstream file(filePath);
     if (!file.is_open())
@@ -135,6 +150,193 @@ void TiledMap::load(const std::string &filePath)
 
         m_layers.push_back(layer);
     }
+}
+
+void TiledMap::loadTMX(const std::string &filePath)
+{
+    std::ifstream file(filePath);
+    if (!file.is_open())
+    {
+        std::cerr << "Erreur: Impossible d'ouvrir le fichier TMX: " << filePath << std::endl;
+        return;
+    }
+
+    std::string line;
+    std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
+    // Extraire les informations de base de la carte
+    std::string widthStr = extractAttribute(content, "width=\"", "\"");
+    std::string heightStr = extractAttribute(content, "height=\"", "\"");
+    std::string tileWidthStr = extractAttribute(content, "tilewidth=\"", "\"");
+    std::string tileHeightStr = extractAttribute(content, "tileheight=\"", "\"");
+
+    m_width = std::stoi(widthStr);
+    m_height = std::stoi(heightStr);
+    m_tileWidth = std::stoi(tileWidthStr);
+    m_tileHeight = std::stoi(tileHeightStr);
+
+    // Extraire les informations des tilesets
+    size_t tilesetPos = 0;
+    while ((tilesetPos = content.find("<tileset ", tilesetPos)) != std::string::npos)
+    {
+        size_t endPos = content.find(">", tilesetPos);
+        std::string tilesetTag = content.substr(tilesetPos, endPos - tilesetPos);
+
+        Tileset tileset;
+        std::string firstgidStr = extractAttribute(tilesetTag, "firstgid=\"", "\"");
+        tileset.firstgid = std::stoi(firstgidStr);
+
+        std::string sourceStr = extractAttribute(tilesetTag, "source=\"", "\"");
+        if (!sourceStr.empty())
+        {
+            // Tileset externe
+            tileset.source = sourceStr;
+
+            // Extraire le chemin du dossier du fichier de carte
+            std::string folderPath = filePath.substr(0, filePath.find_last_of("/\\") + 1);
+            std::string tilesetPath = folderPath + tileset.source;
+
+            // Ouvrir le fichier TSX
+            std::ifstream tsxFile(tilesetPath);
+            if (!tsxFile.is_open())
+            {
+                std::cerr << "Erreur: Impossible d'ouvrir le fichier de tileset: " << tilesetPath << std::endl;
+                tilesetPos = endPos;
+                continue;
+            }
+
+            std::string tsxContent((std::istreambuf_iterator<char>(tsxFile)), std::istreambuf_iterator<char>());
+
+            // Extraire les propriétés du tileset
+            std::string tileWidthStr = extractAttribute(tsxContent, "tilewidth=\"", "\"");
+            std::string tileHeightStr = extractAttribute(tsxContent, "tileheight=\"", "\"");
+            std::string tileCountStr = extractAttribute(tsxContent, "tilecount=\"", "\"");
+            std::string columnsStr = extractAttribute(tsxContent, "columns=\"", "\"");
+
+            tileset.tileWidth = std::stoi(tileWidthStr);
+            tileset.tileHeight = std::stoi(tileHeightStr);
+            tileset.tileCount = std::stoi(tileCountStr);
+            tileset.columns = std::stoi(columnsStr);
+
+            // Extraire le chemin de l'image
+            std::string imageTag = extractTag(tsxContent, "<image ", ">");
+            std::string imagePath = extractAttribute(imageTag, "source=\"", "\"");
+
+            // Charger l'image du tileset
+            std::string fullImagePath = folderPath + imagePath;
+            if (!tileset.texture.loadFromFile(fullImagePath))
+            {
+                std::cerr << "Erreur: Impossible de charger l'image du tileset: " << fullImagePath << std::endl;
+                createDefaultTileset(tileset);
+            }
+        }
+        else
+        {
+            // Tileset embarqué (non supporté pour l'instant)
+            std::cerr << "Erreur: Tilesets embarqués non supportés pour les fichiers TMX." << std::endl;
+            tilesetPos = endPos;
+            continue;
+        }
+
+        m_tilesets.push_back(tileset);
+        tilesetPos = endPos;
+    }
+
+    // Extraire les couches
+    size_t layerPos = 0;
+    while ((layerPos = content.find("<layer ", layerPos)) != std::string::npos)
+    {
+        size_t endLayerPos = content.find("</layer>", layerPos);
+        if (endLayerPos == std::string::npos)
+            break;
+
+        std::string layerContent = content.substr(layerPos, endLayerPos - layerPos + 8); // +8 pour "</layer>"
+
+        TileLayer layer;
+        layer.name = extractAttribute(layerContent, "name=\"", "\"");
+        std::string widthStr = extractAttribute(layerContent, "width=\"", "\"");
+        std::string heightStr = extractAttribute(layerContent, "height=\"", "\"");
+        layer.width = std::stoi(widthStr);
+        layer.height = std::stoi(heightStr);
+
+        // Vérifier si la couche est visible
+        std::string visibleStr = extractAttribute(layerContent, "visible=\"", "\"");
+        layer.visible = visibleStr.empty() || visibleStr == "1";
+
+        // Extraire les données de la couche
+        std::string dataTag = extractTag(layerContent, "<data ", "</data>");
+        std::string encodingStr = extractAttribute(dataTag, "encoding=\"", "\"");
+
+        if (encodingStr == "csv")
+        {
+            // Extraire les données CSV
+            size_t startData = dataTag.find(">") + 1;
+            std::string csvData = dataTag.substr(startData);
+
+            // Nettoyer les données (enlever les espaces et les retours à la ligne)
+            csvData.erase(std::remove(csvData.begin(), csvData.end(), '\n'), csvData.end());
+            csvData.erase(std::remove(csvData.begin(), csvData.end(), '\r'), csvData.end());
+
+            // Diviser la chaîne en nombres
+            size_t pos = 0;
+            while (pos < csvData.length())
+            {
+                size_t commaPos = csvData.find(",", pos);
+                if (commaPos == std::string::npos)
+                    commaPos = csvData.length();
+
+                std::string numStr = csvData.substr(pos, commaPos - pos);
+                if (!numStr.empty())
+                {
+                    try
+                    {
+                        int tileId = std::stoi(numStr);
+                        layer.data.push_back(tileId);
+                    }
+                    catch (const std::exception &e)
+                    {
+                        std::cerr << "Erreur de conversion: " << e.what() << " pour '" << numStr << "'" << std::endl;
+                    }
+                }
+
+                pos = commaPos + 1;
+            }
+        }
+        else
+        {
+            std::cerr << "Erreur: Format d'encodage non supporté: " << encodingStr << std::endl;
+        }
+
+        m_layers.push_back(layer);
+        layerPos = endLayerPos + 8; // +8 pour "</layer>"
+    }
+}
+
+std::string TiledMap::extractAttribute(const std::string &content, const std::string &attributeStart, const std::string &attributeEnd)
+{
+    size_t startPos = content.find(attributeStart);
+    if (startPos == std::string::npos)
+        return "";
+
+    startPos += attributeStart.length();
+    size_t endPos = content.find(attributeEnd, startPos);
+    if (endPos == std::string::npos)
+        return "";
+
+    return content.substr(startPos, endPos - startPos);
+}
+
+std::string TiledMap::extractTag(const std::string &content, const std::string &tagStart, const std::string &tagEnd)
+{
+    size_t startPos = content.find(tagStart);
+    if (startPos == std::string::npos)
+        return "";
+
+    size_t endPos = content.find(tagEnd, startPos + tagStart.length());
+    if (endPos == std::string::npos)
+        return "";
+
+    return content.substr(startPos, endPos + tagEnd.length() - startPos);
 }
 
 void TiledMap::createDefaultTileset(Tileset &tileset)
@@ -287,18 +489,63 @@ void TiledMap::draw(sf::RenderTarget &target, sf::RenderStates states) const
             continue;
         }
 
-        // Pour chaque tileset
-        for (const auto &tileset : m_tilesets)
+        // Dessiner la couche avec le tileset approprié
+        sf::Vertex vertices[4];
+        for (int y = 0; y < layer.height; ++y)
         {
-            // Préparer les états de rendu avec la texture du tileset
-            states.texture = &tileset.texture;
+            for (int x = 0; x < layer.width; ++x)
+            {
+                // Calculer l'indice de la tuile courante
+                int tileIndex = x + y * layer.width;
 
-            // Calculer les indices de début et de fin pour ce tileset dans cette couche
-            int firstTileIndex = layerIndex * m_width * m_height * 4;
-            int lastTileIndex = (layerIndex + 1) * m_width * m_height * 4;
+                // Récupérer l'indice global de la tuile
+                int gid = layer.data[tileIndex];
 
-            // Dessiner seulement les tuiles de ce tileset
-            target.draw(&m_vertices[firstTileIndex], lastTileIndex - firstTileIndex, sf::Quads, states);
+                // Si l'indice est 0, il n'y a pas de tuile à cet emplacement
+                if (gid == 0)
+                {
+                    continue;
+                }
+
+                // Trouver le tileset correspondant à cet indice
+                Tileset *tileset = getTilesetForGid(gid);
+                if (!tileset)
+                {
+                    continue;
+                }
+
+                // Convertir l'indice global en indice local pour le tileset
+                int localId = gid - tileset->firstgid;
+
+                // Calculer la position de la tuile dans la texture
+                int tu = localId % tileset->columns;
+                int tv = localId / tileset->columns;
+
+                // Définir les positions des sommets (rectangle)
+                vertices[0].position = sf::Vector2f(x * m_tileWidth, y * m_tileHeight);
+                vertices[1].position = sf::Vector2f((x + 1) * m_tileWidth, y * m_tileHeight);
+                vertices[2].position = sf::Vector2f((x + 1) * m_tileWidth, (y + 1) * m_tileHeight);
+                vertices[3].position = sf::Vector2f(x * m_tileWidth, (y + 1) * m_tileHeight);
+
+                // Définir les coordonnées de texture des sommets
+                vertices[0].texCoords = sf::Vector2f(tu * tileset->tileWidth, tv * tileset->tileHeight);
+                vertices[1].texCoords = sf::Vector2f((tu + 1) * tileset->tileWidth, tv * tileset->tileHeight);
+                vertices[2].texCoords = sf::Vector2f((tu + 1) * tileset->tileWidth, (tv + 1) * tileset->tileHeight);
+                vertices[3].texCoords = sf::Vector2f(tu * tileset->tileWidth, (tv + 1) * tileset->tileHeight);
+
+                // Appliquer l'opacité de la couche
+                sf::Color color(255, 255, 255, static_cast<sf::Uint8>(layer.opacity * 255));
+                vertices[0].color = color;
+                vertices[1].color = color;
+                vertices[2].color = color;
+                vertices[3].color = color;
+
+                // Configurer les états avec la texture du tileset
+                states.texture = &tileset->texture;
+
+                // Dessiner le quad
+                target.draw(vertices, 4, sf::Quads, states);
+            }
         }
     }
 }

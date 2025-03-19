@@ -6,15 +6,23 @@
     "activeFile": "",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
     "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
         "001-Grassland01.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "004-Mountain01.tsx": {
+            "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1
         }
     },
+    "last.externalTilesetPath": "C:/Users/randriha/Documents/GitHub/orenji-cpp/assets/maps",
     "last.imagePath": "C:/Users/randriha/Documents/GitHub/orenji-cpp/assets/maps/tilesets",
     "map.lastUsedFormat": "tmx",
     "openFiles": [

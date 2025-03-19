@@ -56,6 +56,10 @@ private:
 
     // Méthodes privées
     void load(const std::string &filePath);
+    void loadJSON(const std::string &filePath);
+    void loadTMX(const std::string &filePath);
+    std::string extractAttribute(const std::string &content, const std::string &attributeStart, const std::string &attributeEnd);
+    std::string extractTag(const std::string &content, const std::string &tagStart, const std::string &tagEnd);
     void createVertices();
     void createDefaultTileset(Tileset &tileset);
     Tileset *getTilesetForGid(int gid);
@@ -66,7 +70,7 @@ private:
 public:
     /**
      * @brief Constructeur
-     * @param filePath Chemin vers le fichier de carte Tiled au format JSON
+     * @param filePath Chemin vers le fichier de carte Tiled au format JSON ou TMX
      */
     TiledMap(const std::string &filePath);
 

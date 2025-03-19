@@ -401,7 +401,7 @@ void TitleScreen::testTiledMap()
     {
         m_window.close();
         // Lancer la scène de carte avec un fichier de test
-        m_game->launchMapScene("assets/maps/test_map.json");
+        m_game->launchMapScene("assets/maps/test.tmx");
     }
     else
     {

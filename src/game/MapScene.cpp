@@ -8,9 +8,12 @@ MapScene::MapScene(std::shared_ptr<Game> game, const std::string &mapFilePath)
     initWindow();
 
     // Charger la carte Tiled
+    std::cout << "Chargement de la carte: " << mapFilePath << std::endl;
     try
     {
         m_map = std::make_unique<TiledMap>(mapFilePath);
+        std::cout << "Carte chargée avec succès: " << m_map->getWidth() << "x" << m_map->getHeight()
+                  << " tuiles de " << m_map->getTileWidth() << "x" << m_map->getTileHeight() << " pixels." << std::endl;
     }
     catch (const std::exception &e)
     {

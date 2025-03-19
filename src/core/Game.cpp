@@ -231,7 +231,9 @@ bool Game::saveGame(const std::string &saveName)
 
 bool Game::hasSaveGame() const
 {
-    return std::filesystem::exists(m_saveFilePath);
+    // Vérifier si le fichier de sauvegarde existe
+    std::ifstream file(m_saveFilePath);
+    return file.good();
 }
 
 void Game::run()
