@@ -1,37 +1,27 @@
 #include <iostream>
 #include <memory>
-#include "game/MainMenu.h"
-#include "game/GameState.h"
-#include "game/TradingSystem.h"
-#include "game/World.h"
-#include "utils/JsonLoader.h"
-#include "utils/GameData.h"
+#include "core/Game.h"
+#include "ui/MainMenu.h"
+#include "data/GameData.h"
 
 int main()
 {
     try
     {
-// Définir l'encodage pour les caractères spéciaux (Windows)
+        // Définir l'encodage pour les caractères spéciaux (Windows)
 #ifdef _WIN32
         system("chcp 65001");
 #endif
 
         std::cout << "Chargement du jeu..." << std::endl;
 
-        // Initialize game data
-        GameData::getInstance().loadAllData();
+        // Créer l'instance du jeu
+        auto game = std::make_shared<Game>();
 
-        // Initialize world
-        World::getInstance().initialize();
+        // Créer le menu principal avec une référence au jeu
+        MainMenu mainMenu(game);
 
-        // Initialize trading system
-        TradingSystem::getInstance().initialize();
-
-        // Initialize game state
-        GameState::getInstance().initialize();
-
-        // Create main menu and run the game
-        MainMenu mainMenu;
+        // Exécuter le menu principal
         mainMenu.run();
 
         std::cout << "Merci d'avoir joué !" << std::endl;

@@ -120,4 +120,115 @@ Ce projet est distribué sous la licence MIT. Voir le fichier `LICENSE` pour plu
 ## Remerciements
 
 - Koei pour la série originale Uncharted Waters qui a inspiré ce projet
-- [nlohmann/json](https://github.com/nlohmann/json) pour la bibliothèque JSON 
+- [nlohmann/json](https://github.com/nlohmann/json) pour la bibliothèque JSON
+
+# Orenji-CPP - Optimisation du projet
+
+## Problèmes identifiés et solutions
+
+Après analyse du code, voici les problèmes d'optimisation identifiés et les solutions proposées:
+
+### 1. Duplication de classes et de fonctionnalités
+
+**Problème**: Il existe plusieurs classes ayant des fonctionnalités similaires dans différents dossiers:
+- `src/utils/GameData.h` vs `src/game/GameData.h`
+- Duplication de logique de chargement de données dans plusieurs classes
+
+**Solution**:
+- Consolidation des classes GameData en une seule implémentation
+- Adoption d'une structure hiérarchique claire pour éviter les redondances
+
+### 2. Gestion des données inefficace
+
+**Problème**:
+- Chargement multiple des mêmes données
+- Utilisation de conteneurs sous-optimaux (vector pour la recherche par ID)
+- Stockage redondant des données JSON
+
+**Solution**:
+- Utiliser des `unordered_map` pour une recherche O(1) par ID
+- Centraliser le chargement des données dans DataManager
+- Implémenter un système de cache efficace pour éviter les recharges inutiles
+
+### 3. Architecture confuse
+
+**Problème**:
+- Séparation peu claire entre les modèles, le gameplay et les utilitaires
+- Trop de singletons interdépendants créant un couplage fort
+
+**Solution**:
+- Revoir l'architecture en adoptant une approche plus modulaire
+- Utiliser l'injection de dépendances plutôt que des singletons partout
+- Séparer clairement la logique métier, l'interface utilisateur et les données
+
+### 4. Structure de fichiers désorganisée
+
+**Problème**:
+- Fichiers avec des responsabilités trop larges
+- Organisation des dossiers peu cohérente
+
+**Solution**:
+- Restructurer les dossiers selon leur responsabilité:
+  - `core/`: Fonctionnalités centrales du jeu
+  - `ui/`: Interface utilisateur
+  - `data/`: Gestion des données
+  - `models/`: Modèles de données
+  - `utils/`: Utilitaires génériques
+
+## Nouvelle structure proposée
+
+```
+src/
+├── core/             # Logique centrale du jeu
+│   ├── Game.h/cpp    # Classe principale du jeu
+│   ├── World.h/cpp   # Gestion du monde de jeu
+│   └── ...
+├── data/             # Gestion des données
+│   ├── DataManager.h/cpp
+│   ├── GameData.h/cpp
+│   └── ...
+├── models/           # Modèles de données
+│   ├── Player.h/cpp
+│   ├── Ship.h/cpp
+│   └── ...
+├── ui/               # Interface utilisateur
+│   ├── MainMenu.h/cpp
+│   ├── ConsoleUI.h/cpp
+│   └── ...
+└── utils/            # Utilitaires génériques
+    ├── JsonLoader.h/cpp
+    ├── FileUtils.h/cpp
+    └── ...
+```
+
+## Plan d'implémentation
+
+1. Consolider les classes dupliquées
+2. Optimiser la gestion des données avec des structures appropriées
+3. Réorganiser les fichiers selon la nouvelle structure
+4. Mettre à jour les dépendances et inclusions
+5. Refactoriser le système de singleton pour réduire le couplage
+6. Ajouter une documentation complète sur l'architecture
+
+## Améliorations de performance
+
+1. Utiliser des références aux données plutôt que des copies
+2. Implémenter un système de cache intelligent
+3. Optimiser les recherches avec des structures de données appropriées
+4. Réduire les allocations mémoire inutiles
+5. Utiliser des algorithmes plus efficaces pour les opérations courantes
+
+## Instructions de construction
+
+Le projet continuera d'utiliser CMake pour la génération des fichiers de construction. Les scripts batch existants seront mis à jour pour refléter la nouvelle structure.
+
+```bash
+# Génération avec CMake
+cmake -B build -S .
+
+# Construction
+cmake --build build
+
+# Exécution
+./build/bin/UnchartedWaters
+``` 

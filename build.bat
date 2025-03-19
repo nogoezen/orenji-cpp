@@ -28,7 +28,9 @@ if not exist "bin" mkdir bin
 if not exist "obj" mkdir obj
 if not exist "obj\utils" mkdir obj\utils
 if not exist "obj\models" mkdir obj\models
-if not exist "obj\game" mkdir obj\game
+if not exist "obj\core" mkdir obj\core
+if not exist "obj\data" mkdir obj\data
+if not exist "obj\ui" mkdir obj\ui
 if not exist "bin\data" mkdir bin\data
 
 :: Compiler les fichiers sources avec des chemins d'inclusion explicites
@@ -64,16 +66,17 @@ g++ -std=c++17 -Wall -Wextra -D__USE_MINGW_ANSI_STDIO=1 -D_GLIBCXX_USE_CXX11_ABI
     -I"%PROJECT_PATH%" -I"%PROJECT_PATH%\include" ^
     src/main.cpp ^
     src/utils/JsonLoader.cpp ^
-    src/utils/GameConfig.cpp ^
-    src/utils/DataSystem.cpp ^
-    src/utils/DataManager.cpp ^
+    src/utils/FileUtils.cpp ^
     src/models/Player.cpp ^
-    src/game/Game.cpp ^
-    src/game/World.cpp ^
-    src/game/LanguageManager.cpp ^
-    src/game/GameData.cpp ^
-    src/game/CharacterEditor.cpp ^
-    src/game/ConsoleUI.cpp ^
+    src/models/Fleet.cpp ^
+    src/models/Ship.cpp ^
+    src/models/TradeGood.cpp ^
+    src/core/Game.cpp ^
+    src/core/World.cpp ^
+    src/core/TradingSystem.cpp ^
+    src/data/GameData.cpp ^
+    src/ui/MainMenu.cpp ^
+    src/ui/ConsoleUI.cpp ^
     -o bin/UnchartedWaters.exe ^
     -lstdc++fs
 

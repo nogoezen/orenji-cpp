@@ -24,28 +24,10 @@ public:
         : m_id(0), m_basePrice(0), m_weight(0), m_demandFactor(1.0f) {}
 
     // Constructeur à partir de JSON
-    TradeGood(const nlohmann::json &goodData)
-    {
-        m_id = goodData["id"];
-        m_name = goodData["name"];
-        m_description = goodData["description"];
-        m_basePrice = goodData["basePrice"];
-        m_weight = goodData["weight"];
-        m_category = goodData["category"];
+    TradeGood(const nlohmann::json &goodData);
 
-        // Nouveaux champs avec valeurs par défaut si non présents
-        m_demandFactor = goodData.value("demandFactor", 1.0f);
-
-        // Charger les regions spéciales
-        m_specialtyRegions.clear();
-        if (goodData.contains("specialtyRegions") && goodData["specialtyRegions"].is_array())
-        {
-            for (const auto &region : goodData["specialtyRegions"])
-            {
-                m_specialtyRegions.push_back(region);
-            }
-        }
-    }
+    // Conversion vers JSON
+    nlohmann::json toJson() const;
 
     // Getters
     int getId() const { return m_id; }

@@ -16,15 +16,27 @@ endif()
 # Fichiers sources
 set(SOURCES
     src/main.cpp
-    src/utils/JsonLoader.cpp
-    src/utils/GameConfig.cpp
-    src/utils/DataSystem.cpp
-    src/utils/DataManager.cpp
+    
+    # Core
+    src/core/Game.cpp
+    src/core/World.cpp
+    src/core/TradingSystem.cpp
+    
+    # Data
+    src/data/GameData.cpp
+    
+    # Models
     src/models/Player.cpp
-    src/game/World.cpp
-    src/game/LanguageManager.cpp
-    src/game/GameData.cpp
-    src/game/Game.cpp
+    src/models/Fleet.cpp
+    src/models/Ship.cpp
+    
+    # UI
+    src/ui/MainMenu.cpp
+    src/ui/ConsoleUI.cpp
+    
+    # Utils
+    src/utils/JsonLoader.cpp
+    src/utils/FileUtils.cpp
 )
 
 # Créer l'exécutable

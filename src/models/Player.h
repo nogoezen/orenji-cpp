@@ -5,6 +5,7 @@
 #include <map>
 #include <memory>
 #include <algorithm> // Pour std::min, std::max, std::clamp
+#include <nlohmann/json.hpp>
 #include "Ship.h"
 #include "Fleet.h"
 #include "TradeGood.h"
@@ -23,22 +24,52 @@ enum class PlayerMode
     SEA   // Mode maritime (utilise Fleet/Ship)
 };
 
+/**
+ * Structure représentant un élément dans l'inventaire du joueur
+ */
+struct CargoItem
+{
+    int id;
+    std::string name;
+    int quantity;
+    int unitWeight;
+
+    CargoItem(int _id, const std::string &_name, int _quantity, int _unitWeight)
+        : id(_id), name(_name), quantity(_quantity), unitWeight(_unitWeight) {}
+};
+
+/**
+ * @brief Classe représentant le joueur
+ *
+ * Cette classe gère les données et les actions du joueur, comme l'inventaire,
+ * l'équipement, les statistiques, etc.
+ */
 class Player
 {
 private:
+    // Données de base
     std::string m_name;
     int m_gold;
     int m_level;
     int m_experience;
 
-    // Flotte du joueur (remplace le navire unique)
-    std::shared_ptr<Fleet> m_fleet;
+    // Inventaire
+    std::map<int, CargoItem> m_cargo;
+    std::map<int, int> m_inventory;
+    int m_cargoCapacity;
+    int m_currentCargoWeight;
 
-    // Personnage du joueur
+    // Flotte
+    std::vector<int> m_ships;
+
+    // Équipage
+    std::vector<int> m_crew;
+
+    // Personnage (attributs RPG)
     std::shared_ptr<Character> m_character;
 
-    // Inventaire du joueur (ID de l'article, quantité)
-    std::map<int, int> m_inventory;
+    // Flotte du joueur (remplace le navire unique)
+    std::shared_ptr<Fleet> m_fleet;
 
     // Position du joueur (x, y)
     int m_posX;
@@ -50,40 +81,22 @@ private:
     // Système de réputation envers les nations
     std::map<std::string, int> m_reputation;
 
-    // Added cargo management for trade goods
-    struct CargoItem
-    {
-        int goodId;
-        std::string name;
-        int quantity;
-        int unitWeight;
-    };
-    std::vector<CargoItem> m_cargo;
-
 public:
-    // Constructeur
+    /**
+     * Constructeur avec données de base
+     */
     Player(const std::string &name, int gold = 1000, int level = 1, int experience = 0)
-        : m_name(name),
-          m_gold(gold),
-          m_level(level),
-          m_experience(experience),
-          m_fleet(std::make_shared<Fleet>(name + "'s Fleet")),
-          m_character(nullptr),
-          m_posX(0),
-          m_posY(0),
-          m_currentMode(PlayerMode::LAND) {}
+        : m_name(name), m_gold(gold), m_level(level), m_experience(experience),
+          m_cargoCapacity(100), m_currentCargoWeight(0), m_fleet(std::make_shared<Fleet>(name + "'s Fleet")),
+          m_posX(0), m_posY(0), m_currentMode(PlayerMode::LAND) {}
 
-    // Constructeur avec personnage
+    /**
+     * Constructeur avec personnage
+     */
     Player(const std::string &name, std::shared_ptr<Character> character, int gold = 1000)
-        : m_name(name),
-          m_gold(gold),
-          m_level(character ? character->getLevel() : 1),
-          m_experience(0),
-          m_fleet(std::make_shared<Fleet>(name + "'s Fleet")),
-          m_character(character),
-          m_posX(0),
-          m_posY(0),
-          m_currentMode(PlayerMode::LAND)
+        : m_name(name), m_gold(gold), m_level(1), m_experience(0),
+          m_cargoCapacity(100), m_currentCargoWeight(0), m_fleet(std::make_shared<Fleet>(name + "'s Fleet")),
+          m_character(character), m_posX(0), m_posY(0), m_currentMode(PlayerMode::LAND)
     {
         // Récupérer les réputations du personnage
         if (character)
@@ -96,14 +109,86 @@ public:
         }
     }
 
-    // Getters
+    /**
+     * Constructeur par défaut
+     */
+    Player() : m_name("Joueur"), m_gold(1000), m_level(1), m_experience(0),
+               m_cargoCapacity(100), m_currentCargoWeight(0), m_fleet(std::make_shared<Fleet>("Joueur's Fleet")),
+               m_posX(0), m_posY(0), m_currentMode(PlayerMode::LAND) {}
+
+    /**
+     * Constructeur à partir de données JSON
+     */
+    Player(const nlohmann::json &data);
+
+    /**
+     * Convertit le joueur en JSON pour la sauvegarde
+     */
+    nlohmann::json toJson() const;
+
+    // Accesseurs
     const std::string &getName() const { return m_name; }
+    void setName(const std::string &name) { m_name = name; }
+
     int getGold() const { return m_gold; }
+    void setGold(int gold) { m_gold = gold; }
+
+    void addGold(int amount) { m_gold += amount; }
+    void removeGold(int amount) { m_gold = std::max(0, m_gold - amount); }
+
     int getLevel() const { return m_level; }
+    void setLevel(int level) { m_level = level; }
+
     int getExperience() const { return m_experience; }
+    void addExperience(int experience);
+
+    // Gestion de l'inventaire
+    const std::map<int, CargoItem> &getCargo() const { return m_cargo; }
+    int getCargoCapacity() const { return m_cargoCapacity; }
+    int getCurrentCargoWeight() const { return m_currentCargoWeight; }
+
+    /**
+     * Vérifie si le joueur peut ajouter une quantité de marchandise à son inventaire
+     * @param goodId ID de la marchandise
+     * @param quantity Quantité à ajouter
+     * @return true si le joueur a assez de place
+     */
+    bool canAddCargo(int goodId, int quantity) const;
+
+    /**
+     * Ajoute une marchandise à l'inventaire
+     * @param goodId ID de la marchandise
+     * @param name Nom de la marchandise
+     * @param quantity Quantité à ajouter
+     * @param unitWeight Poids unitaire
+     * @return true si l'ajout a réussi
+     */
+    bool addCargo(int goodId, const std::string &name, int quantity, int unitWeight);
+
+    /**
+     * Version simplifiée pour l'ajout de marchandise depuis TradingSystem
+     */
+    bool addCargo(int goodId, int quantity);
+
+    /**
+     * Vérifie si le joueur possède une quantité de marchandise
+     * @param goodId ID de la marchandise
+     * @param quantity Quantité à vérifier
+     * @return true si le joueur possède au moins cette quantité
+     */
+    bool hasCargo(int goodId, int quantity) const;
+
+    /**
+     * Retire une quantité de marchandise de l'inventaire
+     * @param goodId ID de la marchandise
+     * @param quantity Quantité à retirer
+     * @return true si le retrait a réussi
+     */
+    bool removeCargo(int goodId, int quantity);
+
+    // Getters
     const std::shared_ptr<Fleet> &getFleet() const { return m_fleet; }
     std::shared_ptr<Ship> getFlagship() const { return m_fleet ? m_fleet->getFlagship() : nullptr; }
-    const std::map<int, int> &getInventory() const { return m_inventory; }
     int getPosX() const { return m_posX; }
     int getPosY() const { return m_posY; }
     PlayerMode getCurrentMode() const { return m_currentMode; }
@@ -113,10 +198,6 @@ public:
     const std::shared_ptr<Character> &getCharacter() const { return m_character; }
 
     // Setters et méthodes d'action
-    void setName(const std::string &name) { m_name = name; }
-    void addGold(int amount) { m_gold += amount; }
-    void removeGold(int amount) { m_gold = std::max(0, m_gold - amount); }
-    void addExperience(int amount);
     void setPosition(int x, int y)
     {
         m_posX = x;
@@ -264,18 +345,6 @@ public:
         return (it != m_reputation.end()) ? it->second : 0;
     }
 
-    // Méthodes d'inventaire
-    void addToInventory(int itemId, int quantity = 1);
-    void removeFromInventory(int itemId, int quantity = 1);
-    int getItemQuantity(int itemId) const;
-
-    // Méthodes de cargaison (maintenant déléguées à la flotte)
-    bool addToCargo(int goodId, const std::string &name, int quantity = 1, int unitWeight = 1);
-    bool removeFromCargo(int goodId, int quantity = 1);
-    int getTotalCargoCapacity() const { return m_fleet ? m_fleet->getTotalCargo() : 0; }
-    int getUsedCargo() const { return m_fleet ? m_fleet->getUsedCargo() : 0; }
-    int getRemainingCargoCapacity() const { return m_fleet ? m_fleet->getRemainingCargo() : 0; }
-
     // Méthodes pour obtenir les attributs selon le mode actuel
     std::string getCurrentEntityName() const
     {
@@ -326,13 +395,17 @@ public:
         return 0;
     }
 
-    // Cargo management methods
-    bool addCargo(int goodId, const std::string &name, int quantity, int unitWeight);
-    bool removeCargo(int goodId, int quantity);
-    int getCargoQuantity(int goodId) const;
-    const std::vector<CargoItem> &getCargo() const { return m_cargo; }
-    int getTotalCargoWeight() const;
+    // Méthodes de cargaison (maintenant déléguées à la flotte)
+    int getTotalCargoCapacity() const { return m_fleet ? m_fleet->getTotalCargo() : 0; }
+    int getUsedCargo() const { return m_fleet ? m_fleet->getUsedCargo() : 0; }
+    int getRemainingCargoCapacity() const { return m_fleet ? m_fleet->getRemainingCargo() : 0; }
 
-    // Check if player has enough of a specific cargo
-    bool hasCargo(int goodId, int quantity) const;
+    // Déclarations des méthodes manquantes
+    void addToInventory(int itemId, int quantity);
+    void removeFromInventory(int itemId, int quantity);
+    int getItemQuantity(int itemId) const;
+    bool addToCargo(int goodId, const std::string &name, int quantity, int unitWeight);
+    bool removeFromCargo(int goodId, int quantity);
+    int getCargoQuantity(int goodId) const;
+    int getTotalCargoWeight() const;
 };

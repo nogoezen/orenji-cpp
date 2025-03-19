@@ -107,7 +107,7 @@ int Fleet::getTotalCrew() const
     int totalCrew = 0;
     for (const auto &ship : m_ships)
     {
-        totalCrew += ship->getRequiredCrew();
+        totalCrew += ship->getCrewCapacity();
     }
     return totalCrew;
 }
