@@ -58,11 +58,13 @@ private:
     void load(const std::string &filePath);
     void loadJSON(const std::string &filePath);
     void loadTMX(const std::string &filePath);
+    void extractLayers(const std::string &content);
+    void extractGroups(const std::string &content);
     std::string extractAttribute(const std::string &content, const std::string &attributeStart, const std::string &attributeEnd);
     std::string extractTag(const std::string &content, const std::string &tagStart, const std::string &tagEnd);
     void createVertices();
     void createDefaultTileset(Tileset &tileset);
-    Tileset *getTilesetForGid(int gid);
+    Tileset *getTilesetForGid(int gid) const;
 
     // Surcharge de la fonction de dessin (héritée de sf::Drawable)
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

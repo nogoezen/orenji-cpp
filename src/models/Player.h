@@ -38,6 +38,43 @@ struct CargoItem
         : id(_id), name(_name), quantity(_quantity), unitWeight(_unitWeight) {}
 };
 
+// Déclaration anticipée
+class TradingSystem;
+class TradeRoute;
+
+/**
+ * Structure pour les compétences commerciales
+ */
+struct TradeSkills
+{
+    int negotiation = 0; // Améliore les prix (±5% par niveau)
+    int logistics = 0;   // Augmente la capacité (±10% par niveau)
+    int smuggling = 0;   // Chance d'accéder aux marchés noirs
+    int influence = 0;   // Débloque des opportunités spéciales
+
+    nlohmann::json toJson() const
+    {
+        nlohmann::json j;
+        j["negotiation"] = negotiation;
+        j["logistics"] = logistics;
+        j["smuggling"] = smuggling;
+        j["influence"] = influence;
+        return j;
+    }
+
+    void fromJson(const nlohmann::json &j)
+    {
+        if (j.contains("negotiation"))
+            negotiation = j["negotiation"];
+        if (j.contains("logistics"))
+            logistics = j["logistics"];
+        if (j.contains("smuggling"))
+            smuggling = j["smuggling"];
+        if (j.contains("influence"))
+            influence = j["influence"];
+    }
+};
+
 /**
  * @brief Classe représentant le joueur
  *
@@ -48,8 +85,10 @@ class Player
 {
 private:
     // Données de base
+    int m_id;
     std::string m_name;
     int m_gold;
+    int m_debt;
     int m_level;
     int m_experience;
 
@@ -81,12 +120,22 @@ private:
     // Système de réputation envers les nations
     std::map<std::string, int> m_reputation;
 
+    // Compétences commerciales
+    TradeSkills m_tradeSkills;
+
+    // Réputation par ville/royaume
+    std::unordered_map<int, float> m_cityReputations;
+    std::unordered_map<std::string, float> m_kingdomReputations;
+
+    // Routes commerciales
+    std::vector<TradeRoute> m_tradeRoutes;
+
 public:
     /**
      * Constructeur par défaut
      */
     Player()
-        : m_name(""), m_gold(1000), m_level(1), m_experience(0),
+        : m_id(0), m_name(""), m_gold(1000), m_debt(0), m_level(1), m_experience(0),
           m_cargoCapacity(100), m_currentCargoWeight(0),
           m_fleet(std::make_shared<Fleet>("Fleet")),
           m_posX(0), m_posY(0), m_currentMode(PlayerMode::LAND) {}
@@ -95,7 +144,7 @@ public:
      * Constructeur avec données de base
      */
     Player(const std::string &name, int gold = 1000, int level = 1, int experience = 0)
-        : m_name(name), m_gold(gold), m_level(level), m_experience(experience),
+        : m_id(0), m_name(name), m_gold(gold), m_debt(0), m_level(level), m_experience(experience),
           m_cargoCapacity(100), m_currentCargoWeight(0), m_fleet(std::make_shared<Fleet>(name + "'s Fleet")),
           m_posX(0), m_posY(0), m_currentMode(PlayerMode::LAND) {}
 
@@ -103,7 +152,7 @@ public:
      * Constructeur avec personnage
      */
     Player(const std::string &name, std::shared_ptr<Character> character, int gold = 1000)
-        : m_name(name), m_gold(gold), m_level(1), m_experience(0),
+        : m_id(0), m_name(name), m_gold(gold), m_debt(0), m_level(1), m_experience(0),
           m_cargoCapacity(100), m_currentCargoWeight(0), m_fleet(std::make_shared<Fleet>(name + "'s Fleet")),
           m_character(character), m_posX(0), m_posY(0), m_currentMode(PlayerMode::LAND)
     {
@@ -125,20 +174,12 @@ public:
     nlohmann::json toJson() const;
 
     // Accesseurs
+    int getId() const { return m_id; }
     const std::string &getName() const { return m_name; }
-    void setName(const std::string &name) { m_name = name; }
-
     int getGold() const { return m_gold; }
-    void setGold(int gold) { m_gold = gold; }
-
-    void addGold(int amount) { m_gold += amount; }
-    void removeGold(int amount) { m_gold = std::max(0, m_gold - amount); }
-
+    int getDebt() const { return m_debt; }
     int getLevel() const { return m_level; }
-    void setLevel(int level) { m_level = level; }
-
     int getExperience() const { return m_experience; }
-    void addExperience(int experience);
 
     // Gestion de l'inventaire
     const std::map<int, CargoItem> &getCargo() const { return m_cargo; }
@@ -406,4 +447,39 @@ public:
     bool removeFromCargo(int goodId, int quantity);
     int getCargoQuantity(int goodId) const;
     int getTotalCargoWeight() const;
+
+    // Getters pour les compétences commerciales
+    const TradeSkills &getTradeSkills() const { return m_tradeSkills; }
+    float getCityReputation(int cityId) const;
+    float getKingdomReputation(const std::string &kingdom) const;
+    const std::vector<TradeRoute> &getTradeRoutes() const { return m_tradeRoutes; }
+
+    // Setters pour les compétences commerciales
+    void improveTradeSkill(const std::string &skillName, int amount);
+    void setCityReputation(int cityId, float reputation);
+    void setKingdomReputation(const std::string &kingdom, float reputation);
+
+    // Setters
+    void setName(const std::string &name) { m_name = name; }
+    void setGold(int gold) { m_gold = gold; }
+    void addGold(int amount) { m_gold += amount; }
+    bool removeGold(int amount)
+    {
+        m_gold = std::max(0, m_gold - amount);
+        return m_gold > 0;
+    }
+    void setLevel(int level) { m_level = level; }
+    void addExperience(int experience) { m_experience += experience; }
+    void addDebt(int amount) { m_debt += amount; }
+    bool payDebt(int amount)
+    {
+        m_gold = std::max(0, m_gold - amount);
+        return m_gold > 0;
+    }
+
+    // Méthodes pour les routes commerciales
+    int addTradeRoute(const TradeRoute &route);
+    bool removeTradeRoute(size_t index);
+    void updateCityReputation(int cityId, float amount);
+    void updateKingdomReputation(const std::string &kingdom, float amount);
 };

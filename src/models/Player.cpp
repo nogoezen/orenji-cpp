@@ -69,26 +69,58 @@ Player::Player(const nlohmann::json &data)
     // Initialiser la flotte
     m_fleet = std::make_shared<Fleet>(m_name + "'s Fleet");
 
-    // Les autres données comme les navires et l'équipage seraient chargées ici
+    // Charger les compétences commerciales
+    if (data.contains("tradeSkills") && data["tradeSkills"].is_object())
+    {
+        m_tradeSkills.fromJson(data["tradeSkills"]);
+    }
+
+    // Charger les réputations des villes
+    if (data.contains("cityReputations") && data["cityReputations"].is_object())
+    {
+        for (auto it = data["cityReputations"].begin(); it != data["cityReputations"].end(); ++it)
+        {
+            int cityId = std::stoi(it.key());
+            m_cityReputations[cityId] = it.value().get<float>();
+        }
+    }
+
+    // Charger les réputations des royaumes
+    if (data.contains("kingdomReputations") && data["kingdomReputations"].is_object())
+    {
+        for (auto it = data["kingdomReputations"].begin(); it != data["kingdomReputations"].end(); ++it)
+        {
+            m_kingdomReputations[it.key()] = it.value().get<float>();
+        }
+    }
+
+    // Charger les routes commerciales
+    if (data.contains("tradeRoutes") && data["tradeRoutes"].is_array())
+    {
+        for (const auto &routeData : data["tradeRoutes"])
+        {
+            m_tradeRoutes.push_back(TradeRoute::fromJson(routeData));
+        }
+    }
 }
 
 // Conversion vers JSON
 nlohmann::json Player::toJson() const
 {
-    nlohmann::json data;
+    nlohmann::json j;
 
     // Données de base
-    data["name"] = m_name;
-    data["gold"] = m_gold;
-    data["level"] = m_level;
-    data["experience"] = m_experience;
+    j["name"] = m_name;
+    j["gold"] = m_gold;
+    j["level"] = m_level;
+    j["experience"] = m_experience;
 
     // Position
-    data["posX"] = m_posX;
-    data["posY"] = m_posY;
+    j["posX"] = m_posX;
+    j["posY"] = m_posY;
 
     // Mode
-    data["mode"] = static_cast<int>(m_currentMode);
+    j["mode"] = static_cast<int>(m_currentMode);
 
     // Inventaire
     nlohmann::json cargo = nlohmann::json::array();
@@ -101,11 +133,36 @@ nlohmann::json Player::toJson() const
         cargoItem["unitWeight"] = item.unitWeight;
         cargo.push_back(cargoItem);
     }
-    data["cargo"] = cargo;
+    j["cargo"] = cargo;
 
-    // Les autres données seraient ajoutées ici
+    // Sauvegarder les compétences commerciales
+    j["tradeSkills"] = m_tradeSkills.toJson();
 
-    return data;
+    // Sauvegarder les réputations des villes
+    nlohmann::json cityReps;
+    for (const auto &[cityId, reputation] : m_cityReputations)
+    {
+        cityReps[std::to_string(cityId)] = reputation;
+    }
+    j["cityReputations"] = cityReps;
+
+    // Sauvegarder les réputations des royaumes
+    nlohmann::json kingdomReps;
+    for (const auto &[kingdom, reputation] : m_kingdomReputations)
+    {
+        kingdomReps[kingdom] = reputation;
+    }
+    j["kingdomReputations"] = kingdomReps;
+
+    // Sauvegarder les routes commerciales
+    nlohmann::json routes = nlohmann::json::array();
+    for (const auto &route : m_tradeRoutes)
+    {
+        routes.push_back(route.toJson());
+    }
+    j["tradeRoutes"] = routes;
+
+    return j;
 }
 
 void Player::addExperience(int experience)
@@ -350,4 +407,93 @@ int Player::getTotalCargoWeight() const
         totalWeight += item.unitWeight * item.quantity;
     }
     return totalWeight;
+}
+
+float Player::getCityReputation(int cityId) const
+{
+    auto it = m_cityReputations.find(cityId);
+    return (it != m_cityReputations.end()) ? it->second : 0.0f;
+}
+
+float Player::getKingdomReputation(const std::string &kingdom) const
+{
+    auto it = m_kingdomReputations.find(kingdom);
+    return (it != m_kingdomReputations.end()) ? it->second : 0.0f;
+}
+
+void Player::improveTradeSkill(const std::string &skillName, int amount)
+{
+    if (skillName == "negotiation")
+    {
+        m_tradeSkills.negotiation += amount;
+        m_tradeSkills.negotiation = std::min(10, m_tradeSkills.negotiation); // Maximum de 10
+    }
+    else if (skillName == "logistics")
+    {
+        m_tradeSkills.logistics += amount;
+        m_tradeSkills.logistics = std::min(10, m_tradeSkills.logistics);
+    }
+    else if (skillName == "smuggling")
+    {
+        m_tradeSkills.smuggling += amount;
+        m_tradeSkills.smuggling = std::min(10, m_tradeSkills.smuggling);
+    }
+    else if (skillName == "influence")
+    {
+        m_tradeSkills.influence += amount;
+        m_tradeSkills.influence = std::min(10, m_tradeSkills.influence);
+    }
+}
+
+void Player::setCityReputation(int cityId, float reputation)
+{
+    m_cityReputations[cityId] = std::clamp(reputation, -100.0f, 100.0f);
+}
+
+void Player::setKingdomReputation(const std::string &kingdom, float reputation)
+{
+    m_kingdomReputations[kingdom] = std::clamp(reputation, -100.0f, 100.0f);
+}
+
+void Player::updateCityReputation(int cityId, float amount)
+{
+    auto it = m_cityReputations.find(cityId);
+    if (it != m_cityReputations.end())
+    {
+        it->second = std::clamp(it->second + amount, -100.0f, 100.0f);
+    }
+    else
+    {
+        m_cityReputations[cityId] = std::clamp(amount, -100.0f, 100.0f);
+    }
+}
+
+void Player::updateKingdomReputation(const std::string &kingdom, float amount)
+{
+    auto it = m_kingdomReputations.find(kingdom);
+    if (it != m_kingdomReputations.end())
+    {
+        it->second = std::clamp(it->second + amount, -100.0f, 100.0f);
+    }
+    else
+    {
+        m_kingdomReputations[kingdom] = std::clamp(amount, -100.0f, 100.0f);
+    }
+}
+
+int Player::addTradeRoute(const TradeRoute &route)
+{
+    m_tradeRoutes.push_back(route);
+    return m_tradeRoutes.size() - 1; // Retourne l'index de la nouvelle route
+}
+
+bool Player::removeTradeRoute(size_t index)
+{
+    if (index >= m_tradeRoutes.size())
+    {
+        return false;
+    }
+
+    m_tradeRoutes.erase(m_tradeRoutes.begin() + index);
+    return true;
 }
