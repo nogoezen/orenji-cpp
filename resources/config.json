@@ -1,0 +1,26 @@
+{
+    "gameTitle": "Uncharted Waters - Clone",
+    "gameVersion": "0.1.0",
+    "startingLocationId": 1,
+    "startingGold": 1000,
+    "dayLength": 1,
+    "playerSettings": {
+        "startingLevel": 1,
+        "maxFleetSize": 5,
+        "maxInventorySlots": 20,
+        "maxCargoPerShip": 100,
+        "experienceNeededPerLevel": 1000
+    },
+    "economySettings": {
+        "priceFluctuationRate": 0.15,
+        "demandInfluence": 0.25,
+        "marketUpdateFrequency": 3,
+        "maxReputationBonus": 0.25
+    },
+    "travelSettings": {
+        "baseMovementSpeed": 5,
+        "dayTravelDistance": 100,
+        "portStayMinimumDays": 1,
+        "weatherInfluence": 0.2
+    }
+}

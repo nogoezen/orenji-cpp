@@ -1,148 +1,100 @@
-#include "GameState.h"
-#include "../components/PlayerComponent.h"
-#include <SFML/Window/Event.hpp>
-#include <SFML/Window/Keyboard.hpp>
+#include "../../include/States/GameState.hpp"
+#include "../../include/Core/SystemManager.hpp"
+#include "../../include/Core/EntityManager.hpp"
+#include "../../include/Core/RenderSystem.hpp"
+#include "../../include/Game.hpp"
+#include "../../include/Utilities/InputHandler.hpp"
 #include <iostream>
 
-// Variable globale pour la fenêtre
-extern sf::RenderWindow *g_window;
-
-GameState::GameState()
-    : State("Game")
+namespace Orenji
 {
-    m_font = std::make_shared<sf::Font>();
-    if (!m_font->loadFromFile("assets/fonts/VeniceClassic.ttf"))
+
+    GameState::GameState() : m_isPaused(false)
     {
-        std::cerr << "Failed to load font" << std::endl;
+        // Constructor
     }
 
-    m_statusText = std::make_shared<sf::Text>();
-    m_statusText->setFont(*m_font);
-    m_statusText->setCharacterSize(20);
-    m_statusText->setFillColor(sf::Color::White);
-    m_statusText->setPosition(10.0f, 10.0f);
-}
-
-void GameState::enter()
-{
-    setActive(true);
-    initializeSystems();
-    std::cout << "Game State Entered" << std::endl;
-}
-
-void GameState::exit()
-{
-    setActive(false);
-    getEntityManager().destroyAllEntities();
-    std::cout << "Game State Exited" << std::endl;
-}
-
-void GameState::pause()
-{
-    State::pause();
-    std::cout << "Game State Paused" << std::endl;
-}
-
-void GameState::resume()
-{
-    State::resume();
-    std::cout << "Game State Resumed" << std::endl;
-}
-
-void GameState::handleInput()
-{
-    sf::Event event;
-    while (g_window->pollEvent(event))
+    GameState::~GameState()
     {
-        if (event.type == sf::Event::Closed)
+        // Destructor
+    }
+
+    bool GameState::initialize()
+    {
+        // Create the entity manager
+        m_entityManager = std::make_shared<EntityManager>();
+
+        // Get the system manager and initialize it
+        auto &systemManager = SystemManager::getInstance();
+        systemManager.setEntityManager(m_entityManager);
+
+        // Register core systems
+        m_renderSystem = systemManager.registerSystem<RenderSystem>();
+
+        // Initialize all systems
+        systemManager.initialize();
+
+        std::cout << "GameState initialized successfully" << std::endl;
+        return true;
+    }
+
+    bool GameState::handleInput()
+    {
+        auto &input = InputHandler::getInstance();
+
+        // Example of checking for key presses
+        if (input.isKeyPressed(sf::Keyboard::Escape))
         {
-            g_window->close();
+            m_isPaused = !m_isPaused;
         }
-        else if (event.type == sf::Event::KeyPressed)
+
+        // Example of checking for mouse clicks
+        if (input.isMouseButtonPressed(sf::Mouse::Left))
         {
-            if (event.key.code == sf::Keyboard::Escape)
-            {
-                // Retourner au menu principal
-                if (m_manager)
-                {
-                    m_manager->pushState("MainMenu");
-                }
-            }
+            // Handle mouse click
+            sf::Vector2i mousePos = input.getMousePosition();
+            std::cout << "Mouse clicked at: " << mousePos.x << ", " << mousePos.y << std::endl;
         }
+
+        return true;
     }
 
-    handleGameInput();
-}
-
-void GameState::update(float deltaTime)
-{
-    if (!isActive())
-        return;
-
-    // Mise à jour des entités
-    getEntityManager().update(deltaTime);
-
-    // Mise à jour des systèmes
-    if (m_world)
-        m_world->update(deltaTime);
-    if (m_tradingSystem)
-        m_tradingSystem->update(deltaTime);
-
-    // Mise à jour de l'interface
-    updateStatusText();
-}
-
-void GameState::render()
-{
-    if (!isActive())
-        return;
-
-    // Rendu des entités
-    getEntityManager().render();
-
-    // Rendu de l'interface
-    if (m_statusText)
+    bool GameState::update(float deltaTime)
     {
-        g_window->draw(*m_statusText);
+        if (m_isPaused)
+        {
+            return true;
+        }
+
+        // Update all systems
+        SystemManager::getInstance().update(deltaTime);
+
+        return true;
     }
-}
 
-void GameState::initializeSystems()
-{
-    // Initialisation du joueur
-    m_player = std::make_shared<Player>();
-
-    // Initialisation du monde
-    m_world = std::make_shared<World>();
-    if (!m_world->initialize())
+    bool GameState::render()
     {
-        std::cerr << "Failed to initialize world" << std::endl;
-        return;
+        auto &window = Game::getInstance().getWindow();
+
+        // Use the render system to draw all entities
+        if (m_renderSystem)
+        {
+            m_renderSystem->render(window);
+        }
+
+        return true;
     }
 
-    // Initialisation du système de commerce
-    m_tradingSystem = std::make_shared<TradingSystem>();
-    m_tradingSystem->initialize();
+    bool GameState::onEnter()
+    {
+        std::cout << "Entering GameState" << std::endl;
+        return initialize();
+    }
 
-    // Création de l'entité joueur avec ses composants
-    auto playerEntity = getEntityManager().createEntity("Player");
-    auto playerComponent = playerEntity->addComponent<PlayerComponent>(m_player);
-}
+    bool GameState::onExit()
+    {
+        std::cout << "Exiting GameState" << std::endl;
+        return true;
+    }
 
-void GameState::updateStatusText()
-{
-    if (!m_player)
-        return;
-
-    std::string status = "Position: " + m_player->getCurrentPosition().toString() + "\n";
-    status += "Or: " + std::to_string(m_player->getGold()) + "\n";
-    status += "Dette: " + std::to_string(m_player->getDebt());
-
-    m_statusText->setString(status);
-}
-
-void GameState::handleGameInput()
-{
-    // La gestion des entrées de jeu est maintenant gérée par le PlayerComponent
-    // Cette méthode peut être utilisée pour d'autres entrées globales si nécessaire
-}
+} // namespace Orenji

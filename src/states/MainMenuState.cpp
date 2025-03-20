@@ -1,204 +1,126 @@
-#include "MainMenuState.h"
-#include "../components/TransformComponent.h"
-#include "../components/SpriteComponent.h"
-#include <SFML/Window/Event.hpp>
-#include <SFML/Window/Keyboard.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
+#include "../../include/States/MainMenuState.hpp"
+#include "../../include/States/GameState.hpp"
 #include <iostream>
 
-// Variable globale pour la fenêtre
-extern sf::RenderWindow *g_window;
-
-MainMenuState::MainMenuState()
-    : State("MainMenu"), m_selectedItem(0), m_hasSaveGame(false)
+namespace Orenji
 {
-    initializeGraphics();
-    loadSaveGameStatus();
-}
 
-void MainMenuState::enter()
-{
-    setActive(true);
-    std::cout << "Main Menu State Entered" << std::endl;
-}
-
-void MainMenuState::exit()
-{
-    setActive(false);
-    std::cout << "Main Menu State Exited" << std::endl;
-}
-
-void MainMenuState::pause()
-{
-    State::pause();
-    std::cout << "Main Menu State Paused" << std::endl;
-}
-
-void MainMenuState::resume()
-{
-    State::resume();
-    std::cout << "Main Menu State Resumed" << std::endl;
-}
-
-void MainMenuState::handleInput()
-{
-    sf::Event event;
-    while (g_window->pollEvent(event))
+    MainMenuState::MainMenuState() : m_selectedOption(0)
     {
-        if (event.type == sf::Event::Closed)
+    }
+
+    MainMenuState::~MainMenuState()
+    {
+    }
+
+    void MainMenuState::onEnter()
+    {
+        // Load resources
+        if (!m_font.loadFromFile("resources/fonts/UbuntuMono-Regular.ttf"))
         {
-            g_window->close();
+            std::cerr << "Error: Unable to load font" << std::endl;
+            return;
         }
-        else if (event.type == sf::Event::KeyPressed)
+
+        // Set up title text
+        m_titleText.setFont(m_font);
+        m_titleText.setString("Orenji - Uncharted Waters");
+        m_titleText.setCharacterSize(48);
+        m_titleText.setFillColor(sf::Color::White);
+        m_titleText.setStyle(sf::Text::Bold);
+        m_titleText.setPosition(400, 100);
+        m_titleText.setOrigin(m_titleText.getLocalBounds().width / 2,
+                              m_titleText.getLocalBounds().height / 2);
+
+        // Set up menu options
+        m_startGameText.setFont(m_font);
+        m_startGameText.setString("Start Game");
+        m_startGameText.setCharacterSize(32);
+        m_startGameText.setPosition(400, 300);
+        m_startGameText.setOrigin(m_startGameText.getLocalBounds().width / 2,
+                                  m_startGameText.getLocalBounds().height / 2);
+
+        m_exitText.setFont(m_font);
+        m_exitText.setString("Exit");
+        m_exitText.setCharacterSize(32);
+        m_exitText.setPosition(400, 350);
+        m_exitText.setOrigin(m_exitText.getLocalBounds().width / 2,
+                             m_exitText.getLocalBounds().height / 2);
+
+        updateMenuDisplay();
+    }
+
+    void MainMenuState::onExit()
+    {
+        // Clean up resources if needed
+    }
+
+    void MainMenuState::update(float deltaTime)
+    {
+        // Nothing to do here for a simple menu
+    }
+
+    void MainMenuState::render()
+    {
+        // Note: We expect the Game class to handle window clearing
+        // and display, so we just draw the menu elements
+        sf::RenderWindow *window = nullptr; // TODO: Get window from game singleton
+
+        if (window)
         {
-            switch (event.key.code)
+            window->draw(m_titleText);
+            window->draw(m_startGameText);
+            window->draw(m_exitText);
+        }
+    }
+
+    void MainMenuState::handleInput()
+    {
+        // Handle key presses for menu navigation
+        // Check for key presses, move selection up or down
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        {
+            m_selectedOption = (m_selectedOption + 1) % 2;
+            updateMenuDisplay();
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        {
+            m_selectedOption = (m_selectedOption + 1) % 2;
+            updateMenuDisplay();
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+        {
+            if (m_selectedOption == 0)
             {
-            case sf::Keyboard::Up:
-                if (m_selectedItem > 0)
+                // Start Game option selected
+                // Request state change
+                if (getParent())
                 {
-                    m_selectedItem--;
-                    updateMenuSelection();
+                    getParent()->changeState(std::make_shared<GameState>());
                 }
-                break;
-            case sf::Keyboard::Down:
-                if (m_selectedItem < m_menuItems.size() - 1)
-                {
-                    m_selectedItem++;
-                    updateMenuSelection();
-                }
-                break;
-            case sf::Keyboard::Return:
-                handleMenuSelection();
-                break;
-            case sf::Keyboard::Escape:
-                if (getManager())
-                {
-                    getManager()->pushState("TitleScreen");
-                }
-                break;
-            }
-        }
-    }
-}
-
-void MainMenuState::update(float deltaTime)
-{
-    if (!isActive())
-        return;
-}
-
-void MainMenuState::render()
-{
-    if (!isActive())
-        return;
-
-    // Rendu du fond
-    if (m_background)
-    {
-        g_window->draw(*m_background);
-    }
-
-    // Rendu des éléments du menu
-    for (const auto &item : m_menuItems)
-    {
-        if (item)
-        {
-            g_window->draw(*item);
-        }
-    }
-}
-
-void MainMenuState::initializeGraphics()
-{
-    // Chargement de la police
-    m_font = std::make_shared<sf::Font>();
-    if (!m_font->loadFromFile("assets/fonts/VeniceClassic.ttf"))
-    {
-        std::cerr << "Failed to load font" << std::endl;
-    }
-
-    // Création des éléments du menu
-    std::vector<std::string> menuTexts = {
-        "Nouvelle Partie",
-        "Charger Partie",
-        "Options",
-        "Quitter"};
-
-    float startY = g_window->getSize().y / 2;
-    float spacing = 50.0f;
-
-    for (size_t i = 0; i < menuTexts.size(); ++i)
-    {
-        auto text = std::make_shared<sf::Text>();
-        text->setFont(*m_font);
-        text->setString(menuTexts[i]);
-        text->setCharacterSize(32);
-        text->setFillColor(sf::Color::White);
-
-        // Centrer le texte
-        sf::FloatRect textRect = text->getLocalBounds();
-        text->setOrigin(textRect.width / 2, textRect.height / 2);
-        text->setPosition(g_window->getSize().x / 2, startY + (i * spacing));
-
-        m_menuItems.push_back(text);
-    }
-
-    // Mise à jour de la sélection initiale
-    updateMenuSelection();
-}
-
-void MainMenuState::updateMenuSelection()
-{
-    for (size_t i = 0; i < m_menuItems.size(); ++i)
-    {
-        if (m_menuItems[i])
-        {
-            if (i == m_selectedItem)
-            {
-                m_menuItems[i]->setFillColor(sf::Color::Yellow);
-                m_menuItems[i]->setStyle(sf::Text::Bold);
             }
             else
             {
-                m_menuItems[i]->setFillColor(sf::Color::White);
-                m_menuItems[i]->setStyle(sf::Text::Regular);
+                // Exit option selected
+                // Exit the game
+                // TODO: Signal game to exit
             }
         }
     }
-}
 
-void MainMenuState::handleMenuSelection()
-{
-    switch (m_selectedItem)
+    void MainMenuState::updateMenuDisplay()
     {
-    case 0: // Nouvelle Partie
-        if (getManager())
+        // Update text colors based on which option is selected
+        if (m_selectedOption == 0)
         {
-            getManager()->pushState("CharacterCreation");
+            m_startGameText.setFillColor(sf::Color::Yellow);
+            m_exitText.setFillColor(sf::Color::White);
         }
-        break;
-    case 1: // Charger Partie
-        if (m_hasSaveGame && getManager())
+        else
         {
-            // TODO: Implémenter le chargement de partie
-            getManager()->pushState("Game");
+            m_startGameText.setFillColor(sf::Color::White);
+            m_exitText.setFillColor(sf::Color::Yellow);
         }
-        break;
-    case 2: // Options
-        if (getManager())
-        {
-            // TODO: Implémenter l'état des options
-            // getManager()->pushState("Options");
-        }
-        break;
-    case 3: // Quitter
-        g_window->close();
-        break;
     }
-}
 
-void MainMenuState::loadSaveGameStatus()
-{
-    // TODO: Vérifier si une partie sauvegardée existe
-    m_hasSaveGame = false;
-}
+} // namespace Orenji

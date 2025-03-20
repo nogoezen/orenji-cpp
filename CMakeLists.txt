@@ -1,64 +1,77 @@
 cmake_minimum_required(VERSION 3.10)
-project(UnchartedWaters VERSION 1.0)
+project(OrenjicGame VERSION 1.0)
 
-# Définir le standard C++
+# Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Définir des options spécifiques pour MinGW
+# Define options for MinGW
 if(MINGW)
     add_definitions(-D__USE_MINGW_ANSI_STDIO=1)
     add_definitions(-D_GLIBCXX_USE_CXX11_ABI=1)
-    # Lier explicitement avec la bibliothèque filesystem
+    # Link explicitly with the filesystem library
     link_libraries(stdc++fs)
 endif()
 
-# Fichiers sources
+# Find the SFML package
+find_package(SFML 2.5 COMPONENTS graphics window system audio REQUIRED)
+
+# Source files
 set(SOURCES
-    src/main.cpp
+    main.cpp
     
     # Core
-    src/core/Game.cpp
-    src/core/World.cpp
-    src/core/TradingSystem.cpp
+    src/Core/Entity.cpp
+    src/Core/Component.cpp
+    src/Core/EntityManager.cpp
+    src/Core/SystemManager.cpp
+    src/Core/RenderSystem.cpp
     
-    # Data
-    src/data/GameData.cpp
+    # States
+    src/States/State.cpp
+    src/States/StateMachine.cpp
+    src/States/MainMenuState.cpp
+    src/States/GameState.cpp
     
-    # Models
-    src/models/Player.cpp
-    src/models/Fleet.cpp
-    src/models/Ship.cpp
+    # Utilities
+    src/Utilities/ResourceManager.cpp
+    src/Utilities/InputHandler.cpp
     
-    # UI
-    src/ui/MainMenu.cpp
-    src/ui/ConsoleUI.cpp
-    
-    # Utils
-    src/utils/JsonLoader.cpp
-    src/utils/FileUtils.cpp
+    # Game
+    src/Game.cpp
 )
 
-# Créer l'exécutable
-add_executable(UnchartedWaters ${SOURCES})
+# Create the executable
+add_executable(OrenjicGame ${SOURCES})
 
-# Inclure les répertoires
-target_include_directories(UnchartedWaters PRIVATE
+# Include directories
+target_include_directories(OrenjicGame PRIVATE
     ${CMAKE_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}/include
+    ${SFML_INCLUDE_DIR}
 )
 
-# Définir le répertoire de sortie
-set_target_properties(UnchartedWaters PROPERTIES
+# Link SFML libraries
+target_link_libraries(OrenjicGame PRIVATE
+    sfml-graphics
+    sfml-window
+    sfml-system
+    sfml-audio
+)
+
+# Set output directory
+set_target_properties(OrenjicGame PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
 
-# Copier les fichiers de données
-add_custom_command(TARGET UnchartedWaters POST_BUILD
+# Copy resource files
+add_custom_command(TARGET OrenjicGame POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/data ${CMAKE_BINARY_DIR}/bin/data
+    ${CMAKE_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/bin/resources
 )
 
-# Afficher des messages utiles
-message(STATUS "Répertoire d'inclusion: ${CMAKE_SOURCE_DIR}/include")
-message(STATUS "Vérification du fichier json.hpp: ${CMAKE_SOURCE_DIR}/include/nlohmann/json.hpp") 
+# Display helpful messages
+message(STATUS "Include directory: ${CMAKE_SOURCE_DIR}/include")
+message(STATUS "SFML found: ${SFML_FOUND}")
+message(STATUS "SFML include dir: ${SFML_INCLUDE_DIR}")
+message(STATUS "SFML libraries: ${SFML_LIBRARIES}") 
