@@ -1,31 +1,30 @@
 #include "../../include/Physics/PhysicsWorld.hpp"
 #include <iostream>
+#include <cassert>
 
 // Callbacks pour la gestion des contacts Box2D
 void BeginContactCallback(void *listener, void *contact)
 {
     auto *contactListener = static_cast<PhysicsWorld::ContactListener *>(listener);
-    contactListener->BeginContact(static_cast<b2ContactId>(contact));
+    contactListener->BeginContact(contact);
 }
 
 void EndContactCallback(void *listener, void *contact)
 {
     auto *contactListener = static_cast<PhysicsWorld::ContactListener *>(listener);
-    contactListener->EndContact(static_cast<b2ContactId>(contact));
+    contactListener->EndContact(contact);
 }
 
 void PreSolveCallback(void *listener, void *contact, void *oldManifold)
 {
     auto *contactListener = static_cast<PhysicsWorld::ContactListener *>(listener);
-    contactListener->PreSolve(static_cast<b2ContactId>(contact),
-                              static_cast<const b2Manifold *>(oldManifold));
+    contactListener->PreSolve(contact, oldManifold);
 }
 
 void PostSolveCallback(void *listener, void *contact, void *impulse)
 {
     auto *contactListener = static_cast<PhysicsWorld::ContactListener *>(listener);
-    contactListener->PostSolve(static_cast<b2ContactId>(contact),
-                               static_cast<const b2ContactImpulse *>(impulse));
+    contactListener->PostSolve(contact, impulse);
 }
 
 namespace Orenji
@@ -40,7 +39,7 @@ namespace Orenji
     {
     }
 
-    void PhysicsWorld::ContactListener::BeginContact(b2ContactId contact)
+    void PhysicsWorld::ContactListener::BeginContact(void *contact)
     {
         if (m_beginContactCallback)
         {
@@ -48,7 +47,7 @@ namespace Orenji
         }
     }
 
-    void PhysicsWorld::ContactListener::EndContact(b2ContactId contact)
+    void PhysicsWorld::ContactListener::EndContact(void *contact)
     {
         if (m_endContactCallback)
         {
@@ -56,7 +55,7 @@ namespace Orenji
         }
     }
 
-    void PhysicsWorld::ContactListener::PreSolve(b2ContactId contact, const b2Manifold *oldManifold)
+    void PhysicsWorld::ContactListener::PreSolve(void *contact, const void *oldManifold)
     {
         if (m_preSolveCallback)
         {
@@ -64,7 +63,7 @@ namespace Orenji
         }
     }
 
-    void PhysicsWorld::ContactListener::PostSolve(b2ContactId contact, const b2ContactImpulse *impulse)
+    void PhysicsWorld::ContactListener::PostSolve(void *contact, const void *impulse)
     {
         if (m_postSolveCallback)
         {
@@ -93,34 +92,34 @@ namespace Orenji
     }
 
     // Implémentation de PhysicsWorld
-    PhysicsWorld::PhysicsWorld(const sf::Vector2f &gravity)
-        : m_debugLines(sf::Lines), m_debugDrawEnabled(false),
-          m_velocityIterations(8), m_positionIterations(3)
+    PhysicsWorld::PhysicsWorld()
+        : m_world{b2_nullWorldId},
+          m_velocityIterations(8),
+          m_positionIterations(3),
+          m_debugDrawEnabled(false)
     {
-        initialize(gravity);
     }
 
     void PhysicsWorld::initialize(const sf::Vector2f &gravity)
     {
-        // Conversion de gravité de pixels à mètres
-        b2Vec2 gravityVec = pixelsToMeters(gravity);
+        // Créer une définition de monde Box2D
+        b2WorldDef worldDef;
+        worldDef.gravity.x = gravity.x * METERS_PER_PIXEL;
+        worldDef.gravity.y = gravity.y * METERS_PER_PIXEL;
 
-        // Création du monde Box2D
-        m_world = b2CreateWorld(gravityVec);
+        // Créer le monde Box2D
+        m_world = b2CreateWorld(&worldDef);
 
-        // Configuration des callbacks de contact
-        b2ContactCallbacks callbacks;
-        callbacks.beginFcn = BeginContactCallback;
-        callbacks.endFcn = EndContactCallback;
-        callbacks.preSolveFcn = PreSolveCallback;
-        callbacks.postSolveFcn = PostSolveCallback;
-
-        b2SetContactCallbacks(m_world, &m_contactListener, callbacks);
+        if (!IsValid(m_world))
+        {
+            assert(false && "Failed to create Box2D world");
+            return;
+        }
     }
 
     PhysicsWorld::~PhysicsWorld()
     {
-        if (bool(m_world))
+        if (IsValid(m_world))
         {
             b2DestroyWorld(m_world);
             m_world = b2_nullWorldId;
@@ -137,29 +136,14 @@ namespace Orenji
     }
 
     // Conversion entre pixels et mètres
-    sf::Vector2f PhysicsWorld::metersToPixels(const b2Vec2 &metersVec)
-    {
-        return sf::Vector2f(metersVec.x * PIXELS_PER_METER, metersVec.y * PIXELS_PER_METER);
-    }
-
-    sf::Vector2f PhysicsWorld::metersToPixels(float x, float y)
-    {
-        return sf::Vector2f(x * PIXELS_PER_METER, y * PIXELS_PER_METER);
-    }
-
     float PhysicsWorld::metersToPixels(float meters)
     {
         return meters * PIXELS_PER_METER;
     }
 
-    b2Vec2 PhysicsWorld::pixelsToMeters(const sf::Vector2f &pixelsVec)
+    sf::Vector2f PhysicsWorld::metersToPixels(const b2Vec2 &metersVec)
     {
-        return b2Vec2(pixelsVec.x * METERS_PER_PIXEL, pixelsVec.y * METERS_PER_PIXEL);
-    }
-
-    b2Vec2 PhysicsWorld::pixelsToMeters(float x, float y)
-    {
-        return b2Vec2(x * METERS_PER_PIXEL, y * METERS_PER_PIXEL);
+        return sf::Vector2f(metersVec.x * PIXELS_PER_METER, metersVec.y * PIXELS_PER_METER);
     }
 
     float PhysicsWorld::pixelsToMeters(float pixels)
@@ -167,123 +151,130 @@ namespace Orenji
         return pixels * METERS_PER_PIXEL;
     }
 
+    b2Vec2 PhysicsWorld::pixelsToMeters(const sf::Vector2f &pixelsVec)
+    {
+        b2Vec2 vec;
+        vec.x = pixelsVec.x * METERS_PER_PIXEL;
+        vec.y = pixelsVec.y * METERS_PER_PIXEL;
+        return vec;
+    }
+
     // Mise à jour du monde physique
     void PhysicsWorld::update(float timeStep)
     {
-        if (!bool(m_world))
-        {
-            std::cerr << "Erreur: monde Box2D non initialisé" << std::endl;
+        if (!IsValid(m_world))
             return;
-        }
 
-        // Mise à jour de la simulation Box2D
-        b2World_Step(m_world, timeStep, m_velocityIterations);
+        b2World_Step(m_world, timeStep, m_velocityIterations, m_positionIterations);
     }
 
     // Création d'un corps physique
     b2BodyId PhysicsWorld::createBody(const sf::Vector2f &position, b2BodyType type)
     {
-        if (!bool(m_world))
-        {
+        if (!IsValid(m_world))
             return b2_nullBodyId;
-        }
 
-        // Définition du corps
+        // Créer une définition de corps Box2D
         b2BodyDef bodyDef;
         bodyDef.type = type;
-        bodyDef.position = pixelsToMeters(position);
 
-        // Création du corps
+        // Convertir la position de pixels à mètres
+        b2Vec2 pos = pixelsToMeters(position);
+        bodyDef.position = pos;
+
+        // Créer le corps
         return b2CreateBody(m_world, &bodyDef);
     }
 
     // Destruction d'un corps physique
     void PhysicsWorld::destroyBody(b2BodyId body)
     {
-        if (!bool(m_world) || !bool(body))
-        {
+        if (!IsValid(m_world) || !IsValid(body))
             return;
-        }
 
         b2DestroyBody(body);
     }
 
     // Ajout d'une fixture rectangulaire
     b2FixtureId PhysicsWorld::addBoxFixture(b2BodyId body, const sf::Vector2f &size,
-                                            float density, float friction, float restitution,
+                                            float density, float friction,
                                             uint16_t categoryBits, uint16_t maskBits, bool isSensor)
     {
-        if (!bool(m_world) || !bool(body))
-        {
+        if (!IsValid(m_world) || !IsValid(body))
             return b2_nullFixtureId;
-        }
 
-        // Conversion de taille de pixels à mètres
-        sf::Vector2f halfSize(size.x * 0.5f, size.y * 0.5f);
-        b2Vec2 b2HalfSize = pixelsToMeters(halfSize);
-
-        // Création de la forme
+        // Créer une définition de forme de boîte Box2D
         b2ShapeDef shapeDef;
-        b2Polygon_SetAsBox(shapeDef.shape, b2HalfSize.x, b2HalfSize.y);
-
-        // Configuration de la fixture
-        shapeDef.density = density;
         shapeDef.friction = friction;
-        shapeDef.restitution = restitution;
+        shapeDef.density = density;
+        shapeDef.isSensor = isSensor;
         shapeDef.filter.categoryBits = categoryBits;
         shapeDef.filter.maskBits = maskBits;
-        shapeDef.isSensor = isSensor;
 
-        // Ajout de la fixture au corps
-        return b2Body_CreateFixture(body, &shapeDef);
+        // Créer la forme de boîte
+        b2BoxDef boxDef;
+        boxDef.shapeDef = shapeDef;
+        boxDef.halfWidth = pixelsToMeters(size.x / 2.0f);
+        boxDef.halfHeight = pixelsToMeters(size.y / 2.0f);
+
+        // Créer la shape et la fixture
+        b2ShapeId shape = b2CreateBoxShape(&boxDef);
+        b2FixtureId fixture = b2Body_CreateFixture(body, shape);
+
+        // Nettoyer la shape (Box2D 2.4.x ne le fait pas automatiquement)
+        b2DestroyShape(shape);
+
+        return fixture;
     }
 
     // Ajout d'une fixture circulaire
     b2FixtureId PhysicsWorld::addCircleFixture(b2BodyId body, float radius,
-                                               float density, float friction, float restitution,
+                                               float density, float friction,
                                                uint16_t categoryBits, uint16_t maskBits, bool isSensor)
     {
-        if (!bool(m_world) || !bool(body))
-        {
+        if (!IsValid(m_world) || !IsValid(body))
             return b2_nullFixtureId;
-        }
 
-        // Conversion de rayon de pixels à mètres
-        float b2Radius = pixelsToMeters(radius);
-
-        // Création de la forme
+        // Créer une définition de forme de cercle Box2D
         b2ShapeDef shapeDef;
-        b2Circle_Set(shapeDef.shape, {0.0f, 0.0f}, b2Radius);
-
-        // Configuration de la fixture
-        shapeDef.density = density;
         shapeDef.friction = friction;
-        shapeDef.restitution = restitution;
+        shapeDef.density = density;
+        shapeDef.isSensor = isSensor;
         shapeDef.filter.categoryBits = categoryBits;
         shapeDef.filter.maskBits = maskBits;
-        shapeDef.isSensor = isSensor;
 
-        // Ajout de la fixture au corps
-        return b2Body_CreateFixture(body, &shapeDef);
+        // Créer la forme de cercle
+        b2CircleDef circleDef;
+        circleDef.shapeDef = shapeDef;
+        circleDef.radius = pixelsToMeters(radius);
+
+        // Créer la shape et la fixture
+        b2ShapeId shape = b2CreateCircleShape(&circleDef);
+        b2FixtureId fixture = b2Body_CreateFixture(body, shape);
+
+        // Nettoyer la shape (Box2D 2.4.x ne le fait pas automatiquement)
+        b2DestroyShape(shape);
+
+        return fixture;
     }
 
     // Callbacks pour la gestion des collisions
-    void PhysicsWorld::setBeginContactCallback(BeginContactCallback callback)
+    void PhysicsWorld::setBeginContactCallback(ContactListener::BeginContactCallback callback)
     {
         m_contactListener.SetBeginContactCallback(callback);
     }
 
-    void PhysicsWorld::setEndContactCallback(EndContactCallback callback)
+    void PhysicsWorld::setEndContactCallback(ContactListener::EndContactCallback callback)
     {
         m_contactListener.SetEndContactCallback(callback);
     }
 
-    void PhysicsWorld::setPreSolveCallback(PreSolveCallback callback)
+    void PhysicsWorld::setPreSolveCallback(ContactListener::PreSolveCallback callback)
     {
         m_contactListener.SetPreSolveCallback(callback);
     }
 
-    void PhysicsWorld::setPostSolveCallback(PostSolveCallback callback)
+    void PhysicsWorld::setPostSolveCallback(ContactListener::PostSolveCallback callback)
     {
         m_contactListener.SetPostSolveCallback(callback);
     }
@@ -301,124 +292,104 @@ namespace Orenji
 
     void PhysicsWorld::debugDraw(sf::RenderWindow &window)
     {
-        if (!bool(m_world) || !m_debugDrawEnabled)
-        {
+        if (!IsValid(m_world) || !m_debugDrawEnabled)
             return;
-        }
 
-        // Pour chaque corps dans le monde
-        b2BodyId bodyId = b2World_GetFirstBody(m_world);
-        while (bool(bodyId))
+        // Énumérer tous les corps du monde
+        b2BodyId bodyId = b2_nullBodyId;
+        uint32_t bodyIndex = 0;
+
+        while ((bodyId = b2World_GetBodyAtIndex(m_world, bodyIndex++)).index != b2_nullBodyId.index)
         {
-            // Position et rotation du corps
+            // Obtenir la position et la rotation du corps
             b2Vec2 position = b2Body_GetPosition(bodyId);
             float angle = b2Body_GetAngle(bodyId);
 
-            sf::Vector2f sfPosition = metersToPixels(position);
+            // Convertir en pixels
+            sf::Vector2f worldPos = metersToPixels(position);
 
-            // Pour chaque fixture du corps
-            b2FixtureId fixtureId = b2Body_GetFirstFixture(bodyId);
-            while (bool(fixtureId))
+            // Énumérer toutes les fixtures du corps
+            b2FixtureId fixtureId = b2_nullFixtureId;
+            uint32_t fixtureIndex = 0;
+
+            while ((fixtureId = b2Body_GetFixtureAtIndex(bodyId, fixtureIndex++)).index != b2_nullFixtureId.index)
             {
-                // Récupération de la forme
+                // Obtenir la forme de la fixture
                 b2ShapeId shapeId = b2Fixture_GetShape(fixtureId);
                 b2ShapeType shapeType = b2Shape_GetType(shapeId);
 
-                // Couleur de la forme selon le type de corps et si c'est un capteur
-                sf::Color shapeColor;
-                b2BodyType bodyType = b2Body_GetType(bodyId);
-
-                if (bodyType == b2_staticBody)
+                // Couleur selon le type de corps
+                sf::Color color;
+                switch (b2Body_GetType(bodyId))
                 {
-                    shapeColor = sf::Color(128, 128, 128, 128); // Gris
-                }
-                else if (bodyType == b2_kinematicBody)
-                {
-                    shapeColor = sf::Color(128, 128, 255, 128); // Bleu clair
-                }
-                else // if (bodyType == b2_dynamicBody)
-                {
-                    shapeColor = sf::Color(255, 128, 128, 128); // Rouge clair
-                }
-
-                // Si c'est un capteur, utiliser une couleur semi-transparente
-                if (b2Fixture_IsSensor(fixtureId))
-                {
-                    shapeColor.a = 64;
-                }
-
-                // Dessin selon le type de forme
-                switch (shapeType)
-                {
-                case b2ShapeType::b2_circleShape:
-                {
-                    // Cercle
-                    float radius = metersToPixels(b2Circle_GetRadius(shapeId));
-
-                    sf::CircleShape circle(radius);
-                    circle.setOrigin(radius, radius);
-                    circle.setPosition(sfPosition);
-                    circle.setRotation(angle * 180.0f / box2d::b2_pi);
-                    circle.setFillColor(sf::Color::Transparent);
-                    circle.setOutlineColor(shapeColor);
-                    circle.setOutlineThickness(1.0f);
-
-                    window.draw(circle);
-
-                    // Ligne pour montrer la rotation
-                    sf::Vertex line[2] =
-                        {
-                            sf::Vertex(sfPosition, shapeColor),
-                            sf::Vertex(
-                                sf::Vector2f(
-                                    sfPosition.x + std::cos(angle) * radius,
-                                    sfPosition.y + std::sin(angle) * radius),
-                                shapeColor)};
-
-                    window.draw(line, 2, sf::Lines);
+                case b2_staticBody:
+                    color = sf::Color(128, 128, 128); // Gris
+                    break;
+                case b2_kinematicBody:
+                    color = sf::Color(128, 128, 255); // Bleu clair
+                    break;
+                case b2_dynamicBody:
+                    color = sf::Color(255, 255, 255); // Blanc
+                    break;
+                default:
+                    color = sf::Color::Red; // Erreur
                     break;
                 }
 
-                case b2ShapeType::b2_polygonShape:
+                // Modifier la couleur si c'est un capteur
+                if (b2Fixture_IsSensor(fixtureId))
+                {
+                    color.a = 128; // Semi-transparent
+                }
+
+                // Dessiner selon le type de forme
+                if (shapeType == b2_circleShape)
+                {
+                    // Cercle
+                    float radius = metersToPixels(b2CircleShape_GetRadius(shapeId));
+                    sf::CircleShape circle(radius);
+                    circle.setOrigin(radius, radius);
+                    circle.setPosition(worldPos);
+                    circle.setRotation(angle * 180.0f / b2_pi);
+                    circle.setFillColor(sf::Color::Transparent);
+                    circle.setOutlineColor(color);
+                    circle.setOutlineThickness(1.0f);
+                    window.draw(circle);
+
+                    // Dessiner une ligne pour montrer la rotation
+                    sf::Vertex line[2] = {
+                        sf::Vertex(worldPos, color),
+                        sf::Vertex(worldPos + sf::Vector2f(std::cos(angle) * radius, std::sin(angle) * radius), color)};
+                    window.draw(line, 2, sf::Lines);
+                }
+                else if (shapeType == b2_polygonShape)
                 {
                     // Polygone (boîte)
-                    int vertexCount = b2Polygon_GetVertexCount(shapeId);
-
+                    int vertexCount = b2PolygonShape_GetVertexCount(shapeId);
                     sf::ConvexShape polygon(vertexCount);
+
                     for (int i = 0; i < vertexCount; ++i)
                     {
-                        b2Vec2 vertex = b2Polygon_GetVertex(shapeId, i);
+                        // Obtenir le sommet
+                        b2Vec2 vertex = b2PolygonShape_GetVertex(shapeId, i);
 
-                        // Transformer le vertex selon la position et rotation du corps
-                        b2Vec2 worldVertex;
+                        // Appliquer la rotation du corps
                         b2Rot rotation;
                         b2Rot_Set(&rotation, angle);
-                        b2RotMulVec2(&rotation, vertex, &worldVertex);
-                        worldVertex.x += position.x;
-                        worldVertex.y += position.y;
+                        b2Vec2 rotatedVertex;
+                        b2RotMulVec2(&rotation, &vertex, &rotatedVertex);
 
-                        sf::Vector2f sfVertex = metersToPixels(worldVertex);
-                        polygon.setPoint(i, sfVertex);
+                        // Convertir en pixels et ajouter à la position du corps
+                        sf::Vector2f worldVertex = worldPos + metersToPixels(rotatedVertex);
+                        polygon.setPoint(i, worldVertex);
                     }
 
                     polygon.setFillColor(sf::Color::Transparent);
-                    polygon.setOutlineColor(shapeColor);
+                    polygon.setOutlineColor(color);
                     polygon.setOutlineThickness(1.0f);
-
                     window.draw(polygon);
-                    break;
                 }
-
-                // Autres types de formes (chaîne, bords...)
-                default:
-                    // Non supporté pour le moment
-                    break;
-                }
-
-                fixtureId = b2Fixture_GetNext(fixtureId);
             }
-
-            bodyId = b2Body_GetNext(bodyId);
         }
     }
 

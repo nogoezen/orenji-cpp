@@ -2,27 +2,31 @@
 #include "../../include/Core/Entity.hpp"
 #include "../../include/Core/Component.hpp"
 #include "../../include/Core/TransformComponent.hpp"
+#include "../../include/Physics/PhysicsWorld.hpp"
+#include "../../include/Physics/Box2DTypes.hpp"
 #include <iostream>
 
 namespace Orenji
 {
 
-    PhysicsComponent::PhysicsComponent(Entity *entity)
+    PhysicsComponent::PhysicsComponent(Entity *entity, b2BodyType bodyType)
         : Component(entity),
-          m_bodyType(b2_dynamicBody),
+          m_body{b2_nullBodyId},
+          m_bodyType(bodyType),
+          m_initialized(false),
           m_fixedRotation(false),
-          m_bullet(false),
-          m_initialized(false)
+          m_isBullet(false),
+          m_userData{nullptr},
+          m_fixtures{}
     {
     }
 
     PhysicsComponent::~PhysicsComponent()
     {
-        // Si le composant est détruit, détruire aussi le corps Box2D
-        if (m_body)
+        if (IsValid(m_body))
         {
             PhysicsWorld::getInstance().destroyBody(m_body);
-            m_body = nullptr;
+            m_body = b2_nullBodyId;
         }
     }
 
@@ -31,132 +35,135 @@ namespace Orenji
         if (m_initialized)
             return;
 
-        // Obtenir la position de l'entité
         Entity *entity = getOwner();
         if (!entity)
-        {
-            std::cerr << "Erreur: PhysicsComponent sans entité parente" << std::endl;
             return;
-        }
 
-        // Créer le corps Box2D
-        sf::Vector2f position(0.0f, 0.0f);
+        auto &physicsWorld = PhysicsWorld::getInstance();
+        m_body = physicsWorld.createBody(entity->getTransform().getPosition(), m_bodyType);
 
-        // Si l'entité a un composant de transformation, utiliser sa position
-        auto transformComp = entity->getComponent<TransformComponent>();
-        if (transformComp)
-        {
-            position = transformComp->getPosition();
-        }
-
-        m_body = PhysicsWorld::getInstance().createBody(position, m_bodyType);
-
-        if (m_body)
+        if (IsValid(m_body))
         {
             b2Body_SetFixedRotation(m_body, m_fixedRotation);
-            b2Body_SetBullet(m_body, m_bullet);
-            b2Body_SetUserData(m_body, static_cast<void *>(entity));
+            b2Body_SetBullet(m_body, m_isBullet);
             m_initialized = true;
-        }
-        else
-        {
-            std::cerr << "Erreur: Impossible de créer un corps Box2D" << std::endl;
         }
     }
 
     void PhysicsComponent::update(float deltaTime)
     {
-        if (!m_body || !m_initialized)
+        if (!IsValid(m_body) || !m_initialized)
             return;
 
         Entity *entity = getOwner();
         if (!entity)
             return;
 
-        // Mettre à jour la position de l'entité en fonction du corps physique
-        auto transformComp = entity->getComponent<TransformComponent>();
-        if (transformComp)
-        {
-            b2Vec2 pos = b2Body_GetPosition(m_body);
-            sf::Vector2f position = PhysicsWorld::metersToPixels(pos);
-            float angle = b2Body_GetAngle(m_body) * 180.0f / box2d::b2_pi; // Convertir de radians à degrés
+        auto &transform = entity->getTransform();
+        auto &position = transform.getPosition();
+        auto physicsPosition = getPosition();
 
-            transformComp->setPosition(position);
-            transformComp->setRotation(angle);
+        // Si la position a été modifiée directement via Transform, mise à jour de la physique
+        if (position != physicsPosition)
+        {
+            setPosition(position);
+        }
+        else // Sinon, mise à jour de la position de l'entité à partir du corps physique
+        {
+            // Mise à jour de la position et de la rotation de l'entité
+            float angle = b2Body_GetAngle(m_body) * 180.0f / b2_pi; // Convertir de radians à degrés
+            transform.setPosition(physicsPosition);
+            transform.setRotation(angle);
         }
     }
 
     b2FixtureId PhysicsComponent::createBoxFixture(const sf::Vector2f &size, float density,
-                                                   float friction, float restitution,
-                                                   uint16_t categoryBits, uint16_t maskBits, bool isSensor)
+                                                   float friction, uint16_t categoryBits,
+                                                   uint16_t maskBits, bool isSensor)
     {
-        if (!m_body || !m_initialized)
-            return nullptr;
+        if (!IsValid(m_body) || !m_initialized)
+            return b2_nullFixtureId;
 
-        return PhysicsWorld::getInstance().addBoxFixture(m_body, size, density, friction,
-                                                         restitution, categoryBits, maskBits, isSensor);
+        b2FixtureId fixture = PhysicsWorld::getInstance().addBoxFixture(m_body, size, density, friction, categoryBits, maskBits, isSensor);
+        if (IsValid(fixture))
+        {
+            m_fixtures.push_back(fixture);
+        }
+        return fixture;
     }
 
     b2FixtureId PhysicsComponent::createCircleFixture(float radius, float density,
-                                                      float friction, float restitution,
-                                                      uint16_t categoryBits, uint16_t maskBits, bool isSensor)
+                                                      float friction, uint16_t categoryBits,
+                                                      uint16_t maskBits, bool isSensor)
     {
-        if (!m_body || !m_initialized)
-            return nullptr;
+        if (!IsValid(m_body) || !m_initialized)
+            return b2_nullFixtureId;
 
-        return PhysicsWorld::getInstance().addCircleFixture(m_body, radius, density, friction,
-                                                            restitution, categoryBits, maskBits, isSensor);
+        b2FixtureId fixture = PhysicsWorld::getInstance().addCircleFixture(m_body, radius, density, friction, categoryBits, maskBits, isSensor);
+        if (IsValid(fixture))
+        {
+            m_fixtures.push_back(fixture);
+        }
+        return fixture;
     }
 
     void PhysicsComponent::applyForce(const sf::Vector2f &force, const sf::Vector2f &point)
     {
-        if (!m_body || !m_initialized)
+        if (!IsValid(m_body) || !m_initialized)
             return;
 
-        b2Vec2 b2Force = PhysicsWorld::pixelsToMeters(force);
-        b2Vec2 b2Point = PhysicsWorld::pixelsToMeters(point);
+        // Conversion des vecteurs SFML en vecteurs Box2D
+        b2Vec2 b2Force;
+        b2Force.x = force.x;
+        b2Force.y = force.y;
 
         b2Vec2 worldPoint;
-        b2TransformMulVec2(b2Body_GetTransform(m_body), b2Point, &worldPoint);
+        worldPoint.x = point.x;
+        worldPoint.y = point.y;
 
-        b2Body_ApplyForce(m_body, b2Force, worldPoint);
+        b2Body_ApplyForce(m_body, b2Force, worldPoint, true);
     }
 
     void PhysicsComponent::applyForceToCenter(const sf::Vector2f &force)
     {
-        if (!m_body || !m_initialized)
+        if (!IsValid(m_body) || !m_initialized)
             return;
 
-        b2Vec2 b2Force = PhysicsWorld::pixelsToMeters(force);
-        b2Body_ApplyForceToCenter(m_body, b2Force);
+        b2Vec2 b2Force;
+        b2Force.x = force.x;
+        b2Force.y = force.y;
+
+        b2Body_ApplyForceToCenter(m_body, b2Force, true);
     }
 
     void PhysicsComponent::applyLinearImpulse(const sf::Vector2f &impulse, const sf::Vector2f &point)
     {
-        if (!m_body || !m_initialized)
+        if (!IsValid(m_body) || !m_initialized)
             return;
 
-        b2Vec2 b2Impulse = PhysicsWorld::pixelsToMeters(impulse);
-        b2Vec2 b2Point = PhysicsWorld::pixelsToMeters(point);
+        b2Vec2 b2Impulse;
+        b2Impulse.x = impulse.x;
+        b2Impulse.y = impulse.y;
 
         b2Vec2 worldPoint;
-        b2TransformMulVec2(b2Body_GetTransform(m_body), b2Point, &worldPoint);
+        worldPoint.x = point.x;
+        worldPoint.y = point.y;
 
-        b2Body_ApplyLinearImpulse(m_body, b2Impulse, worldPoint);
+        b2Body_ApplyLinearImpulse(m_body, b2Impulse, worldPoint, true);
     }
 
     void PhysicsComponent::applyAngularImpulse(float impulse)
     {
-        if (!m_body || !m_initialized)
+        if (!IsValid(m_body) || !m_initialized)
             return;
 
-        b2Body_ApplyAngularImpulse(m_body, impulse);
+        b2Body_ApplyAngularImpulse(m_body, impulse, true);
     }
 
     sf::Vector2f PhysicsComponent::getPosition() const
     {
-        if (!m_body || !m_initialized)
-            return sf::Vector2f(0.0f, 0.0f);
+        if (!IsValid(m_body) || !m_initialized)
+            return sf::Vector2f();
 
         b2Vec2 pos = b2Body_GetPosition(m_body);
         return PhysicsWorld::metersToPixels(pos);
@@ -164,82 +171,85 @@ namespace Orenji
 
     void PhysicsComponent::setPosition(const sf::Vector2f &position)
     {
-        if (!m_body || !m_initialized)
+        if (!IsValid(m_body) || !m_initialized)
             return;
 
         b2Vec2 b2Position = PhysicsWorld::pixelsToMeters(position);
+
         b2Body_SetTransform(m_body, b2Position, b2Body_GetAngle(m_body));
     }
 
     float PhysicsComponent::getAngle() const
     {
-        if (!m_body || !m_initialized)
+        if (!IsValid(m_body) || !m_initialized)
             return 0.0f;
 
-        float angle = b2Body_GetAngle(m_body) * 180.0f / box2d::b2_pi; // Convertir de radians à degrés
+        float angle = b2Body_GetAngle(m_body) * 180.0f / b2_pi; // Convertir de radians à degrés
         return angle;
     }
 
     void PhysicsComponent::setAngle(float angle)
     {
-        if (!m_body || !m_initialized)
+        if (!IsValid(m_body) || !m_initialized)
             return;
 
-        float radians = angle * box2d::b2_pi / 180.0f; // Convertir de degrés à radians
         b2Vec2 pos = b2Body_GetPosition(m_body);
+        float radians = angle * b2_pi / 180.0f; // Convertir de degrés à radians
+
         b2Body_SetTransform(m_body, pos, radians);
     }
 
     sf::Vector2f PhysicsComponent::getLinearVelocity() const
     {
-        if (!m_body || !m_initialized)
-            return sf::Vector2f(0.0f, 0.0f);
+        if (!IsValid(m_body) || !m_initialized)
+            return sf::Vector2f();
 
-        b2Vec2 velocity = b2Body_GetLinearVelocity(m_body);
-        return PhysicsWorld::metersToPixels(velocity);
+        b2Vec2 vel = b2Body_GetLinearVelocity(m_body);
+        return sf::Vector2f(vel.x * PhysicsWorld::PIXELS_PER_METER, vel.y * PhysicsWorld::PIXELS_PER_METER);
     }
 
     void PhysicsComponent::setLinearVelocity(const sf::Vector2f &velocity)
     {
-        if (!m_body || !m_initialized)
+        if (!IsValid(m_body) || !m_initialized)
             return;
 
-        b2Vec2 b2Velocity = PhysicsWorld::pixelsToMeters(velocity);
+        b2Vec2 b2Velocity;
+        b2Velocity.x = velocity.x * PhysicsWorld::METERS_PER_PIXEL;
+        b2Velocity.y = velocity.y * PhysicsWorld::METERS_PER_PIXEL;
+
         b2Body_SetLinearVelocity(m_body, b2Velocity);
     }
 
     float PhysicsComponent::getAngularVelocity() const
     {
-        if (!m_body || !m_initialized)
+        if (!IsValid(m_body) || !m_initialized)
             return 0.0f;
 
-        return b2Body_GetAngularVelocity(m_body) * 180.0f / box2d::b2_pi; // Convertir de radians/s à degrés/s
+        return b2Body_GetAngularVelocity(m_body) * 180.0f / b2_pi; // Convertir de radians/s à degrés/s
     }
 
     void PhysicsComponent::setAngularVelocity(float velocity)
     {
-        if (!m_body || !m_initialized)
+        if (!IsValid(m_body) || !m_initialized)
             return;
 
-        float radiansPerSec = velocity * box2d::b2_pi / 180.0f; // Convertir de degrés/s à radians/s
+        float radiansPerSec = velocity * b2_pi / 180.0f; // Convertir de degrés/s à radians/s
         b2Body_SetAngularVelocity(m_body, radiansPerSec);
     }
 
     void PhysicsComponent::setBodyType(b2BodyType type)
     {
-        if (!m_body || !m_initialized)
-        {
-            m_bodyType = type;
+        if (!IsValid(m_body) || !m_initialized)
             return;
-        }
 
+        m_bodyType = type;
         b2Body_SetType(m_body, type);
     }
 
     b2BodyType PhysicsComponent::getBodyType() const
     {
-        if (!m_body || !m_initialized)
-            return m_bodyType;
+        if (!IsValid(m_body) || !m_initialized)
+            return m_bodyType; // Retourner le type stocké si le corps n'est pas initialisé
 
         return b2Body_GetType(m_body);
     }
@@ -248,7 +258,7 @@ namespace Orenji
     {
         m_fixedRotation = fixed;
 
-        if (m_body && m_initialized)
+        if (IsValid(m_body) && m_initialized)
         {
             b2Body_SetFixedRotation(m_body, fixed);
         }
@@ -256,7 +266,7 @@ namespace Orenji
 
     bool PhysicsComponent::isFixedRotation() const
     {
-        if (!m_body || !m_initialized)
+        if (!IsValid(m_body) || !m_initialized)
             return m_fixedRotation;
 
         return b2Body_IsFixedRotation(m_body);
@@ -264,9 +274,9 @@ namespace Orenji
 
     void PhysicsComponent::setBullet(bool bullet)
     {
-        m_bullet = bullet;
+        m_isBullet = bullet;
 
-        if (m_body && m_initialized)
+        if (IsValid(m_body) && m_initialized)
         {
             b2Body_SetBullet(m_body, bullet);
         }
@@ -274,8 +284,8 @@ namespace Orenji
 
     bool PhysicsComponent::isBullet() const
     {
-        if (!m_body || !m_initialized)
-            return m_bullet;
+        if (!IsValid(m_body) || !m_initialized)
+            return m_isBullet;
 
         return b2Body_IsBullet(m_body);
     }
