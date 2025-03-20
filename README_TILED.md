@@ -53,7 +53,7 @@ Principales fonctionnalités :
 
 ```cpp
 // Configurer le répertoire racine (optionnel)
-Orenji::TiledMapLoader::setRootDirectory("assets/maps/");
+Orenji::TiledMapLoader::setRootDirectory("resources/maps/");
 
 // Charger une carte
 auto map = Orenji::TiledMapLoader::load("level1.tmx");

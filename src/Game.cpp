@@ -1,5 +1,6 @@
 #include "../include/Game.hpp"
 #include "../include/States/MainMenuState.hpp"
+#include "../include/States/TitleState.hpp"
 #include <iostream>
 
 namespace Orenji
@@ -34,7 +35,8 @@ namespace Orenji
         m_window.setVerticalSyncEnabled(m_settings.vsync);
 
         // Initialize state machine and add initial state
-        m_stateMachine->pushState(std::make_shared<MainMenuState>());
+        m_stateMachine->setWindow(m_window);
+        m_stateMachine->pushState(std::make_unique<TitleState>());
 
         m_isRunning = true;
 

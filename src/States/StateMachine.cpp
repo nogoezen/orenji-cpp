@@ -5,7 +5,8 @@ namespace Orenji
 {
 
     StateMachine::StateMachine()
-        : m_isAdding(false), m_isRemoving(false), m_isReplacing(false)
+        : m_isAdding(false), m_isRemoving(false), m_isReplacing(false),
+          m_window(nullptr)
     {
     }
 
@@ -18,11 +19,11 @@ namespace Orenji
         }
     }
 
-    void StateMachine::pushState(std::shared_ptr<State> state)
+    void StateMachine::pushState(std::unique_ptr<State> state)
     {
         m_isAdding = true;
         m_isReplacing = false;
-        m_pendingState = state;
+        m_pendingState = std::move(state);
     }
 
     void StateMachine::popState()
@@ -30,20 +31,20 @@ namespace Orenji
         m_isRemoving = true;
     }
 
-    void StateMachine::changeState(std::shared_ptr<State> state)
+    void StateMachine::changeState(std::unique_ptr<State> state)
     {
         m_isAdding = true;
         m_isReplacing = true;
-        m_pendingState = state;
+        m_pendingState = std::move(state);
     }
 
-    std::shared_ptr<State> StateMachine::getCurrentState() const
+    State *StateMachine::getCurrentState() const
     {
         if (m_states.empty())
         {
             return nullptr;
         }
-        return m_states.top();
+        return m_states.top().get();
     }
 
     bool StateMachine::isEmpty() const
@@ -92,6 +93,25 @@ namespace Orenji
         }
     }
 
+    void StateMachine::setWindow(sf::RenderWindow &window)
+    {
+        m_window = &window;
+    }
+
+    sf::RenderWindow &StateMachine::getWindow() const
+    {
+        if (!m_window)
+        {
+            throw std::runtime_error("Window has not been set in StateMachine");
+        }
+        return *m_window;
+    }
+
+    float StateMachine::getElapsedTime() const
+    {
+        return m_globalClock.getElapsedTime().asSeconds();
+    }
+
     void StateMachine::applyPendingChanges()
     {
         if (m_isRemoving && !m_states.empty())
@@ -127,15 +147,22 @@ namespace Orenji
 
             if (m_pendingState)
             {
-                m_pendingState->setParent(this);
-                m_states.push(m_pendingState);
+                m_pendingState->setStateMachine(this);
 
-                if (!m_states.top()->onEnter())
+                if (m_pendingState->initialize())
                 {
-                    std::cerr << "Error during state entry" << std::endl;
-                }
+                    m_states.push(std::move(m_pendingState));
 
-                m_pendingState = nullptr;
+                    if (!m_states.top()->onEnter())
+                    {
+                        std::cerr << "Error during state entry" << std::endl;
+                    }
+                }
+                else
+                {
+                    std::cerr << "Error initializing state" << std::endl;
+                    m_pendingState.reset();
+                }
             }
 
             m_isAdding = false;

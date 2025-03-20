@@ -15,7 +15,7 @@ void GuiUI::initialize(sf::RenderWindow &window)
     m_window = &window;
 
     // Chargement de la police par défaut
-    if (!m_font.loadFromFile("assets/font/UbuntuMono-Regular.ttf"))
+    if (!m_font.loadFromFile("resources/fonts/VeniceClassic.ttf"))
     {
         std::cerr << "Erreur: Impossible de charger la police" << std::endl;
     }

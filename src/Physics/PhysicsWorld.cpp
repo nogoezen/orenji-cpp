@@ -1,6 +1,33 @@
 #include "../../include/Physics/PhysicsWorld.hpp"
 #include <iostream>
 
+// Fonctions callbacks externes pour Box2D
+extern "C" void BeginContactCallback(void *userdata, void *contact)
+{
+    Orenji::ContactListener *listener = static_cast<Orenji::ContactListener *>(userdata);
+    listener->BeginContact(static_cast<box2d::b2Contact *>(contact));
+}
+
+extern "C" void EndContactCallback(void *userdata, void *contact)
+{
+    Orenji::ContactListener *listener = static_cast<Orenji::ContactListener *>(userdata);
+    listener->EndContact(static_cast<box2d::b2Contact *>(contact));
+}
+
+extern "C" void PreSolveCallback(void *userdata, void *contact, void *oldManifold)
+{
+    Orenji::ContactListener *listener = static_cast<Orenji::ContactListener *>(userdata);
+    listener->PreSolve(static_cast<box2d::b2Contact *>(contact),
+                       static_cast<box2d::b2Manifold *>(oldManifold));
+}
+
+extern "C" void PostSolveCallback(void *userdata, void *contact, void *impulse)
+{
+    Orenji::ContactListener *listener = static_cast<Orenji::ContactListener *>(userdata);
+    listener->PostSolve(static_cast<box2d::b2Contact *>(contact),
+                        static_cast<box2d::b2ContactImpulse *>(impulse));
+}
+
 namespace Orenji
 {
 
@@ -75,8 +102,14 @@ namespace Orenji
         worldDef.gravity.y = gravity.y;
         m_world = b2CreateWorld(&worldDef);
 
-        // Configurer le listener de contacts
-        b2WorldSetContactListener(m_world, &m_contactListener);
+        // Configurer les callbacks de contact en passant le listener comme userdata
+        b2ContactListenerJointDef listenerDef;
+        listenerDef.beginContactFcn = BeginContactCallback;
+        listenerDef.endContactFcn = EndContactCallback;
+        listenerDef.preSolveFcn = PreSolveCallback;
+        listenerDef.postSolveFcn = PostSolveCallback;
+        listenerDef.userData = &m_contactListener;
+        b2WorldSetContactListener(m_world, &listenerDef);
     }
 
     PhysicsWorld::~PhysicsWorld()

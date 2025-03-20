@@ -16,7 +16,7 @@ namespace box2d
     struct b2Contact;
     struct b2Manifold;
     struct b2ContactImpulse;
-    class b2ContactListener;
+    struct b2ContactListener;
     struct b2Vec2;
     struct b2Filter;
 }

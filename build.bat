@@ -1,143 +1,144 @@
 @echo off
-echo Compilation du projet
+setlocal enabledelayedexpansion
+
+:: Couleurs des messages
+set "rouge=[31m"
+set "vert=[32m"
+set "jaune=[33m"
+set "bleu=[34m"
+set "blanc=[37m"
+set "reset=[0m"
+
+:: Emplacement des répertoires
+set "WORKING_DIR=%CD%"
+set "BIN_DIR=%WORKING_DIR%\bin"
+set "OBJ_DIR=%WORKING_DIR%\obj"
+set "SRC_DIR=%WORKING_DIR%\src"
+set "INCLUDE_DIR=%WORKING_DIR%\include"
+set "EXAMPLES_DIR=%WORKING_DIR%\examples"
+set "RESOURCES_DIR=%WORKING_DIR%\resources"
+
+:: Vérification des arguments
+if "%1"=="clean" (
+    echo %jaune%Nettoyage des fichiers de compilation...%reset%
+    if exist "%BIN_DIR%" rmdir /S /Q "%BIN_DIR%"
+    if exist "%OBJ_DIR%" rmdir /S /Q "%OBJ_DIR%"
+    echo %vert%Nettoyage terminé.%reset%
+    goto :fin
+)
+
+:: Création des répertoires si nécessaires
+if not exist "%BIN_DIR%" mkdir "%BIN_DIR%"
+if not exist "%OBJ_DIR%" mkdir "%OBJ_DIR%"
+
+echo %vert%Compilation du projet%reset%
 echo ====================
 
-:: Définir le chemin de MinGW
-set MINGW_PATH=c:\msys64\ucrt64
-set PATH=%MINGW_PATH%\bin;%PATH%
+:: Préparation des ressources
+echo %bleu%Préparation des répertoires de ressources...%reset%
+if not exist "%BIN_DIR%\resources" mkdir "%BIN_DIR%\resources"
+if not exist "%BIN_DIR%\resources\textures" mkdir "%BIN_DIR%\resources\textures"
+if not exist "%BIN_DIR%\resources\sounds" mkdir "%BIN_DIR%\resources\sounds"
+if not exist "%BIN_DIR%\resources\fonts" mkdir "%BIN_DIR%\resources\fonts"
 
-:: Définir les chemins pour SFML, TMXLite et Box2D
-set SFML_PATH=c:\msys64\ucrt64
-set SFML_INCLUDE=%SFML_PATH%\include
-set SFML_LIB=%SFML_PATH%\lib
-set TMXLITE_INCLUDE=%MINGW_PATH%\include
-set TMXLITE_LIB=%MINGW_PATH%\lib
-set BOX2D_INCLUDE=%MINGW_PATH%\include
-set BOX2D_LIB=%MINGW_PATH%\lib
-
-:: Vérifier l'existence du fichier json.hpp
-if not exist "include\nlohmann\json.hpp" (
-    echo ERREUR: Le fichier include\nlohmann\json.hpp est introuvable!
-    echo Vérifiez que le répertoire include\nlohmann existe et contient json.hpp.
-    pause
-    exit /b 1
+:: Lister les fichiers source
+set "SOURCES="
+for /R "%SRC_DIR%" %%F in (*.cpp) do (
+    set "SOURCES=!SOURCES! "%%F""
 )
 
-:: Vérifier si le compilateur est disponible
-g++ --version >nul 2>&1
+:: Variables de compilation
+set "COMPILER=g++"
+set "STD_VERSION=-std=c++17"
+set "OPTIMIZATION=-O2"
+set "WARNINGS=-Wall -Wextra -Wno-unused-parameter"
+set "DEBUG=-g"
+set "INCLUDES=-I"%INCLUDE_DIR%" -I"%WORKING_DIR%\lib\sfml\include" -I"%WORKING_DIR%\lib\tmxlite\include" -I"%WORKING_DIR%\lib\box2d\include" -I"%WORKING_DIR%\lib\thor\include" -IC:\msys64\ucrt64\include -IC:\msys64\ucrt64\include\Thor"
+set "LIBS=-L"%WORKING_DIR%\lib\sfml\lib" -L"%WORKING_DIR%\lib\tmxlite\lib" -L"%WORKING_DIR%\lib\box2d\lib" -L"%WORKING_DIR%\lib\thor\lib" -LC:\msys64\ucrt64\lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -ltmxlite-s -lbox2d -lthor"
+
+:: Commande de compilation
+set "COMPILE_CMD=%COMPILER% %STD_VERSION% %OPTIMIZATION% %WARNINGS% %DEBUG% %INCLUDES% -o %BIN_DIR%\OrenjicGame.exe main.cpp %SOURCES% %LIBS%"
+
+:: Exécution de la compilation
+echo %bleu%Compilation de tous les fichiers...%reset%
+call %COMPILE_CMD%
+
+:: Vérification du résultat
 if %ERRORLEVEL% NEQ 0 (
-    echo ERREUR: Le compilateur g++ n'est pas disponible.
-    echo Vérifiez que MinGW est correctement installé.
+    echo %rouge%ERREUR: La compilation a échoué.%reset%
     pause
-    exit /b 1
+    goto :fin
 )
 
-:: Vérifier si SFML est disponible
-if not exist "%SFML_INCLUDE%\SFML\Graphics.hpp" (
-    echo AVERTISSEMENT: La bibliothèque SFML n'est pas trouvée.
-    echo Pour utiliser l'interface graphique, veuillez installer SFML.
-    echo Compilation en mode console uniquement...
-    set USE_CONSOLE=1
+:: Copie des ressources
+if exist "%RESOURCES_DIR%\sounds" (
+    echo Copie des sons...
+    xcopy /E /Y /I "%RESOURCES_DIR%\sounds" "%BIN_DIR%\resources\sounds"
 )
 
-:: Vérifier si TMXLite est disponible
-if not exist "%TMXLITE_INCLUDE%\tmxlite\Map.hpp" (
-    echo AVERTISSEMENT: La bibliothèque TMXLite n'est pas trouvée.
-    echo Pour utiliser le module TiledMap, veuillez installer TMXLite.
-    echo Compilation sans le support des cartes Tiled...
-    set NO_TMXLITE=1
+if exist "%RESOURCES_DIR%\textures" (
+    echo Copie des textures...
+    xcopy /E /Y /I "%RESOURCES_DIR%\textures" "%BIN_DIR%\resources\textures"
 )
 
-:: Vérifier si Box2D est disponible
-if not exist "%BOX2D_INCLUDE%\box2d\box2d.h" (
-    echo AVERTISSEMENT: La bibliothèque Box2D n'est pas trouvée.
-    echo Pour utiliser le module Physics, veuillez installer Box2D.
-    echo Compilation sans le support de la physique...
-    set NO_BOX2D=1
+if exist "%RESOURCES_DIR%\fonts" (
+    echo Copie des polices...
+    xcopy /E /Y /I "%RESOURCES_DIR%\fonts" "%BIN_DIR%\resources\fonts"
 )
 
-:: Créer les répertoires nécessaires
-if not exist "bin" mkdir bin
-if not exist "obj" mkdir obj
-if not exist "obj\Core" mkdir obj\Core
-if not exist "obj\States" mkdir obj\States
-if not exist "obj\Utilities" mkdir obj\Utilities
-if not exist "obj\TiledMap" mkdir obj\TiledMap
-if not exist "obj\Physics" mkdir obj\Physics
-
-:: Définir le chemin absolu du projet
-set PROJECT_PATH=%CD%
-
-echo Préparation des répertoires de ressources...
-if not exist "bin\resources" mkdir bin\resources
-if not exist "bin\resources\fonts" mkdir bin\resources\fonts
-if not exist "bin\resources\textures" mkdir bin\resources\textures
-if not exist "bin\resources\sounds" mkdir bin\resources\sounds
-if not exist "bin\resources\maps" mkdir bin\resources\maps
-
-echo Compilation de tous les fichiers...
-g++ -std=c++17 -Wall -Wextra -D__USE_MINGW_ANSI_STDIO=1 -D_GLIBCXX_USE_CXX11_ABI=1 ^
-    -I"%PROJECT_PATH%" -I"%PROJECT_PATH%\include" -I"%SFML_INCLUDE%" -I"%TMXLITE_INCLUDE%" -I"%BOX2D_INCLUDE%" ^
-    main.cpp ^
-    src\Core\Entity.cpp ^
-    src\Core\Component.cpp ^
-    src\Core\EntityManager.cpp ^
-    src\Core\SystemManager.cpp ^
-    src\Core\RenderSystem.cpp ^
-    src\States\State.cpp ^
-    src\States\StateMachine.cpp ^
-    src\States\MainMenuState.cpp ^
-    src\States\GameState.cpp ^
-    src\Utilities\ResourceManager.cpp ^
-    src\Utilities\InputHandler.cpp ^
-    src\TiledMap\TiledMap.cpp ^
-    src\TiledMap\TiledMapLoader.cpp ^
-    src\Game.cpp ^
-    -o bin\OrenjicGame.exe ^
-    -L"%SFML_LIB%" -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio ^
-    -L"%TMXLITE_LIB%" -ltmxlite ^
-    -lstdc++fs
-
-:: Vérifier si la compilation a réussi
-if %ERRORLEVEL% NEQ 0 (
-    echo ERREUR: La compilation a échoué.
-    pause
-    exit /b 1
-) else (
-    echo Compilation réussie!
-)
-
-:: Copier les ressources
-if exist "resources" (
-    echo Copie des ressources...
-    xcopy /E /Y /I "resources" "bin\resources"
-)
-
-:: Copier les assets de cartes
-if exist "assets\maps" (
+:: Copier les cartes Tiled
+if exist "%RESOURCES_DIR%\maps" (
     echo Copie des cartes Tiled...
-    xcopy /E /Y /I "assets\maps" "bin\resources\maps"
+    xcopy /E /Y /I "%RESOURCES_DIR%\maps" "%BIN_DIR%\resources\maps"
 )
 
-:: Copier les DLLs de SFML nécessaires
-if not "%USE_CONSOLE%"=="1" (
-    echo Copie des DLLs SFML...
-    copy "%SFML_PATH%\bin\libsfml-graphics-2.dll" "bin\"
-    copy "%SFML_PATH%\bin\libsfml-window-2.dll" "bin\"
-    copy "%SFML_PATH%\bin\libsfml-system-2.dll" "bin\"
-    copy "%SFML_PATH%\bin\libsfml-audio-2.dll" "bin\"
-)
+:: Copie des DLLs
+echo Copie des DLLs SFML...
+copy "%WORKING_DIR%\lib\sfml\bin\sfml-graphics-2.dll" "%BIN_DIR%\"
+copy "%WORKING_DIR%\lib\sfml\bin\sfml-window-2.dll" "%BIN_DIR%\"
+copy "%WORKING_DIR%\lib\sfml\bin\sfml-system-2.dll" "%BIN_DIR%\"
+copy "%WORKING_DIR%\lib\sfml\bin\sfml-audio-2.dll" "%BIN_DIR%\"
 
-:: Copier la DLL de TMXLite
-if not "%NO_TMXLITE%"=="1" (
-    echo Copie de la DLL TMXLite...
-    copy "%MINGW_PATH%\bin\libtmxlite.dll" "bin\"
-)
+echo Copie de la DLL TMXLite...
+copy "%WORKING_DIR%\lib\tmxlite\bin\tmxlite.dll" "%BIN_DIR%\"
 
-:: Copier la DLL de Box2D
 echo Copie de la DLL Box2D...
-copy "%MINGW_PATH%\bin\libbox2d.dll" "bin\"
+copy "%WORKING_DIR%\lib\box2d\bin\box2d.dll" "%BIN_DIR%\"
 
-echo Exécutable créé dans bin\OrenjicGame.exe
-echo.
-pause 
+echo Copie de la DLL Thor...
+copy "%WORKING_DIR%\lib\thor\bin\thor.dll" "%BIN_DIR%\"
+
+echo %vert%Exécutable créé dans %BIN_DIR%\OrenjicGame.exe%reset%
+
+:: Compilation des exemples
+if exist "%EXAMPLES_DIR%" (
+    echo.
+    echo %jaune%Construction de l'exemple de particules...%reset%
+    
+    if not exist "%BIN_DIR%\example" mkdir "%BIN_DIR%\example"
+    if not exist "%BIN_DIR%\example\resources" mkdir "%BIN_DIR%\example\resources"
+    
+    :: Commande de compilation des exemples
+    set "EXAMPLE_CMD=%COMPILER% %STD_VERSION% %OPTIMIZATION% %WARNINGS% %DEBUG% %INCLUDES% -o %BIN_DIR%\example\ParticleExample.exe %EXAMPLES_DIR%\ParticleExample.cpp %SOURCES% %LIBS%"
+    
+    :: Exécution de la compilation des exemples
+    call %EXAMPLE_CMD%
+    
+    :: Vérification du résultat
+    if %ERRORLEVEL% NEQ 0 (
+        echo %rouge%AVERTISSEMENT: La compilation de l'exemple de particules a échoué.%reset%
+        pause
+    ) else (
+        echo %vert%Exemple de particules créé dans %BIN_DIR%\example\ParticleExample.exe%reset%
+        
+        :: Copie des ressources pour les exemples si elles existent
+        if exist "%RESOURCES_DIR%\particles" (
+            echo Copie des assets pour l'exemple...
+            xcopy /E /Y /I "%RESOURCES_DIR%\particles" "%BIN_DIR%\example\resources\particles"
+        )
+    )
+)
+
+:fin
+echo %vert%Terminé.%reset%
+endlocal 

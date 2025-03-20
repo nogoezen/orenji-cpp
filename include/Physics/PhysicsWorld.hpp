@@ -38,14 +38,14 @@ namespace Orenji
      * Cette classe permet de définir des fonctions de rappel pour les différentes
      * phases de contact entre les corps physiques.
      */
-    class ContactListener : public box2d::b2ContactListener
+    class ContactListener
     {
     public:
-        // Méthodes de rappel de b2ContactListener
-        void BeginContact(box2d::b2Contact *contact) override;
-        void EndContact(box2d::b2Contact *contact) override;
-        void PreSolve(box2d::b2Contact *contact, const box2d::b2Manifold *oldManifold) override;
-        void PostSolve(box2d::b2Contact *contact, const box2d::b2ContactImpulse *impulse) override;
+        // Méthodes de rappel pour les contacts
+        void BeginContact(box2d::b2Contact *contact);
+        void EndContact(box2d::b2Contact *contact);
+        void PreSolve(box2d::b2Contact *contact, const box2d::b2Manifold *oldManifold);
+        void PostSolve(box2d::b2Contact *contact, const box2d::b2ContactImpulse *impulse);
 
         // Méthodes pour définir les fonctions de rappel
         void SetBeginContactCallback(BeginContactCallback callback);

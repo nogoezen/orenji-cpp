@@ -133,7 +133,7 @@ add_custom_command(TARGET OrenjicGame POST_BUILD
 # Copy maps directory
 add_custom_command(TARGET OrenjicGame POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/assets/maps ${CMAKE_BINARY_DIR}/bin/assets/maps
+    ${CMAKE_SOURCE_DIR}/resources/maps ${CMAKE_BINARY_DIR}/bin/resources/maps
 )
 
 # Display helpful messages

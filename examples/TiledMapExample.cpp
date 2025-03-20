@@ -1,22 +1,22 @@
-#include <SFML/Graphics.hpp>
 #include "../include/TiledMap/TiledMapLoader.hpp"
+#include <SFML/Graphics.hpp>
 #include <iostream>
 
 int main()
 {
-    // Créer la fenêtre SFML
+    // Création de la fenêtre
     sf::RenderWindow window(sf::VideoMode(800, 600), "Exemple de carte Tiled");
     window.setFramerateLimit(60);
 
-    // Configurer le répertoire racine pour les cartes
-    Orenji::TiledMapLoader::setRootDirectory("assets/maps/");
+    // Définir le chemin des cartes
+    Orenji::TiledMapLoader::setRootDirectory("resources/maps/");
 
-    // Charger une carte
-    auto map = Orenji::TiledMapLoader::load("example.tmx");
+    // Charger une carte depuis un fichier TMX
+    Orenji::TiledMap *map = Orenji::TiledMapLoader::load("example.tmx");
     if (!map)
     {
-        std::cerr << "Impossible de charger la carte!" << std::endl;
-        return 1;
+        std::cerr << "Erreur lors du chargement de la carte!" << std::endl;
+        return -1;
     }
 
     // Afficher les informations de la carte
@@ -52,7 +52,6 @@ int main()
     // Boucle principale
     while (window.isOpen())
     {
-        // Traiter les événements
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -95,67 +94,8 @@ int main()
         // Effacer la fenêtre
         window.clear(sf::Color(50, 50, 50));
 
-        // Rendu simple des couches de tuiles
-        // (Dans un vrai jeu, vous auriez une classe TiledMapRenderer dédiée)
-        for (const auto &layer : map->getTileLayers())
-        {
-            // Ignorer les couches invisibles
-            if (!layer.visible)
-                continue;
-
-            // Dessiner chaque tuile de la couche
-            for (int y = 0; y < map->getHeight(); y++)
-            {
-                for (int x = 0; x < map->getWidth(); x++)
-                {
-                    int tileIndex = y * map->getWidth() + x;
-                    if (tileIndex < static_cast<int>(layer.tiles.size()))
-                    {
-                        uint32_t gid = layer.tiles[tileIndex];
-                        if (gid == 0)
-                            continue; // Tuile vide
-
-                        // Trouver le tileset pour cette tuile
-                        for (size_t i = 0; i < map->getTilesets().size(); i++)
-                        {
-                            const auto &tileset = map->getTilesets()[i];
-                            if (gid >= tileset.firstGid && gid < tileset.firstGid + tileset.tileCount)
-                            {
-                                // Calculer l'ID local dans le tileset
-                                uint32_t localId = gid - tileset.firstGid;
-
-                                // Calculer la position dans la texture du tileset
-                                int tu = localId % tileset.columns;
-                                int tv = localId / tileset.columns;
-
-                                // Créer un sprite pour la tuile
-                                sf::Sprite tileSprite;
-                                tileSprite.setTexture(tilesetTextures[i]);
-                                tileSprite.setTextureRect(sf::IntRect(
-                                    tu * tileset.tileWidth,
-                                    tv * tileset.tileHeight,
-                                    tileset.tileWidth,
-                                    tileset.tileHeight));
-
-                                // Positionner la tuile dans le monde
-                                tileSprite.setPosition(
-                                    x * map->getTileWidth() + layer.offsetX,
-                                    y * map->getTileHeight() + layer.offsetY);
-
-                                // Appliquer l'opacité de la couche
-                                sf::Color color = sf::Color::White;
-                                color.a = static_cast<sf::Uint8>(255 * layer.opacity);
-                                tileSprite.setColor(color);
-
-                                // Dessiner la tuile
-                                window.draw(tileSprite);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        // Dessiner la carte
+        window.draw(*map);
 
         // Dessiner les objets
         for (const auto &objLayer : map->getObjectLayers())
@@ -198,6 +138,9 @@ int main()
         // Afficher la fenêtre
         window.display();
     }
+
+    // Libérer la mémoire
+    delete map;
 
     return 0;
 }

@@ -12,7 +12,7 @@ void PlayerComponent::initialize()
     {
         // Ajouter les composants nécessaires
         m_transform = entity->addComponent<TransformComponent>();
-        m_sprite = entity->addComponent<SpriteComponent>("assets/img/player.png");
+        m_sprite = entity->addComponent<SpriteComponent>("resources/textures/player.png");
 
         // Initialiser la position
         if (m_player)

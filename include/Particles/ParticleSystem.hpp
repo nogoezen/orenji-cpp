@@ -3,121 +3,170 @@
 #include "../Core/ResourceCache.hpp"
 #include <SFML/Graphics.hpp>
 #include <Thor/Particles.hpp>
+#include <Thor/Math.hpp>
+#include <Thor/Vectors.hpp>
 #include <string>
 #include <unordered_map>
 #include <memory>
+#include <functional>
 
 namespace Orenji
 {
     /**
-     * @brief Classe pour gérer et charger des systèmes de particules prédéfinis.
+     * @brief Particle system management class based on Thor
      *
-     * Permet de créer, charger et stocker des configurations de particules qui peuvent
-     * être réutilisées dans le jeu. Fonctionne comme un singleton pour partager
-     * les configurations entre différentes parties du jeu.
+     * This class allows creating and managing particle systems
+     * with different behaviors and appearances.
      */
-    class ParticleSystem
+    class ParticleSystem : public sf::Drawable
     {
     public:
         /**
-         * @brief Structure pour stocker une configuration de particules
+         * @brief Predefined particle system type
          */
-        struct ParticleTemplate
+        enum class ParticleType
         {
-            // Paramètres d'émission
-            float emissionRate;      // Taux d'émission (particules/seconde)
-            unsigned int burstSize;  // Nombre de particules dans un burst
-            float lifetime;          // Durée de vie des particules (secondes)
-            float lifetimeDeviation; // Variation aléatoire de la durée de vie
-
-            // Paramètres visuels
-            sf::Color color;    // Couleur de base des particules
-            sf::Color colorEnd; // Couleur finale des particules
-            float size;         // Taille des particules
-            float sizeEnd;      // Taille finale des particules
-            float rotation;     // Rotation des particules
-            float rotationEnd;  // Rotation finale des particules
-
-            // Paramètres de mouvement
-            sf::Vector2f velocity;          // Vitesse initiale
-            float velocityDeviation;        // Variation aléatoire de la vitesse
-            sf::Vector2f acceleration;      // Accélération
-            float angularVelocity;          // Vitesse de rotation
-            float angularVelocityDeviation; // Variation aléatoire de la vitesse de rotation
-
-            // Texture
-            std::string texturePath; // Chemin vers la texture
-
-            // Constructeur par défaut avec valeurs raisonnables
-            ParticleTemplate()
-                : emissionRate(30.f), burstSize(10), lifetime(3.f), lifetimeDeviation(1.f), color(sf::Color::White), colorEnd(sf::Color(255, 255, 255, 0)), size(10.f), sizeEnd(2.f), rotation(0.f), rotationEnd(0.f), velocity(0.f, -50.f), velocityDeviation(10.f), acceleration(0.f, 0.f), angularVelocity(0.f), angularVelocityDeviation(0.f), texturePath("")
-            {
-            }
+            EXPLOSION, ///< Explosion effect
+            FIRE,      ///< Fire effect
+            SMOKE,     ///< Smoke effect
+            SPARKLE,   ///< Sparkle effect
+            CUSTOM     ///< Custom system
         };
 
         /**
-         * @brief Obtient l'instance singleton du système de particules
-         * @return Référence à l'instance unique
+         * @brief Get the unique instance of the particle system (singleton)
+         * @return Reference to the instance
          */
         static ParticleSystem &getInstance();
 
         /**
-         * @brief Charge un template de particules depuis un fichier JSON
-         * @param name Nom pour identifier le template
-         * @param filename Chemin vers le fichier JSON
-         * @return true si le chargement a réussi
+         * @brief Destructor
          */
-        bool loadFromFile(const std::string &name, const std::string &filename);
+        ~ParticleSystem();
 
         /**
-         * @brief Enregistre un template de particules
-         * @param name Nom pour identifier le template
-         * @param templ Configuration du template
+         * @brief Create a predefined particle system
+         * @param id Unique identifier for the system
+         * @param type Type of system to create
+         * @param position Initial position of the system
+         * @param color Main color of the particles
+         * @return true if the system was created successfully
          */
-        void registerTemplate(const std::string &name, const ParticleTemplate &templ);
+        bool createSystem(const std::string &id,
+                          ParticleType type,
+                          const sf::Vector2f &position,
+                          const sf::Color &color = sf::Color::White);
 
         /**
-         * @brief Récupère un template de particules par son nom
-         * @param name Nom du template
-         * @return Pointeur vers le template ou nullptr si non trouvé
+         * @brief Create a custom particle system
+         * @param id Unique identifier for the system
+         * @param position Initial position of the system
+         * @param emissionRate Particle emission rate per second
+         * @param particleLifetime Lifetime of particles in seconds
+         * @return true if the system was created successfully
          */
-        const ParticleTemplate *getTemplate(const std::string &name) const;
+        bool createCustomSystem(const std::string &id,
+                                const sf::Vector2f &position,
+                                float emissionRate = 30.f,
+                                sf::Time particleLifetime = sf::seconds(1.f));
 
         /**
-         * @brief Configure un émetteur Thor avec les paramètres d'un template
-         * @param emitter Émetteur à configurer
-         * @param templateName Nom du template à appliquer
-         * @return true si le template a été trouvé et appliqué
+         * @brief Add an affector (modifier) to the particle system
+         * @param id System identifier
+         * @param affector Function that affects particles
+         * @return true if the affector was added successfully
          */
-        bool applyTemplate(thor::UniversalEmitter &emitter, const std::string &templateName);
+        bool addAffector(const std::string &id, std::function<void(thor::Particle &, sf::Time)> affector);
 
         /**
-         * @brief Configure un système de particules Thor avec les paramètres d'un template
-         * @param system Système de particules à configurer
-         * @param emitter Émetteur à configurer
-         * @param templateName Nom du template à appliquer
-         * @return true si le template a été trouvé et appliqué
+         * @brief Configure the particle emitter
+         * @param id System identifier
+         * @param emitter Function that emits particles
+         * @return true if the emitter was configured successfully
          */
-        bool setupParticleSystem(thor::ParticleSystem &system, thor::UniversalEmitter &emitter,
-                                 const std::string &templateName);
+        bool setEmitter(const std::string &id, std::function<void(thor::EmissionInterface &, sf::Time)> emitter);
 
         /**
-         * @brief Charge toutes les textures des templates dans le cache
+         * @brief Set the texture for particles
+         * @param id System identifier
+         * @param texture Texture to use for particles
+         * @param textureRect Area of the texture to use (optional)
+         * @return true if the texture was set successfully
          */
-        void preloadTextures();
+        bool setTexture(const std::string &id,
+                        const sf::Texture &texture,
+                        const sf::IntRect &textureRect = sf::IntRect());
+
+        /**
+         * @brief Activate or deactivate a particle system
+         * @param id System identifier
+         * @param active Activation state
+         * @return true if the state was modified successfully
+         */
+        bool setActive(const std::string &id, bool active);
+
+        /**
+         * @brief Set the position of a particle system
+         * @param id System identifier
+         * @param position New position
+         * @return true if the position was modified successfully
+         */
+        bool setPosition(const std::string &id, const sf::Vector2f &position);
+
+        /**
+         * @brief Emit a specific number of particles
+         * @param id System identifier
+         * @param count Number of particles to emit
+         * @return true if the particles were emitted successfully
+         */
+        bool emit(const std::string &id, int count);
+
+        /**
+         * @brief Stop a particle system (without removing it)
+         * @param id System identifier
+         * @return true if the system was stopped successfully
+         */
+        bool stop(const std::string &id);
+
+        /**
+         * @brief Remove a particle system
+         * @param id System identifier
+         * @return true if the system was removed successfully
+         */
+        bool removeSystem(const std::string &id);
+
+        /**
+         * @brief Update all particle systems
+         * @param deltaTime Time elapsed since the last update in seconds
+         */
+        void update(float deltaTime);
+
+        /**
+         * @brief Draw all particle systems
+         * @param target Render target
+         * @param states Render states
+         */
+        virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     private:
-        // Constructeur privé (singleton)
+        /**
+         * @brief Private constructor (singleton)
+         */
         ParticleSystem();
 
-        // Pointeur unique vers l'instance singleton
+        // Unique singleton instance
         static std::unique_ptr<ParticleSystem> s_instance;
 
-        // Map des templates de particules
-        std::unordered_map<std::string, ParticleTemplate> m_templates;
+        // Structure for particle system data
+        struct ParticleData
+        {
+            thor::ParticleSystem system;
+            thor::UniversalEmitter emitter;
+            bool active;
+            sf::Vector2f position;
+        };
 
-        // Cache des textures de particules
-        ResourceCache<sf::Texture> m_textureCache;
+        std::unordered_map<std::string, std::unique_ptr<ParticleData>> m_particleSystems;
     };
 
 } // namespace Orenji

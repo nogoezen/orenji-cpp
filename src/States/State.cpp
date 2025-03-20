@@ -3,7 +3,7 @@
 namespace Orenji
 {
 
-    State::State() : m_status(StateStatus::Running), m_parent(nullptr)
+    State::State() : m_status(StateStatus::Running), m_stateMachine(nullptr)
     {
     }
 
@@ -21,14 +21,14 @@ namespace Orenji
         m_status = status;
     }
 
-    void State::setParent(StateMachine *parent)
+    void State::setStateMachine(StateMachine *stateMachine)
     {
-        m_parent = parent;
+        m_stateMachine = stateMachine;
     }
 
-    StateMachine *State::getParent() const
+    StateMachine *State::getStateMachine() const
     {
-        return m_parent;
+        return m_stateMachine;
     }
 
 } // namespace Orenji
