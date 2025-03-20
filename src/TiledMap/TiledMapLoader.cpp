@@ -1,46 +1,20 @@
 #include "../../include/TiledMap/TiledMapLoader.hpp"
-#include "../../include/TiledMap/TiledMap.hpp"
-#include <filesystem>
 #include <iostream>
+#include <filesystem>
 
 namespace Orenji
 {
-
-    // Initialiser les membres statiques
+    // Initialisation des variables statiques
     ResourceCache<TiledMap> TiledMapLoader::s_mapCache;
     std::string TiledMapLoader::s_rootDirectory = "";
 
     std::shared_ptr<TiledMap> TiledMapLoader::load(const std::string &filepath, bool forceReload)
     {
+        // Résoudre le chemin complet
         std::string fullPath = resolvePath(filepath);
 
-        // Vérifier si la carte est déjà chargée et si on ne force pas le rechargement
-        if (!forceReload && s_mapCache.isLoaded(fullPath))
-        {
-            return s_mapCache.get(fullPath);
-        }
-
-        // Vérifier si le fichier existe
-        if (!std::filesystem::exists(fullPath))
-        {
-            std::cerr << "Erreur: Impossible de trouver le fichier de carte: " << fullPath << std::endl;
-            return nullptr;
-        }
-
-        // Créer une nouvelle carte
-        auto map = std::make_shared<TiledMap>();
-
-        // Charger la carte depuis le fichier
-        if (!map->loadFromFile(fullPath))
-        {
-            std::cerr << "Erreur: Impossible de charger la carte depuis: " << fullPath << std::endl;
-            return nullptr;
-        }
-
-        // Ajouter la carte au cache
-        s_mapCache.add(fullPath, map);
-
-        return map;
+        // Utiliser le cache pour charger la carte
+        return s_mapCache.load(fullPath, forceReload);
     }
 
     bool TiledMapLoader::isLoaded(const std::string &filepath)
@@ -52,7 +26,7 @@ namespace Orenji
     void TiledMapLoader::unload(const std::string &filepath)
     {
         std::string fullPath = resolvePath(filepath);
-        s_mapCache.remove(fullPath);
+        s_mapCache.unload(fullPath);
     }
 
     void TiledMapLoader::unloadAll()
@@ -64,28 +38,28 @@ namespace Orenji
     {
         s_rootDirectory = rootDir;
 
-        // S'assurer que le chemin se termine par un séparateur
+        // Assurons-nous que le chemin se termine par un séparateur
         if (!s_rootDirectory.empty() && s_rootDirectory.back() != '/' && s_rootDirectory.back() != '\\')
         {
             s_rootDirectory += '/';
         }
     }
 
-    std::string TiledMapLoader::getRootDirectory()
+    const std::string &TiledMapLoader::getRootDirectory()
     {
         return s_rootDirectory;
     }
 
-    std::string TiledMapLoader::resolvePath(const std::string &filepath)
+    std::string TiledMapLoader::resolvePath(const std::string &path)
     {
-        // Si le chemin est déjà absolu, le retourner tel quel
-        if (filepath.size() > 1 && (filepath[0] == '/' || filepath[0] == '\\' || filepath[1] == ':'))
+        // Si le chemin est absolu, le retourner tel quel
+        if (std::filesystem::path(path).is_absolute())
         {
-            return filepath;
+            return path;
         }
 
-        // Sinon, combiner avec le dossier racine
-        return s_rootDirectory + filepath;
+        // Sinon, combiner avec le répertoire racine
+        return s_rootDirectory + path;
     }
 
 } // namespace Orenji

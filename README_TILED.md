@@ -1,107 +1,146 @@
-# Système de cartes Tiled pour Orenji Engine
+# Module TiledMap pour Orenji
 
-Ce module permet d'intégrer facilement des cartes créées avec [Tiled Map Editor](https://www.mapeditor.org/) dans vos jeux utilisant Orenji Engine.
+Ce module permet de charger et de gérer des cartes créées avec l'éditeur de cartes [Tiled](https://www.mapeditor.org/).
 
-## Caractéristiques
+## Prérequis
 
-- Chargement efficace des cartes TMX avec mise en cache
-- Rendu des cartes avec prise en charge des calques et des tilesets
-- Système de collision basé sur les calques
-- Création d'entités à partir des objets définis dans la carte
-- Scène de base prête à l'emploi pour les jeux basés sur des cartes
+- [TMXLite](https://github.com/fallahn/tmxlite) : Bibliothèque pour parser les fichiers TMX
+- [SFML](https://www.sfml-dev.org/) : Bibliothèque pour le rendu graphique
 
-## Comment utiliser
+## Installation de TMXLite
 
-### Chargement simple d'une carte
+### Windows avec MSYS2
+
+```bash
+pacman -S mingw-w64-ucrt-x86_64-tmxlite
+```
+
+### Linux
+
+```bash
+# Compiler depuis les sources
+git clone https://github.com/fallahn/tmxlite.git
+cd tmxlite/tmxlite
+cmake -DCMAKE_BUILD_TYPE=Release .
+make
+sudo make install
+```
+
+## Concepts principaux
+
+### TiledMap
+
+La classe `TiledMap` représente une carte Tiled chargée en mémoire. Elle permet d'accéder aux différentes couches, tuiles et objets de la carte.
+
+Principales fonctionnalités :
+- Chargement d'une carte TMX
+- Accès aux propriétés de la carte (taille, propriétés personnalisées)
+- Accès aux couches de tuiles, d'objets et d'images
+- Accès aux tilesets et aux informations des tuiles
+
+### TiledMapLoader
+
+La classe `TiledMapLoader` fournit des méthodes statiques pour charger et gérer les cartes Tiled. Elle utilise un cache pour éviter de charger plusieurs fois la même carte.
+
+Principales fonctionnalités :
+- Chargement et mise en cache des cartes
+- Gestion d'un répertoire racine pour les chemins relatifs
+- Déchargement de cartes spécifiques ou de toutes les cartes
+
+## Utilisation
+
+### Chargement d'une carte
 
 ```cpp
 // Configurer le répertoire racine (optionnel)
-TiledMapLoader::setRootDirectory("assets/maps/");
+Orenji::TiledMapLoader::setRootDirectory("assets/maps/");
 
-// Charger une carte (elle sera mise en cache)
-auto map = TiledMapLoader::load("level1.tmx");
-
-// Vérifier si une carte est chargée
-bool isLoaded = TiledMapLoader::isLoaded("level1.tmx");
-
-// Libérer une carte de la mémoire
-TiledMapLoader::unload("level1.tmx");
-
-// Libérer toutes les cartes
-TiledMapLoader::unloadAll();
+// Charger une carte
+auto map = Orenji::TiledMapLoader::load("level1.tmx");
+if (map)
+{
+    // La carte a été chargée avec succès
+}
 ```
 
-### Utilisation avec TiledMapScene
-
-Pour une intégration complète, il est recommandé d'utiliser ou d'étendre la classe `TiledMapScene` :
+### Accès aux propriétés de la carte
 
 ```cpp
-class GameScene : public TiledMapScene
-{
-public:
-    void initialize() override
-    {
-        // Charger la carte
-        loadMap("level1.tmx");
-        
-        // Initialiser la scène (crée les entités, caméra, etc.)
-        TiledMapScene::initialize();
-        
-        // Configurer les calques de collision
-        setCollisionLayers({"Collision", "Obstacles"});
-    }
-    
-    void registerEntityTypes() override
-    {
-        // Enregistrer les types d'entités personnalisés
-        TiledMapFactory* factory = getFactory();
-        if (factory)
-        {
-            factory->registerType("player", [this](Object* obj) -> Entity* {
-                return createPlayer(obj);
-            });
-            
-            factory->registerType("enemy", [this](Object* obj) -> Entity* {
-                return createEnemy(obj);
-            });
-        }
-    }
-    
-private:
-    Entity* createPlayer(Object* obj) {
-        // Créer et configurer l'entité joueur
-        // ...
-    }
-    
-    Entity* createEnemy(Object* obj) {
-        // Créer et configurer l'entité ennemi
-        // ...
-    }
-};
+// Dimensions de la carte
+int width = map->getWidth();        // Largeur en tuiles
+int height = map->getHeight();      // Hauteur en tuiles
+int tileWidth = map->getTileWidth(); // Largeur d'une tuile en pixels
+int tileHeight = map->getTileHeight(); // Hauteur d'une tuile en pixels
+
+// Propriétés personnalisées
+std::string author = map->getProperty("author", "Unknown");
+int difficulty = map->getPropertyInt("difficulty", 1);
+bool isOutdoor = map->getPropertyBool("outdoor", false);
 ```
 
-## Structure de la carte Tiled
+### Accès aux couches et tuiles
 
-Pour que votre carte fonctionne correctement avec ce système :
+```cpp
+// Accéder aux couches de tuiles
+const auto& tileLayers = map->getTileLayers();
+for (const auto& layer : tileLayers)
+{
+    // Traiter chaque couche de tuiles
+    std::string layerName = layer.name;
+    bool layerVisible = layer.visible;
+    float layerOpacity = layer.opacity;
+    
+    // Accéder aux tuiles de la couche
+    for (int y = 0; y < map->getHeight(); y++)
+    {
+        for (int x = 0; x < map->getWidth(); x++)
+        {
+            int index = y * map->getWidth() + x;
+            uint32_t tileId = layer.tiles[index];
+            
+            // tileId == 0 signifie une tuile vide
+            if (tileId != 0)
+            {
+                // Traiter la tuile
+            }
+        }
+    }
+}
+```
 
-1. **Calques de tuiles** : Utilisés pour le rendu et les collisions
-   - Nommez vos calques de collision de manière cohérente (ex: "Collision", "Obstacles")
+### Accès aux objets
 
-2. **Calques d'objets** : Utilisés pour placer des entités
-   - Définissez le type d'objet dans Tiled (ex: "player", "enemy", "item")
-   - Utilisez les propriétés personnalisées pour définir des attributs supplémentaires
-
-3. **Propriétés de carte** : Peuvent être utilisées pour des paramètres globaux
-   - Accès via `map->getProperty("nomPropriété")`
-
-## Optimisation
-
-- Les cartes sont automatiquement mises en cache pour éviter les chargements redondants
-- Utilisez `setVisibleLayers()` pour limiter le rendu aux calques nécessaires
-- Configurez uniquement les calques de collision requis avec `setCollisionLayers()`
+```cpp
+// Accéder aux couches d'objets
+const auto& objectLayers = map->getObjectLayers();
+for (const auto& layer : objectLayers)
+{
+    // Traiter chaque couche d'objets
+    std::string layerName = layer.name;
+    
+    // Accéder aux objets de la couche
+    for (const auto& object : layer.objects)
+    {
+        // Traiter chaque objet
+        uint32_t id = object.id;
+        std::string name = object.name;
+        std::string type = object.type;
+        float x = object.x;
+        float y = object.y;
+        float width = object.width;
+        float height = object.height;
+        
+        // Accéder aux propriétés personnalisées de l'objet
+        auto it = object.properties.find("key");
+        if (it != object.properties.end())
+        {
+            std::string value = it->second;
+            // Traiter la propriété
+        }
+    }
+}
+```
 
 ## Exemple complet
 
-Voir les fichiers d'exemple fournis :
-- `examples/TiledMapExample.cpp` : Exemple d'utilisation basique
-- `examples/Player.hpp` : Exemple de composant joueur avec collision 
+Voir le fichier [examples/TiledMapExample.cpp](examples/TiledMapExample.cpp) pour un exemple complet montrant comment charger et afficher une carte Tiled. 

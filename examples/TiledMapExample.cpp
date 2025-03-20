@@ -1,156 +1,36 @@
-#include "../include/Core/Engine.hpp"
-#include "../include/Core/Scene.hpp"
-#include "../include/TiledMap/TiledMapScene.hpp"
-#include "../include/TiledMap/TiledMapLoader.hpp"
-#include "../include/TiledMap/TiledMap.hpp"
-#include "Player.hpp"
 #include <SFML/Graphics.hpp>
+#include "../include/TiledMap/TiledMapLoader.hpp"
 #include <iostream>
 
-using namespace Orenji;
-
-class GameScene : public TiledMapScene
-{
-public:
-    GameScene() : TiledMapScene() {}
-
-    void initialize() override
-    {
-        // Configurer le répertoire des cartes
-        TiledMapLoader::setRootDirectory("assets/maps/");
-
-        // Charger la carte
-        if (!loadMap("example_map.tmx"))
-        {
-            std::cerr << "Impossible de charger la carte !" << std::endl;
-            return;
-        }
-
-        // Initialiser la scène de base (crée les entités, la caméra, etc.)
-        TiledMapScene::initialize();
-
-        // Configurer les calques de collision
-        setCollisionLayers({"Collision", "Obstacles"});
-
-        // Masquer les objets (optionnel)
-        setObjectsVisible(false);
-
-        // Créer un joueur manuellement si aucun n'est défini dans la carte
-        createPlayerIfNeeded();
-    }
-
-    void registerEntityTypes() override
-    {
-        // Enregistrer les types d'entités personnalisés
-        TiledMapFactory *factory = getFactory();
-        if (factory)
-        {
-            factory->registerType("player", [this](Object *obj) -> Entity *
-                                  { return createPlayer(obj); });
-        }
-    }
-
-    void update(float deltaTime) override
-    {
-        // Mettre à jour la scène de base
-        TiledMapScene::update(deltaTime);
-
-        // Suivre le joueur avec la caméra
-        if (m_playerEntity && m_cameraEntity)
-        {
-            // Obtenir la position du joueur
-            sf::Vector2f playerPos = m_playerEntity->getPosition();
-
-            // Positionner la caméra sur le joueur
-            m_cameraEntity->setPosition(playerPos);
-        }
-    }
-
-private:
-    Entity *m_playerEntity = nullptr;
-
-    void createPlayerIfNeeded()
-    {
-        // Vérifier si un joueur a déjà été créé par la factory
-        auto entities = getEntityManager()->getEntities();
-        for (auto *entity : entities)
-        {
-            if (entity->getName() == "Player")
-            {
-                m_playerEntity = entity;
-                return;
-            }
-        }
-
-        // Aucun joueur trouvé, en créer un manuellement
-        Object dummyObj;
-        dummyObj.name = "Player";
-        dummyObj.type = "player";
-        dummyObj.x = getMap()->getWidth() * getMap()->getTileWidth() / 2.0f;
-        dummyObj.y = getMap()->getHeight() * getMap()->getTileHeight() / 2.0f;
-
-        m_playerEntity = createPlayer(&dummyObj);
-    }
-
-    // Méthode pour créer une entité joueur
-    Entity *createPlayer(Object *obj)
-    {
-        if (!obj)
-            return nullptr;
-
-        Entity *player = getEntityManager()->createEntity();
-        player->setName("Player");
-        player->setPosition(obj->x, obj->y);
-
-        // Ajouter le composant joueur
-        player->addComponent<PlayerComponent>();
-
-        // Stocker l'entité joueur
-        m_playerEntity = player;
-
-        return player;
-    }
-};
-
-/**
- * @brief Example demonstrating how to load and display a Tiled map
- *
- * This example shows how to:
- * 1. Configure the TiledMapLoader with a root directory
- * 2. Load a Tiled map from a .tmx file
- * 3. Access different types of layers (tile, object, image)
- * 4. Access map properties
- * 5. Simple rendering of tile layers
- */
 int main()
 {
-    // Create the SFML window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Tiled Map Example");
+    // Créer la fenêtre SFML
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Exemple de carte Tiled");
     window.setFramerateLimit(60);
 
-    // Set the root directory for maps
+    // Configurer le répertoire racine pour les cartes
     Orenji::TiledMapLoader::setRootDirectory("assets/maps/");
 
-    // Load a map
+    // Charger une carte
     auto map = Orenji::TiledMapLoader::load("example.tmx");
     if (!map)
     {
-        std::cerr << "Failed to load map!" << std::endl;
+        std::cerr << "Impossible de charger la carte!" << std::endl;
         return 1;
     }
 
-    // Print map information
-    std::cout << "Map loaded successfully:" << std::endl;
-    std::cout << "Size: " << map->getWidth() << "x" << map->getHeight() << " tiles" << std::endl;
-    std::cout << "Tile size: " << map->getTileWidth() << "x" << map->getTileHeight() << " pixels" << std::endl;
-    std::cout << "Total size: " << map->getWidthPixels() << "x" << map->getHeightPixels() << " pixels" << std::endl;
+    // Afficher les informations de la carte
+    std::cout << "Carte chargée avec succès:" << std::endl;
+    std::cout << "Taille: " << map->getWidth() << "x" << map->getHeight() << " tuiles" << std::endl;
+    std::cout << "Taille des tuiles: " << map->getTileWidth() << "x" << map->getTileHeight() << " pixels" << std::endl;
+    std::cout << "Taille totale: " << map->getWidthPixels() << "x" << map->getHeightPixels() << " pixels" << std::endl;
 
-    // Access custom properties if defined in the Tiled map
-    std::cout << "Author: " << map->getProperty("author", "Unknown") << std::endl;
-    std::cout << "Difficulty: " << map->getPropertyInt("difficulty", 1) << std::endl;
-    std::cout << "Is Outdoor: " << (map->getPropertyBool("outdoor", false) ? "Yes" : "No") << std::endl;
+    // Accéder aux propriétés personnalisées
+    std::cout << "Auteur: " << map->getProperty("author", "Inconnu") << std::endl;
+    std::cout << "Difficulté: " << map->getPropertyInt("difficulty", 1) << std::endl;
+    std::cout << "Est extérieur: " << (map->getPropertyBool("outdoor", false) ? "Oui" : "Non") << std::endl;
 
-    // Create textures for each tileset
+    // Créer des textures pour chaque tileset
     std::vector<sf::Texture> tilesetTextures;
     for (const auto &tileset : map->getTilesets())
     {
@@ -161,25 +41,25 @@ int main()
         }
         else
         {
-            std::cerr << "Failed to load tileset texture: " << tileset.imagePath << std::endl;
+            std::cerr << "Impossible de charger la texture du tileset: " << tileset.imagePath << std::endl;
         }
     }
 
-    // Camera view
+    // Vue caméra
     sf::View view(sf::FloatRect(0, 0, 800, 600));
     float zoomLevel = 1.0f;
 
-    // Main game loop
+    // Boucle principale
     while (window.isOpen())
     {
-        // Process events
+        // Traiter les événements
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            // Camera zoom with mouse wheel
+            // Zoom avec la molette de la souris
             if (event.type == sf::Event::MouseWheelScrolled)
             {
                 if (event.mouseWheelScroll.delta > 0)
@@ -190,7 +70,7 @@ int main()
                 view.setSize(800 / zoomLevel, 600 / zoomLevel);
             }
 
-            // Camera movement with arrow keys
+            // Déplacement avec les flèches
             if (event.type == sf::Event::KeyPressed)
             {
                 float moveSpeed = 10.0f;
@@ -209,21 +89,21 @@ int main()
             }
         }
 
-        // Set the view
+        // Appliquer la vue
         window.setView(view);
 
-        // Clear the window
+        // Effacer la fenêtre
         window.clear(sf::Color(50, 50, 50));
 
-        // Simple manual rendering of the tile layers
-        // (In a real game, you would use a dedicated TiledMapRenderer class)
+        // Rendu simple des couches de tuiles
+        // (Dans un vrai jeu, vous auriez une classe TiledMapRenderer dédiée)
         for (const auto &layer : map->getTileLayers())
         {
-            // Skip invisible layers
+            // Ignorer les couches invisibles
             if (!layer.visible)
                 continue;
 
-            // Draw each tile in the layer
+            // Dessiner chaque tuile de la couche
             for (int y = 0; y < map->getHeight(); y++)
             {
                 for (int x = 0; x < map->getWidth(); x++)
@@ -233,22 +113,22 @@ int main()
                     {
                         uint32_t gid = layer.tiles[tileIndex];
                         if (gid == 0)
-                            continue; // Empty tile
+                            continue; // Tuile vide
 
-                        // Find the tileset for this tile
+                        // Trouver le tileset pour cette tuile
                         for (size_t i = 0; i < map->getTilesets().size(); i++)
                         {
                             const auto &tileset = map->getTilesets()[i];
                             if (gid >= tileset.firstGid && gid < tileset.firstGid + tileset.tileCount)
                             {
-                                // Calculate the local tile ID within the tileset
+                                // Calculer l'ID local dans le tileset
                                 uint32_t localId = gid - tileset.firstGid;
 
-                                // Calculate the position in the tileset texture
+                                // Calculer la position dans la texture du tileset
                                 int tu = localId % tileset.columns;
                                 int tv = localId / tileset.columns;
 
-                                // Create a sprite for the tile
+                                // Créer un sprite pour la tuile
                                 sf::Sprite tileSprite;
                                 tileSprite.setTexture(tilesetTextures[i]);
                                 tileSprite.setTextureRect(sf::IntRect(
@@ -257,17 +137,17 @@ int main()
                                     tileset.tileWidth,
                                     tileset.tileHeight));
 
-                                // Position the tile in the world
+                                // Positionner la tuile dans le monde
                                 tileSprite.setPosition(
                                     x * map->getTileWidth() + layer.offsetX,
                                     y * map->getTileHeight() + layer.offsetY);
 
-                                // Apply layer opacity
+                                // Appliquer l'opacité de la couche
                                 sf::Color color = sf::Color::White;
                                 color.a = static_cast<sf::Uint8>(255 * layer.opacity);
                                 tileSprite.setColor(color);
 
-                                // Draw the tile
+                                // Dessiner la tuile
                                 window.draw(tileSprite);
                                 break;
                             }
@@ -277,7 +157,45 @@ int main()
             }
         }
 
-        // Display the window
+        // Dessiner les objets
+        for (const auto &objLayer : map->getObjectLayers())
+        {
+            // Ignorer les couches invisibles
+            if (!objLayer.visible)
+                continue;
+
+            for (const auto &obj : objLayer.objects)
+            {
+                // Ignorer les objets invisibles
+                if (!obj.visible)
+                    continue;
+
+                // Dessiner une représentation simple des objets
+                sf::RectangleShape shape;
+                shape.setSize(sf::Vector2f(obj.width, obj.height));
+                shape.setPosition(obj.x, obj.y);
+                shape.setRotation(obj.rotation);
+
+                // Couleur basée sur le type d'objet
+                sf::Color color = sf::Color::Green;
+                if (obj.type == "enemy")
+                    color = sf::Color::Red;
+                else if (obj.type == "door")
+                    color = sf::Color::Blue;
+                else if (obj.type == "chest")
+                    color = sf::Color::Yellow;
+
+                // Semi-transparent
+                color.a = 128;
+                shape.setFillColor(color);
+                shape.setOutlineColor(sf::Color::White);
+                shape.setOutlineThickness(1.0f);
+
+                window.draw(shape);
+            }
+        }
+
+        // Afficher la fenêtre
         window.display();
     }
 

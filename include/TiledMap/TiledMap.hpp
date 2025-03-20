@@ -4,9 +4,10 @@
 #include <vector>
 #include <map>
 #include <unordered_map>
+#include <memory>
 #include <SFML/Graphics.hpp>
 
-// Forward declarations for tmxlite
+// Forward declarations pour tmxlite
 namespace tmx
 {
     class Map;
@@ -297,21 +298,21 @@ namespace Orenji
          * @param layer Pointeur vers la couche tmxlite
          * @param map Référence vers la carte tmxlite
          */
-        void loadTileLayer(const tmx::Layer::Ptr &layer, const tmx::Map &map);
+        void loadTileLayer(const tmx::LayerPtr &layer, const tmx::Map &map);
 
         /**
          * @brief Charge une couche d'objets.
          *
          * @param layer Pointeur vers la couche tmxlite
          */
-        void loadObjectLayer(const tmx::Layer::Ptr &layer);
+        void loadObjectLayer(const tmx::LayerPtr &layer);
 
         /**
          * @brief Charge une couche d'image.
          *
          * @param layer Pointeur vers la couche tmxlite
          */
-        void loadImageLayer(const tmx::Layer::Ptr &layer);
+        void loadImageLayer(const tmx::LayerPtr &layer);
 
         /**
          * @brief Convertit une propriété tmxlite en chaîne.

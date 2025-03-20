@@ -4,12 +4,13 @@
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
 #include <functional>
+#include "Box2DTypes.hpp"
 
 namespace Orenji
 {
 
     // Constantes pour la conversion entre pixels et mètres Box2D
-    constexpr float PIXELS_PER_METER = 32.0f;
+    constexpr float PIXELS_PER_METER = 30.0f;
     constexpr float METERS_PER_PIXEL = 1.0f / PIXELS_PER_METER;
 
     // Types de collisions
@@ -25,20 +26,28 @@ namespace Orenji
         ALL = 0xFFFF
     };
 
-    // Gestionnaire de contacts Box2D
-    class ContactListener : public b2ContactListener
+    // Type d'alias pour les fonctions de rappel de contact
+    using BeginContactCallback = std::function<void(box2d::b2Contact *)>;
+    using EndContactCallback = std::function<void(box2d::b2Contact *)>;
+    using PreSolveCallback = std::function<void(box2d::b2Contact *, const box2d::b2Manifold *)>;
+    using PostSolveCallback = std::function<void(box2d::b2Contact *, const box2d::b2ContactImpulse *)>;
+
+    /**
+     * @brief Classe d'écoute pour les événements de contact de Box2D
+     *
+     * Cette classe permet de définir des fonctions de rappel pour les différentes
+     * phases de contact entre les corps physiques.
+     */
+    class ContactListener : public box2d::b2ContactListener
     {
     public:
-        using BeginContactCallback = std::function<void(b2Contact *)>;
-        using EndContactCallback = std::function<void(b2Contact *)>;
-        using PreSolveCallback = std::function<void(b2Contact *, const b2Manifold *)>;
-        using PostSolveCallback = std::function<void(b2Contact *, const b2ContactImpulse *)>;
+        // Méthodes de rappel de b2ContactListener
+        void BeginContact(box2d::b2Contact *contact) override;
+        void EndContact(box2d::b2Contact *contact) override;
+        void PreSolve(box2d::b2Contact *contact, const box2d::b2Manifold *oldManifold) override;
+        void PostSolve(box2d::b2Contact *contact, const box2d::b2ContactImpulse *impulse) override;
 
-        void BeginContact(b2Contact *contact) override;
-        void EndContact(b2Contact *contact) override;
-        void PreSolve(b2Contact *contact, const b2Manifold *oldManifold) override;
-        void PostSolve(b2Contact *contact, const b2ContactImpulse *impulse) override;
-
+        // Méthodes pour définir les fonctions de rappel
         void SetBeginContactCallback(BeginContactCallback callback);
         void SetEndContactCallback(EndContactCallback callback);
         void SetPreSolveCallback(PreSolveCallback callback);
@@ -51,52 +60,143 @@ namespace Orenji
         PostSolveCallback m_postSolveCallback;
     };
 
-    // Gestionnaire principal du monde physique
+    /**
+     * @brief Classe de gestion du monde physique avec Box2D
+     *
+     * Cette classe encapsule le monde Box2D et fournit des méthodes utilitaires
+     * pour gérer les corps, les fixtures et les interactions physiques.
+     */
     class PhysicsWorld
     {
     public:
+        /**
+         * @brief Constructeur
+         * @param gravity La force de gravité (par défaut (0, 9.8f))
+         */
         PhysicsWorld(const sf::Vector2f &gravity = sf::Vector2f(0.0f, 9.8f));
+
+        /**
+         * @brief Destructeur
+         */
         ~PhysicsWorld();
 
-        // Singleton
+        /**
+         * @brief Obtient l'instance unique du monde physique
+         * @return Référence vers l'instance du monde physique
+         */
         static PhysicsWorld &getInstance();
 
-        // Conversion entre pixels SFML et mètres Box2D
-        static sf::Vector2f metersToPixels(const b2Vec2 &meterPos);
-        static b2Vec2 pixelsToMeters(const sf::Vector2f &pixelPos);
+        /**
+         * @brief Convertit une position en mètres vers des pixels
+         * @param meterPos Position en mètres
+         * @return Position en pixels
+         */
+        static sf::Vector2f metersToPixels(const box2d::b2Vec2 &meterPos);
+
+        /**
+         * @brief Convertit une position en pixels vers des mètres
+         * @param pixelPos Position en pixels
+         * @return Position en mètres
+         */
+        static box2d::b2Vec2 pixelsToMeters(const sf::Vector2f &pixelPos);
+
+        /**
+         * @brief Convertit une valeur en mètres vers des pixels
+         * @param meterValue Valeur en mètres
+         * @return Valeur en pixels
+         */
         static float metersToPixels(float meterValue);
+
+        /**
+         * @brief Convertit une valeur en pixels vers des mètres
+         * @param pixelValue Valeur en pixels
+         * @return Valeur en mètres
+         */
         static float pixelsToMeters(float pixelValue);
 
-        // Mettre à jour le monde physique
+        /**
+         * @brief Met à jour le monde physique
+         * @param deltaTime Temps écoulé depuis la dernière mise à jour (en secondes)
+         */
         void update(float deltaTime);
 
-        // Créer des corps physiques
-        b2Body *createBody(const sf::Vector2f &position, b2BodyType type);
-        void destroyBody(b2Body *body);
+        /**
+         * @brief Crée un corps physique
+         * @param position Position initiale en pixels
+         * @param type Type de corps (statique, dynamique, cinématique)
+         * @return Identifiant du corps créé
+         */
+        b2BodyId createBody(const sf::Vector2f &position, b2BodyType type);
 
-        // Ajouter des formes aux corps
-        b2Fixture *addBoxFixture(b2Body *body, const sf::Vector2f &size, float density = 1.0f,
-                                 float friction = 0.3f, float restitution = 0.1f,
-                                 uint16_t categoryBits = static_cast<uint16_t>(CollisionCategory::ALL),
-                                 uint16_t maskBits = static_cast<uint16_t>(CollisionCategory::ALL),
-                                 bool isSensor = false);
+        /**
+         * @brief Détruit un corps physique
+         * @param body Identifiant du corps à détruire
+         */
+        void destroyBody(b2BodyId body);
 
-        b2Fixture *addCircleFixture(b2Body *body, float radius, float density = 1.0f,
-                                    float friction = 0.3f, float restitution = 0.1f,
-                                    uint16_t categoryBits = static_cast<uint16_t>(CollisionCategory::ALL),
-                                    uint16_t maskBits = static_cast<uint16_t>(CollisionCategory::ALL),
-                                    bool isSensor = false);
+        /**
+         * @brief Ajoute une fixture rectangulaire à un corps
+         * @param body Identifiant du corps
+         * @param size Dimensions du rectangle en pixels
+         * @param density Densité de la fixture (masse volumique)
+         * @param friction Coefficient de friction
+         * @param restitution Coefficient de restitution (rebond)
+         * @param categoryBits Bits de catégorie pour le filtrage des collisions
+         * @param maskBits Bits de masque pour le filtrage des collisions
+         * @param isSensor Si true, la fixture est un capteur (ne génère pas de collisions physiques)
+         * @return Identifiant de la fixture créée
+         */
+        b2FixtureId addBoxFixture(b2BodyId body, const sf::Vector2f &size,
+                                  float density = 1.0f, float friction = 0.3f, float restitution = 0.0f,
+                                  uint16_t categoryBits = 0x0001, uint16_t maskBits = 0xFFFF, bool isSensor = false);
 
-        // Accès au contact listener
+        /**
+         * @brief Ajoute une fixture circulaire à un corps
+         * @param body Identifiant du corps
+         * @param radius Rayon du cercle en pixels
+         * @param density Densité de la fixture (masse volumique)
+         * @param friction Coefficient de friction
+         * @param restitution Coefficient de restitution (rebond)
+         * @param categoryBits Bits de catégorie pour le filtrage des collisions
+         * @param maskBits Bits de masque pour le filtrage des collisions
+         * @param isSensor Si true, la fixture est un capteur (ne génère pas de collisions physiques)
+         * @return Identifiant de la fixture créée
+         */
+        b2FixtureId addCircleFixture(b2BodyId body, float radius,
+                                     float density = 1.0f, float friction = 0.3f, float restitution = 0.0f,
+                                     uint16_t categoryBits = 0x0001, uint16_t maskBits = 0xFFFF, bool isSensor = false);
+
+        /**
+         * @brief Obtient l'écouteur de contact
+         * @return Référence vers l'écouteur de contact
+         */
         ContactListener &getContactListener();
 
-        // Debug drawing pour visualiser les formes Box2D
+        /**
+         * @brief Active ou désactive le rendu de debug
+         * @param enabled True pour activer, false pour désactiver
+         */
+        void setDebugDrawEnabled(bool enabled) { m_debugDrawEnabled = enabled; }
+
+        /**
+         * @brief Vérifie si le rendu de debug est activé
+         * @return True si activé, false sinon
+         */
+        bool isDebugDrawEnabled() const { return m_debugDrawEnabled; }
+
+        /**
+         * @brief Dessine les formes des corps physiques (debug)
+         * @param window Fenêtre de rendu SFML
+         */
         void debugDraw(sf::RenderWindow &window);
+
+        // Accesseur au monde Box2D
+        b2WorldId getWorld() const { return m_world; }
 
     private:
         static std::unique_ptr<PhysicsWorld> s_instance;
 
-        std::unique_ptr<b2World> m_world;
+        b2WorldId m_world;
         ContactListener m_contactListener;
 
         // Pour le debug drawing

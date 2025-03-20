@@ -5,13 +5,14 @@
 namespace Orenji
 {
 
-    PhysicsComponent::PhysicsComponent(b2BodyType type, bool fixedRotation, bool bullet)
+    PhysicsComponent::PhysicsComponent(Entity *entity)
         : m_body(nullptr),
-          m_bodyType(type),
-          m_fixedRotation(fixedRotation),
-          m_bullet(bullet),
+          m_bodyType(b2_dynamicBody),
+          m_fixedRotation(false),
+          m_bullet(false),
           m_initialized(false)
     {
+        this->setOwner(entity);
     }
 
     PhysicsComponent::~PhysicsComponent()
@@ -51,9 +52,9 @@ namespace Orenji
 
         if (m_body)
         {
-            m_body->SetFixedRotation(m_fixedRotation);
-            m_body->SetBullet(m_bullet);
-            m_body->SetUserData(static_cast<void *>(entity));
+            b2BodySetFixedRotation(m_body, m_fixedRotation);
+            b2BodySetBullet(m_body, m_bullet);
+            b2BodySetUserData(m_body, static_cast<void *>(entity));
             m_initialized = true;
         }
         else
@@ -75,17 +76,18 @@ namespace Orenji
         auto transformComp = entity->getComponent<class TransformComponent>();
         if (transformComp)
         {
-            sf::Vector2f position = PhysicsWorld::metersToPixels(m_body->GetPosition());
-            float angle = m_body->GetAngle() * 180.0f / b2_pi; // Convertir de radians à degrés
+            box2d::b2Vec2 pos = b2BodyGetPosition(m_body);
+            sf::Vector2f position = PhysicsWorld::metersToPixels(pos);
+            float angle = b2BodyGetAngle(m_body) * 180.0f / b2_pi; // Convertir de radians à degrés
 
             transformComp->setPosition(position);
             transformComp->setRotation(angle);
         }
     }
 
-    b2Fixture *PhysicsComponent::createBoxFixture(const sf::Vector2f &size, float density,
-                                                  float friction, float restitution,
-                                                  uint16_t categoryBits, uint16_t maskBits, bool isSensor)
+    b2FixtureId PhysicsComponent::createBoxFixture(const sf::Vector2f &size, float density,
+                                                   float friction, float restitution,
+                                                   uint16_t categoryBits, uint16_t maskBits, bool isSensor)
     {
         if (!m_body || !m_initialized)
             return nullptr;
@@ -94,9 +96,9 @@ namespace Orenji
                                                          restitution, categoryBits, maskBits, isSensor);
     }
 
-    b2Fixture *PhysicsComponent::createCircleFixture(float radius, float density,
-                                                     float friction, float restitution,
-                                                     uint16_t categoryBits, uint16_t maskBits, bool isSensor)
+    b2FixtureId PhysicsComponent::createCircleFixture(float radius, float density,
+                                                      float friction, float restitution,
+                                                      uint16_t categoryBits, uint16_t maskBits, bool isSensor)
     {
         if (!m_body || !m_initialized)
             return nullptr;
@@ -110,10 +112,13 @@ namespace Orenji
         if (!m_body || !m_initialized)
             return;
 
-        b2Vec2 b2Force = PhysicsWorld::pixelsToMeters(force);
-        b2Vec2 b2Point = PhysicsWorld::pixelsToMeters(point);
+        box2d::b2Vec2 b2Force = PhysicsWorld::pixelsToMeters(force);
+        box2d::b2Vec2 b2Point = PhysicsWorld::pixelsToMeters(point);
 
-        m_body->ApplyForce(b2Force, m_body->GetWorldPoint(b2Point), true);
+        box2d::b2Vec2 worldPoint;
+        b2TransformMulVec2(b2BodyGetTransform(m_body), b2Point, &worldPoint);
+
+        b2BodyApplyForce(m_body, b2Force, worldPoint);
     }
 
     void PhysicsComponent::applyForceToCenter(const sf::Vector2f &force)
@@ -121,8 +126,8 @@ namespace Orenji
         if (!m_body || !m_initialized)
             return;
 
-        b2Vec2 b2Force = PhysicsWorld::pixelsToMeters(force);
-        m_body->ApplyForceToCenter(b2Force, true);
+        box2d::b2Vec2 b2Force = PhysicsWorld::pixelsToMeters(force);
+        b2BodyApplyForceToCenter(m_body, b2Force);
     }
 
     void PhysicsComponent::applyLinearImpulse(const sf::Vector2f &impulse, const sf::Vector2f &point)
@@ -130,10 +135,13 @@ namespace Orenji
         if (!m_body || !m_initialized)
             return;
 
-        b2Vec2 b2Impulse = PhysicsWorld::pixelsToMeters(impulse);
-        b2Vec2 b2Point = PhysicsWorld::pixelsToMeters(point);
+        box2d::b2Vec2 b2Impulse = PhysicsWorld::pixelsToMeters(impulse);
+        box2d::b2Vec2 b2Point = PhysicsWorld::pixelsToMeters(point);
 
-        m_body->ApplyLinearImpulse(b2Impulse, m_body->GetWorldPoint(b2Point), true);
+        box2d::b2Vec2 worldPoint;
+        b2TransformMulVec2(b2BodyGetTransform(m_body), b2Point, &worldPoint);
+
+        b2BodyApplyLinearImpulse(m_body, b2Impulse, worldPoint);
     }
 
     void PhysicsComponent::applyAngularImpulse(float impulse)
@@ -141,7 +149,7 @@ namespace Orenji
         if (!m_body || !m_initialized)
             return;
 
-        m_body->ApplyAngularImpulse(impulse, true);
+        b2BodyApplyAngularImpulse(m_body, impulse);
     }
 
     sf::Vector2f PhysicsComponent::getPosition() const
@@ -149,7 +157,8 @@ namespace Orenji
         if (!m_body || !m_initialized)
             return sf::Vector2f(0.0f, 0.0f);
 
-        return PhysicsWorld::metersToPixels(m_body->GetPosition());
+        box2d::b2Vec2 pos = b2BodyGetPosition(m_body);
+        return PhysicsWorld::metersToPixels(pos);
     }
 
     void PhysicsComponent::setPosition(const sf::Vector2f &position)
@@ -157,8 +166,8 @@ namespace Orenji
         if (!m_body || !m_initialized)
             return;
 
-        b2Vec2 b2Position = PhysicsWorld::pixelsToMeters(position);
-        m_body->SetTransform(b2Position, m_body->GetAngle());
+        box2d::b2Vec2 b2Position = PhysicsWorld::pixelsToMeters(position);
+        b2BodySetTransform(m_body, b2Position, b2BodyGetAngle(m_body));
     }
 
     float PhysicsComponent::getAngle() const
@@ -166,7 +175,7 @@ namespace Orenji
         if (!m_body || !m_initialized)
             return 0.0f;
 
-        return m_body->GetAngle() * 180.0f / b2_pi; // Convertir de radians à degrés
+        return b2BodyGetAngle(m_body) * 180.0f / b2_pi; // Convertir de radians à degrés
     }
 
     void PhysicsComponent::setAngle(float angle)
@@ -175,7 +184,8 @@ namespace Orenji
             return;
 
         float radians = angle * b2_pi / 180.0f; // Convertir de degrés à radians
-        m_body->SetTransform(m_body->GetPosition(), radians);
+        box2d::b2Vec2 pos = b2BodyGetPosition(m_body);
+        b2BodySetTransform(m_body, pos, radians);
     }
 
     sf::Vector2f PhysicsComponent::getLinearVelocity() const
@@ -183,7 +193,8 @@ namespace Orenji
         if (!m_body || !m_initialized)
             return sf::Vector2f(0.0f, 0.0f);
 
-        return PhysicsWorld::metersToPixels(m_body->GetLinearVelocity());
+        box2d::b2Vec2 velocity = b2BodyGetLinearVelocity(m_body);
+        return PhysicsWorld::metersToPixels(velocity);
     }
 
     void PhysicsComponent::setLinearVelocity(const sf::Vector2f &velocity)
@@ -191,8 +202,8 @@ namespace Orenji
         if (!m_body || !m_initialized)
             return;
 
-        b2Vec2 b2Velocity = PhysicsWorld::pixelsToMeters(velocity);
-        m_body->SetLinearVelocity(b2Velocity);
+        box2d::b2Vec2 b2Velocity = PhysicsWorld::pixelsToMeters(velocity);
+        b2BodySetLinearVelocity(m_body, b2Velocity);
     }
 
     float PhysicsComponent::getAngularVelocity() const
@@ -200,7 +211,7 @@ namespace Orenji
         if (!m_body || !m_initialized)
             return 0.0f;
 
-        return m_body->GetAngularVelocity() * 180.0f / b2_pi; // Convertir de radians/s à degrés/s
+        return b2BodyGetAngularVelocity(m_body) * 180.0f / b2_pi; // Convertir de radians/s à degrés/s
     }
 
     void PhysicsComponent::setAngularVelocity(float velocity)
@@ -209,10 +220,65 @@ namespace Orenji
             return;
 
         float radiansPerSec = velocity * b2_pi / 180.0f; // Convertir de degrés/s à radians/s
-        m_body->SetAngularVelocity(radiansPerSec);
+        b2BodySetAngularVelocity(m_body, radiansPerSec);
     }
 
-    b2Body *PhysicsComponent::getBody() const
+    void PhysicsComponent::setBodyType(b2BodyType type)
+    {
+        if (!m_body || !m_initialized)
+        {
+            m_bodyType = type;
+            return;
+        }
+
+        b2BodySetType(m_body, type);
+    }
+
+    b2BodyType PhysicsComponent::getBodyType() const
+    {
+        if (!m_body || !m_initialized)
+            return m_bodyType;
+
+        return b2BodyGetType(m_body);
+    }
+
+    void PhysicsComponent::setFixedRotation(bool fixed)
+    {
+        m_fixedRotation = fixed;
+
+        if (m_body && m_initialized)
+        {
+            b2BodySetFixedRotation(m_body, fixed);
+        }
+    }
+
+    bool PhysicsComponent::isFixedRotation() const
+    {
+        if (!m_body || !m_initialized)
+            return m_fixedRotation;
+
+        return b2BodyIsFixedRotation(m_body);
+    }
+
+    void PhysicsComponent::setBullet(bool bullet)
+    {
+        m_bullet = bullet;
+
+        if (m_body && m_initialized)
+        {
+            b2BodySetBullet(m_body, bullet);
+        }
+    }
+
+    bool PhysicsComponent::isBullet() const
+    {
+        if (!m_body || !m_initialized)
+            return m_bullet;
+
+        return b2BodyIsBullet(m_body);
+    }
+
+    b2BodyId PhysicsComponent::getBody() const
     {
         return m_body;
     }

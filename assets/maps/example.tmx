@@ -1,92 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="20" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="10">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="20" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="6">
  <properties>
   <property name="author" value="Orenji"/>
   <property name="difficulty" type="int" value="2"/>
   <property name="outdoor" type="bool" value="true"/>
  </properties>
- <tileset firstgid="1" name="example_tileset" tilewidth="32" tileheight="32" tilecount="100" columns="10">
-  <image source="example_tileset.png" width="320" height="320"/>
-  <tile id="0">
-   <properties>
-    <property name="type" value="grass"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="type" value="dirt"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="10">
-   <properties>
-    <property name="collidable" type="bool" value="true"/>
-    <property name="type" value="wall"/>
-   </properties>
-  </tile>
+ <tileset firstgid="1" name="terrain" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
+  <image source="terrain.png" width="1024" height="1024"/>
  </tileset>
  <layer id="1" name="Ground" width="20" height="15">
   <data encoding="csv">
-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-1,1,1,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,
-1,1,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,
-1,1,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,
-1,1,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,
-1,1,1,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
+33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,
+65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,
+97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,
+129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,
+161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,
+193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,
+225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,
+257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,
+289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,
+321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336,337,338,339,340,
+353,354,355,356,357,358,359,360,361,362,363,364,365,366,367,368,369,370,371,372,
+385,386,387,388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,404,
+417,418,419,420,421,422,423,424,425,426,427,428,429,430,431,432,433,434,435,436,
+449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468
 </data>
  </layer>
- <layer id="2" name="Walls" width="20" height="15">
+ <layer id="2" name="Obstacles" width="20" height="15">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,11,11,11,11,11,11,11,0,0,0,0,0,0,0,0,0,0,0,
-0,0,11,0,0,0,0,0,11,0,0,0,0,0,0,0,0,0,0,0,
-0,0,11,0,0,0,0,0,11,0,0,0,0,0,0,0,0,0,0,0,
-0,0,11,0,0,0,0,0,11,0,0,0,0,0,0,0,0,0,0,0,
-0,0,11,0,0,0,0,0,11,0,0,0,0,0,0,0,0,0,0,0,
-0,0,11,11,11,11,11,11,11,0,0,0,0,0,0,0,0,0,0,0,
+0,0,529,530,531,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,561,562,563,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,593,594,595,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,11,11,11,11,11,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,11,0,0,0,0,11,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,11,0,0,0,0,11,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,11,0,0,0,0,11,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,11,11,11,11,11,11,0,0,0,0,
+0,0,0,0,0,0,0,0,0,529,530,531,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,561,562,563,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,593,594,595,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,529,530,531,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,561,562,563,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,593,594,595,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
  <objectgroup id="3" name="Objects">
-  <object id="1" name="player_start" type="spawn" x="128" y="128" width="32" height="32">
-   <properties>
-    <property name="player" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="2" name="enemy1" type="enemy" x="384" y="128" width="32" height="32">
+  <object id="1" name="Player" type="player" x="128" y="128" width="32" height="32">
    <properties>
     <property name="health" type="int" value="100"/>
-    <property name="patrol" type="bool" value="true"/>
+    <property name="speed" type="float" value="2.5"/>
    </properties>
   </object>
-  <object id="3" name="door1" type="door" x="320" y="224" width="32" height="32">
+  <object id="2" name="Enemy1" type="enemy" x="320" y="256" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="10"/>
+    <property name="health" type="int" value="50"/>
+   </properties>
+  </object>
+  <object id="3" name="Chest" type="chest" x="512" y="384" width="32" height="32">
+   <properties>
+    <property name="content" value="gold"/>
+    <property name="quantity" type="int" value="25"/>
+   </properties>
+  </object>
+  <object id="4" name="Door" type="door" x="224" y="384" width="32" height="32">
    <properties>
     <property name="locked" type="bool" value="true"/>
+    <property name="target" value="room2"/>
    </properties>
   </object>
-  <object id="4" name="chest1" type="chest" x="416" y="384" width="32" height="32">
+  <object id="5" name="Sign" type="sign" x="416" y="128" width="32" height="32">
    <properties>
-    <property name="content" value="key"/>
+    <property name="text" value="Welcome to Orenji Map Example!"/>
    </properties>
   </object>
  </objectgroup>

@@ -3,79 +3,86 @@
 #include <unordered_map>
 #include <string>
 #include <memory>
+#include <functional>
 
 namespace Orenji
 {
     /**
-     * @brief A template class for caching resources like textures, sounds, and maps.
+     * @brief Classe template pour gérer un cache de ressources.
      *
-     * This cache stores shared pointers to resources, indexed by their file paths.
-     * It provides methods to add, retrieve, check existence, and remove resources.
+     * Cette classe permet de stocker et gérer des ressources en mémoire
+     * pour éviter de les recharger à chaque fois qu'elles sont demandées.
      *
-     * @tparam T The resource type to be cached
+     * @tparam T Type de ressource à mettre en cache
      */
     template <typename T>
     class ResourceCache
     {
     public:
         /**
-         * @brief Default constructor
-         */
-        ResourceCache() = default;
-
-        /**
-         * @brief Add a resource to the cache
+         * @brief Charge une ressource à partir d'un fichier, ou la récupère du cache si déjà chargée.
          *
-         * @param id The identifier for the resource (typically a file path)
-         * @param resource The resource to cache
-         * @return true if the resource was added, false if it already existed
+         * @param filepath Chemin du fichier de la ressource
+         * @param forceReload Force le rechargement même si la ressource est déjà en cache
+         * @return Pointeur partagé vers la ressource, ou nullptr en cas d'erreur
          */
-        bool add(const std::string &id, std::shared_ptr<T> resource)
+        std::shared_ptr<T> load(const std::string &filepath, bool forceReload = false)
         {
-            auto [it, inserted] = m_resources.emplace(id, resource);
-            return inserted;
-        }
+            // Si on demande un rechargement forcé, on supprime d'abord la ressource existante
+            if (forceReload)
+            {
+                unload(filepath);
+            }
 
-        /**
-         * @brief Get a resource from the cache
-         *
-         * @param id The identifier of the resource
-         * @return std::shared_ptr<T> The resource, or nullptr if not found
-         */
-        std::shared_ptr<T> get(const std::string &id) const
-        {
-            auto it = m_resources.find(id);
+            // Vérifier si la ressource est déjà en cache
+            auto it = m_resources.find(filepath);
             if (it != m_resources.end())
             {
                 return it->second;
             }
+
+            // Créer une nouvelle ressource
+            auto resource = std::make_shared<T>();
+
+            // Tenter de charger le fichier
+            if (resource->loadFromFile(filepath))
+            {
+                // Ajouter la ressource au cache et la retourner
+                m_resources[filepath] = resource;
+                return resource;
+            }
+
+            // Échec du chargement
             return nullptr;
         }
 
         /**
-         * @brief Check if a resource is loaded in the cache
+         * @brief Vérifie si une ressource est déjà chargée.
          *
-         * @param id The identifier of the resource
-         * @return true if the resource is in the cache, false otherwise
+         * @param filepath Chemin du fichier de la ressource
+         * @return true si la ressource est déjà chargée, false sinon
          */
-        bool isLoaded(const std::string &id) const
+        bool isLoaded(const std::string &filepath) const
         {
-            return m_resources.find(id) != m_resources.end();
+            return m_resources.find(filepath) != m_resources.end();
         }
 
         /**
-         * @brief Remove a resource from the cache
+         * @brief Décharge une ressource spécifique du cache.
          *
-         * @param id The identifier of the resource
-         * @return true if the resource was removed, false if it wasn't in the cache
+         * @param filepath Chemin du fichier de la ressource
          */
-        bool remove(const std::string &id)
+        void unload(const std::string &filepath)
         {
-            return m_resources.erase(id) > 0;
+            auto it = m_resources.find(filepath);
+            if (it != m_resources.end())
+            {
+                m_resources.erase(it);
+            }
         }
 
         /**
-         * @brief Remove all resources from the cache
+         * @brief Décharge toutes les ressources du cache.
          */
         void clear()
         {
@@ -83,17 +90,17 @@ namespace Orenji
         }
 
         /**
-         * @brief Get the number of resources in the cache
+         * @brief Obtient le nombre de ressources actuellement en cache.
          *
-         * @return size_t The number of cached resources
+         * @return Nombre de ressources en cache
          */
-        size_t size() const
+        size_t getResourceCount() const
         {
             return m_resources.size();
         }
 
     private:
-        std::unordered_map<std::string, std::shared_ptr<T>> m_resources;
+        std::unordered_map<std::string, std::shared_ptr<T>> m_resources; ///< Dictionnaire des ressources en cache
     };
 
 } // namespace Orenji

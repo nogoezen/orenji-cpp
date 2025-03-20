@@ -7,50 +7,78 @@
 
 namespace Orenji
 {
-    // Définition des catégories de collision
+    // Types de collisions (défini dans PhysicsWorld.hpp également)
     enum class CollisionCategory
     {
-        NONE = 0x0000,
-        DEFAULT = 0x0001,
-        PLAYER = 0x0002,
-        ENEMY = 0x0004,
-        PROJECTILE = 0x0008,
-        SENSOR = 0x0010,
-        PLATFORM = 0x0020,
+        NONE = 0,
+        PLAYER = 1 << 0,
+        ENEMY = 1 << 1,
+        OBSTACLE = 1 << 2,
+        SENSOR = 1 << 3,
+        PROJECTILE = 1 << 4,
+        ITEM = 1 << 5,
         ALL = 0xFFFF
     };
 
     class PhysicsComponent : public Component
     {
     public:
-        PhysicsComponent(b2BodyType type = b2_dynamicBody,
-                         bool fixedRotation = false,
-                         bool bullet = false);
+        // Constructeur/Destructeur
+        PhysicsComponent(Entity *entity);
         virtual ~PhysicsComponent();
 
+        // Initialiser le composant physique
         virtual void initialize() override;
+
+        // Mettre à jour les positions
         virtual void update(float deltaTime) override;
 
-        // Créer différents types de fixtures
-        b2Fixture *createBoxFixture(const sf::Vector2f &size, float density = 1.0f,
-                                    float friction = 0.3f, float restitution = 0.1f,
-                                    uint16_t categoryBits = static_cast<uint16_t>(CollisionCategory::ALL),
-                                    uint16_t maskBits = static_cast<uint16_t>(CollisionCategory::ALL),
-                                    bool isSensor = false);
+        // Gestion du type de corps
+        void setBodyType(b2BodyType type);
+        b2BodyType getBodyType() const;
 
-        b2Fixture *createCircleFixture(float radius, float density = 1.0f,
-                                       float friction = 0.3f, float restitution = 0.1f,
-                                       uint16_t categoryBits = static_cast<uint16_t>(CollisionCategory::ALL),
-                                       uint16_t maskBits = static_cast<uint16_t>(CollisionCategory::ALL),
-                                       bool isSensor = false);
+        // Gestion des propriétés physiques
+        void setFixedRotation(bool fixed);
+        bool isFixedRotation() const;
 
-        // Appliquer des forces et des impulsions
-        void applyForce(const sf::Vector2f &force, const sf::Vector2f &point = sf::Vector2f(0, 0));
+        void setBullet(bool bullet);
+        bool isBullet() const;
+
+        // Application de forces et d'impulsions
+        void applyForce(const sf::Vector2f &force, const sf::Vector2f &point);
         void applyForceToCenter(const sf::Vector2f &force);
-        void applyLinearImpulse(const sf::Vector2f &impulse, const sf::Vector2f &point = sf::Vector2f(0, 0));
+        void applyLinearImpulse(const sf::Vector2f &impulse, const sf::Vector2f &point);
         void applyAngularImpulse(float impulse);
 
-        // Obtenir et définir les propriétés du corps
+        // Accès au corps Box2D
+        b2BodyId getBody() const { return m_body; }
+
+        // Setters pour les données utilisateur du corps
+        template <typename T>
+        void setUserData(T *userData)
+        {
+            if (m_body)
+            {
+                // Version adaptée pour Box2D 2.4.x
+                void *userDataPtr = static_cast<void *>(userData);
+                b2BodySetUserData(m_body, userDataPtr);
+            }
+        }
+
+        // Getters pour les données utilisateur du corps
+        template <typename T>
+        T *getUserData() const
+        {
+            if (m_body)
+            {
+                // Version adaptée pour Box2D 2.4.x
+                void *userDataPtr = b2BodyGetUserData(m_body);
+                return static_cast<T *>(userDataPtr);
+            }
+            return nullptr;
+        }
+
+        // Accès aux propriétés de position et vitesse
         sf::Vector2f getPosition() const;
         void setPosition(const sf::Vector2f &position);
 
@@ -63,35 +91,11 @@ namespace Orenji
         float getAngularVelocity() const;
         void setAngularVelocity(float velocity);
 
-        // Accès au corps Box2D
-        b2Body *getBody() const;
-
-        // Gestion des données utilisateur
-        template <typename T>
-        void setUserData(T *userData)
-        {
-            if (m_body)
-            {
-                m_body->SetUserData(static_cast<void *>(userData));
-            }
-        }
-
-        template <typename T>
-        T *getUserData() const
-        {
-            if (m_body)
-            {
-                return static_cast<T *>(m_body->GetUserData());
-            }
-            return nullptr;
-        }
-
     private:
-        b2Body *m_body;
+        b2BodyId m_body;
         b2BodyType m_bodyType;
         bool m_fixedRotation;
         bool m_bullet;
-        bool m_initialized;
     };
 
 } // namespace Orenji
