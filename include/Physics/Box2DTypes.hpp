@@ -1,40 +1,28 @@
 #pragma once
 
-// Forward declarations pour les types Box2D
-// Utiliser ce fichier quand vous avez besoin de référencer des types Box2D
-// sans inclure tout le header box2d.h
+// Inclure directement le header de Box2D
+// Ce fichier sert uniquement à ajouter des constantes personnalisées
+// ou des alias pour les types de Box2D
 
-// Dans Box2D 2.4.x, beaucoup de ces types sont désormais des handles ou des structures
-// alors qu'ils étaient auparavant des classes
+#include <box2d/box2d.h>
 
-namespace box2d
+namespace Orenji
 {
-    struct b2BodyDef;
-    struct b2FixtureDef;
-    struct b2JointDef;
-    struct b2ShapeDef;
-    struct b2Contact;
-    struct b2Manifold;
-    struct b2ContactImpulse;
-    struct b2ContactListener;
-    struct b2Vec2;
-    struct b2Filter;
-
-    // Constante utilisée pour les conversions d'angle
+// Constante utilisée pour les conversions d'angle si Box2D ne la fournit pas
+#ifndef b2_pi
     constexpr float b2_pi = 3.14159265359f;
+#endif
+
+    // Types de collisions
+    enum class CollisionCategory
+    {
+        NONE = 0,
+        PLAYER = 1 << 0,
+        ENEMY = 1 << 1,
+        OBSTACLE = 1 << 2,
+        SENSOR = 1 << 3,
+        PROJECTILE = 1 << 4,
+        ITEM = 1 << 5,
+        ALL = 0xFFFF
+    };
 }
-
-// Types d'ID
-using b2BodyId = void *;
-using b2FixtureId = void *;
-using b2JointId = void *;
-using b2ShapeId = void *;
-using b2WorldId = void *;
-
-// Enum constants
-enum b2BodyType
-{
-    b2_staticBody = 0,
-    b2_kinematicBody = 1,
-    b2_dynamicBody = 2
-};

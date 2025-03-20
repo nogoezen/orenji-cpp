@@ -27,10 +27,10 @@ namespace Orenji
     };
 
     // Type d'alias pour les fonctions de rappel de contact
-    using BeginContactCallback = std::function<void(box2d::b2Contact *)>;
-    using EndContactCallback = std::function<void(box2d::b2Contact *)>;
-    using PreSolveCallback = std::function<void(box2d::b2Contact *, const box2d::b2Manifold *)>;
-    using PostSolveCallback = std::function<void(box2d::b2Contact *, const box2d::b2ContactImpulse *)>;
+    using BeginContactCallback = std::function<void(b2Contact *)>;
+    using EndContactCallback = std::function<void(b2Contact *)>;
+    using PreSolveCallback = std::function<void(b2Contact *, const b2Manifold *)>;
+    using PostSolveCallback = std::function<void(b2Contact *, const b2ContactImpulse *)>;
 
     /**
      * @brief Classe d'écoute pour les événements de contact de Box2D
@@ -42,10 +42,10 @@ namespace Orenji
     {
     public:
         // Méthodes de rappel pour les contacts
-        void BeginContact(box2d::b2Contact *contact);
-        void EndContact(box2d::b2Contact *contact);
-        void PreSolve(box2d::b2Contact *contact, const box2d::b2Manifold *oldManifold);
-        void PostSolve(box2d::b2Contact *contact, const box2d::b2ContactImpulse *impulse);
+        void BeginContact(b2Contact *contact);
+        void EndContact(b2Contact *contact);
+        void PreSolve(b2Contact *contact, const b2Manifold *oldManifold);
+        void PostSolve(b2Contact *contact, const b2ContactImpulse *impulse);
 
         // Méthodes pour définir les fonctions de rappel
         void SetBeginContactCallback(BeginContactCallback callback);
@@ -58,6 +58,20 @@ namespace Orenji
         EndContactCallback m_endContactCallback;
         PreSolveCallback m_preSolveCallback;
         PostSolveCallback m_postSolveCallback;
+    };
+
+    /**
+     * @brief Adaptateur pour Box2D
+     *
+     * Structure pour adapter les callbacks avec Box2D 2.4.x
+     */
+    struct b2ContactListenerWrapper
+    {
+        void *userData;
+        void (*beginContactFcn)(void *userdata, void *contact);
+        void (*endContactFcn)(void *userdata, void *contact);
+        void (*preSolveFcn)(void *userdata, void *contact, void *oldManifold);
+        void (*postSolveFcn)(void *userdata, void *contact, void *impulse);
     };
 
     /**
@@ -81,42 +95,42 @@ namespace Orenji
         ~PhysicsWorld();
 
         /**
-         * @brief Obtient l'instance unique du monde physique
-         * @return Référence vers l'instance du monde physique
+         * @brief Obtient l'instance du singleton
+         * @return Référence vers l'instance unique
          */
         static PhysicsWorld &getInstance();
 
         /**
-         * @brief Convertit une position en mètres vers des pixels
+         * @brief Convertit une position en mètres (Box2D) en pixels (SFML)
          * @param meterPos Position en mètres
          * @return Position en pixels
          */
-        static sf::Vector2f metersToPixels(const box2d::b2Vec2 &meterPos);
+        static sf::Vector2f metersToPixels(const b2Vec2 &meterPos);
 
         /**
-         * @brief Convertit une position en pixels vers des mètres
+         * @brief Convertit une position en pixels (SFML) en mètres (Box2D)
          * @param pixelPos Position en pixels
          * @return Position en mètres
          */
-        static box2d::b2Vec2 pixelsToMeters(const sf::Vector2f &pixelPos);
+        static b2Vec2 pixelsToMeters(const sf::Vector2f &pixelPos);
 
         /**
-         * @brief Convertit une valeur en mètres vers des pixels
+         * @brief Convertit une valeur en mètres en pixels
          * @param meterValue Valeur en mètres
          * @return Valeur en pixels
          */
         static float metersToPixels(float meterValue);
 
         /**
-         * @brief Convertit une valeur en pixels vers des mètres
+         * @brief Convertit une valeur en pixels en mètres
          * @param pixelValue Valeur en pixels
          * @return Valeur en mètres
          */
         static float pixelsToMeters(float pixelValue);
 
         /**
-         * @brief Met à jour le monde physique
-         * @param deltaTime Temps écoulé depuis la dernière mise à jour (en secondes)
+         * @brief Met à jour la simulation physique
+         * @param deltaTime Temps écoulé depuis la dernière mise à jour en secondes
          */
         void update(float deltaTime);
 
@@ -194,9 +208,13 @@ namespace Orenji
         b2WorldId getWorld() const { return m_world; }
 
     private:
+        // Instance unique (singleton)
         static std::unique_ptr<PhysicsWorld> s_instance;
 
+        // Monde Box2D
         b2WorldId m_world;
+
+        // Écouteur de contact
         ContactListener m_contactListener;
 
         // Pour le debug drawing

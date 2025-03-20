@@ -5,27 +5,27 @@
 extern "C" void BeginContactCallback(void *userdata, void *contact)
 {
     Orenji::ContactListener *listener = static_cast<Orenji::ContactListener *>(userdata);
-    listener->BeginContact(static_cast<box2d::b2Contact *>(contact));
+    listener->BeginContact(static_cast<b2Contact *>(contact));
 }
 
 extern "C" void EndContactCallback(void *userdata, void *contact)
 {
     Orenji::ContactListener *listener = static_cast<Orenji::ContactListener *>(userdata);
-    listener->EndContact(static_cast<box2d::b2Contact *>(contact));
+    listener->EndContact(static_cast<b2Contact *>(contact));
 }
 
 extern "C" void PreSolveCallback(void *userdata, void *contact, void *oldManifold)
 {
     Orenji::ContactListener *listener = static_cast<Orenji::ContactListener *>(userdata);
-    listener->PreSolve(static_cast<box2d::b2Contact *>(contact),
-                       static_cast<box2d::b2Manifold *>(oldManifold));
+    listener->PreSolve(static_cast<b2Contact *>(contact),
+                       static_cast<b2Manifold *>(oldManifold));
 }
 
 extern "C" void PostSolveCallback(void *userdata, void *contact, void *impulse)
 {
     Orenji::ContactListener *listener = static_cast<Orenji::ContactListener *>(userdata);
-    listener->PostSolve(static_cast<box2d::b2Contact *>(contact),
-                        static_cast<box2d::b2ContactImpulse *>(impulse));
+    listener->PostSolve(static_cast<b2Contact *>(contact),
+                        static_cast<b2ContactImpulse *>(impulse));
 }
 
 namespace Orenji
@@ -37,7 +37,7 @@ namespace Orenji
     // Implémentation du ContactListener
     //--------------------------------
 
-    void ContactListener::BeginContact(box2d::b2Contact *contact)
+    void ContactListener::BeginContact(b2Contact *contact)
     {
         if (m_beginContactCallback)
         {
@@ -45,7 +45,7 @@ namespace Orenji
         }
     }
 
-    void ContactListener::EndContact(box2d::b2Contact *contact)
+    void ContactListener::EndContact(b2Contact *contact)
     {
         if (m_endContactCallback)
         {
@@ -53,7 +53,7 @@ namespace Orenji
         }
     }
 
-    void ContactListener::PreSolve(box2d::b2Contact *contact, const box2d::b2Manifold *oldManifold)
+    void ContactListener::PreSolve(b2Contact *contact, const b2Manifold *oldManifold)
     {
         if (m_preSolveCallback)
         {
@@ -61,7 +61,7 @@ namespace Orenji
         }
     }
 
-    void ContactListener::PostSolve(box2d::b2Contact *contact, const box2d::b2ContactImpulse *impulse)
+    void ContactListener::PostSolve(b2Contact *contact, const b2ContactImpulse *impulse)
     {
         if (m_postSolveCallback)
         {
@@ -94,7 +94,7 @@ namespace Orenji
     //--------------------------------
 
     PhysicsWorld::PhysicsWorld(const sf::Vector2f &gravity)
-        : m_debugLines(sf::Lines), m_debugDrawEnabled(false)
+        : m_debugLines(sf::Lines), m_debugDrawEnabled(false), m_world(nullptr)
     {
         // Créer le monde Box2D avec la gravité définie
         b2WorldDef worldDef;
@@ -102,14 +102,17 @@ namespace Orenji
         worldDef.gravity.y = gravity.y;
         m_world = b2CreateWorld(&worldDef);
 
-        // Configurer les callbacks de contact en passant le listener comme userdata
-        b2ContactListenerJointDef listenerDef;
-        listenerDef.beginContactFcn = BeginContactCallback;
-        listenerDef.endContactFcn = EndContactCallback;
-        listenerDef.preSolveFcn = PreSolveCallback;
-        listenerDef.postSolveFcn = PostSolveCallback;
-        listenerDef.userData = &m_contactListener;
-        b2WorldSetContactListener(m_world, &listenerDef);
+        // Configurer les callbacks de contact
+        // Note: Cette partie doit être adaptée à la façon dont Box2D 2.4.x gère les callbacks
+        b2ContactListenerWrapper *listener = new b2ContactListenerWrapper();
+        listener->beginContactFcn = BeginContactCallback;
+        listener->endContactFcn = EndContactCallback;
+        listener->preSolveFcn = PreSolveCallback;
+        listener->postSolveFcn = PostSolveCallback;
+        listener->userData = &m_contactListener;
+
+        // Associer l'écouteur au monde
+        b2World_SetContactListener(m_world, listener);
     }
 
     PhysicsWorld::~PhysicsWorld()
@@ -131,14 +134,14 @@ namespace Orenji
         return *s_instance;
     }
 
-    sf::Vector2f PhysicsWorld::metersToPixels(const box2d::b2Vec2 &meterPos)
+    sf::Vector2f PhysicsWorld::metersToPixels(const b2Vec2 &meterPos)
     {
         return sf::Vector2f(meterPos.x * PIXELS_PER_METER, meterPos.y * PIXELS_PER_METER);
     }
 
-    box2d::b2Vec2 PhysicsWorld::pixelsToMeters(const sf::Vector2f &pixelPos)
+    b2Vec2 PhysicsWorld::pixelsToMeters(const sf::Vector2f &pixelPos)
     {
-        box2d::b2Vec2 result;
+        b2Vec2 result;
         result.x = pixelPos.x * METERS_PER_PIXEL;
         result.y = pixelPos.y * METERS_PER_PIXEL;
         return result;
@@ -160,7 +163,7 @@ namespace Orenji
             return;
 
         float timeStep = 1.0f / 60.0f; // Fixed timestep (60 FPS)
-        b2WorldStep(m_world, timeStep, m_velocityIterations, m_positionIterations);
+        b2World_Step(m_world, timeStep, m_velocityIterations, m_positionIterations);
     }
 
     b2BodyId PhysicsWorld::createBody(const sf::Vector2f &position, b2BodyType type)
@@ -171,11 +174,11 @@ namespace Orenji
         // Définir les propriétés du corps
         b2BodyDef bodyDef;
         bodyDef.type = type;
-        box2d::b2Vec2 pos = pixelsToMeters(position);
+        b2Vec2 pos = pixelsToMeters(position);
         bodyDef.position.x = pos.x;
         bodyDef.position.y = pos.y;
 
-        return b2WorldCreateBody(m_world, &bodyDef);
+        return b2World_CreateBody(m_world, &bodyDef);
     }
 
     void PhysicsWorld::destroyBody(b2BodyId body)
@@ -183,7 +186,7 @@ namespace Orenji
         if (!m_world || !body)
             return;
 
-        b2WorldDestroyBody(m_world, body);
+        b2World_DestroyBody(m_world, body);
     }
 
     b2FixtureId PhysicsWorld::addBoxFixture(b2BodyId body, const sf::Vector2f &size,
@@ -195,8 +198,8 @@ namespace Orenji
 
         // Créer la forme de boîte
         b2PolygonShape boxShape;
-        box2d::b2Vec2 halfSize = pixelsToMeters(sf::Vector2f(size.x / 2.0f, size.y / 2.0f));
-        b2PolygonShapeSetAsBox(&boxShape, halfSize.x, halfSize.y);
+        b2Vec2 halfSize = pixelsToMeters(sf::Vector2f(size.x / 2.0f, size.y / 2.0f));
+        b2PolygonShape_SetAsBox(&boxShape, halfSize.x, halfSize.y);
 
         // Créer la fixture
         b2FixtureDef fixtureDef;
@@ -207,12 +210,12 @@ namespace Orenji
         fixtureDef.isSensor = isSensor;
 
         // Configurer les bits de catégorie et de masque pour les collisions
-        box2d::b2Filter filter;
+        b2Filter filter;
         filter.categoryBits = categoryBits;
         filter.maskBits = maskBits;
         fixtureDef.filter = filter;
 
-        return b2BodyCreateFixture(body, &fixtureDef);
+        return b2Body_CreateFixture(body, &fixtureDef);
     }
 
     b2FixtureId PhysicsWorld::addCircleFixture(b2BodyId body, float radius,
@@ -235,12 +238,12 @@ namespace Orenji
         fixtureDef.isSensor = isSensor;
 
         // Configurer les bits de catégorie et de masque pour les collisions
-        box2d::b2Filter filter;
+        b2Filter filter;
         filter.categoryBits = categoryBits;
         filter.maskBits = maskBits;
         fixtureDef.filter = filter;
 
-        return b2BodyCreateFixture(body, &fixtureDef);
+        return b2Body_CreateFixture(body, &fixtureDef);
     }
 
     ContactListener &PhysicsWorld::getContactListener()
@@ -256,23 +259,23 @@ namespace Orenji
         m_debugLines.clear();
 
         // Parcourir tous les corps et dessiner leurs formes
-        for (b2BodyId body = b2WorldGetBodyList(m_world); body; body = b2BodyGetNext(body))
+        for (b2BodyId body = b2World_GetBodyList(m_world); body; body = b2Body_GetNext(body))
         {
             // Convertir la position du corps en pixels pour l'affichage
-            box2d::b2Vec2 position = b2BodyGetPosition(body);
-            float angle = b2BodyGetAngle(body);
+            b2Vec2 position = b2Body_GetPosition(body);
+            float angle = b2Body_GetAngle(body);
             sf::Vector2f sfmlPosition = metersToPixels(position);
 
             // Parcourir toutes les fixtures du corps
-            for (b2FixtureId fixture = b2BodyGetFixtureList(body); fixture; fixture = b2FixtureGetNext(fixture))
+            for (b2FixtureId fixture = b2Body_GetFixtureList(body); fixture; fixture = b2Fixture_GetNext(fixture))
             {
                 // Obtenir la forme de la fixture
-                b2ShapeId shape = b2FixtureGetShape(fixture);
-                b2ShapeType shapeType = b2ShapeGetType(shape);
+                b2ShapeId shape = b2Fixture_GetShape(fixture);
+                b2ShapeType shapeType = b2Shape_GetType(shape);
 
                 // Définir la couleur en fonction du type de corps
                 sf::Color color;
-                switch (b2BodyGetType(body))
+                switch (b2Body_GetType(body))
                 {
                 case b2_staticBody:
                     color = sf::Color(128, 128, 128, 128); // Gris pour les corps statiques
@@ -289,7 +292,7 @@ namespace Orenji
                 }
 
                 // Si la fixture est un capteur, utiliser une couleur différente
-                if (b2FixtureIsSensor(fixture))
+                if (b2Fixture_IsSensor(fixture))
                 {
                     color = sf::Color::Yellow;
                 }
@@ -297,17 +300,17 @@ namespace Orenji
                 // Dessiner la forme en fonction de son type
                 switch (shapeType)
                 {
-                case b2ShapeType::e_circle:
+                case b2Shape_Type_e_circle:
                 {
                     // Dessiner un cercle
-                    float radius = metersToPixels(b2CircleShapeGetRadius(shape));
+                    float radius = metersToPixels(b2CircleShape_GetRadius(shape));
 
                     // Dessiner le cercle avec des lignes
                     const int segments = 16;
                     for (int i = 0; i < segments; i++)
                     {
-                        float angle1 = angle + (i / (float)segments) * 2 * box2d::b2_pi;
-                        float angle2 = angle + ((i + 1) / (float)segments) * 2 * box2d::b2_pi;
+                        float angle1 = angle + (i / (float)segments) * 2 * b2_pi;
+                        float angle2 = angle + ((i + 1) / (float)segments) * 2 * b2_pi;
 
                         sf::Vector2f p1(sfmlPosition.x + radius * cos(angle1),
                                         sfmlPosition.y + radius * sin(angle1));
@@ -328,16 +331,16 @@ namespace Orenji
                 }
                 break;
 
-                case b2ShapeType::e_polygon:
+                case b2Shape_Type_e_polygon:
                 {
                     // Dessiner un polygone
-                    int vertexCount = b2PolygonShapeGetCount(shape);
+                    int vertexCount = b2PolygonShape_GetCount(shape);
 
                     // Dessiner le polygone avec des lignes
                     for (int i = 0; i < vertexCount; i++)
                     {
-                        box2d::b2Vec2 v1 = b2PolygonShapeGetVertex(shape, i);
-                        box2d::b2Vec2 v2 = b2PolygonShapeGetVertex(shape, (i + 1) % vertexCount);
+                        b2Vec2 v1 = b2PolygonShape_GetVertex(shape, i);
+                        b2Vec2 v2 = b2PolygonShape_GetVertex(shape, (i + 1) % vertexCount);
 
                         // Transformer les coordonnées en fonction de la position et rotation du corps
                         float c = cos(angle);
