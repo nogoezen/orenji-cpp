@@ -8,11 +8,6 @@
 
 namespace Orenji
 {
-// Constante utilisée pour les conversions d'angle si Box2D ne la fournit pas
-#ifndef b2_pi
-    constexpr float b2_pi = 3.14159265359f;
-#endif
-
     // Types de collisions
     enum class CollisionCategory
     {
@@ -25,4 +20,11 @@ namespace Orenji
         ITEM = 1 << 5,
         ALL = 0xFFFF
     };
+
+    // Aliases pour simplifier l'utilisation de Box2D v2.4.x
+    namespace box2d
+    {
+        // Constante utilisée pour les conversions d'angle si Box2D ne la fournit pas
+        constexpr float b2_pi = 3.14159265359f;
+    }
 }

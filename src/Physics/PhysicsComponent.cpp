@@ -1,6 +1,7 @@
 #include "../../include/Physics/PhysicsComponent.hpp"
 #include "../../include/Core/Entity.hpp"
 #include "../../include/Core/Component.hpp"
+#include "../../include/Core/TransformComponent.hpp"
 #include <iostream>
 
 namespace Orenji
@@ -78,7 +79,7 @@ namespace Orenji
         {
             b2Vec2 pos = b2Body_GetPosition(m_body);
             sf::Vector2f position = PhysicsWorld::metersToPixels(pos);
-            float angle = b2Body_GetAngle(m_body) * 180.0f / b2_pi; // Convertir de radians à degrés
+            float angle = b2Body_GetAngle(m_body) * 180.0f / box2d::b2_pi; // Convertir de radians à degrés
 
             transformComp->setPosition(position);
             transformComp->setRotation(angle);
@@ -175,7 +176,7 @@ namespace Orenji
         if (!m_body || !m_initialized)
             return 0.0f;
 
-        float angle = b2Body_GetAngle(m_body) * 180.0f / b2_pi; // Convertir de radians à degrés
+        float angle = b2Body_GetAngle(m_body) * 180.0f / box2d::b2_pi; // Convertir de radians à degrés
         return angle;
     }
 
@@ -184,7 +185,7 @@ namespace Orenji
         if (!m_body || !m_initialized)
             return;
 
-        float radians = angle * b2_pi / 180.0f; // Convertir de degrés à radians
+        float radians = angle * box2d::b2_pi / 180.0f; // Convertir de degrés à radians
         b2Vec2 pos = b2Body_GetPosition(m_body);
         b2Body_SetTransform(m_body, pos, radians);
     }
@@ -212,7 +213,7 @@ namespace Orenji
         if (!m_body || !m_initialized)
             return 0.0f;
 
-        return b2Body_GetAngularVelocity(m_body) * 180.0f / b2_pi; // Convertir de radians/s à degrés/s
+        return b2Body_GetAngularVelocity(m_body) * 180.0f / box2d::b2_pi; // Convertir de radians/s à degrés/s
     }
 
     void PhysicsComponent::setAngularVelocity(float velocity)
@@ -220,7 +221,7 @@ namespace Orenji
         if (!m_body || !m_initialized)
             return;
 
-        float radiansPerSec = velocity * b2_pi / 180.0f; // Convertir de degrés/s à radians/s
+        float radiansPerSec = velocity * box2d::b2_pi / 180.0f; // Convertir de degrés/s à radians/s
         b2Body_SetAngularVelocity(m_body, radiansPerSec);
     }
 

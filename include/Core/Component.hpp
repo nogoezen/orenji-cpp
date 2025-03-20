@@ -10,6 +10,7 @@ namespace Orenji
     {
     public:
         Component() : m_owner(nullptr) {}
+        Component(Entity *entity) : m_owner(entity) {}
         virtual ~Component() = default;
 
         void setOwner(Entity *owner) { m_owner = owner; }

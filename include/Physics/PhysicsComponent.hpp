@@ -7,19 +7,6 @@
 
 namespace Orenji
 {
-    // Types de collisions (défini dans PhysicsWorld.hpp également)
-    enum class CollisionCategory
-    {
-        NONE = 0,
-        PLAYER = 1 << 0,
-        ENEMY = 1 << 1,
-        OBSTACLE = 1 << 2,
-        SENSOR = 1 << 3,
-        PROJECTILE = 1 << 4,
-        ITEM = 1 << 5,
-        ALL = 0xFFFF
-    };
-
     class PhysicsComponent : public Component
     {
     public:
@@ -88,11 +75,11 @@ namespace Orenji
         template <typename T>
         void setUserData(T *userData)
         {
-            if (m_body)
+            if (bool(m_body))
             {
                 // Version adaptée pour Box2D 2.4.x
                 void *userDataPtr = static_cast<void *>(userData);
-                b2BodySetUserData(m_body, userDataPtr);
+                b2Body_SetUserData(m_body, userDataPtr);
             }
         }
 
@@ -100,16 +87,16 @@ namespace Orenji
         template <typename T>
         T *getUserData() const
         {
-            if (m_body)
+            if (bool(m_body))
             {
                 // Version adaptée pour Box2D 2.4.x
-                void *userDataPtr = b2BodyGetUserData(m_body);
+                void *userDataPtr = b2Body_GetUserData(m_body);
                 return static_cast<T *>(userDataPtr);
             }
             return nullptr;
         }
 
-        // Accès aux propriétés de position et vitesse
+        // Accesseurs pour position, angle et vitesses
         sf::Vector2f getPosition() const;
         void setPosition(const sf::Vector2f &position);
 

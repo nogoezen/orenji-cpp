@@ -8,9 +8,11 @@
 
 namespace Orenji
 {
+    // Forward declarations
+    class ContactListener;
 
     // Constantes pour la conversion entre pixels et mètres Box2D
-    constexpr float PIXELS_PER_METER = 30.0f;
+    constexpr float PIXELS_PER_METER = 32.0f;
     constexpr float METERS_PER_PIXEL = 1.0f / PIXELS_PER_METER;
 
     // Types de collisions
@@ -26,11 +28,11 @@ namespace Orenji
         ALL = 0xFFFF
     };
 
-    // Type d'alias pour les fonctions de rappel de contact
-    using BeginContactCallback = std::function<void(b2Contact *)>;
-    using EndContactCallback = std::function<void(b2Contact *)>;
-    using PreSolveCallback = std::function<void(b2Contact *, const b2Manifold *)>;
-    using PostSolveCallback = std::function<void(b2Contact *, const b2ContactImpulse *)>;
+    // Fonctions de callbacks pour la gestion des événements de contact
+    using BeginContactCallback = std::function<void(b2ContactId)>;
+    using EndContactCallback = std::function<void(b2ContactId)>;
+    using PreSolveCallback = std::function<void(b2ContactId, const b2Manifold *)>;
+    using PostSolveCallback = std::function<void(b2ContactId, const b2ContactImpulse *)>;
 
     /**
      * @brief Classe d'écoute pour les événements de contact de Box2D
@@ -41,13 +43,16 @@ namespace Orenji
     class ContactListener
     {
     public:
-        // Méthodes de rappel pour les contacts
-        void BeginContact(b2Contact *contact);
-        void EndContact(b2Contact *contact);
-        void PreSolve(b2Contact *contact, const b2Manifold *oldManifold);
-        void PostSolve(b2Contact *contact, const b2ContactImpulse *impulse);
+        ContactListener();
+        ~ContactListener() = default;
 
-        // Méthodes pour définir les fonctions de rappel
+        // Callbacks Box2D
+        void BeginContact(b2ContactId contact);
+        void EndContact(b2ContactId contact);
+        void PreSolve(b2ContactId contact, const b2Manifold *oldManifold);
+        void PostSolve(b2ContactId contact, const b2ContactImpulse *impulse);
+
+        // Setters pour les callbacks utilisateur
         void SetBeginContactCallback(BeginContactCallback callback);
         void SetEndContactCallback(EndContactCallback callback);
         void SetPreSolveCallback(PreSolveCallback callback);
@@ -105,28 +110,28 @@ namespace Orenji
          * @param meterPos Position en mètres
          * @return Position en pixels
          */
-        static sf::Vector2f metersToPixels(const b2Vec2 &meterPos);
+        static sf::Vector2f metersToPixels(const b2Vec2 &metersVec);
 
         /**
          * @brief Convertit une position en pixels (SFML) en mètres (Box2D)
          * @param pixelPos Position en pixels
          * @return Position en mètres
          */
-        static b2Vec2 pixelsToMeters(const sf::Vector2f &pixelPos);
+        static b2Vec2 pixelsToMeters(const sf::Vector2f &pixelsVec);
 
         /**
          * @brief Convertit une valeur en mètres en pixels
          * @param meterValue Valeur en mètres
          * @return Valeur en pixels
          */
-        static float metersToPixels(float meterValue);
+        static float metersToPixels(float meters);
 
         /**
          * @brief Convertit une valeur en pixels en mètres
          * @param pixelValue Valeur en pixels
          * @return Valeur en mètres
          */
-        static float pixelsToMeters(float pixelValue);
+        static float pixelsToMeters(float pixels);
 
         /**
          * @brief Met à jour la simulation physique
@@ -140,7 +145,7 @@ namespace Orenji
          * @param type Type de corps (statique, dynamique, cinématique)
          * @return Identifiant du corps créé
          */
-        b2BodyId createBody(const sf::Vector2f &position, b2BodyType type);
+        b2BodyId createBody(const sf::Vector2f &position, b2BodyType type = b2_dynamicBody);
 
         /**
          * @brief Détruit un corps physique
@@ -208,22 +213,19 @@ namespace Orenji
         b2WorldId getWorld() const { return m_world; }
 
     private:
-        // Instance unique (singleton)
-        static std::unique_ptr<PhysicsWorld> s_instance;
+        // Initialisation du monde
+        void initialize(const sf::Vector2f &gravity);
 
-        // Monde Box2D
+        // Variables membres
         b2WorldId m_world;
-
-        // Écouteur de contact
         ContactListener m_contactListener;
-
-        // Pour le debug drawing
-        sf::VertexArray m_debugLines;
+        int m_velocityIterations;
+        int m_positionIterations;
+        sf::PrimitiveType m_debugLines;
         bool m_debugDrawEnabled;
 
-        // Paramètres de la simulation
-        const int m_velocityIterations = 8;
-        const int m_positionIterations = 3;
+        // Singleton
+        static PhysicsWorld *s_instance;
     };
 
 } // namespace Orenji
