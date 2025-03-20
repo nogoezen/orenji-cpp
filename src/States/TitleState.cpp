@@ -1,7 +1,10 @@
 #include "../../include/States/TitleState.hpp"
 #include "../../include/States/GameState.hpp"
 #include "../../include/States/StateMachine.hpp"
+#include "../../include/Utilities/InputHandler.hpp"
+#include "../../include/Utilities/ResourceManager.hpp"
 #include <iostream>
+#include <cmath>
 
 namespace Orenji
 {
@@ -17,13 +20,18 @@ namespace Orenji
         m_music.stop();
     }
 
-    void TitleState::initialize()
+    bool TitleState::initialize()
     {
-        // Chargement de la texture d'arrière-plan
-        if (!m_backgroundTexture.loadFromFile("resources/textures/Titles/001-Title01.jpg"))
+        // Chargement de la texture d'arrière-plan avec ResourceManager
+        ResourceManager &resourceManager = ResourceManager::getInstance();
+        sf::Texture *backgroundTexture = resourceManager.loadTexture("titleBackground", "resources/textures/Titles/001-Title01.jpg");
+
+        if (!backgroundTexture)
         {
             std::cerr << "Erreur: Impossible de charger l'image d'arrière-plan du menu titre" << std::endl;
+            return false;
         }
+        m_backgroundTexture = *backgroundTexture;
         m_backgroundSprite.setTexture(m_backgroundTexture);
 
         // Ajuster la taille du sprite pour remplir l'écran
@@ -33,11 +41,14 @@ namespace Orenji
         float scaleY = static_cast<float>(windowSize.y) / textureSize.y;
         m_backgroundSprite.setScale(scaleX, scaleY);
 
-        // Chargement de la police
-        if (!m_font.loadFromFile("resources/fonts/VeniceClassic.ttf"))
+        // Chargement de la police avec ResourceManager
+        sf::Font *titleFont = resourceManager.loadFont("titleFont", "resources/fonts/VeniceClassic.ttf");
+        if (!titleFont)
         {
             std::cerr << "Erreur: Impossible de charger la police pour le menu titre" << std::endl;
+            return false;
         }
+        m_font = *titleFont;
 
         // Configuration du titre
         m_titleText.setFont(m_font);
@@ -53,73 +64,100 @@ namespace Orenji
         m_titleText.setOrigin(titleBounds.width / 2.f, titleBounds.height / 2.f);
         m_titleText.setPosition(windowSize.x / 2.f, m_titleY);
 
-        // Configuration du rectangle de fondu
-        m_fadeRect.setSize(sf::Vector2f(windowSize.x, windowSize.y));
-        m_fadeRect.setFillColor(sf::Color(0, 0, 0, m_fadeAlpha));
-
         // Création des éléments du menu
-        const float menuItemY = 300.f;
-        const float menuItemSpacing = 60.f;
-
-        // Élément "Nouvelle Partie"
         MenuItem newGameItem;
         newGameItem.text.setFont(m_font);
         newGameItem.text.setString("Nouvelle Partie");
         newGameItem.text.setCharacterSize(36);
+        newGameItem.text.setFillColor(sf::Color::White);
         newGameItem.isSelected = true;
         newGameItem.callback = [this]()
-        { startGame(); };
-
+        {
+            startGame();
+        };
         sf::FloatRect bounds = newGameItem.text.getLocalBounds();
         newGameItem.text.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-        newGameItem.text.setPosition(windowSize.x / 2.f, menuItemY);
-        newGameItem.text.setFillColor(sf::Color::Yellow);
-        m_menuItems.push_back(newGameItem);
+        newGameItem.text.setPosition(windowSize.x / 2.f, windowSize.y / 2.f);
 
-        // Élément "Options"
         MenuItem optionsItem;
         optionsItem.text.setFont(m_font);
         optionsItem.text.setString("Options");
         optionsItem.text.setCharacterSize(36);
+        optionsItem.text.setFillColor(sf::Color::White);
         optionsItem.isSelected = false;
         optionsItem.callback = [this]()
-        { showOptions(); };
-
+        {
+            showOptions();
+        };
         bounds = optionsItem.text.getLocalBounds();
         optionsItem.text.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-        optionsItem.text.setPosition(windowSize.x / 2.f, menuItemY + menuItemSpacing);
-        optionsItem.text.setFillColor(sf::Color::White);
-        m_menuItems.push_back(optionsItem);
+        optionsItem.text.setPosition(windowSize.x / 2.f, windowSize.y / 2.f + 60.f);
 
-        // Élément "Quitter"
         MenuItem exitItem;
         exitItem.text.setFont(m_font);
         exitItem.text.setString("Quitter");
         exitItem.text.setCharacterSize(36);
+        exitItem.text.setFillColor(sf::Color::White);
         exitItem.isSelected = false;
         exitItem.callback = [this]()
-        { exitGame(); };
-
+        {
+            exitGame();
+        };
         bounds = exitItem.text.getLocalBounds();
         exitItem.text.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-        exitItem.text.setPosition(windowSize.x / 2.f, menuItemY + menuItemSpacing * 2);
-        exitItem.text.setFillColor(sf::Color::White);
+        exitItem.text.setPosition(windowSize.x / 2.f, windowSize.y / 2.f + 120.f);
+
+        // Ajouter les éléments au menu
+        m_menuItems.push_back(newGameItem);
+        m_menuItems.push_back(optionsItem);
         m_menuItems.push_back(exitItem);
 
-        // Chargement et lecture de la musique
-        if (!m_music.openFromFile("resources/sounds/BGM/012-Theme01.mid"))
-        {
-            std::cerr << "Erreur: Impossible de charger la musique du menu titre" << std::endl;
-        }
-        m_music.setLoop(true);
-        m_music.setVolume(80.f);
-        m_music.play();
+        // Configurer le rectangle de fondu
+        m_fadeRect.setSize(sf::Vector2f(windowSize.x, windowSize.y));
+        m_fadeRect.setFillColor(sf::Color(0, 0, 0, static_cast<sf::Uint8>(m_fadeAlpha)));
 
-        // Effet de fondu à l'entrée
-        m_fadeAlpha = 255.f;
+        // Charger et démarrer la musique de fond avec ResourceManager
+        // Note: Nous utilisons directement m_music car SFML ne permet pas de récupérer la musique à partir d'un buffer
+        // comme pour les sons, mais nous pouvons utiliser ResourceManager pour vérifier si le fichier existe d'abord
+
+        // Le code suivant est commenté car les fichiers audio peuvent ne pas exister dans le projet
+        // Décommentez cette section lorsque vous avez un fichier audio disponible
+
+        /*
+        std::string musicPath = "resources/musics/title_theme.ogg";
+        // Utilisons ResourceManager pour vérifier si le fichier existe avant de le charger
+        sf::SoundBuffer* testBuffer = resourceManager.loadSoundBuffer("titleThemeTest", musicPath);
+
+        if (testBuffer) {
+            // Si le buffer a été chargé avec succès, cela signifie que le fichier existe
+            // Maintenant, nous pouvons charger la musique directement
+            if (!m_music.openFromFile(musicPath))
+            {
+                std::cerr << "Erreur: Impossible de charger la musique du menu titre" << std::endl;
+            }
+            else
+            {
+                m_music.setLoop(true);
+                m_music.setVolume(50.f);
+                m_music.play();
+            }
+
+            // Libérer le buffer de test
+            resourceManager.clearSounds();
+        }
+        */
+
+        // Configurer les actions d'entrée avec InputHandler
+        InputHandler &inputHandler = InputHandler::getInstance();
+        inputHandler.bindKeyAction(sf::Keyboard::Up, "menuUp");
+        inputHandler.bindKeyAction(sf::Keyboard::Down, "menuDown");
+        inputHandler.bindKeyAction(sf::Keyboard::Return, "menuSelect");
+        inputHandler.bindKeyAction(sf::Keyboard::Escape, "menuBack");
+
+        return true;
     }
 
-    void TitleState::update(float deltaTime)
+    bool TitleState::update(float deltaTime)
     {
         // Animation du titre (légère oscillation)
         m_titleY += m_titleYSpeed * deltaTime;
@@ -166,47 +204,62 @@ namespace Orenji
                 // Effet de pulsation pour l'élément sélectionné
                 float pulse = 1.f + 0.1f * std::sin(getStateMachine()->getElapsedTime() * 5.f);
                 m_menuItems[i].text.setScale(pulse, pulse);
-
-                // Couleur jaune pour l'élément sélectionné
-                m_menuItems[i].text.setFillColor(sf::Color::Yellow);
-                m_menuItems[i].text.setOutlineColor(sf::Color(100, 50, 0));
-                m_menuItems[i].text.setOutlineThickness(1.f);
+                m_menuItems[i].text.setFillColor(sf::Color(255, 200, 50)); // Jaune orangé
             }
             else
             {
-                // Paramètres normaux pour les éléments non sélectionnés
+                // Réinitialiser l'échelle et la couleur pour les éléments non sélectionnés
                 m_menuItems[i].text.setScale(1.f, 1.f);
                 m_menuItems[i].text.setFillColor(sf::Color::White);
-                m_menuItems[i].text.setOutlineThickness(0.f);
             }
         }
+
+        return true;
     }
 
     void TitleState::handleEvent(sf::Event &event)
     {
-        if (m_isExiting)
-            return;
+        // La gestion des événements spécifiques est maintenant déléguée à InputHandler
+        // Cette méthode peut rester disponible pour des traitements d'événements spéciaux si nécessaire
+        InputHandler::getInstance().processEvent(event);
+    }
 
-        if (event.type == sf::Event::KeyPressed)
+    bool TitleState::handleInput()
+    {
+        // Utilisation d'InputHandler pour gérer les entrées
+        InputHandler &inputHandler = InputHandler::getInstance();
+
+        // Vérifier les actions liées au menu
+        if (inputHandler.isActionPressed("menuUp"))
         {
-            switch (event.key.code)
-            {
-            case sf::Keyboard::Up:
-                selectPreviousItem();
-                break;
-            case sf::Keyboard::Down:
-                selectNextItem();
-                break;
-            case sf::Keyboard::Return:
-                activateItem();
-                break;
-            case sf::Keyboard::Escape:
-                exitGame();
-                break;
-            default:
-                break;
-            }
+            selectPreviousItem();
         }
+        else if (inputHandler.isActionPressed("menuDown"))
+        {
+            selectNextItem();
+        }
+        else if (inputHandler.isActionPressed("menuSelect"))
+        {
+            activateItem();
+        }
+        else if (inputHandler.isActionPressed("menuBack"))
+        {
+            exitGame();
+        }
+
+        return true;
+    }
+
+    bool TitleState::render()
+    {
+        // Délégation au render qui prend la fenêtre en paramètre
+        if (getStateMachine())
+        {
+            sf::RenderWindow &window = getStateMachine()->getWindow();
+            render(window);
+            return true;
+        }
+        return false;
     }
 
     void TitleState::render(sf::RenderWindow &window)

@@ -66,49 +66,50 @@ namespace Orenji
 
     bool MainMenuState::render()
     {
-        // Note: We expect the Game class to handle window clearing
-        // and display, so we just draw the menu elements
-        sf::RenderWindow *window = nullptr; // TODO: Get window from game singleton
-
-        if (window)
+        if (getStateMachine())
         {
-            window->draw(m_titleText);
-            window->draw(m_startGameText);
-            window->draw(m_exitText);
+            sf::RenderWindow &window = getStateMachine()->getWindow();
+            window.clear(sf::Color(0, 0, 68)); // Navy blue background
+            window.draw(m_titleText);
+            window.draw(m_startGameText);
+            window.draw(m_exitText);
         }
         return true;
     }
 
     bool MainMenuState::handleInput()
     {
-        // Handle key presses for menu navigation
-        // Check for key presses, move selection up or down
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
-            m_selectedOption = (m_selectedOption + 1) % 2;
-            updateMenuDisplay();
+            if (m_selectedOption < 1) // 1 is the max index (Exit option)
+            {
+                m_selectedOption++;
+                updateMenuDisplay();
+            }
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
-            m_selectedOption = (m_selectedOption + 1) % 2;
-            updateMenuDisplay();
+            if (m_selectedOption > 0)
+            {
+                m_selectedOption--;
+                updateMenuDisplay();
+            }
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
         {
-            if (m_selectedOption == 0)
+            if (m_selectedOption == 0) // Start Game
             {
-                // Start Game option selected
-                // Request state change
-                if (getParent())
+                if (getStateMachine())
                 {
-                    getParent()->changeState(std::make_shared<GameState>());
+                    getStateMachine()->changeState(std::make_unique<GameState>());
                 }
             }
-            else
+            else if (m_selectedOption == 1) // Exit
             {
-                // Exit option selected
-                // Exit the game
-                // TODO: Signal game to exit
+                if (getStateMachine())
+                {
+                    getStateMachine()->getWindow().close();
+                }
             }
         }
         return true;
@@ -116,16 +117,19 @@ namespace Orenji
 
     void MainMenuState::updateMenuDisplay()
     {
-        // Update text colors based on which option is selected
-        if (m_selectedOption == 0)
+        // Reset all text to white
+        m_startGameText.setFillColor(sf::Color::White);
+        m_exitText.setFillColor(sf::Color::White);
+
+        // Highlight selected option
+        switch (m_selectedOption)
         {
+        case 0:
             m_startGameText.setFillColor(sf::Color::Yellow);
-            m_exitText.setFillColor(sf::Color::White);
-        }
-        else
-        {
-            m_startGameText.setFillColor(sf::Color::White);
+            break;
+        case 1:
             m_exitText.setFillColor(sf::Color::Yellow);
+            break;
         }
     }
 

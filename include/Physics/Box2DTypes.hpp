@@ -19,6 +19,9 @@ namespace box2d
     struct b2ContactListener;
     struct b2Vec2;
     struct b2Filter;
+
+    // Constante utilisée pour les conversions d'angle
+    constexpr float b2_pi = 3.14159265359f;
 }
 
 // Types d'ID
@@ -32,9 +35,6 @@ using b2WorldId = void *;
 enum b2BodyType
 {
     b2_staticBody = 0,
-    b2_kinematicBody,
-    b2_dynamicBody
+    b2_kinematicBody = 1,
+    b2_dynamicBody = 2
 };
-
-// Constante utilisée pour les conversions d'angle
-constexpr float b2_pi = 3.14159265359f;

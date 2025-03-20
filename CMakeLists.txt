@@ -61,6 +61,7 @@ set(SOURCES
     src/States/StateMachine.cpp
     src/States/MainMenuState.cpp
     src/States/GameState.cpp
+    src/States/TitleState.cpp
     
     # TiledMap
     src/TiledMap/TiledMap.cpp

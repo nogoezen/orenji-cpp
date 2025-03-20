@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../include/States/State.hpp"
+#include "State.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <functional>
@@ -23,7 +23,7 @@ namespace Orenji
         /**
          * @brief Destructeur
          */
-        ~TitleState();
+        ~TitleState() override;
 
         /**
          * @brief Initialisation de l'état
@@ -44,6 +44,11 @@ namespace Orenji
 
         /**
          * @brief Rendu de l'état
+         */
+        bool render() override;
+
+        /**
+         * @brief Rendu de l'état avec accès à la fenêtre
          * @param window Fenêtre de rendu
          */
         void render(sf::RenderWindow &window) override;

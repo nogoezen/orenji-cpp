@@ -50,6 +50,37 @@ namespace Orenji
         void applyLinearImpulse(const sf::Vector2f &impulse, const sf::Vector2f &point);
         void applyAngularImpulse(float impulse);
 
+        // Création de fixtures
+        /**
+         * @brief Crée une fixture de forme rectangulaire
+         * @param size Dimensions du rectangle en pixels
+         * @param density Densité de la fixture (masse volumique)
+         * @param friction Coefficient de friction
+         * @param restitution Coefficient de restitution (rebond)
+         * @param categoryBits Bits de catégorie pour le filtrage des collisions
+         * @param maskBits Bits de masque pour le filtrage des collisions
+         * @param isSensor Si true, la fixture est un capteur (ne génère pas de collisions physiques)
+         * @return Identifiant de la fixture créée
+         */
+        b2FixtureId createBoxFixture(const sf::Vector2f &size,
+                                     float density = 1.0f, float friction = 0.3f, float restitution = 0.0f,
+                                     uint16_t categoryBits = 0x0001, uint16_t maskBits = 0xFFFF, bool isSensor = false);
+
+        /**
+         * @brief Crée une fixture de forme circulaire
+         * @param radius Rayon du cercle en pixels
+         * @param density Densité de la fixture (masse volumique)
+         * @param friction Coefficient de friction
+         * @param restitution Coefficient de restitution (rebond)
+         * @param categoryBits Bits de catégorie pour le filtrage des collisions
+         * @param maskBits Bits de masque pour le filtrage des collisions
+         * @param isSensor Si true, la fixture est un capteur (ne génère pas de collisions physiques)
+         * @return Identifiant de la fixture créée
+         */
+        b2FixtureId createCircleFixture(float radius,
+                                        float density = 1.0f, float friction = 0.3f, float restitution = 0.0f,
+                                        uint16_t categoryBits = 0x0001, uint16_t maskBits = 0xFFFF, bool isSensor = false);
+
         // Accès au corps Box2D
         b2BodyId getBody() const { return m_body; }
 
@@ -96,6 +127,7 @@ namespace Orenji
         b2BodyType m_bodyType;
         bool m_fixedRotation;
         bool m_bullet;
+        bool m_initialized;
     };
 
 } // namespace Orenji

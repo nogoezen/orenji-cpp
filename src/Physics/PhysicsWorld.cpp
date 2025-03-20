@@ -306,8 +306,8 @@ namespace Orenji
                     const int segments = 16;
                     for (int i = 0; i < segments; i++)
                     {
-                        float angle1 = angle + (i / (float)segments) * 2 * b2_pi;
-                        float angle2 = angle + ((i + 1) / (float)segments) * 2 * b2_pi;
+                        float angle1 = angle + (i / (float)segments) * 2 * box2d::b2_pi;
+                        float angle2 = angle + ((i + 1) / (float)segments) * 2 * box2d::b2_pi;
 
                         sf::Vector2f p1(sfmlPosition.x + radius * cos(angle1),
                                         sfmlPosition.y + radius * sin(angle1));

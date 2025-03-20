@@ -46,16 +46,27 @@ int main()
                                });
 
     // Configurer les couleurs du système personnalisé
-    // Note: On utilise un animation affector avec color animation
-    thor::ColorAnimation colorAnimation;
-    colorAnimation.addColor(0.f, sf::Color::Blue);
-    colorAnimation.addColor(1.f, sf::Color::Cyan);
+    // Note: On utilise un dégradé de couleurs via ColorGradient
+    thor::ColorGradient colorGradient;
+    colorGradient[0.0f] = sf::Color::Blue;
+    colorGradient[1.0f] = sf::Color::Cyan;
+
+    // Créer une animation de couleur basée sur le dégradé
+    thor::ColorAnimation colorAnimation(colorGradient);
 
     particleSystem.addAffector("custom",
-                               [colorAnimation](thor::Particle &particle, sf::Time)
+                               [colorGradient](thor::Particle &particle, sf::Time dt)
                                {
-                                   float progress = 1.f - (particle.remainingLifetime / particle.totalLifetime);
-                                   particle.color = colorAnimation.getColor(progress);
+                                   // Calculer la progression en fonction du temps de vie
+                                   // Thor fournit des fonctions autonomes pour accéder aux informations de temps de vie
+                                   sf::Time totalTime = thor::getTotalLifetime(particle);
+                                   sf::Time remainingTime = thor::getRemainingLifetime(particle);
+
+                                   // Calculer le ratio d'avancement (0 = début, 1 = fin)
+                                   float progress = 1.f - (remainingTime.asSeconds() / totalTime.asSeconds());
+
+                                   // Appliquer la couleur basée sur le dégradé
+                                   particle.color = colorGradient.sampleColor(progress);
                                });
 
     // Créer une texture pour le système personnalisé (un cercle blanc)
