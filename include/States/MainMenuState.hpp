@@ -2,28 +2,30 @@
 #include <SFML/Graphics.hpp>
 #include "State.hpp"
 
-namespace Orenji {
+namespace Orenji
+{
 
-class MainMenuState : public State {
-public:
-    MainMenuState();
-    virtual ~MainMenuState();
+    class MainMenuState : public State
+    {
+    public:
+        MainMenuState();
+        virtual ~MainMenuState();
 
-    virtual void onEnter() override;
-    virtual void onExit() override;
-    virtual void update(float deltaTime) override;
-    virtual void render() override;
-    virtual void handleInput() override;
+        virtual bool onEnter() override;
+        virtual bool onExit() override;
+        virtual bool update(float deltaTime) override;
+        virtual bool render() override;
+        virtual bool handleInput() override;
 
-private:
-    sf::Font m_font;
-    sf::Text m_titleText;
-    sf::Text m_startGameText;
-    sf::Text m_exitText;
-    
-    int m_selectedOption;
-    
-    void updateMenuDisplay();
-};
+    private:
+        sf::Font m_font;
+        sf::Text m_titleText;
+        sf::Text m_startGameText;
+        sf::Text m_exitText;
 
-} // namespace Orenji 
+        int m_selectedOption;
+
+        void updateMenuDisplay();
+    };
+
+} // namespace Orenji

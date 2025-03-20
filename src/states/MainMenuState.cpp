@@ -1,5 +1,6 @@
 #include "../../include/States/MainMenuState.hpp"
 #include "../../include/States/GameState.hpp"
+#include "../../include/States/StateMachine.hpp"
 #include <iostream>
 
 namespace Orenji
@@ -13,13 +14,13 @@ namespace Orenji
     {
     }
 
-    void MainMenuState::onEnter()
+    bool MainMenuState::onEnter()
     {
         // Load resources
-        if (!m_font.loadFromFile("resources/fonts/UbuntuMono-Regular.ttf"))
+        if (!m_font.loadFromFile("resources/fonts/VeniceClassic.ttf"))
         {
             std::cerr << "Error: Unable to load font" << std::endl;
-            return;
+            return false;
         }
 
         // Set up title text
@@ -48,19 +49,22 @@ namespace Orenji
                              m_exitText.getLocalBounds().height / 2);
 
         updateMenuDisplay();
+        return true;
     }
 
-    void MainMenuState::onExit()
+    bool MainMenuState::onExit()
     {
         // Clean up resources if needed
+        return true;
     }
 
-    void MainMenuState::update(float deltaTime)
+    bool MainMenuState::update(float deltaTime)
     {
         // Nothing to do here for a simple menu
+        return true;
     }
 
-    void MainMenuState::render()
+    bool MainMenuState::render()
     {
         // Note: We expect the Game class to handle window clearing
         // and display, so we just draw the menu elements
@@ -72,9 +76,10 @@ namespace Orenji
             window->draw(m_startGameText);
             window->draw(m_exitText);
         }
+        return true;
     }
 
-    void MainMenuState::handleInput()
+    bool MainMenuState::handleInput()
     {
         // Handle key presses for menu navigation
         // Check for key presses, move selection up or down
@@ -106,6 +111,7 @@ namespace Orenji
                 // TODO: Signal game to exit
             }
         }
+        return true;
     }
 
     void MainMenuState::updateMenuDisplay()

@@ -8,20 +8,22 @@
 
 namespace Orenji
 {
+    // Configuration settings - déplacé en dehors de la classe Game
+    struct GameSettings
+    {
+        std::string windowTitle = "Orenji Game Engine";
+        unsigned int windowWidth = 800;
+        unsigned int windowHeight = 600;
+        bool fullscreen = false;
+        unsigned int frameRateLimit = 60;
+        bool vsync = true;
+    };
 
     class Game
     {
     public:
-        // Configuration settings
-        struct Settings
-        {
-            std::string windowTitle = "Orenji Game Engine";
-            unsigned int windowWidth = 800;
-            unsigned int windowHeight = 600;
-            bool fullscreen = false;
-            unsigned int frameRateLimit = 60;
-            bool vsync = true;
-        };
+        // Alias pour la compatibilité
+        using Settings = GameSettings;
 
         // Singleton pattern
         static Game &getInstance();
