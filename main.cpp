@@ -7,9 +7,9 @@ int main()
     Orenji::Game &game = Orenji::Game::getInstance();
 
     Orenji::Game::Settings settings;
-    settings.windowTitle = "Orenji - Uncharted Waters";
-    settings.windowWidth = 800;
-    settings.windowHeight = 600;
+    settings.windowTitle = "Orenji Engine";
+    settings.windowWidth = 1280;
+    settings.windowHeight = 720;
     settings.frameRateLimit = 60;
 
     try

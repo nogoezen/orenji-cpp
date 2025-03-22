@@ -153,8 +153,9 @@ Création d'un moteur de jeu 2D moderne utilisant les technologies suivantes :
 - [ ] Tester le chargement et le rendu d'une scène simple
 
 ### Système de Particules
-- [ ] Concevoir l'architecture du système de particules
-- [ ] Implémenter la classe ParticleSystem
-- [ ] Créer différents types d'émetteurs
-- [ ] Optimiser le rendu avec VertexArray
+- [x] Implémenter la classe ParticleSystem
+- [x] Créer différents types d'émetteurs
+- [x] Optimiser le rendu avec VertexArray
+- [x] Implémenter la classe ParticleEmitter
+- [x] Implémenter le ParticleComponent
 - [ ] Tester différents effets de particules
