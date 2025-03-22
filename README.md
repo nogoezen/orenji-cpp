@@ -28,7 +28,7 @@ Orenji-CPP est un moteur de jeu 2D en C++ conçu pour simplifier le développeme
 ### Cloner le dépôt
 
 ```bash
-git clone https://github.com/votre-username/orenji-cpp.git
+git clone https://github.com/nogoezen/orenji-cpp.git
 cd orenji-cpp
 git submodule update --init --recursive
 ```
