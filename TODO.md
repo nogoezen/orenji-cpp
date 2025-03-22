@@ -11,21 +11,6 @@ Création d'un moteur de jeu 2D moderne utilisant les technologies suivantes :
 - OpenSteer pour le comportement de direction
 - Recast & Detour pour la navigation et la recherche de chemin
 
-## État d'avancement
-
-Nous avons terminé l'implémentation du système de particules avec les classes suivantes :
-- `Particle`: Structure représentant une particule avec toutes ses propriétés
-- `ParticleEmitter`: Gère l'émission et la configuration des particules
-- `ParticleSystem`: Singleton gérant tous les émetteurs et optimisant le rendu
-- `ParticleComponent`: Composant liant les particules aux entités du jeu
-
-Ces implémentations sont compatibles avec SFML 3 et incluent les fonctionnalités suivantes :
-- Différentes formes d'émetteurs (point, ligne, rectangle, cercle, anneau)
-- Support pour différents types de déclenchement (continu, rafale, événement)
-- Interpolation des propriétés (taille, couleur) pendant la vie de la particule
-- Système d'affecteurs pour modifier le comportement des particules
-- Optimisation du rendu avec VertexArray utilisant des triangles
-
 ## Architecture du Moteur
 
 ### 1. Système de State
@@ -50,16 +35,22 @@ Ces implémentations sont compatibles avec SFML 3 et incluent les fonctionnalit�
   - Système de nœuds et graphe de scène
   - Système de chargement de scènes depuis des fichiers JSON
 
-### 3. Système de Particules
-- **Objectifs** :
-  - Créer un système de particules complet basé sur SFML 3
-  - Support pour différents types d'émetteurs
-  - Effets visuels variés (feu, fumée, eau, etc.)
-- **Composants à implémenter** :
-  - Classe `ParticleSystem`
-  - Classe `ParticleEmitter`
-  - Différents types de particules et comportements
-  - Optimisation du rendu avec VertexArray
+### 3. Système de Particules (✅ Terminé)
+- Implémentation complète avec :
+  - `Particle`: Structure représentant une particule
+  - `ParticleEmitter`: Gestion de l'émission et configuration
+  - `ParticleSystem`: Singleton gérant les émetteurs et le rendu
+  - `ParticleComponent`: Liaison avec les entités du jeu
+- Fonctionnalités :
+  - Différentes formes d'émetteurs (point, ligne, rectangle, cercle)
+  - Types de déclenchement (continu, rafale, événement)
+  - Interpolation des propriétés
+  - Système d'affecteurs
+  - Optimisation du rendu avec VertexArray/Triangles
+- Documentation et exemples créés :
+  - Guide d'utilisation (docs/PARTICLE_SYSTEM.md)
+  - SimpleParticleDemo - exemple basique
+  - ParticleExample - démonstration d'effets variés
 
 ### 4. Système d'IA
 - **Objectifs** :
@@ -82,6 +73,9 @@ Ces implémentations sont compatibles avec SFML 3 et incluent les fonctionnalit�
   - Composants physiques pour les entités
   - Callbacks de collision
   - Outils de débogage
+- **Problèmes à résoudre** :
+  - Erreurs de compilation avec Box2D 3
+  - Adapter les types du wrapper à la nouvelle API Box2D
 
 ### 6. Système d'Interface Utilisateur
 - **Objectifs** :
@@ -96,7 +90,7 @@ Ces implémentations sont compatibles avec SFML 3 et incluent les fonctionnalit�
 
 ### 7. Système de Ressources
 - **Objectifs** :
-  - Gestion efficace des assets (textures, sons, polices, etc.)
+  - Gestion efficace des assets
   - Chargement asynchrone
   - Support pour le hot-reloading
 - **Composants à implémenter** :
@@ -106,77 +100,53 @@ Ces implémentations sont compatibles avec SFML 3 et incluent les fonctionnalit�
 
 ### 8. Système de Données
 - **Objectifs** :
-  - Utiliser nlohmann/json pour charger et sauvegarder des données
-  - Support pour la sérialisation/désérialisation des objets du jeu
+  - Utiliser nlohmann/json pour la gestion des données
+  - Support pour la sérialisation des objets
   - Gestion des sauvegardes
 - **Composants à implémenter** :
   - Classe `DataManager`
   - Interfaces de sérialisation
-  - Utilitaires de lecture/écriture JSON
+  - Utilitaires JSON
 
-## Plan d'Implémentation
+## État d'avancement
 
-### Phase 1: Structure de Base
-1. ✅ Mise en place de la structure du projet avec build.bat (au lieu de CMake)
-2. ✅ Adaptation pour SFML 3 et Box2D 3
-3. 🔄 Création du système de state
-4. 🔄 Implémentation de la boucle de jeu principale
+### Terminé (✅)
+- Structure de base du projet avec build.bat
+- Adaptation pour SFML 3
+- Système de particules complet
 
-### Phase 2: Systèmes Fondamentaux
-1. 🔄 Implémentation du système de scene
-2. 🔄 Développement du système de ressources
-3. 🔄 Création du système de données
-4. 🔄 Intégration de Box2D 3 avec le système physique
+### En cours (🔄)
+- Système de state
+- Système de scene
+- Intégration Box2D 3
+- Système de ressources
+- Système de données
+- Interface utilisateur avec TGUI
+- Système de carte avec Tiledson
 
-### Phase 3: Systèmes Avancés
-1. ✅ Développement du système de particules basé sur SFML 3
-2. 🔄 Intégration de TGUI pour l'interface utilisateur
-3. 🔄 Implémentation du système de carte avec Tiledson
-4. 🔄 Mise en place des outils de débogage
+### À faire
+- Intégration BehaviorTree.CPP
+- Implémentation OpenSteer
+- Navigation avec Recast & Detour
+- Éditeur d'arbres de comportement
+- Optimisations et tests
+- Documentation complète
 
-### Phase 4: Système d'IA
-1. 🔄 Intégration de BehaviorTree.CPP
-2. 🔄 Implémentation des comportements avec OpenSteer
-3. 🔄 Ajout de la navigation avec Recast & Detour
-4. 🔄 Création d'un éditeur d'arbres de comportement
+## Bugs connus
+- Erreurs de compilation avec Box2D 3
+- Problèmes d'intégration avec les modèles de données
+- Les exemples de particules montrent des erreurs de linter avec SFML 3
 
-### Phase 5: Optimisation et Polissage
-1. 🔄 Optimisation des performances
-2. 🔄 Amélioration du système de rendu
-3. 🔄 Tests et débogage
-4. 🔄 Documentation
+## Prochaines étapes immédiates
+1. Corriger les erreurs de compilation dans les exemples de particules pour SFML 3
+2. Résoudre les problèmes d'intégration avec Box2D 3
+3. Améliorer le système de particules avec support pour textures
+4. Préparer l'intégration avec le système de scene et d'entités
 
-## Tâches Immédiates
-
-### Mise en place du projet
-- [x] Créer la structure de base du projet
-- [x] Configurer le script build.bat pour la compilation
-- [x] Intégrer SFML 3 et adapter le code
-- [ ] Intégrer Box2D 3 et adapter le code
-- [ ] Intégrer nlohmann/json et tester avec les fichiers JSON existants
-
-### Système de State
-- [ ] Implémenter la classe StateManager
-- [ ] Créer l'interface State
-- [ ] Implémenter les états de base (MenuState, GameState, PauseState)
-- [ ] Tester les transitions entre états
-
-### Système de Scene
-- [ ] Implémenter la classe SceneManager
-- [ ] Créer la classe Scene et le système de nœuds
-- [ ] Développer le système d'entités et composants
-- [ ] Tester le chargement et le rendu d'une scène simple
-
-### Système de Particules
-- [x] Implémenter la classe ParticleSystem
-- [x] Créer différents types d'émetteurs
-- [x] Optimiser le rendu avec VertexArray
-- [x] Implémenter la classe ParticleEmitter
-- [x] Implémenter le ParticleComponent
-- [x] Adapter pour SFML 3 (uint8_t, sf::degrees(), Vertex, Triangles)
-- [ ] Créer des exemples d'effets de particules (feu, fumée, explosion, etc.)
-
-### Prochaines étapes
-1. Créer des exemples d'effets de particules
-2. Intégrer Box2D 3 et adapter le code
-3. Développer le système de ressources pour gérer les textures des particules
+## Améliorations futures
+- Optimisation des performances du système de particules
+- Support pour textures et dégradés complexes
+- Sauvegarde/chargement des configurations d'émetteurs
+- Interface d'édition des systèmes de particules
+- Ajout d'effets de post-traitement pour les particules
+- Intégration avec le système de lumières dynamiques
