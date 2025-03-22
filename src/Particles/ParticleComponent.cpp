@@ -25,7 +25,7 @@ namespace Orenji
           m_distanceTrigger(10.f),
           m_distanceAccumulator(0.f),
           m_parameters(nullptr),
-          m_vertices(sf::Quads),
+          m_vertices(sf::PrimitiveType::Quads),
           m_startColor(sf::Color(255, 255, 255, 255)),
           m_endColor(sf::Color(255, 255, 255, 0)),
           m_minSize(2.f),
@@ -38,7 +38,7 @@ namespace Orenji
 
     void ParticleComponent::initialize()
     {
-        if (Entity *entity = getEntity())
+        if (Entity *entity = getOwner())
         {
             m_lastPosition = entity->getPosition();
         }
@@ -46,11 +46,11 @@ namespace Orenji
 
     void ParticleComponent::update(float deltaTime)
     {
-        if (!m_enabled || !getEntity())
+        if (!m_enabled || !getOwner())
             return;
 
         // Mettre à jour la position du système pour qu'elle corresponde à l'entité
-        sf::Vector2f position = getEntity()->getPosition();
+        sf::Vector2f position = getOwner()->getPosition();
 
         // Gérer les différents types de déclencheurs
         switch (m_triggerType)
@@ -217,9 +217,9 @@ namespace Orenji
         m_triggerType = type;
 
         // Réinitialiser les variables si nécessaire
-        if (m_triggerType == ParticleTriggerType::OnDistance && getEntity())
+        if (m_triggerType == ParticleTriggerType::OnDistance && getOwner())
         {
-            m_lastPosition = getEntity()->getPosition();
+            m_lastPosition = getOwner()->getPosition();
             m_distanceAccumulator = 0.f;
         }
         else if (m_triggerType == ParticleTriggerType::Continuous)
@@ -232,9 +232,6 @@ namespace Orenji
     {
         if (count == 0)
             count = m_burstSize;
-
-        // Position d'émission basée sur l'entité
-        sf::Vector2f position = getEntity() ? getEntity()->getPosition() : sf::Vector2f(0.f, 0.f);
 
         // Générer les nouvelles particules
         for (unsigned int i = 0; i < count; ++i)
@@ -262,9 +259,9 @@ namespace Orenji
                     emit(m_burstSize);
                     m_enabled = false; // Désactiver après le one-shot
                 }
-                else if (m_triggerType == ParticleTriggerType::OnDistance && getEntity())
+                else if (m_triggerType == ParticleTriggerType::OnDistance && getOwner())
                 {
-                    m_lastPosition = getEntity()->getPosition();
+                    m_lastPosition = getOwner()->getPosition();
                     m_distanceAccumulator = 0.f;
                 }
             }
@@ -316,7 +313,7 @@ namespace Orenji
     SimpleParticle ParticleComponent::generateParticle() const
     {
         // Position d'émission basée sur l'entité
-        sf::Vector2f position = getEntity() ? getEntity()->getPosition() : sf::Vector2f(0.f, 0.f);
+        sf::Vector2f position = getOwner() ? getOwner()->getPosition() : sf::Vector2f(0.f, 0.f);
 
         // Si nous avons des paramètres d'émission personnalisés, les utiliser
         if (m_parameters)
@@ -385,14 +382,14 @@ namespace Orenji
         float lifetimeRatio = particle.elapsed / particle.lifetime;
         if (m_parameters)
         {
-            particle.color.r = static_cast<sf::Uint8>(m_parameters->startColor.r + (m_parameters->endColor.r - m_parameters->startColor.r) * lifetimeRatio);
-            particle.color.g = static_cast<sf::Uint8>(m_parameters->startColor.g + (m_parameters->endColor.g - m_parameters->startColor.g) * lifetimeRatio);
-            particle.color.b = static_cast<sf::Uint8>(m_parameters->startColor.b + (m_parameters->endColor.b - m_parameters->startColor.b) * lifetimeRatio);
-            particle.color.a = static_cast<sf::Uint8>(m_parameters->startColor.a + (m_parameters->endColor.a - m_parameters->startColor.a) * lifetimeRatio);
+            particle.color.r = static_cast<uint8_t>(m_parameters->startColor.r + (m_parameters->endColor.r - m_parameters->startColor.r) * lifetimeRatio);
+            particle.color.g = static_cast<uint8_t>(m_parameters->startColor.g + (m_parameters->endColor.g - m_parameters->startColor.g) * lifetimeRatio);
+            particle.color.b = static_cast<uint8_t>(m_parameters->startColor.b + (m_parameters->endColor.b - m_parameters->startColor.b) * lifetimeRatio);
+            particle.color.a = static_cast<uint8_t>(m_parameters->startColor.a + (m_parameters->endColor.a - m_parameters->startColor.a) * lifetimeRatio);
         }
         else
         {
-            particle.color.a = static_cast<sf::Uint8>(m_startColor.a * (1.f - lifetimeRatio));
+            particle.color.a = static_cast<uint8_t>(m_startColor.a * (1.f - lifetimeRatio));
         }
     }
 
