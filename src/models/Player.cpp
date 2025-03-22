@@ -5,493 +5,527 @@
 #include <sstream>
 #include <cmath>
 
-// Constructeur à partir de JSON
-Player::Player(const nlohmann::json &data)
-    : m_name("Joueur"), m_gold(1000), m_level(1), m_experience(0),
-      m_posX(0), m_posY(0), m_currentMode(PlayerMode::LAND),
-      m_cargoCapacity(100), m_currentCargoWeight(0), m_fleet(std::make_shared<Fleet>("Fleet")),
-      m_character(std::make_shared<Character>("Joueur"))
+namespace Orenji
 {
-    if (data.contains("name"))
-        m_name = data["name"];
-
-    if (data.contains("gold"))
-        m_gold = data["gold"];
-
-    if (data.contains("level"))
-        m_level = data["level"];
-
-    if (data.contains("experience"))
-        m_experience = data["experience"];
-
-    if (data.contains("posX"))
-        m_posX = data["posX"];
-
-    if (data.contains("posY"))
-        m_posY = data["posY"];
-
-    if (data.contains("mode"))
-        m_currentMode = static_cast<PlayerMode>(data["mode"]);
-
-    if (data.contains("debt"))
-        m_debt = data["debt"];
-
-    if (data.contains("debtInterestRate"))
-        m_debtInterestRate = data["debtInterestRate"];
-
-    if (data.contains("lastDebtPaymentDay"))
-        m_lastDebtPaymentDay = data["lastDebtPaymentDay"];
-
-    if (data.contains("cargo"))
+    Player::Player()
+        : m_id(-1), m_name(""), m_faction(""), m_money(0), m_level(1), m_experience(0), m_x(0.0f), m_y(0.0f), m_activeShipIndex(-1)
     {
-        for (const auto &item : data["cargo"].items())
-        {
-            const auto &cargo = item.value();
-            int id = std::stoi(item.key());
-            std::string name = cargo.contains("name") ? cargo["name"].get<std::string>() : "Inconnu";
-            int quantity = cargo.contains("quantity") ? cargo["quantity"].get<int>() : 0;
-            int unitWeight = cargo.contains("unitWeight") ? cargo["unitWeight"].get<int>() : 1;
+        // Initialiser les statistiques à zéro
+        m_stats.citiesVisited = 0;
+        m_stats.transactionsMade = 0;
+        m_stats.shipsDestroyed = 0;
+        m_stats.distanceTraveled = 0;
+        m_stats.goodsTraded = 0;
+        m_stats.battlesWon = 0;
+        m_stats.battlesLost = 0;
+    }
 
-            m_cargo[id] = CargoItem(id, name, quantity, unitWeight);
-            m_currentCargoWeight += quantity * unitWeight;
+    Player::Player(int id, const std::string &name, const std::string &faction)
+        : m_id(id), m_name(name), m_faction(faction), m_money(1000) // Capital de départ
+          ,
+          m_level(1), m_experience(0), m_x(0.0f), m_y(0.0f), m_activeShipIndex(-1)
+    {
+        // Initialiser les statistiques à zéro
+        m_stats.citiesVisited = 0;
+        m_stats.transactionsMade = 0;
+        m_stats.shipsDestroyed = 0;
+        m_stats.distanceTraveled = 0;
+        m_stats.goodsTraded = 0;
+        m_stats.battlesWon = 0;
+        m_stats.battlesLost = 0;
+
+        // Initialiser la réputation envers sa propre faction
+        m_reputations[faction] = 100;
+    }
+
+    Player::Player(const nlohmann::json &json)
+        : m_id(-1), m_name(""), m_faction(""), m_money(0), m_level(1), m_experience(0), m_x(0.0f), m_y(0.0f), m_activeShipIndex(-1)
+    {
+        // Initialiser les statistiques à zéro
+        m_stats.citiesVisited = 0;
+        m_stats.transactionsMade = 0;
+        m_stats.shipsDestroyed = 0;
+        m_stats.distanceTraveled = 0;
+        m_stats.goodsTraded = 0;
+        m_stats.battlesWon = 0;
+        m_stats.battlesLost = 0;
+
+        // Charger les propriétés de base à partir du JSON
+        if (json.contains("id") && json["id"].is_number())
+            m_id = json["id"];
+
+        if (json.contains("name") && json["name"].is_string())
+            m_name = json["name"];
+
+        if (json.contains("faction") && json["faction"].is_string())
+            m_faction = json["faction"];
+
+        if (json.contains("money") && json["money"].is_number())
+            m_money = json["money"];
+
+        if (json.contains("level") && json["level"].is_number())
+            m_level = json["level"];
+
+        if (json.contains("experience") && json["experience"].is_number())
+            m_experience = json["experience"];
+
+        if (json.contains("x") && json["x"].is_number())
+            m_x = json["x"];
+
+        if (json.contains("y") && json["y"].is_number())
+            m_y = json["y"];
+
+        if (json.contains("activeShipIndex") && json["activeShipIndex"].is_number())
+            m_activeShipIndex = json["activeShipIndex"];
+
+        // Charger l'inventaire
+        if (json.contains("inventory") && json["inventory"].is_object())
+        {
+            for (auto it = json["inventory"].begin(); it != json["inventory"].end(); ++it)
+            {
+                int itemId = std::stoi(it.key());
+                int quantity = it.value();
+                m_inventory[itemId] = quantity;
+            }
+        }
+
+        // Charger les navires
+        if (json.contains("ships") && json["ships"].is_array())
+        {
+            for (const auto &shipJson : json["ships"])
+            {
+                m_ships.emplace_back(shipJson);
+            }
+        }
+
+        // Charger les compétences
+        if (json.contains("skills") && json["skills"].is_object())
+        {
+            for (auto it = json["skills"].begin(); it != json["skills"].end(); ++it)
+            {
+                m_skills[it.key()] = it.value();
+            }
+        }
+
+        // Charger les réputations
+        if (json.contains("reputations") && json["reputations"].is_object())
+        {
+            for (auto it = json["reputations"].begin(); it != json["reputations"].end(); ++it)
+            {
+                m_reputations[it.key()] = it.value();
+            }
+        }
+
+        // Charger les statistiques
+        if (json.contains("stats") && json["stats"].is_object())
+        {
+            const auto &stats = json["stats"];
+
+            if (stats.contains("citiesVisited") && stats["citiesVisited"].is_number())
+                m_stats.citiesVisited = stats["citiesVisited"];
+
+            if (stats.contains("transactionsMade") && stats["transactionsMade"].is_number())
+                m_stats.transactionsMade = stats["transactionsMade"];
+
+            if (stats.contains("shipsDestroyed") && stats["shipsDestroyed"].is_number())
+                m_stats.shipsDestroyed = stats["shipsDestroyed"];
+
+            if (stats.contains("distanceTraveled") && stats["distanceTraveled"].is_number())
+                m_stats.distanceTraveled = stats["distanceTraveled"];
+
+            if (stats.contains("goodsTraded") && stats["goodsTraded"].is_number())
+                m_stats.goodsTraded = stats["goodsTraded"];
+
+            if (stats.contains("battlesWon") && stats["battlesWon"].is_number())
+                m_stats.battlesWon = stats["battlesWon"];
+
+            if (stats.contains("battlesLost") && stats["battlesLost"].is_number())
+                m_stats.battlesLost = stats["battlesLost"];
+        }
+
+        // Charger les quêtes actives
+        if (json.contains("activeQuests") && json["activeQuests"].is_object())
+        {
+            for (auto it = json["activeQuests"].begin(); it != json["activeQuests"].end(); ++it)
+            {
+                int questId = std::stoi(it.key());
+                int progress = it.value();
+                m_activeQuests[questId] = progress;
+            }
+        }
+
+        // Charger les quêtes terminées
+        if (json.contains("completedQuests") && json["completedQuests"].is_array())
+        {
+            for (const auto &questId : json["completedQuests"])
+            {
+                if (questId.is_number())
+                    m_completedQuests.push_back(questId);
+            }
         }
     }
 
-    if (data.contains("cargoCapacity"))
-        m_cargoCapacity = data["cargoCapacity"];
-
-    if (data.contains("inventory"))
+    nlohmann::json Player::toJson() const
     {
-        for (const auto &item : data["inventory"].items())
+        nlohmann::json json;
+
+        // Propriétés de base
+        json["id"] = m_id;
+        json["name"] = m_name;
+        json["faction"] = m_faction;
+        json["money"] = m_money;
+        json["level"] = m_level;
+        json["experience"] = m_experience;
+        json["x"] = m_x;
+        json["y"] = m_y;
+        json["activeShipIndex"] = m_activeShipIndex;
+
+        // Inventaire
+        nlohmann::json inventory = nlohmann::json::object();
+        for (const auto &item : m_inventory)
         {
-            int id = std::stoi(item.key());
-            int quantity = item.value();
-            m_inventory[id] = quantity;
+            inventory[std::to_string(item.first)] = item.second;
         }
-    }
+        json["inventory"] = inventory;
 
-    if (data.contains("character") && data["character"].is_object())
-    {
-        m_character = Character::fromJson(data["character"]);
-    }
-
-    if (data.contains("fleet") && data["fleet"].is_object())
-    {
-        m_fleet = std::make_shared<Fleet>(data["fleet"]);
-    }
-
-    // Chargement des compétences commerciales
-    if (data.contains("tradeSkills") && data["tradeSkills"].is_object())
-    {
-        m_tradeSkills.fromJson(data["tradeSkills"]);
-    }
-
-    // Chargement des compétences d'amirauté
-    if (data.contains("admiraltySkills") && data["admiraltySkills"].is_object())
-    {
-        m_admiraltySkills.fromJson(data["admiraltySkills"]);
-    }
-
-    // Chargement des réputations des villes
-    if (data.contains("cityReputations") && data["cityReputations"].is_object())
-    {
-        for (const auto &item : data["cityReputations"].items())
+        // Navires
+        nlohmann::json ships = nlohmann::json::array();
+        for (const auto &ship : m_ships)
         {
-            int cityId = std::stoi(item.key());
-            float reputation = item.value();
-            m_cityReputations[cityId] = reputation;
+            ships.push_back(ship.toJson());
         }
-    }
+        json["ships"] = ships;
 
-    // Chargement des réputations des royaumes
-    if (data.contains("kingdomReputations") && data["kingdomReputations"].is_object())
-    {
-        for (const auto &item : data["kingdomReputations"].items())
+        // Compétences
+        nlohmann::json skills = nlohmann::json::object();
+        for (const auto &skill : m_skills)
         {
-            std::string kingdom = item.key();
-            float reputation = item.value();
-            m_kingdomReputations[kingdom] = reputation;
+            skills[skill.first] = skill.second;
         }
-    }
+        json["skills"] = skills;
 
-    // Chargement des routes commerciales
-    if (data.contains("tradeRoutes") && data["tradeRoutes"].is_array())
-    {
-        for (const auto &routeData : data["tradeRoutes"])
+        // Réputations
+        nlohmann::json reputations = nlohmann::json::object();
+        for (const auto &reputation : m_reputations)
         {
-            TradeRoute route = TradeRoute::fromJson(routeData);
-            m_tradeRoutes.push_back(route);
+            reputations[reputation.first] = reputation.second;
         }
-    }
-}
+        json["reputations"] = reputations;
 
-// Conversion vers JSON
-nlohmann::json Player::toJson() const
-{
-    nlohmann::json data;
-    data["name"] = m_name;
-    data["gold"] = m_gold;
-    data["level"] = m_level;
-    data["experience"] = m_experience;
-    data["posX"] = m_posX;
-    data["posY"] = m_posY;
-    data["mode"] = static_cast<int>(m_currentMode);
-    data["debt"] = m_debt;
-    data["debtInterestRate"] = m_debtInterestRate;
-    data["lastDebtPaymentDay"] = m_lastDebtPaymentDay;
+        // Statistiques
+        nlohmann::json stats = nlohmann::json::object();
+        stats["citiesVisited"] = m_stats.citiesVisited;
+        stats["transactionsMade"] = m_stats.transactionsMade;
+        stats["shipsDestroyed"] = m_stats.shipsDestroyed;
+        stats["distanceTraveled"] = m_stats.distanceTraveled;
+        stats["goodsTraded"] = m_stats.goodsTraded;
+        stats["battlesWon"] = m_stats.battlesWon;
+        stats["battlesLost"] = m_stats.battlesLost;
+        json["stats"] = stats;
 
-    // Cargo
-    nlohmann::json cargo;
-    for (const auto &item : m_cargo)
-    {
-        nlohmann::json cargoItem;
-        cargoItem["name"] = item.second.name;
-        cargoItem["quantity"] = item.second.quantity;
-        cargoItem["unitWeight"] = item.second.unitWeight;
-        cargo[std::to_string(item.first)] = cargoItem;
-    }
-    data["cargo"] = cargo;
-    data["cargoCapacity"] = m_cargoCapacity;
-
-    // Inventaire
-    nlohmann::json inventory;
-    for (const auto &item : m_inventory)
-    {
-        inventory[std::to_string(item.first)] = item.second;
-    }
-    data["inventory"] = inventory;
-
-    // Personnage
-    if (m_character)
-    {
-        data["character"] = m_character->toJson();
-    }
-
-    // Flotte
-    if (m_fleet)
-    {
-        data["fleet"] = m_fleet->toJson();
-    }
-
-    // Compétences commerciales
-    data["tradeSkills"] = m_tradeSkills.toJson();
-
-    // Compétences d'amirauté
-    data["admiraltySkills"] = m_admiraltySkills.toJson();
-
-    // Réputations des villes
-    nlohmann::json cityReputations;
-    for (const auto &rep : m_cityReputations)
-    {
-        cityReputations[std::to_string(rep.first)] = rep.second;
-    }
-    data["cityReputations"] = cityReputations;
-
-    // Réputations des royaumes
-    nlohmann::json kingdomReputations;
-    for (const auto &rep : m_kingdomReputations)
-    {
-        kingdomReputations[rep.first] = rep.second;
-    }
-    data["kingdomReputations"] = kingdomReputations;
-
-    // Routes commerciales
-    nlohmann::json tradeRoutes = nlohmann::json::array();
-    for (const auto &route : m_tradeRoutes)
-    {
-        tradeRoutes.push_back(route.toJson());
-    }
-    data["tradeRoutes"] = tradeRoutes;
-
-    return data;
-}
-
-// Méthode pour ajouter de l'expérience et monter de niveau
-void Player::addExperience(int experience)
-{
-    m_experience += experience;
-
-    // Vérifier si le joueur monte de niveau
-    int experienceNeeded = m_level * 1000; // Formule simple: niveau * 1000
-    if (m_experience >= experienceNeeded)
-    {
-        // Monter de niveau
-        m_level++;
-        m_experience -= experienceNeeded;
-
-        // Avantages liés au niveau
-        m_cargoCapacity += 10; // +10 de capacité de cargo par niveau
-    }
-}
-
-// Méthodes d'inventaire général
-void Player::addToInventory(int itemId, int quantity)
-{
-    m_inventory[itemId] += quantity;
-}
-
-void Player::removeFromInventory(int itemId, int quantity)
-{
-    if (m_inventory.find(itemId) != m_inventory.end())
-    {
-        m_inventory[itemId] = std::max(0, m_inventory[itemId] - quantity);
-        if (m_inventory[itemId] == 0)
+        // Quêtes actives
+        nlohmann::json activeQuests = nlohmann::json::object();
+        for (const auto &quest : m_activeQuests)
         {
-            m_inventory.erase(itemId);
+            activeQuests[std::to_string(quest.first)] = quest.second;
         }
+        json["activeQuests"] = activeQuests;
+
+        // Quêtes terminées
+        nlohmann::json completedQuests = nlohmann::json::array();
+        for (int questId : m_completedQuests)
+        {
+            completedQuests.push_back(questId);
+        }
+        json["completedQuests"] = completedQuests;
+
+        return json;
     }
-}
 
-int Player::getItemQuantity(int itemId) const
-{
-    auto it = m_inventory.find(itemId);
-    return it != m_inventory.end() ? it->second : 0;
-}
-
-// Méthodes de cargaison (mode maritime)
-bool Player::addToCargo(int goodId, const std::string &name, int quantity, int unitWeight)
-{
-    // Vérifier si le poids total ne dépasse pas la capacité
-    int totalWeight = m_currentCargoWeight + (quantity * unitWeight);
-    if (totalWeight > m_cargoCapacity)
+    void Player::addMoney(int amount)
     {
+        m_money += amount;
+    }
+
+    bool Player::spendMoney(int amount)
+    {
+        if (m_money >= amount)
+        {
+            m_money -= amount;
+            return true;
+        }
         return false;
     }
 
-    // Ajouter ou mettre à jour la cargaison
-    auto it = m_cargo.find(goodId);
-    if (it != m_cargo.end())
+    bool Player::addExperience(int exp)
     {
-        it->second.quantity += quantity;
-    }
-    else
-    {
-        m_cargo[goodId] = CargoItem(goodId, name, quantity, unitWeight);
-    }
+        m_experience += exp;
 
-    // Mettre à jour le poids total
-    m_currentCargoWeight = totalWeight;
+        int expForNextLevel = getExperienceForNextLevel();
 
-    return true;
-}
-
-bool Player::removeFromCargo(int goodId, int quantity)
-{
-    auto it = m_cargo.find(goodId);
-    if (it == m_cargo.end() || it->second.quantity < quantity)
-    {
-        return false;
-    }
-
-    // Mettre à jour la quantité
-    it->second.quantity -= quantity;
-
-    // Mettre à jour le poids total
-    m_currentCargoWeight -= quantity * it->second.unitWeight;
-
-    // Supprimer l'entrée si la quantité est nulle
-    if (it->second.quantity == 0)
-    {
-        m_cargo.erase(it);
-    }
-
-    return true;
-}
-
-int Player::getCargoQuantity(int goodId) const
-{
-    auto it = m_cargo.find(goodId);
-    return it != m_cargo.end() ? it->second.quantity : 0;
-}
-
-// Méthodes de cargaison (mode terrestre)
-bool Player::canAddCargo(int goodId, int quantity) const
-{
-    auto it = m_cargo.find(goodId);
-    int unitWeight = (it != m_cargo.end()) ? it->second.unitWeight : 1;
-    int totalWeight = m_currentCargoWeight + (quantity * unitWeight);
-    return totalWeight <= m_cargoCapacity;
-}
-
-bool Player::addCargo(int goodId, const std::string &name, int quantity, int unitWeight)
-{
-    return addToCargo(goodId, name, quantity, unitWeight);
-}
-
-bool Player::addCargo(int goodId, int quantity)
-{
-    auto it = m_cargo.find(goodId);
-    if (it == m_cargo.end())
-    {
-        return false;
-    }
-    return addCargo(goodId, it->second.name, quantity, it->second.unitWeight);
-}
-
-bool Player::hasCargo(int goodId, int quantity) const
-{
-    auto it = m_cargo.find(goodId);
-    return it != m_cargo.end() && it->second.quantity >= quantity;
-}
-
-bool Player::removeCargo(int goodId, int quantity)
-{
-    return removeFromCargo(goodId, quantity);
-}
-
-int Player::getTotalCargoWeight() const
-{
-    return m_currentCargoWeight;
-}
-
-// Méthodes pour les compétences commerciales
-void Player::improveTradeSkill(const std::string &skillName, int amount)
-{
-    if (skillName == "negotiation")
-    {
-        m_tradeSkills.negotiation = std::min(100, m_tradeSkills.negotiation + amount);
-    }
-    else if (skillName == "logistics")
-    {
-        m_tradeSkills.logistics = std::min(100, m_tradeSkills.logistics + amount);
-    }
-    else if (skillName == "smuggling")
-    {
-        m_tradeSkills.smuggling = std::min(100, m_tradeSkills.smuggling + amount);
-    }
-    else if (skillName == "influence")
-    {
-        m_tradeSkills.influence = std::min(100, m_tradeSkills.influence + amount);
-    }
-}
-
-// Méthodes pour les compétences d'amirauté
-void Player::improveAdmiraltySkill(const std::string &skillName, int amount)
-{
-    if (skillName == "navigation")
-    {
-        m_admiraltySkills.navigation = std::min(100, m_admiraltySkills.navigation + amount);
-    }
-    else if (skillName == "tactics")
-    {
-        m_admiraltySkills.tactics = std::min(100, m_admiraltySkills.tactics + amount);
-    }
-    else if (skillName == "leadership")
-    {
-        m_admiraltySkills.leadership = std::min(100, m_admiraltySkills.leadership + amount);
-    }
-    else if (skillName == "resourcefulness")
-    {
-        m_admiraltySkills.resourcefulness = std::min(100, m_admiraltySkills.resourcefulness + amount);
-    }
-    else if (skillName == "crewManagement")
-    {
-        m_admiraltySkills.crewManagement = std::min(100, m_admiraltySkills.crewManagement + amount);
-    }
-    else if (skillName == "shipMaintenance")
-    {
-        m_admiraltySkills.shipMaintenance = std::min(100, m_admiraltySkills.shipMaintenance + amount);
-    }
-}
-
-// Méthodes pour les réputations des villes
-float Player::getCityReputation(int cityId) const
-{
-    auto it = m_cityReputations.find(cityId);
-    return it != m_cityReputations.end() ? it->second : 0.0f;
-}
-
-void Player::setCityReputation(int cityId, float reputation)
-{
-    m_cityReputations[cityId] = std::clamp(reputation, -100.0f, 100.0f);
-}
-
-void Player::updateCityReputation(int cityId, float amount)
-{
-    float currentRep = getCityReputation(cityId);
-    setCityReputation(cityId, currentRep + amount);
-}
-
-// Méthodes pour les réputations des royaumes
-float Player::getKingdomReputation(const std::string &kingdom) const
-{
-    auto it = m_kingdomReputations.find(kingdom);
-    return it != m_kingdomReputations.end() ? it->second : 0.0f;
-}
-
-void Player::setKingdomReputation(const std::string &kingdom, float reputation)
-{
-    m_kingdomReputations[kingdom] = std::clamp(reputation, -100.0f, 100.0f);
-}
-
-void Player::updateKingdomReputation(const std::string &kingdom, float amount)
-{
-    float currentRep = getKingdomReputation(kingdom);
-    setKingdomReputation(kingdom, currentRep + amount);
-}
-
-// Gestion des routes commerciales
-int Player::addTradeRoute(const TradeRoute &route)
-{
-    m_tradeRoutes.push_back(route);
-    return m_tradeRoutes.size() - 1; // Retourner l'index de la nouvelle route
-}
-
-bool Player::removeTradeRoute(size_t index)
-{
-    if (index >= m_tradeRoutes.size())
-    {
-        return false;
-    }
-
-    m_tradeRoutes.erase(m_tradeRoutes.begin() + index);
-    return true;
-}
-
-// Implémentation des méthodes de TradeRoute
-nlohmann::json TradeRoute::toJson() const
-{
-    nlohmann::json j;
-    j["sourceCity"] = sourceCity;
-    j["destinationCity"] = destinationCity;
-    j["tripDuration"] = tripDuration;
-    j["securityLevel"] = securityLevel;
-    j["profitMargin"] = profitMargin;
-    j["currentTime"] = currentTime;
-
-    nlohmann::json goods = nlohmann::json::array();
-    for (const auto &[goodId, quantity] : tradedGoods)
-    {
-        nlohmann::json good;
-        good["id"] = goodId;
-        good["quantity"] = quantity;
-        goods.push_back(good);
-    }
-    j["tradedGoods"] = goods;
-
-    return j;
-}
-
-TradeRoute TradeRoute::fromJson(const nlohmann::json &data)
-{
-    TradeRoute route;
-
-    route.sourceCity = data["sourceCity"];
-    route.destinationCity = data["destinationCity"];
-    route.tripDuration = data["tripDuration"];
-    route.securityLevel = data["securityLevel"];
-    route.profitMargin = data["profitMargin"];
-    route.currentTime = data["currentTime"];
-
-    if (data.contains("tradedGoods") && data["tradedGoods"].is_array())
-    {
-        for (const auto &goodData : data["tradedGoods"])
+        // Vérifier si le joueur a gagné un niveau
+        if (m_experience >= expForNextLevel)
         {
-            int goodId = goodData["id"];
-            int quantity = goodData["quantity"];
-            route.tradedGoods.push_back(std::make_pair(goodId, quantity));
+            m_level++;
+            return true;
+        }
+
+        return false;
+    }
+
+    int Player::getExperienceForNextLevel() const
+    {
+        // Formule simple : 100 * niveau actuel
+        return 100 * m_level;
+    }
+
+    void Player::addItem(int itemId, int quantity)
+    {
+        if (quantity <= 0)
+            return;
+
+        m_inventory[itemId] += quantity;
+    }
+
+    bool Player::removeItem(int itemId, int quantity)
+    {
+        if (quantity <= 0)
+            return true;
+
+        auto it = m_inventory.find(itemId);
+        if (it != m_inventory.end() && it->second >= quantity)
+        {
+            it->second -= quantity;
+
+            // Si la quantité devient nulle, supprimer l'entrée
+            if (it->second == 0)
+                m_inventory.erase(it);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    bool Player::hasItem(int itemId, int quantity) const
+    {
+        auto it = m_inventory.find(itemId);
+        return (it != m_inventory.end() && it->second >= quantity);
+    }
+
+    int Player::getItemQuantity(int itemId) const
+    {
+        auto it = m_inventory.find(itemId);
+        if (it != m_inventory.end())
+            return it->second;
+        return 0;
+    }
+
+    int Player::addShip(const Ship &ship)
+    {
+        m_ships.push_back(ship);
+
+        // Si c'est le premier navire, le définir comme actif
+        if (m_ships.size() == 1 && m_activeShipIndex == -1)
+            m_activeShipIndex = 0;
+
+        return static_cast<int>(m_ships.size() - 1);
+    }
+
+    bool Player::removeShip(int index)
+    {
+        if (index >= 0 && index < static_cast<int>(m_ships.size()))
+        {
+            // Si le navire à supprimer est le navire actif
+            if (index == m_activeShipIndex)
+            {
+                // Si c'est le seul navire
+                if (m_ships.size() == 1)
+                    m_activeShipIndex = -1;
+                else
+                    // Définir le navire précédent comme actif
+                    m_activeShipIndex = (index > 0) ? index - 1 : 0;
+            }
+            // Si le navire à supprimer est avant le navire actif, ajuster l'index
+            else if (index < m_activeShipIndex)
+            {
+                m_activeShipIndex--;
+            }
+
+            m_ships.erase(m_ships.begin() + index);
+            return true;
+        }
+
+        return false;
+    }
+
+    Ship *Player::getShip(int index)
+    {
+        if (index >= 0 && index < static_cast<int>(m_ships.size()))
+            return &m_ships[index];
+        return nullptr;
+    }
+
+    const Ship *Player::getShip(int index) const
+    {
+        if (index >= 0 && index < static_cast<int>(m_ships.size()))
+            return &m_ships[index];
+        return nullptr;
+    }
+
+    Ship *Player::getActiveShip()
+    {
+        if (m_activeShipIndex >= 0 && m_activeShipIndex < static_cast<int>(m_ships.size()))
+            return &m_ships[m_activeShipIndex];
+        return nullptr;
+    }
+
+    const Ship *Player::getActiveShip() const
+    {
+        if (m_activeShipIndex >= 0 && m_activeShipIndex < static_cast<int>(m_ships.size()))
+            return &m_ships[m_activeShipIndex];
+        return nullptr;
+    }
+
+    bool Player::setActiveShip(int index)
+    {
+        if (index >= 0 && index < static_cast<int>(m_ships.size()))
+        {
+            m_activeShipIndex = index;
+            return true;
+        }
+        return false;
+    }
+
+    void Player::setSkill(const std::string &skillName, int level)
+    {
+        m_skills[skillName] = level;
+    }
+
+    int Player::getSkillLevel(const std::string &skillName) const
+    {
+        auto it = m_skills.find(skillName);
+        if (it != m_skills.end())
+            return it->second;
+        return 0;
+    }
+
+    void Player::setReputation(const std::string &faction, int value)
+    {
+        // Limiter la réputation entre -100 et 100
+        m_reputations[faction] = std::min(100, std::max(-100, value));
+    }
+
+    int Player::getReputation(const std::string &faction) const
+    {
+        auto it = m_reputations.find(faction);
+        if (it != m_reputations.end())
+            return it->second;
+        return 0;
+    }
+
+    void Player::addQuest(int questId, int progress)
+    {
+        // Vérifier que la quête n'est pas déjà terminée
+        if (std::find(m_completedQuests.begin(), m_completedQuests.end(), questId) == m_completedQuests.end())
+        {
+            // Limiter la progression entre 0 et 100
+            m_activeQuests[questId] = std::min(100, std::max(0, progress));
         }
     }
 
-    return route;
+    bool Player::updateQuestProgress(int questId, int progress)
+    {
+        auto it = m_activeQuests.find(questId);
+        if (it != m_activeQuests.end())
+        {
+            // Limiter la progression entre 0 et 100
+            it->second = std::min(100, std::max(0, progress));
+
+            // Si la progression atteint 100%, terminer la quête
+            if (it->second >= 100)
+                completeQuest(questId);
+
+            return true;
+        }
+        return false;
+    }
+
+    bool Player::completeQuest(int questId)
+    {
+        auto it = m_activeQuests.find(questId);
+        if (it != m_activeQuests.end())
+        {
+            // Supprimer la quête des quêtes actives
+            m_activeQuests.erase(it);
+
+            // Ajouter la quête aux quêtes terminées si elle n'y est pas déjà
+            if (std::find(m_completedQuests.begin(), m_completedQuests.end(), questId) == m_completedQuests.end())
+                m_completedQuests.push_back(questId);
+
+            return true;
+        }
+        return false;
+    }
+
+    bool Player::isQuestActive(int questId) const
+    {
+        return m_activeQuests.find(questId) != m_activeQuests.end();
+    }
+
+    bool Player::isQuestCompleted(int questId) const
+    {
+        return std::find(m_completedQuests.begin(), m_completedQuests.end(), questId) != m_completedQuests.end();
+    }
+
+    int Player::getQuestProgress(int questId) const
+    {
+        auto it = m_activeQuests.find(questId);
+        if (it != m_activeQuests.end())
+            return it->second;
+
+        // Si la quête est terminée, retourner 100%
+        if (isQuestCompleted(questId))
+            return 100;
+
+        return -1; // Quête non trouvée
+    }
+
+    void Player::incrementStat(const std::string &statName, int value)
+    {
+        if (statName == "citiesVisited")
+            m_stats.citiesVisited += value;
+        else if (statName == "transactionsMade")
+            m_stats.transactionsMade += value;
+        else if (statName == "shipsDestroyed")
+            m_stats.shipsDestroyed += value;
+        else if (statName == "distanceTraveled")
+            m_stats.distanceTraveled += value;
+        else if (statName == "goodsTraded")
+            m_stats.goodsTraded += value;
+        else if (statName == "battlesWon")
+            m_stats.battlesWon += value;
+        else if (statName == "battlesLost")
+            m_stats.battlesLost += value;
+    }
+
+    int Player::getStat(const std::string &statName) const
+    {
+        if (statName == "citiesVisited")
+            return m_stats.citiesVisited;
+        else if (statName == "transactionsMade")
+            return m_stats.transactionsMade;
+        else if (statName == "shipsDestroyed")
+            return m_stats.shipsDestroyed;
+        else if (statName == "distanceTraveled")
+            return m_stats.distanceTraveled;
+        else if (statName == "goodsTraded")
+            return m_stats.goodsTraded;
+        else if (statName == "battlesWon")
+            return m_stats.battlesWon;
+        else if (statName == "battlesLost")
+            return m_stats.battlesLost;
+
+        return 0;
+    }
 }

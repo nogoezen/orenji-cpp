@@ -96,6 +96,7 @@ namespace Orenji
         : m_world{b2_nullWorldId},
           m_velocityIterations(8),
           m_positionIterations(3),
+          m_subStepCount(4),
           m_debugDrawEnabled(false)
     {
     }
@@ -103,7 +104,7 @@ namespace Orenji
     void PhysicsWorld::initialize(const sf::Vector2f &gravity)
     {
         // Créer une définition de monde Box2D
-        b2WorldDef worldDef;
+        b2WorldDef worldDef = b2DefaultWorldDef();
         worldDef.gravity.x = gravity.x * METERS_PER_PIXEL;
         worldDef.gravity.y = gravity.y * METERS_PER_PIXEL;
 
@@ -115,6 +116,9 @@ namespace Orenji
             assert(false && "Failed to create Box2D world");
             return;
         }
+        
+        // Configurer les callbacks de contact si nécessaire
+        // Note: Cette partie doit être adaptée à la nouvelle API de Box2D 2.4.x
     }
 
     PhysicsWorld::~PhysicsWorld()
@@ -165,7 +169,8 @@ namespace Orenji
         if (!IsValid(m_world))
             return;
 
-        b2World_Step(m_world, timeStep, m_velocityIterations, m_positionIterations);
+        // Mettre à jour le monde Box2D avec la nouvelle méthode utilisant les sous-étapes
+        b2World_Step(m_world, timeStep, m_subStepCount);
     }
 
     // Création d'un corps physique
@@ -175,15 +180,17 @@ namespace Orenji
             return b2_nullBodyId;
 
         // Créer une définition de corps Box2D
-        b2BodyDef bodyDef;
+        b2BodyDef bodyDef = b2DefaultBodyDef();
         bodyDef.type = type;
+        
+        // Convertir la position de pixels en mètres
+        b2Vec2 meterPos = pixelsToMeters(position);
+        bodyDef.position = meterPos;
 
-        // Convertir la position de pixels à mètres
-        b2Vec2 pos = pixelsToMeters(position);
-        bodyDef.position = pos;
-
-        // Créer le corps
-        return b2CreateBody(m_world, &bodyDef);
+        // Créer le corps dans le monde
+        b2BodyId bodyId = b2CreateBody(m_world, &bodyDef);
+        
+        return bodyId;
     }
 
     // Destruction d'un corps physique
@@ -203,28 +210,28 @@ namespace Orenji
         if (!IsValid(m_world) || !IsValid(body))
             return b2_nullFixtureId;
 
-        // Créer une définition de forme de boîte Box2D
-        b2ShapeDef shapeDef;
-        shapeDef.friction = friction;
+        // Convertir les dimensions de pixels en mètres
+        float halfWidth = size.x * 0.5f * METERS_PER_PIXEL;
+        float halfHeight = size.y * 0.5f * METERS_PER_PIXEL;
+
+        // Créer une boîte (rectangle)
+        b2Polygon box = b2MakeBox(halfWidth, halfHeight);
+        
+        // Configurer la définition de la shape
+        b2ShapeDef shapeDef = b2DefaultShapeDef();
         shapeDef.density = density;
+        shapeDef.friction = friction;
         shapeDef.isSensor = isSensor;
+        
+        // Configurer le filtrage des collisions
         shapeDef.filter.categoryBits = categoryBits;
         shapeDef.filter.maskBits = maskBits;
-
-        // Créer la forme de boîte
-        b2BoxDef boxDef;
-        boxDef.shapeDef = shapeDef;
-        boxDef.halfWidth = pixelsToMeters(size.x / 2.0f);
-        boxDef.halfHeight = pixelsToMeters(size.y / 2.0f);
-
-        // Créer la shape et la fixture
-        b2ShapeId shape = b2CreateBoxShape(&boxDef);
-        b2FixtureId fixture = b2Body_CreateFixture(body, shape);
-
-        // Nettoyer la shape (Box2D 2.4.x ne le fait pas automatiquement)
-        b2DestroyShape(shape);
-
-        return fixture;
+        
+        // Créer la shape (fixture dans l'ancienne API)
+        b2ShapeId shapeId = b2CreatePolygonShape(body, &shapeDef, &box);
+        
+        // Retourner l'ID de la fixture (maintenant un shapeId)
+        return shapeId;
     }
 
     // Ajout d'une fixture circulaire
@@ -235,27 +242,29 @@ namespace Orenji
         if (!IsValid(m_world) || !IsValid(body))
             return b2_nullFixtureId;
 
-        // Créer une définition de forme de cercle Box2D
-        b2ShapeDef shapeDef;
-        shapeDef.friction = friction;
+        // Convertir le rayon de pixels en mètres
+        float meterRadius = radius * METERS_PER_PIXEL;
+
+        // Créer un cercle
+        b2Circle circle;
+        circle.point = (b2Vec2){0.0f, 0.0f}; // Centre relatif au corps
+        circle.radius = meterRadius;
+        
+        // Configurer la définition de la shape
+        b2ShapeDef shapeDef = b2DefaultShapeDef();
         shapeDef.density = density;
+        shapeDef.friction = friction;
         shapeDef.isSensor = isSensor;
+        
+        // Configurer le filtrage des collisions
         shapeDef.filter.categoryBits = categoryBits;
         shapeDef.filter.maskBits = maskBits;
-
-        // Créer la forme de cercle
-        b2CircleDef circleDef;
-        circleDef.shapeDef = shapeDef;
-        circleDef.radius = pixelsToMeters(radius);
-
-        // Créer la shape et la fixture
-        b2ShapeId shape = b2CreateCircleShape(&circleDef);
-        b2FixtureId fixture = b2Body_CreateFixture(body, shape);
-
-        // Nettoyer la shape (Box2D 2.4.x ne le fait pas automatiquement)
-        b2DestroyShape(shape);
-
-        return fixture;
+        
+        // Créer la shape (fixture dans l'ancienne API)
+        b2ShapeId shapeId = b2CreateCircleShape(body, &shapeDef, &circle);
+        
+        // Retourner l'ID de la fixture (maintenant un shapeId)
+        return shapeId;
     }
 
     // Callbacks pour la gestion des collisions
@@ -391,6 +400,33 @@ namespace Orenji
                 }
             }
         }
+    }
+
+    // Nouvelles méthodes ajoutées pour Box2D 2.4.x
+
+    void PhysicsWorld::setGravity(const sf::Vector2f &gravity)
+    {
+        if (!IsValid(m_world))
+            return;
+        
+        b2Vec2 b2Gravity;
+        b2Gravity.x = gravity.x * METERS_PER_PIXEL;
+        b2Gravity.y = gravity.y * METERS_PER_PIXEL;
+        
+        b2World_SetGravity(m_world, b2Gravity);
+    }
+
+    sf::Vector2f PhysicsWorld::getGravity() const
+    {
+        if (!IsValid(m_world))
+            return sf::Vector2f(0.0f, 0.0f);
+        
+        b2Vec2 b2Gravity = b2World_GetGravity(m_world);
+        
+        return sf::Vector2f(
+            b2Gravity.x * PIXELS_PER_METER,
+            b2Gravity.y * PIXELS_PER_METER
+        );
     }
 
 } // namespace Orenji

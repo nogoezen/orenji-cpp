@@ -59,6 +59,8 @@ set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\Core\Component.cpp""
 set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\Utilities\ResourceManager.cpp""
 set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\Utilities\InputHandler.cpp""
 set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\ui\GuiUI.cpp""
+set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\Physics\PhysicsWorld.cpp""
+set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\Physics\PhysicsComponent.cpp""
 
 :: Variables de compilation
 set "COMPILER=g++"
@@ -66,11 +68,11 @@ set "STD_VERSION=-std=c++17"
 set "OPTIMIZATION=-O2"
 set "WARNINGS=-Wall -Wextra -Wno-unused-parameter"
 set "DEBUG=-g"
-set "INCLUDES=-I"%INCLUDE_DIR%" -I"%WORKING_DIR%\lib\sfml\include""
-set "LIBS=-L"%WORKING_DIR%\lib\sfml\lib" -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio"
+set "INCLUDES=-I"%INCLUDE_DIR%" -I"%WORKING_DIR%\lib\sfml\include" -I"%WORKING_DIR%\lib\box2d\include""
+set "LIBS=-L"%WORKING_DIR%\lib\sfml\lib" -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -L"%WORKING_DIR%\lib\box2d\lib" -lbox2d"
 
 :: Ajout des directives pour désactiver les fonctionnalités problématiques
-set "DEFINES=-DDISABLE_PHYSICS -DDISABLE_BOX2D -DDISABLE_THOR -DDISABLE_GAMESTATE"
+set "DEFINES=-DDISABLE_THOR -DDISABLE_GAMESTATE"
 
 :: Commande de compilation principale - Compiler uniquement main.cpp et les fichiers essentiels
 set "COMPILE_CMD=%COMPILER% %STD_VERSION% %OPTIMIZATION% %WARNINGS% %DEBUG% %INCLUDES% %DEFINES% -o %BIN_DIR%\OrenjicGame.exe main.cpp %ESSENTIAL_FILES% %LIBS%"
@@ -108,6 +110,12 @@ copy "%WORKING_DIR%\lib\sfml\bin\sfml-graphics-2.dll" "%BIN_DIR%\"
 copy "%WORKING_DIR%\lib\sfml\bin\sfml-window-2.dll" "%BIN_DIR%\"
 copy "%WORKING_DIR%\lib\sfml\bin\sfml-system-2.dll" "%BIN_DIR%\"
 copy "%WORKING_DIR%\lib\sfml\bin\sfml-audio-2.dll" "%BIN_DIR%\"
+
+:: Copie des DLLs Box2D
+echo Copie des DLLs Box2D...
+if exist "%WORKING_DIR%\lib\box2d\bin\box2d.dll" (
+    copy "%WORKING_DIR%\lib\box2d\bin\box2d.dll" "%BIN_DIR%\"
+)
 
 echo %vert%Exécutable créé dans %BIN_DIR%\OrenjicGame.exe%reset%
 

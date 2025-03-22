@@ -143,9 +143,9 @@ namespace Orenji
          * @return Identifiant de la fixture créée.
          */
         b2FixtureId addBoxFixture(b2BodyId body, const sf::Vector2f &size,
-                                  float density = 1.0f, float friction = 0.3f,
-                                  uint16_t categoryBits = 0x0001, uint16_t maskBits = 0xFFFF,
-                                  bool isSensor = false);
+                                 float density = 1.0f, float friction = 0.3f,
+                                 uint16_t categoryBits = 0x0001, uint16_t maskBits = 0xFFFF,
+                                 bool isSensor = false);
 
         /**
          * @brief Ajoute une fixture circulaire à un corps.
@@ -160,9 +160,9 @@ namespace Orenji
          * @return Identifiant de la fixture créée.
          */
         b2FixtureId addCircleFixture(b2BodyId body, float radius,
-                                     float density = 1.0f, float friction = 0.3f,
-                                     uint16_t categoryBits = 0x0001, uint16_t maskBits = 0xFFFF,
-                                     bool isSensor = false);
+                                    float density = 1.0f, float friction = 0.3f,
+                                    uint16_t categoryBits = 0x0001, uint16_t maskBits = 0xFFFF,
+                                    bool isSensor = false);
 
         /**
          * @brief Définit le callback pour le début d'un contact.
@@ -212,6 +212,41 @@ namespace Orenji
          * @param window La fenêtre SFML sur laquelle dessiner.
          */
         void debugDraw(sf::RenderWindow &window);
+        
+        /**
+         * @brief Obtient l'identifiant du monde Box2D.
+         *
+         * @return Identifiant du monde Box2D.
+         */
+        b2WorldId getWorldId() const { return m_world; }
+        
+        /**
+         * @brief Définit la gravité du monde.
+         *
+         * @param gravity Vecteur de gravité (en pixels/s²).
+         */
+        void setGravity(const sf::Vector2f &gravity);
+        
+        /**
+         * @brief Obtient la gravité du monde.
+         *
+         * @return Vecteur de gravité (en pixels/s²).
+         */
+        sf::Vector2f getGravity() const;
+        
+        /**
+         * @brief Définit le nombre d'itérations de sous-étapes pour la résolution.
+         *
+         * @param count Nombre de sous-étapes.
+         */
+        void setSubStepCount(int count) { m_subStepCount = count; }
+        
+        /**
+         * @brief Obtient le nombre d'itérations de sous-étapes.
+         *
+         * @return Nombre de sous-étapes.
+         */
+        int getSubStepCount() const { return m_subStepCount; }
 
     private:
         // Constructeur privé (singleton)
@@ -229,6 +264,7 @@ namespace Orenji
         // Paramètres de simulation
         int m_velocityIterations;
         int m_positionIterations;
+        int m_subStepCount;
         bool m_debugDrawEnabled;
     };
 

@@ -16,8 +16,21 @@ endif()
 # Find the SFML package
 find_package(SFML 2.5 COMPONENTS graphics window system audio REQUIRED)
 
-# Find Box2D
+# Find Box2D 2.4.x
 find_package(box2d CONFIG REQUIRED)
+
+# Check Box2D version
+if(box2d_FOUND)
+    message(STATUS "Found Box2D, checking version...")
+    # Try to detect version by checking for b2_version.h header which is available in 2.4.x
+    set(BOX2D_INCLUDE_DIR "${box2d_DIR}/../../../include")
+    if(EXISTS "${BOX2D_INCLUDE_DIR}/box2d/b2_version.h")
+        message(STATUS "Box2D 2.4.x detected")
+        add_definitions(-DBOX2D_2_4_X)
+    else()
+        message(WARNING "Box2D version might not be 2.4.x, some features may not work correctly")
+    endif()
+endif()
 
 # Find Thor
 find_package(Thor CONFIG QUIET)
@@ -35,7 +48,10 @@ if(NOT Thor_FOUND)
         message(STATUS "Thor downloaded and built successfully")
     else()
         message(WARNING "Failed to build Thor automatically. Please install Thor manually.")
+        add_definitions(-DDISABLE_THOR)
     endif()
+else()
+    message(STATUS "Thor found and will be used")
 endif()
 
 # Find TMXLite
@@ -88,6 +104,20 @@ set(SOURCES
     src/Game.cpp
 )
 
+# Define game state and Thor as disabled by default
+# Change these to enable specific modules
+option(ENABLE_GAMESTATE "Enable the game state functionality" OFF)
+option(ENABLE_THOR "Enable Thor-based particle and animation systems" OFF)
+
+# Set compile definitions based on options
+if(NOT ENABLE_GAMESTATE)
+    add_definitions(-DDISABLE_GAMESTATE)
+endif()
+
+if(NOT ENABLE_THOR)
+    add_definitions(-DDISABLE_THOR)
+endif()
+
 # Create the executable
 add_executable(OrenjicGame ${SOURCES})
 
@@ -97,6 +127,7 @@ target_include_directories(OrenjicGame PRIVATE
     ${CMAKE_SOURCE_DIR}/include
     ${CMAKE_SOURCE_DIR}/deps/tmxlite/include
     ${SFML_INCLUDE_DIR}
+    ${BOX2D_INCLUDE_DIR}
 )
 
 # Link SFML libraries
@@ -108,11 +139,15 @@ target_link_libraries(OrenjicGame PRIVATE
     box2d::box2d
 )
 
-# Link Thor if available
-if(TARGET thor)
-    target_link_libraries(OrenjicGame PRIVATE thor)
-elseif(Thor_FOUND)
-    target_link_libraries(OrenjicGame PRIVATE Thor::thor)
+# Link Thor if available and enabled
+if(ENABLE_THOR)
+    if(TARGET thor)
+        target_link_libraries(OrenjicGame PRIVATE thor)
+    elseif(Thor_FOUND)
+        target_link_libraries(OrenjicGame PRIVATE Thor::thor)
+    else()
+        message(WARNING "Thor requested but not available")
+    endif()
 endif()
 
 # Link TMXLite if available
@@ -143,6 +178,9 @@ message(STATUS "SFML found: ${SFML_FOUND}")
 message(STATUS "SFML include dir: ${SFML_INCLUDE_DIR}")
 message(STATUS "SFML libraries: ${SFML_LIBRARIES}")
 message(STATUS "Box2D found: ${box2d_FOUND}")
+message(STATUS "Box2D include dir: ${BOX2D_INCLUDE_DIR}")
+message(STATUS "Game state enabled: ${ENABLE_GAMESTATE}")
+message(STATUS "Thor enabled: ${ENABLE_THOR}")
 if(Thor_FOUND)
     message(STATUS "Thor found via find_package")
 elseif(TARGET thor)
