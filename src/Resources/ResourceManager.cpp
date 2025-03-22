@@ -1,5 +1,6 @@
 #include "../../include/Resources/ResourceManager.hpp"
 #include <iostream>
+#include <filesystem>
 
 namespace Resources
 {
@@ -17,17 +18,17 @@ namespace Resources
 
     sf::Texture &ResourceManager::loadTexture(const std::string &id, const std::string &filePath)
     {
-        auto texturePtr = std::make_unique<sf::Texture>();
-
-        if (!texturePtr->loadFromFile(filePath))
+        try
         {
-            throw ResourceLoadException("Failed to load texture: " + filePath);
+            auto texturePtr = std::make_unique<sf::Texture>(std::filesystem::path(filePath));
+            auto inserted = m_textures.insert(std::make_pair(id, std::move(texturePtr)));
+            std::cout << "Texture loaded: " << filePath << std::endl;
+            return *inserted.first->second;
         }
-
-        auto inserted = m_textures.insert(std::make_pair(id, std::move(texturePtr)));
-        std::cout << "Texture loaded: " << filePath << std::endl;
-
-        return *inserted.first->second;
+        catch (const sf::Exception &e)
+        {
+            throw ResourceLoadException("Failed to load texture: " + filePath + " - " + e.what());
+        }
     }
 
     sf::Texture &ResourceManager::getTexture(const std::string &id)
@@ -43,17 +44,21 @@ namespace Resources
 
     sf::Font &ResourceManager::loadFont(const std::string &id, const std::string &filePath)
     {
-        auto fontPtr = std::make_unique<sf::Font>();
-
-        if (!fontPtr->loadFromFile(filePath))
+        try
         {
-            throw ResourceLoadException("Failed to load font: " + filePath);
+            auto fontPtr = std::make_unique<sf::Font>();
+            if (!fontPtr->openFromFile(filePath))
+            {
+                throw ResourceLoadException("Failed to load font: " + filePath);
+            }
+            auto inserted = m_fonts.insert(std::make_pair(id, std::move(fontPtr)));
+            std::cout << "Font loaded: " << filePath << std::endl;
+            return *inserted.first->second;
         }
-
-        auto inserted = m_fonts.insert(std::make_pair(id, std::move(fontPtr)));
-        std::cout << "Font loaded: " << filePath << std::endl;
-
-        return *inserted.first->second;
+        catch (const sf::Exception &e)
+        {
+            throw ResourceLoadException("Failed to load font: " + filePath + " - " + e.what());
+        }
     }
 
     sf::Font &ResourceManager::getFont(const std::string &id)
@@ -71,7 +76,7 @@ namespace Resources
     {
         auto bufferPtr = std::make_unique<sf::SoundBuffer>();
 
-        if (!bufferPtr->loadFromFile(filePath))
+        if (!bufferPtr->loadFromFile(std::filesystem::path(filePath)))
         {
             throw ResourceLoadException("Failed to load sound: " + filePath);
         }
@@ -95,17 +100,19 @@ namespace Resources
 
     sf::Shader &ResourceManager::loadShader(const std::string &id, const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
     {
-        auto shaderPtr = std::make_unique<sf::Shader>();
-
-        if (!shaderPtr->loadFromFile(vertexShaderPath, fragmentShaderPath))
+        try
         {
-            throw ResourceLoadException("Failed to load shader: " + vertexShaderPath + ", " + fragmentShaderPath);
+            auto shaderPtr = std::make_unique<sf::Shader>(
+                std::filesystem::path(vertexShaderPath),
+                std::filesystem::path(fragmentShaderPath));
+            auto inserted = m_shaders.insert(std::make_pair(id, std::move(shaderPtr)));
+            std::cout << "Shader loaded: " << vertexShaderPath << ", " << fragmentShaderPath << std::endl;
+            return *inserted.first->second;
         }
-
-        auto inserted = m_shaders.insert(std::make_pair(id, std::move(shaderPtr)));
-        std::cout << "Shader loaded: " << vertexShaderPath << ", " << fragmentShaderPath << std::endl;
-
-        return *inserted.first->second;
+        catch (const sf::Exception &e)
+        {
+            throw ResourceLoadException("Failed to load shader: " + vertexShaderPath + ", " + fragmentShaderPath + " - " + e.what());
+        }
     }
 
     sf::Shader &ResourceManager::getShader(const std::string &id)

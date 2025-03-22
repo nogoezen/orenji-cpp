@@ -22,7 +22,7 @@ Engine::~Engine()
 bool Engine::initialize()
 {
     // Create window
-    m_window.create(sf::VideoMode(m_width, m_height), m_title, sf::Style::Close);
+    m_window.create(sf::VideoMode(sf::Vector2u(m_width, m_height)), m_title, sf::Style::Close);
     m_window.setVerticalSyncEnabled(true);
 
     // Initialize resource manager
@@ -118,11 +118,13 @@ void Engine::setScene(std::shared_ptr<Core::Scene> scene)
 
 void Engine::processEvents()
 {
-    sf::Event event;
-
-    while (m_window.pollEvent(event))
+    // In SFML 3, pollEvent returns an optional<Event>
+    while (auto eventOpt = m_window.pollEvent())
     {
-        if (event.type == sf::Event::Closed)
+        sf::Event &event = eventOpt.value();
+
+        // Check if event is closed
+        if (event.is<sf::Event::Closed>())
         {
             m_window.close();
         }

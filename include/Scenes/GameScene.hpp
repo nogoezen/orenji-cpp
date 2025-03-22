@@ -2,9 +2,6 @@
 
 #include "../Core/Scene.hpp"
 #include <SFML/Graphics.hpp>
-#include <vector>
-#include <memory>
-#include <optional>
 
 // Forward declaration
 class Engine;
@@ -13,21 +10,21 @@ namespace Scenes
 {
 
     /**
-     * @brief Main menu scene class
+     * @brief Main game scene class
      */
-    class MainMenuScene : public Core::Scene
+    class GameScene : public Core::Scene
     {
     public:
         /**
          * @brief Constructor
          * @param engine Reference to the engine
          */
-        MainMenuScene(Engine &engine);
+        GameScene(Engine &engine);
 
         /**
          * @brief Destructor
          */
-        virtual ~MainMenuScene();
+        virtual ~GameScene();
 
         /**
          * @brief Initialize the scene
@@ -55,27 +52,8 @@ namespace Scenes
     private:
         Engine &m_engine;
 
-        // Menu elements
-        std::unique_ptr<sf::Text> m_titleText;
-        std::vector<sf::Text> m_menuOptions;
-        int m_selectedOption;
-
-        // Background
-        std::optional<sf::Sprite> m_backgroundSprite;
-
-        // Menu transitions
-        float m_transitionAlpha;
-        bool m_isTransitioning;
-
-        /**
-         * @brief Create the menu options
-         */
-        void createMenuOptions();
-
-        /**
-         * @brief Handle menu selection
-         */
-        void handleMenuSelection();
+        // Game elements
+        // TODO: Add game-specific variables
     };
 
 } // namespace Scenes
