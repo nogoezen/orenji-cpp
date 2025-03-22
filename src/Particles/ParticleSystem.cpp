@@ -1,5 +1,5 @@
-#include "../../include/Particles/ParticleSystem.hpp"
-#include "../../include/Particles/ParticleComponent.hpp"
+#include "Particles/ParticleSystem.hpp"
+#include "Particles/ParticleComponent.hpp"
 #include <iostream>
 #include <random>
 #include <fstream>
@@ -33,7 +33,7 @@ namespace Orenji
         fire.endColor = sf::Color(255, 0, 0, 0);
         fire.positionRadius = 5.0f;
         fire.baseVelocity = sf::Vector2f(0.0f, -1.0f);
-        fire.velocitySpread = 45.0f;
+        fire.velocitySpread = 45.0f * 3.14159f / 180.0f; // Convertir en radians
         fire.minRotationSpeed = -90.0f;
         fire.maxRotationSpeed = 90.0f;
         m_templates["fire"] = fire;
@@ -51,7 +51,7 @@ namespace Orenji
         smoke.endColor = sf::Color(200, 200, 200, 0);
         smoke.positionRadius = 2.0f;
         smoke.baseVelocity = sf::Vector2f(0.0f, -1.0f);
-        smoke.velocitySpread = 30.0f;
+        smoke.velocitySpread = 30.0f * 3.14159f / 180.0f; // Convertir en radians
         smoke.minRotationSpeed = -20.0f;
         smoke.maxRotationSpeed = 20.0f;
         m_templates["smoke"] = smoke;
@@ -68,7 +68,7 @@ namespace Orenji
         spark.startColor = sf::Color(255, 230, 100, 255);
         spark.endColor = sf::Color(255, 180, 0, 0);
         spark.positionRadius = 0.5f;
-        spark.velocitySpread = 180.0f;
+        spark.velocitySpread = 180.0f * 3.14159f / 180.0f; // Convertir en radians
         spark.minRotationSpeed = 0.0f;
         spark.maxRotationSpeed = 0.0f;
         m_templates["spark"] = spark;
@@ -85,7 +85,7 @@ namespace Orenji
         explosion.startColor = sf::Color(255, 200, 0, 255);
         explosion.endColor = sf::Color(255, 0, 0, 0);
         explosion.positionRadius = 1.0f;
-        explosion.velocitySpread = 180.0f;
+        explosion.velocitySpread = 180.0f * 3.14159f / 180.0f; // Convertir en radians
         explosion.minRotationSpeed = -180.0f;
         explosion.maxRotationSpeed = 180.0f;
         m_templates["explosion"] = explosion;
@@ -130,12 +130,17 @@ namespace Orenji
     ParticleComponent *ParticleSystem::createParticleSystem(const std::string &name, const std::string &texturePath)
     {
         // Create a new component
-        auto component = std::make_unique<ParticleComponent>();
+        auto component = std::make_unique<ParticleComponent>(name);
 
         // Set texture if provided
         if (!texturePath.empty())
         {
-            component->setTexture(texturePath);
+            // Charger la texture depuis le gestionnaire de ressources
+            sf::Texture *texture = m_textureCache.loadResource(texturePath);
+            if (texture)
+            {
+                component->setTexture(texture);
+            }
         }
 
         // Store and return the component
@@ -149,8 +154,12 @@ namespace Orenji
         auto it = m_particleComponents.find(name);
         if (it != m_particleComponents.end())
         {
-            it->second->setTexture(texturePath);
-            return true;
+            sf::Texture *texture = m_textureCache.loadResource(texturePath);
+            if (texture)
+            {
+                it->second->setTexture(texture);
+                return true;
+            }
         }
         return false;
     }
@@ -158,7 +167,7 @@ namespace Orenji
     bool ParticleSystem::createSystem(const std::string &id, ParticleType type, const sf::Vector2f &position, const sf::Color &color)
     {
         // Create a new particle system based on type
-        auto component = std::make_unique<ParticleComponent>();
+        auto component = std::make_unique<ParticleComponent>(id);
 
         std::string templateName;
 
@@ -174,7 +183,7 @@ namespace Orenji
         case ParticleType::SMOKE:
             templateName = "smoke";
             break;
-        case ParticleType::SPARKLE:
+        case ParticleType::SPARK:
             templateName = "spark";
             break;
         default:
@@ -189,9 +198,21 @@ namespace Orenji
         }
 
         // Store the component
-        m_particleSystems[id] = std::move(std::make_unique<ParticleData>());
+        m_particleSystems[id] = std::make_unique<ParticleData>();
         m_particleSystems[id]->active = true;
         m_particleSystems[id]->position = position;
+
+        // Modifier la couleur si nécessaire
+        if (color != sf::Color::White)
+        {
+            EmissionParameters params = m_templates[templateName];
+            params.startColor = color;
+            params.endColor = sf::Color(color.r, color.g, color.b, 0);
+            component->setEmissionParameters(params);
+        }
+
+        // Set position
+        component->setPosition(position);
 
         // Add to component map as well
         m_particleComponents[id] = std::move(component);
@@ -202,14 +223,15 @@ namespace Orenji
     bool ParticleSystem::createCustomSystem(const std::string &id, const sf::Vector2f &position, const EmissionParameters &params)
     {
         // Create a new particle system with custom parameters
-        auto component = std::make_unique<ParticleComponent>();
+        auto component = std::make_unique<ParticleComponent>(id);
 
         // Apply custom parameters
         component->setEmissionParameters(params);
         component->setTriggerType(params.emissionRate > 0 ? ParticleTriggerType::Continuous : ParticleTriggerType::OneShot);
+        component->setPosition(position);
 
         // Store the system
-        m_particleSystems[id] = std::move(std::make_unique<ParticleData>());
+        m_particleSystems[id] = std::make_unique<ParticleData>();
         m_particleSystems[id]->active = true;
         m_particleSystems[id]->position = position;
         m_particleSystems[id]->parameters = params;
@@ -239,7 +261,7 @@ namespace Orenji
         {
             if (pair.second && pair.second->isEnabled())
             {
-                target.draw(*pair.second, states);
+                pair.second->draw(target);
             }
         }
     }
@@ -264,7 +286,7 @@ namespace Orenji
         return m_particleComponents.find(name) != m_particleComponents.end();
     }
 
-    bool ParticleSystem::emit(const std::string &id, int count)
+    bool ParticleSystem::emitParticles(const std::string &id, unsigned int count)
     {
         auto component = getParticleComponent(id);
         if (component)
@@ -277,10 +299,10 @@ namespace Orenji
 
     bool ParticleSystem::setPosition(const std::string &id, const sf::Vector2f &position)
     {
-        auto it = m_particleSystems.find(id);
-        if (it != m_particleSystems.end())
+        auto component = getParticleComponent(id);
+        if (component)
         {
-            it->second->position = position;
+            component->setPosition(position);
             return true;
         }
         return false;
@@ -297,11 +319,6 @@ namespace Orenji
         return false;
     }
 
-    bool ParticleSystem::stop(const std::string &id)
-    {
-        return setActive(id, false);
-    }
-
     bool ParticleSystem::removeSystem(const std::string &id)
     {
         m_particleSystems.erase(id);
@@ -311,25 +328,28 @@ namespace Orenji
 
     bool ParticleSystem::addAffector(const std::string &id, AffectorType type, float strength)
     {
-        auto it = m_particleSystems.find(id);
-        if (it != m_particleSystems.end())
+        auto component = getParticleComponent(id);
+        if (component)
         {
-            it->second->affectors.push_back(std::make_pair(type, strength));
+#ifndef DISABLE_THOR
+            // Thor version doesn't support this directly through the component
+            return false;
+#else
+            component->addAffector(type, strength);
             return true;
+#endif
         }
         return false;
     }
 
-    bool ParticleSystem::setTexture(const std::string &id, const sf::Texture &texture, const sf::IntRect &textureRect)
+    bool ParticleSystem::setTexture(const std::string &name, const sf::Texture &texture, const sf::IntRect &textureRect)
     {
-        auto it = m_particleSystems.find(id);
-        if (it != m_particleSystems.end())
+        auto component = getParticleComponent(name);
+        if (component)
         {
-            it->second->texture = texture;
-            it->second->textureRect = textureRect;
+            component->setTexture(&texture, textureRect);
             return true;
         }
         return false;
     }
-
 } // namespace Orenji

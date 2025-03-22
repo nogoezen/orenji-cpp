@@ -9,15 +9,24 @@ namespace Orenji
 {
 #ifndef DISABLE_THOR
     ParticleComponent::ParticleComponent(const std::string &id)
-        : Component(id), m_emissionRate(30.0f), m_emissionTime(0.0f), m_triggerType(ParticleTriggerType::Continuous), m_enabled(true), m_isActive(false), m_continuousEmitting(false), m_position(0.0f, 0.0f)
+        : Component(id), m_emissionRate(30.0f), m_emissionTime(0.0f), m_triggerType(ParticleTriggerType::Continuous), m_enabled(true), m_isActive(false), m_continuousEmitting(false), m_position(0.0f, 0.0f), m_distanceTraveled(0.0f)
     {
-        m_emitter = std::make_unique<thor::UniversalEmitter>();
-        m_emitter->setEmissionRate(m_emissionRate);
-        m_emitter->setParticleLifetime(thor::Distributions::uniform(sf::seconds(1.0f), sf::seconds(3.0f)));
-        m_emitter->setParticleVelocity(thor::Distributions::deflect(sf::Vector2f(0.0f, -30.0f), 10.0f));
-        m_emitter->setParticlePosition(thor::Distributions::circle(sf::Vector2f(0.0f, 0.0f), 2.0f));
-        m_emitter->setParticleRotation(thor::Distributions::uniform(0.0f, 360.0f));
-        m_system.addAffector(thor::AnimationAffector(thor::FadeAnimation(0.1f, 0.1f)));
+        // Configurer l'émetteur avec des paramètres par défaut
+        thor::UniversalEmitter emitter;
+        emitter.setEmissionRate(m_emissionRate);
+        emitter.setParticleLifetime(thor::Distributions::uniform(sf::seconds(1.0f), sf::seconds(3.0f)));
+        emitter.setParticleVelocity(thor::Distributions::deflect(sf::Vector2f(0.0f, -30.0f), 10.0f));
+        emitter.setParticlePosition(thor::Distributions::circle(sf::Vector2f(0.0f, 0.0f), 2.0f));
+        emitter.setParticleRotation(thor::Distributions::uniform(0.0f, 360.0f));
+
+        // Ajouter un affecteur pour le fondu
+        m_particleSystem.addAffector(thor::AnimationAffector(thor::FadeAnimation(0.1f, 0.1f)));
+
+        // Connecter l'émetteur au système de particules
+        if (m_triggerType == ParticleTriggerType::Continuous && m_enabled)
+        {
+            m_connection = m_particleSystem.addEmitter(emitter);
+        }
     }
 
     ParticleComponent::~ParticleComponent()
@@ -31,15 +40,21 @@ namespace Orenji
         if (m_triggerType == ParticleTriggerType::Continuous && m_enabled)
         {
             m_continuousEmitting = true;
-            m_connection = m_system.addEmitter(*m_emitter);
+            if (!m_connection.isConnected())
+            {
+                thor::UniversalEmitter emitter;
+                emitter.setEmissionRate(m_emissionRate);
+                emitter.setParticleLifetime(thor::Distributions::uniform(sf::seconds(1.0f), sf::seconds(3.0f)));
+                m_connection = m_particleSystem.addEmitter(emitter);
+            }
         }
     }
 
     void ParticleComponent::update(float dt)
     {
-        m_system.update(sf::seconds(dt));
+        m_particleSystem.update(sf::seconds(dt));
 
-        if (m_system.getParticleCount() == 0 && !m_continuousEmitting)
+        if (m_particleSystem.getParticleCount() == 0 && !m_continuousEmitting)
             m_isActive = false;
         else
             m_isActive = true;
@@ -49,7 +64,7 @@ namespace Orenji
     {
         sf::RenderStates states;
         states.transform.translate(m_position);
-        target.draw(m_system, states);
+        target.draw(m_particleSystem, states);
     }
 
     bool ParticleComponent::loadFromFile(const std::string &filename)
@@ -62,16 +77,24 @@ namespace Orenji
     {
         if (texture)
         {
-            m_system.setTexture(texture);
+            m_particleSystem.setTexture(texture);
             if (textureRect != sf::IntRect())
-                m_system.setTextureRect(textureRect);
+                m_particleSystem.setTextureRect(textureRect);
         }
     }
 
     void ParticleComponent::setEmissionRate(float rate)
     {
         m_emissionRate = rate;
-        m_emitter->setEmissionRate(rate);
+        // Note: dans Thor, l'émetteur doit être recréé pour changer le taux d'émission
+        if (m_connection.isConnected())
+        {
+            m_connection.disconnect();
+            thor::UniversalEmitter emitter;
+            emitter.setEmissionRate(rate);
+            emitter.setParticleLifetime(thor::Distributions::uniform(sf::seconds(1.0f), sf::seconds(3.0f)));
+            m_connection = m_particleSystem.addEmitter(emitter);
+        }
     }
 
     void ParticleComponent::setTriggerType(ParticleTriggerType triggerType)
@@ -86,13 +109,16 @@ namespace Orenji
         if (m_triggerType == ParticleTriggerType::Continuous && m_enabled)
         {
             m_continuousEmitting = true;
-            m_connection = m_system.addEmitter(*m_emitter);
+            thor::UniversalEmitter emitter;
+            emitter.setEmissionRate(m_emissionRate);
+            emitter.setParticleLifetime(thor::Distributions::uniform(sf::seconds(1.0f), sf::seconds(3.0f)));
+            m_connection = m_particleSystem.addEmitter(emitter);
         }
     }
 
     void ParticleComponent::emit(unsigned int count)
     {
-        m_system.emitParticles(count);
+        m_particleSystem.emitParticles(count);
         m_isActive = true;
     }
 
@@ -118,7 +144,10 @@ namespace Orenji
         if (m_triggerType == ParticleTriggerType::Continuous && m_enabled)
         {
             m_continuousEmitting = true;
-            m_connection = m_system.addEmitter(*m_emitter);
+            thor::UniversalEmitter emitter;
+            emitter.setEmissionRate(m_emissionRate);
+            emitter.setParticleLifetime(thor::Distributions::uniform(sf::seconds(1.0f), sf::seconds(3.0f)));
+            m_connection = m_particleSystem.addEmitter(emitter);
         }
     }
 
@@ -133,7 +162,9 @@ namespace Orenji
     }
 #else
     ParticleComponent::ParticleComponent(const std::string &id)
-        : Component(id), m_emissionRate(30.0f), m_emissionTime(0.0f), m_triggerType(ParticleTriggerType::Continuous), m_enabled(true), m_isActive(false), m_continuousEmitting(false), m_position(0.0f, 0.0f), m_distanceTraveled(0.0f), m_texture(nullptr)
+        : Component(id), m_emissionRate(30.0f), m_emissionTime(0.0f), m_triggerType(ParticleTriggerType::Continuous),
+          m_enabled(true), m_isActive(false), m_continuousEmitting(false), m_position(0.0f, 0.0f),
+          m_distanceTraveled(0.0f), m_burstSize(10), m_texture(nullptr)
     {
         m_vertices.setPrimitiveType(sf::PrimitiveType::Quads);
 
@@ -147,6 +178,10 @@ namespace Orenji
         m_emissionParams.maxSpeed = 50.0f;
         m_emissionParams.startColor = sf::Color::White;
         m_emissionParams.endColor = sf::Color(255, 255, 255, 0);
+        m_emissionParams.positionRadius = 2.0f;
+        m_emissionParams.velocitySpread = 30.0f * 3.14159f / 180.0f; // 30 degrés en radians
+        m_emissionParams.minRotationSpeed = -90.0f;
+        m_emissionParams.maxRotationSpeed = 90.0f;
     }
 
     ParticleComponent::~ParticleComponent()
@@ -193,8 +228,23 @@ namespace Orenji
             p.position += p.velocity * dt;
             p.rotation += p.rotationSpeed * dt;
 
-            // Appliquer la gravité (simple affecteur)
-            p.velocity.y += 9.81f * dt;
+            // Appliquer les affecteurs
+            for (const auto &affector : m_affectors)
+            {
+                switch (affector.first)
+                {
+                case AffectorType::Gravity:
+                    p.velocity.y += 9.81f * affector.second * dt;
+                    break;
+                case AffectorType::Wind:
+                    p.velocity.x += 5.0f * affector.second * dt;
+                    break;
+                case AffectorType::Scale:
+                    p.size *= (1.0f + 0.1f * affector.second * dt);
+                    break;
+                    // Autres types d'affecteurs...
+                }
+            }
 
             ++it;
         }
@@ -286,9 +336,9 @@ namespace Orenji
         m_emissionRate = params.emissionRate;
     }
 
-    const EmissionParameters &ParticleComponent::getEmissionParameters() const
+    void ParticleComponent::addAffector(AffectorType type, float strength)
     {
-        return m_emissionParams;
+        m_affectors.push_back(std::make_pair(type, strength));
     }
 
     SimpleParticle ParticleComponent::createParticle()
@@ -327,7 +377,6 @@ namespace Orenji
         return result;
     }
 
-    // Méthode privée pour mettre à jour les vertices
     void ParticleComponent::updateVertices()
     {
         m_vertices.clear();
