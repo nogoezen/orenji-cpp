@@ -30,7 +30,7 @@ namespace Scenes
             // Load font
             if (!resourceManager.hasFont("main"))
             {
-                resourceManager.loadFont("main", "assets/fonts/main.ttf");
+                resourceManager.loadFont("main", "resources/fonts/VeniceClassic.ttf");
             }
 
             auto &font = resourceManager.getFont("main");
@@ -48,7 +48,7 @@ namespace Scenes
             // Load background texture
             if (!resourceManager.hasTexture("menu_bg"))
             {
-                resourceManager.loadTexture("menu_bg", "assets/images/menu_bg.png");
+                resourceManager.loadTexture("menu_bg", "resources/textures/Titles/title-bg.png");
             }
 
             auto &bgTexture = resourceManager.getTexture("menu_bg");
@@ -62,6 +62,12 @@ namespace Scenes
             m_backgroundSprite->setScale(sf::Vector2f(
                 static_cast<float>(windowSize.x) / textureSize.x,
                 static_cast<float>(windowSize.y) / textureSize.y));
+
+            // Load and play background music
+            if (!resourceManager.hasSoundBuffer("menu_music"))
+            {
+                resourceManager.loadSoundBuffer("menu_music", "resources/sounds/BGM/012-Theme01.mid");
+            }
 
             resourcesLoaded = true;
         }
