@@ -11,6 +11,21 @@ Création d'un moteur de jeu 2D moderne utilisant les technologies suivantes :
 - OpenSteer pour le comportement de direction
 - Recast & Detour pour la navigation et la recherche de chemin
 
+## État d'avancement
+
+Nous avons terminé l'implémentation du système de particules avec les classes suivantes :
+- `Particle`: Structure représentant une particule avec toutes ses propriétés
+- `ParticleEmitter`: Gère l'émission et la configuration des particules
+- `ParticleSystem`: Singleton gérant tous les émetteurs et optimisant le rendu
+- `ParticleComponent`: Composant liant les particules aux entités du jeu
+
+Ces implémentations sont compatibles avec SFML 3 et incluent les fonctionnalités suivantes :
+- Différentes formes d'émetteurs (point, ligne, rectangle, cercle, anneau)
+- Support pour différents types de déclenchement (continu, rafale, événement)
+- Interpolation des propriétés (taille, couleur) pendant la vie de la particule
+- Système d'affecteurs pour modifier le comportement des particules
+- Optimisation du rendu avec VertexArray utilisant des triangles
+
 ## Architecture du Moteur
 
 ### 1. Système de State
@@ -102,42 +117,42 @@ Création d'un moteur de jeu 2D moderne utilisant les technologies suivantes :
 ## Plan d'Implémentation
 
 ### Phase 1: Structure de Base
-1. Mise en place de la structure du projet
-2. Intégration des bibliothèques externes (SFML 3, Box2D 3, nlohmann/json)
-3. Création du système de state
-4. Implémentation du boucle de jeu principale
+1. ✅ Mise en place de la structure du projet avec build.bat (au lieu de CMake)
+2. ✅ Adaptation pour SFML 3 et Box2D 3
+3. 🔄 Création du système de state
+4. 🔄 Implémentation de la boucle de jeu principale
 
 ### Phase 2: Systèmes Fondamentaux
-1. Implémentation du système de scene
-2. Développement du système de ressources
-3. Création du système de données
-4. Intégration de Box2D 3 avec le système physique
+1. 🔄 Implémentation du système de scene
+2. 🔄 Développement du système de ressources
+3. 🔄 Création du système de données
+4. 🔄 Intégration de Box2D 3 avec le système physique
 
 ### Phase 3: Systèmes Avancés
-1. Développement du système de particules basé sur SFML 3
-2. Intégration de TGUI pour l'interface utilisateur
-3. Implémentation du système de carte avec Tiledson
-4. Mise en place des outils de débogage
+1. ✅ Développement du système de particules basé sur SFML 3
+2. 🔄 Intégration de TGUI pour l'interface utilisateur
+3. 🔄 Implémentation du système de carte avec Tiledson
+4. 🔄 Mise en place des outils de débogage
 
 ### Phase 4: Système d'IA
-1. Intégration de BehaviorTree.CPP
-2. Implémentation des comportements avec OpenSteer
-3. Ajout de la navigation avec Recast & Detour
-4. Création d'un éditeur d'arbres de comportement
+1. 🔄 Intégration de BehaviorTree.CPP
+2. 🔄 Implémentation des comportements avec OpenSteer
+3. 🔄 Ajout de la navigation avec Recast & Detour
+4. 🔄 Création d'un éditeur d'arbres de comportement
 
 ### Phase 5: Optimisation et Polissage
-1. Optimisation des performances
-2. Amélioration du système de rendu
-3. Tests et débogage
-4. Documentation
+1. 🔄 Optimisation des performances
+2. 🔄 Amélioration du système de rendu
+3. 🔄 Tests et débogage
+4. 🔄 Documentation
 
 ## Tâches Immédiates
 
 ### Mise en place du projet
-- [ ] Créer la structure de base du projet
-- [ ] Configurer CMake pour la gestion des dépendances
-- [ ] Intégrer SFML 3 et vérifier le bon fonctionnement
-- [ ] Intégrer Box2D 3 et vérifier le bon fonctionnement
+- [x] Créer la structure de base du projet
+- [x] Configurer le script build.bat pour la compilation
+- [x] Intégrer SFML 3 et adapter le code
+- [ ] Intégrer Box2D 3 et adapter le code
 - [ ] Intégrer nlohmann/json et tester avec les fichiers JSON existants
 
 ### Système de State
@@ -158,4 +173,10 @@ Création d'un moteur de jeu 2D moderne utilisant les technologies suivantes :
 - [x] Optimiser le rendu avec VertexArray
 - [x] Implémenter la classe ParticleEmitter
 - [x] Implémenter le ParticleComponent
-- [ ] Tester différents effets de particules
+- [x] Adapter pour SFML 3 (uint8_t, sf::degrees(), Vertex, Triangles)
+- [ ] Créer des exemples d'effets de particules (feu, fumée, explosion, etc.)
+
+### Prochaines étapes
+1. Créer des exemples d'effets de particules
+2. Intégrer Box2D 3 et adapter le code
+3. Développer le système de ressources pour gérer les textures des particules

@@ -10,8 +10,9 @@ namespace Orenji
     ParticleSystem::ParticleSystem()
         : m_texture(nullptr), m_needVertexUpdate(true)
     {
-        // Initialise le tableau de vertices
-        m_vertices.setPrimitiveType(sf::PrimitiveType::Quads);
+        // Initialise le tableau de vertices avec le type de primitive Quads
+        // SFML 3 utilise une énumération scoped
+        m_vertices.setPrimitiveType(sf::PrimitiveType::Triangles);
     }
 
     ParticleSystem::~ParticleSystem()
@@ -166,8 +167,8 @@ namespace Orenji
         // Calcule le nombre total de particules actives
         unsigned int totalActiveParticles = getActiveParticleCount();
 
-        // Redimensionne le tableau de vertices (4 vertices par particule)
-        m_vertices.resize(totalActiveParticles * 4);
+        // Redimensionne le tableau de vertices (6 vertices par particule - 2 triangles)
+        m_vertices.resize(totalActiveParticles * 6);
 
         // Si pas de particules actives, on s'arrête là
         if (totalActiveParticles == 0)
@@ -214,9 +215,10 @@ namespace Orenji
                     // Couleur de la particule
                     sf::Color color = particle.color;
 
-                    // Mise à jour des vertices
+                    // Mise à jour des vertices pour le premier triangle (Top-Left, Top-Right, Bottom-Right)
                     sf::Vertex vertex;
 
+                    // Triangle 1
                     vertex.position = topLeft;
                     vertex.color = color;
                     vertex.texCoords = texTopLeft;
@@ -232,12 +234,23 @@ namespace Orenji
                     vertex.texCoords = texBottomRight;
                     m_vertices[vertexIndex + 2] = vertex;
 
+                    // Triangle 2
+                    vertex.position = topLeft;
+                    vertex.color = color;
+                    vertex.texCoords = texTopLeft;
+                    m_vertices[vertexIndex + 3] = vertex;
+
+                    vertex.position = bottomRight;
+                    vertex.color = color;
+                    vertex.texCoords = texBottomRight;
+                    m_vertices[vertexIndex + 4] = vertex;
+
                     vertex.position = bottomLeft;
                     vertex.color = color;
                     vertex.texCoords = texBottomLeft;
-                    m_vertices[vertexIndex + 3] = vertex;
+                    m_vertices[vertexIndex + 5] = vertex;
 
-                    vertexIndex += 4;
+                    vertexIndex += 6;
                 }
             }
         }
