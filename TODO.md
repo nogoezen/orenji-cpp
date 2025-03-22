@@ -51,6 +51,10 @@ Création d'un moteur de jeu 2D moderne utilisant les technologies suivantes :
   - Guide d'utilisation (docs/PARTICLE_SYSTEM.md)
   - SimpleParticleDemo - exemple basique
   - ParticleExample - démonstration d'effets variés
+- ✅ Exemples corrigés pour SFML 3:
+  - Mise à jour des constructeurs de classes (VideoMode, Text, etc.)
+  - Utilisation des namespaces scoped (Event::Type, Keyboard::Key, etc.)
+  - Correction des méthodes et signatures qui ont changé
 
 ### 4. Système d'IA
 - **Objectifs** :
@@ -114,6 +118,7 @@ Création d'un moteur de jeu 2D moderne utilisant les technologies suivantes :
 - Structure de base du projet avec build.bat
 - Adaptation pour SFML 3
 - Système de particules complet
+- Correction des exemples pour compatibilité SFML 3
 
 ### En cours (🔄)
 - Système de state
@@ -135,10 +140,10 @@ Création d'un moteur de jeu 2D moderne utilisant les technologies suivantes :
 ## Bugs connus
 - Erreurs de compilation avec Box2D 3
 - Problèmes d'intégration avec les modèles de données
-- Les exemples de particules montrent des erreurs de linter avec SFML 3
+- ✅ Les exemples de particules montrent des erreurs de linter avec SFML 3 (RÉSOLU)
 
 ## Prochaines étapes immédiates
-1. Corriger les erreurs de compilation dans les exemples de particules pour SFML 3
+1. ✅ Corriger les erreurs de compilation dans les exemples de particules pour SFML 3 (TERMINÉ)
 2. Résoudre les problèmes d'intégration avec Box2D 3
 3. Améliorer le système de particules avec support pour textures
 4. Préparer l'intégration avec le système de scene et d'entités

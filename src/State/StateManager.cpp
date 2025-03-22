@@ -5,7 +5,7 @@ namespace Orenji
 {
 
     StateManager::StateManager()
-        : m_pendingChange(false), m_pendingStateId("")
+        : m_isProcessingChanges(false)
     {
     }
 
@@ -54,21 +54,30 @@ namespace Orenji
         return true;
     }
 
-    void StateManager::popState()
+    bool StateManager::popState()
     {
+        if (m_isProcessingChanges)
+        {
+            m_pendingChanges.push_back({Action::Pop, "", false});
+            return true;
+        }
+
         if (m_states.empty())
         {
-            return;
+            return false;
         }
 
-        // Retire l'état du sommet
-        m_states.pop();
+        // Désactive et supprime l'état actuel
+        m_states.back()->onInactive();
+        m_states.pop_back();
 
-        // Active l'état au sommet s'il existe
+        // Active le nouvel état en haut de la pile
         if (!m_states.empty())
         {
-            m_states.top()->onActive();
+            m_states.back()->onActive();
         }
+
+        return true;
     }
 
     bool StateManager::changeState(const std::string &id)
@@ -85,55 +94,142 @@ namespace Orenji
 
     void StateManager::clearStates()
     {
-        // Vide la pile d'états
-        while (!m_states.empty())
+        if (m_isProcessingChanges)
         {
-            m_states.pop();
+            m_pendingChanges.push_back({Action::Clear, "", false});
+            return;
         }
+
+        // Désactive et supprime tous les états
+        for (auto &state : m_states)
+        {
+            state->onInactive();
+        }
+        m_states.clear();
     }
 
     void StateManager::update(float deltaTime)
     {
-        if (m_states.empty())
+        // Met à jour uniquement l'état au sommet
+        if (!m_states.empty())
         {
-            return;
-        }
-
-        // Met à jour l'état au sommet
-        m_states.top()->update(deltaTime);
-
-        // Vérifie si l'état doit être retiré
-        if (m_states.top()->shouldRemove())
-        {
-            popState();
+            m_states.back()->update(deltaTime);
         }
     }
 
     void StateManager::handleEvent(const sf::Event &event)
     {
-        if (m_states.empty())
+        // Gère les événements uniquement pour l'état au sommet
+        if (!m_states.empty())
         {
-            return;
+            m_states.back()->handleEvent(event);
         }
-
-        // Traite l'événement pour l'état au sommet
-        m_states.top()->handleEvent(event);
     }
 
     void StateManager::render(sf::RenderWindow &window)
     {
-        if (m_states.empty())
+        // Dessine tous les états visibles, du bas vers le haut
+        // Ceci permet aux états transparents de laisser voir les états en dessous
+        for (auto &state : m_states)
         {
-            return;
+            state->render(window);
         }
-
-        // Dessine l'état au sommet
-        m_states.top()->render(window);
     }
 
     bool StateManager::isEmpty() const
     {
         return m_states.empty();
+    }
+
+    State *StateManager::getCurrentState()
+    {
+        return m_states.empty() ? nullptr : m_states.back().get();
+    }
+
+    void StateManager::processStateChanges()
+    {
+        // Marque que nous sommes en train de traiter des changements
+        m_isProcessingChanges = true;
+
+        // Vérifie si l'état actuel doit être retiré
+        if (!m_states.empty() && m_states.back()->shouldRemove())
+        {
+            popState();
+        }
+
+        // Traite les changements en attente
+        for (const auto &change : m_pendingChanges)
+        {
+            switch (change.action)
+            {
+            case Action::Push:
+                if (change.replace && !m_states.empty())
+                {
+                    // Si on remplace l'état actuel, désactiver et supprimer l'ancien
+                    m_states.back()->onInactive();
+                    m_states.pop_back();
+                }
+
+                // Vérifie si la factory existe
+                auto it = m_factories.find(change.stateId);
+                if (it != m_factories.end())
+                {
+                    // Crée un nouvel état
+                    StatePtr state = it->second();
+                    if (state && state->initialize())
+                    {
+                        // Désactive l'état actuel si nécessaire
+                        if (!m_states.empty() && !change.replace)
+                        {
+                            m_states.back()->onInactive();
+                        }
+
+                        // Ajoute le nouvel état et l'active
+                        m_states.push_back(std::move(state));
+                        m_states.back()->onActive();
+                    }
+                    else
+                    {
+                        std::cerr << "StateManager: Échec de l'initialisation de l'état: " << change.stateId << std::endl;
+                    }
+                }
+                else
+                {
+                    std::cerr << "StateManager: État inconnu: " << change.stateId << std::endl;
+                }
+                break;
+
+            case Action::Pop:
+                if (!m_states.empty())
+                {
+                    // Désactive et supprime l'état actuel
+                    m_states.back()->onInactive();
+                    m_states.pop_back();
+
+                    // Active le nouvel état en haut de la pile
+                    if (!m_states.empty())
+                    {
+                        m_states.back()->onActive();
+                    }
+                }
+                break;
+
+            case Action::Clear:
+                // Désactive et supprime tous les états
+                for (auto &state : m_states)
+                {
+                    state->onInactive();
+                }
+                m_states.clear();
+                break;
+            }
+        }
+
+        // Efface la liste des changements en attente
+        m_pendingChanges.clear();
+
+        // Marque que nous avons terminé de traiter les changements
+        m_isProcessingChanges = false;
     }
 
 } // namespace Orenji
