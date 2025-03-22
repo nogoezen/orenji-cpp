@@ -47,7 +47,7 @@ namespace Resources
             for (auto &tileset : m_map->getTilesets())
             {
                 const std::string &texturePath = tileset.getImage().u8string();
-                if (!m_resourceManager.loadTexture(tileset.getName(), texturePath))
+                if (m_resourceManager.loadTexture(tileset.getName(), texturePath) == nullptr)
                 {
                     std::cerr << "Failed to load tileset texture: " << texturePath << std::endl;
                     return false;
@@ -96,7 +96,7 @@ namespace Resources
                 for (const auto &sprite : layer.sprites)
                 {
                     sf::Sprite s = sprite;
-                    s.setColor(sf::Color(255, 255, 255, static_cast<sf::Uint8>(255 * layer.opacity)));
+                    s.setColor(sf::Color(255, 255, 255, static_cast<uint8_t>(255 * layer.opacity)));
                     target.draw(s, layerStates);
                 }
             }
@@ -213,30 +213,49 @@ namespace Resources
 
         if (layer->getType() == tson::LayerType::TileLayer)
         {
-            auto &tiles = layer->getTileData();
+            auto &tiles = layer->getTileObjects();
 
             // Traiter chaque tuile
             for (int y = 0; y < m_mapSize.y; ++y)
             {
                 for (int x = 0; x < mapWidth; ++x)
                 {
-                    int tileId = tiles[y * mapWidth + x].getId();
+                    // Trouver l'objet tuile à cette position
+                    tson::TileObject *tileObj = nullptr;
 
-                    // Une tuile avec ID 0 est vide
-                    if (tileId == 0)
+                    // Rechercher la tuile à cette position spécifique
+                    for (auto &tile : tiles)
+                    {
+                        if (tile.getPositionInTileUnits().x == x && tile.getPositionInTileUnits().y == y)
+                        {
+                            tileObj = &tile;
+                            break;
+                        }
+                    }
+
+                    // Si pas de tuile ou tuile ID 0, continuer
+                    if (!tileObj || tileObj->getTile() == nullptr || tileObj->getTile()->getId() == 0)
                         continue;
 
-                    // Trouver le tileset et la tuile correspondante
-                    auto tile = m_map->getTileByGid(tileId);
-                    if (!tile)
-                        continue;
+                    // Récupérer les informations de la tuile
+                    auto tileId = tileObj->getTile()->getId();
 
-                    auto tileset = m_map->getTilesetByGid(tileId);
+                    // Trouver le tileset pour cette tuile
+                    tson::Tileset *tileset = nullptr;
+                    for (auto &ts : m_map->getTilesets())
+                    {
+                        if (tileId >= ts.getFirstgid() && tileId < ts.getFirstgid() + ts.getTileCount())
+                        {
+                            tileset = &ts;
+                            break;
+                        }
+                    }
+
                     if (!tileset)
                         continue;
 
                     // Créer et ajouter le sprite
-                    sf::Sprite sprite = createSprite(tileset, tile, x, y);
+                    sf::Sprite sprite = createSprite(tileset, tileObj->getTile(), x, y);
                     tileLayer.sprites.push_back(sprite);
                 }
             }
@@ -252,8 +271,9 @@ namespace Resources
 
         std::vector<MapObject> objects;
 
-        // Parcourir tous les objets de la couche
-        for (auto &obj : layer->getObjects())
+        // Parcourir tous les objets de la couche - utiliser une copie constante
+        const auto &objectsInLayer = layer->getObjects();
+        for (const auto &obj : objectsInLayer)
         {
             objects.push_back(createObject(&obj));
         }
@@ -271,23 +291,23 @@ namespace Resources
         mapObj.name = obj->getName();
         mapObj.type = obj->getType();
 
-        // Ajouter les propriétés personnalisées
-        for (auto &prop : obj->getProperties().getProperties())
+        // Ajouter les propriétés personnalisées - utiliser une copie constante
+        const auto &properties = obj->getProperties().getProperties();
+        for (const auto &[key, prop] : properties)
         {
             std::string value;
-            prop.second->getValue().visit([&value](const auto &val)
-                                          {
-                using T = std::decay_t<decltype(val)>;
-                if constexpr (std::is_same_v<T, std::string> || 
-                             std::is_same_v<T, int> || 
-                             std::is_same_v<T, float> || 
-                             std::is_same_v<T, double> || 
-                             std::is_same_v<T, bool>)
-                {
-                    value = std::to_string(val);
-                } });
 
-            mapObj.properties[prop.first] = value;
+            // Convertir la valeur en string selon son type
+            if (prop.getType() == tson::Type::Boolean)
+                value = prop.getValue<bool>() ? "true" : "false";
+            else if (prop.getType() == tson::Type::Float)
+                value = std::to_string(prop.getValue<float>());
+            else if (prop.getType() == tson::Type::Int)
+                value = std::to_string(prop.getValue<int>());
+            else if (prop.getType() == tson::Type::String)
+                value = prop.getValue<std::string>();
+
+            mapObj.properties[key] = value;
         }
 
         return mapObj;
@@ -295,15 +315,19 @@ namespace Resources
 
     sf::Sprite TiledMapLoader::createSprite(const tson::Tileset *tileset, const tson::Tile *tile, int x, int y)
     {
-        sf::Sprite sprite;
+        // Créer un sprite avec une texture vide
+        sf::Texture emptyTexture;
+        sf::Sprite sprite(emptyTexture);
 
-        auto texture = m_resourceManager.getTexture(tileset->getName());
-        if (!texture)
+        // Récupérer la texture depuis le ResourceManager
+        sf::Texture *texture = m_resourceManager.getTexture(tileset->getName());
+        if (texture == nullptr)
         {
             std::cerr << "Texture not found for tileset: " << tileset->getName() << std::endl;
             return sprite;
         }
 
+        // Appliquer la texture au sprite
         sprite.setTexture(*texture);
 
         // Configurer le rectangle de texture pour la tuile
