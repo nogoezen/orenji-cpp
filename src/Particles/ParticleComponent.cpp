@@ -2,37 +2,42 @@
 #include "../../include/Particles/ParticleSystem.hpp"
 #include "../../include/Core/Entity.hpp"
 #include <iostream>
+#include <random>
 
 namespace Orenji
 {
-    ParticleComponent::ParticleComponent()
-        : m_particleSystem(thor::Particles::System<thor::EmptyAdder>::create()), m_triggerType(ParticleTriggerType::Continuous), m_emissionRate(30.f), m_burstSize(10), m_enabled(false), m_lastPosition(0.f, 0.f), m_distanceTrigger(10.f), m_distanceAccumulator(0.f)
+    // Générateur de nombres aléatoires
+    static std::mt19937 rng(std::random_device{}());
+    static std::uniform_real_distribution<float> dist(0.0f, 1.0f);
+
+    float random(float min, float max)
     {
-        // Configurer l'émetteur par défaut
-        m_emitter.setEmissionRate(m_emissionRate);
-        m_emitter.setParticleLifetime(thor::Distributions::uniform(1.f, 3.f));
-        m_emitter.setParticlePosition(thor::Distributions::circle(sf::Vector2f(0.f, 0.f), 2.f));
-        m_emitter.setParticleVelocity(thor::Distributions::deflect(sf::Vector2f(0.f, -30.f), 10.f));
-        m_emitter.setParticleRotation(thor::Distributions::uniform(0.f, 360.f));
+        return min + dist(rng) * (max - min);
     }
 
-    ParticleComponent::~ParticleComponent()
+    ParticleComponent::ParticleComponent()
+        : m_triggerType(ParticleTriggerType::Continuous),
+          m_emissionRate(30.f),
+          m_burstSize(10),
+          m_enabled(false),
+          m_emissionAccumulator(0.f),
+          m_lastPosition(0.f, 0.f),
+          m_distanceTrigger(10.f),
+          m_distanceAccumulator(0.f),
+          m_parameters(nullptr),
+          m_vertices(sf::Quads),
+          m_startColor(sf::Color(255, 255, 255, 255)),
+          m_endColor(sf::Color(255, 255, 255, 0)),
+          m_minSize(2.f),
+          m_maxSize(5.f),
+          m_minLifetime(1.f),
+          m_maxLifetime(3.f)
     {
-        // Déconnecter l'émetteur si connecté
-        if (m_connection.isConnected())
-        {
-            m_connection.disconnect();
-        }
+        // Configuration par défaut - peut être remplacée par loadFromFile ou setEmissionParameters
     }
 
     void ParticleComponent::initialize()
     {
-        if (m_triggerType == ParticleTriggerType::Continuous && m_enabled)
-        {
-            // Connecter l'émetteur pour une émission continue
-            m_connection = m_particleSystem.addEmitter(m_emitter);
-        }
-
         if (Entity *entity = getEntity())
         {
             m_lastPosition = entity->getPosition();
@@ -44,15 +49,21 @@ namespace Orenji
         if (!m_enabled || !getEntity())
             return;
 
-        // Mettre à jour la position de l'émetteur pour qu'elle corresponde à l'entité
+        // Mettre à jour la position du système pour qu'elle corresponde à l'entité
         sf::Vector2f position = getEntity()->getPosition();
-        m_emitter.setParticlePosition(thor::Distributions::circle(position, 2.f));
 
         // Gérer les différents types de déclencheurs
         switch (m_triggerType)
         {
         case ParticleTriggerType::Continuous:
-            // Déjà géré par la connexion
+            // Calculer combien de particules à émettre ce frame
+            m_emissionAccumulator += deltaTime * m_emissionRate;
+            if (m_emissionAccumulator >= 1.0f)
+            {
+                int particlesToEmit = static_cast<int>(m_emissionAccumulator);
+                emit(particlesToEmit);
+                m_emissionAccumulator -= particlesToEmit;
+            }
             break;
 
         case ParticleTriggerType::OneShot:
@@ -88,43 +99,112 @@ namespace Orenji
             break;
         }
 
-        // Mettre à jour le système de particules
-        m_particleSystem.update(sf::seconds(deltaTime));
+        // Mettre à jour toutes les particules
+        for (size_t i = 0; i < m_particles.size();)
+        {
+            SimpleParticle &p = m_particles[i];
+            p.elapsed += deltaTime;
+
+            if (p.elapsed >= p.lifetime)
+            {
+                // Particule expirée, supprimer en échangeant avec la dernière
+                m_particles[i] = m_particles.back();
+                m_particles.pop_back();
+            }
+            else
+            {
+                // Appliquer le mouvement à la particule
+                p.position += p.velocity * deltaTime;
+                p.rotation += p.rotationSpeed * deltaTime;
+
+                // Appliquer les affecteurs
+                applyAffectors(p, deltaTime);
+
+                // Passer à la particule suivante
+                ++i;
+            }
+        }
+
+        // Mettre à jour le vertex array pour le rendu
+        m_vertices.resize(m_particles.size() * 4); // 4 vertices par particule (quad)
+
+        for (size_t i = 0; i < m_particles.size(); ++i)
+        {
+            const SimpleParticle &p = m_particles[i];
+
+            // Calculer la taille en fonction du temps écoulé (peut décroître)
+            float ratio = p.elapsed / p.lifetime;
+            float size = p.size * (1.0f - ratio * 0.5f);
+
+            // Calculer la couleur en fonction du temps écoulé
+            sf::Color color = m_startColor;
+            if (ratio > 0.0f)
+            {
+                color.r = static_cast<sf::Uint8>(m_startColor.r + (m_endColor.r - m_startColor.r) * ratio);
+                color.g = static_cast<sf::Uint8>(m_startColor.g + (m_endColor.g - m_startColor.g) * ratio);
+                color.b = static_cast<sf::Uint8>(m_startColor.b + (m_endColor.b - m_startColor.b) * ratio);
+                color.a = static_cast<sf::Uint8>(m_startColor.a + (m_endColor.a - m_startColor.a) * ratio);
+            }
+
+            // Position des 4 sommets du quad
+            float angle = p.rotation * 3.14159f / 180.f;
+            float cos_a = std::cos(angle);
+            float sin_a = std::sin(angle);
+
+            // Vecteurs de taille pour chaque coin du quad
+            sf::Vector2f v1(-size, -size);
+            sf::Vector2f v2(size, -size);
+            sf::Vector2f v3(size, size);
+            sf::Vector2f v4(-size, size);
+
+            // Appliquer la rotation à chaque vecteur
+            sf::Vector2f r1(v1.x * cos_a - v1.y * sin_a, v1.x * sin_a + v1.y * cos_a);
+            sf::Vector2f r2(v2.x * cos_a - v2.y * sin_a, v2.x * sin_a + v2.y * cos_a);
+            sf::Vector2f r3(v3.x * cos_a - v3.y * sin_a, v3.x * sin_a + v3.y * cos_a);
+            sf::Vector2f r4(v4.x * cos_a - v4.y * sin_a, v4.x * sin_a + v4.y * cos_a);
+
+            // Indice de base dans le vertex array
+            size_t idx = i * 4;
+
+            // Définir les 4 sommets du quad
+            m_vertices[idx].position = p.position + r1;
+            m_vertices[idx].color = color;
+            m_vertices[idx].texCoords = sf::Vector2f(0, 0);
+
+            m_vertices[idx + 1].position = p.position + r2;
+            m_vertices[idx + 1].color = color;
+            m_vertices[idx + 1].texCoords = sf::Vector2f(m_texture.getSize().x, 0);
+
+            m_vertices[idx + 2].position = p.position + r3;
+            m_vertices[idx + 2].color = color;
+            m_vertices[idx + 2].texCoords = sf::Vector2f(m_texture.getSize().x, m_texture.getSize().y);
+
+            m_vertices[idx + 3].position = p.position + r4;
+            m_vertices[idx + 3].color = color;
+            m_vertices[idx + 3].texCoords = sf::Vector2f(0, m_texture.getSize().y);
+        }
     }
 
-    bool ParticleComponent::loadFromFile(const std::string &filename)
+    bool ParticleComponent::loadFromFile(const std::string &templateName)
     {
-        // Pour l'instant, on va supposer que le fichier contient simplement le nom d'un template prédéfini
-        try
-        {
-            auto &particleSystem = ParticleSystem::getInstance();
+        // Essayer de charger depuis le gestionnaire de particules
+        auto &system = ParticleSystem::getInstance();
 
-            // Essayer de configurer avec un template
-            return particleSystem.setupParticleSystem(m_particleSystem, m_emitter, filename);
-        }
-        catch (const std::exception &e)
-        {
-            std::cerr << "Erreur lors du chargement de la configuration de particules: " << e.what() << std::endl;
-            return false;
-        }
+        // Configurera this avec le template spécifié
+        return system.setupParticleSystem(*this, templateName);
     }
 
     void ParticleComponent::setTexture(const std::string &texturePath)
     {
-        if (m_texture.loadFromFile(texturePath))
+        if (!m_texture.loadFromFile(texturePath))
         {
-            m_particleSystem.setTexture(m_texture);
-        }
-        else
-        {
-            std::cerr << "Erreur: Impossible de charger la texture: " << texturePath << std::endl;
+            std::cerr << "Erreur: Impossible de charger la texture de particule: " << texturePath << std::endl;
         }
     }
 
     void ParticleComponent::setEmissionRate(float rate)
     {
         m_emissionRate = rate;
-        m_emitter.setEmissionRate(rate);
     }
 
     void ParticleComponent::setBurstSize(unsigned int count)
@@ -134,28 +214,17 @@ namespace Orenji
 
     void ParticleComponent::setTriggerType(ParticleTriggerType type)
     {
-        // Si on passe d'un type continu à un autre type, déconnecter l'émetteur
-        if (m_triggerType == ParticleTriggerType::Continuous && type != ParticleTriggerType::Continuous)
-        {
-            if (m_connection.isConnected())
-            {
-                m_connection.disconnect();
-            }
-        }
-
         m_triggerType = type;
 
-        // Si on passe à un type continu et que le système est activé, connecter l'émetteur
-        if (m_triggerType == ParticleTriggerType::Continuous && m_enabled)
-        {
-            m_connection = m_particleSystem.addEmitter(m_emitter);
-        }
-
-        // Réinitialiser les variables pour le déclencheur basé sur la distance
+        // Réinitialiser les variables si nécessaire
         if (m_triggerType == ParticleTriggerType::OnDistance && getEntity())
         {
             m_lastPosition = getEntity()->getPosition();
             m_distanceAccumulator = 0.f;
+        }
+        else if (m_triggerType == ParticleTriggerType::Continuous)
+        {
+            m_emissionAccumulator = 0.f;
         }
     }
 
@@ -164,7 +233,14 @@ namespace Orenji
         if (count == 0)
             count = m_burstSize;
 
-        m_particleSystem.emitParticles(count, m_emitter);
+        // Position d'émission basée sur l'entité
+        sf::Vector2f position = getEntity() ? getEntity()->getPosition() : sf::Vector2f(0.f, 0.f);
+
+        // Générer les nouvelles particules
+        for (unsigned int i = 0; i < count; ++i)
+        {
+            m_particles.push_back(generateParticle());
+        }
     }
 
     void ParticleComponent::setEnabled(bool enabled)
@@ -174,30 +250,23 @@ namespace Orenji
         {
             m_enabled = enabled;
 
-            // Pour le type continu, connecter ou déconnecter l'émetteur
-            if (m_triggerType == ParticleTriggerType::Continuous)
+            // Réinitialiser les accumulateurs selon le type
+            if (m_enabled)
             {
-                if (m_enabled)
+                if (m_triggerType == ParticleTriggerType::Continuous)
                 {
-                    m_connection = m_particleSystem.addEmitter(m_emitter);
+                    m_emissionAccumulator = 0.f;
                 }
-                else if (m_connection.isConnected())
+                else if (m_triggerType == ParticleTriggerType::OneShot)
                 {
-                    m_connection.disconnect();
+                    emit(m_burstSize);
+                    m_enabled = false; // Désactiver après le one-shot
                 }
-            }
-
-            // Pour le type one-shot, émettre des particules si activé
-            if (m_triggerType == ParticleTriggerType::OneShot && m_enabled)
-            {
-                emit(m_burstSize);
-            }
-
-            // Pour le type distance, réinitialiser si activé
-            if (m_triggerType == ParticleTriggerType::OnDistance && m_enabled && getEntity())
-            {
-                m_lastPosition = getEntity()->getPosition();
-                m_distanceAccumulator = 0.f;
+                else if (m_triggerType == ParticleTriggerType::OnDistance && getEntity())
+                {
+                    m_lastPosition = getEntity()->getPosition();
+                    m_distanceAccumulator = 0.f;
+                }
             }
         }
     }
@@ -209,18 +278,122 @@ namespace Orenji
 
     unsigned int ParticleComponent::getParticleCount() const
     {
-        return m_particleSystem.getParticleCount();
+        return static_cast<unsigned int>(m_particles.size());
     }
 
     void ParticleComponent::clearParticles()
     {
-        m_particleSystem.clearParticles();
+        m_particles.clear();
+    }
+
+    void ParticleComponent::setEmissionParameters(const EmissionParameters &params)
+    {
+        m_parameters = const_cast<EmissionParameters *>(&params);
+        m_emissionRate = params.emissionRate;
+        m_minLifetime = params.minLifetime;
+        m_maxLifetime = params.maxLifetime;
+        m_minSize = params.minSize;
+        m_maxSize = params.maxSize;
+        m_startColor = params.startColor;
+        m_endColor = params.endColor;
     }
 
     void ParticleComponent::draw(sf::RenderTarget &target, sf::RenderStates states) const
     {
-        // Dessiner le système de particules
-        target.draw(m_particleSystem, states);
+        if (m_particles.empty())
+            return;
+
+        // Applique la texture si disponible
+        if (m_texture.getSize().x > 0)
+        {
+            states.texture = &m_texture;
+        }
+
+        // Dessiner toutes les particules en une fois
+        target.draw(m_vertices, states);
+    }
+
+    SimpleParticle ParticleComponent::generateParticle() const
+    {
+        // Position d'émission basée sur l'entité
+        sf::Vector2f position = getEntity() ? getEntity()->getPosition() : sf::Vector2f(0.f, 0.f);
+
+        // Si nous avons des paramètres d'émission personnalisés, les utiliser
+        if (m_parameters)
+        {
+            // Calculer la position avec un décalage aléatoire
+            float offsetAngle = random(0.f, 360.f) * 3.14159f / 180.f;
+            float offsetDistance = random(0.f, m_parameters->positionRadius);
+            sf::Vector2f offset(
+                std::cos(offsetAngle) * offsetDistance + m_parameters->positionOffset.x,
+                std::sin(offsetAngle) * offsetDistance + m_parameters->positionOffset.y);
+
+            // Calculer la vitesse avec une variation aléatoire
+            float speed = random(m_parameters->minSpeed, m_parameters->maxSpeed);
+            float angle = random(0.f, 360.f) * 3.14159f / 180.f;
+
+            // Permettre une déviation autour d'une direction de base
+            if (m_parameters->baseVelocity != sf::Vector2f(0.f, 0.f))
+            {
+                float baseAngle = std::atan2(m_parameters->baseVelocity.y, m_parameters->baseVelocity.x);
+                float spread = m_parameters->velocitySpread * 3.14159f / 180.f; // Convertir degrés en radians
+                angle = baseAngle + random(-spread, spread);
+            }
+
+            SimpleParticle p;
+            p.position = position + offset;
+            p.velocity = sf::Vector2f(std::cos(angle) * speed, std::sin(angle) * speed);
+            p.lifetime = random(m_parameters->minLifetime, m_parameters->maxLifetime);
+            p.elapsed = 0.f;
+            p.size = random(m_parameters->minSize, m_parameters->maxSize);
+            p.rotation = random(0.f, 360.f);
+            p.rotationSpeed = random(m_parameters->minRotationSpeed, m_parameters->maxRotationSpeed);
+            p.color = m_parameters->startColor;
+
+            return p;
+        }
+        else
+        {
+            // Utiliser des valeurs par défaut
+            SimpleParticle p;
+            p.position = position + sf::Vector2f(random(-2.f, 2.f), random(-2.f, 2.f));
+
+            float angle = random(0.f, 360.f) * 3.14159f / 180.f;
+            float speed = random(20.f, 50.f);
+            p.velocity = sf::Vector2f(std::cos(angle) * speed, std::sin(angle) * speed);
+
+            p.lifetime = random(m_minLifetime, m_maxLifetime);
+            p.elapsed = 0.f;
+            p.size = random(m_minSize, m_maxSize);
+            p.rotation = random(0.f, 360.f);
+            p.rotationSpeed = random(-180.f, 180.f);
+            p.color = m_startColor;
+
+            return p;
+        }
+    }
+
+    void ParticleComponent::applyAffectors(SimpleParticle &particle, float deltaTime)
+    {
+        // Simulation de gravité simple
+        particle.velocity.y += 30.f * deltaTime; // Force de gravité
+
+        // Résistance de l'air (ralentit les particules)
+        particle.velocity *= 0.99f;
+
+        // Ajuster l'alpha en fonction du temps de vie (effet de fondu)
+        float lifetimeRatio = particle.elapsed / particle.lifetime;
+        if (m_parameters)
+        {
+            particle.color.r = static_cast<sf::Uint8>(m_parameters->startColor.r + (m_parameters->endColor.r - m_parameters->startColor.r) * lifetimeRatio);
+            particle.color.g = static_cast<sf::Uint8>(m_parameters->startColor.g + (m_parameters->endColor.g - m_parameters->startColor.g) * lifetimeRatio);
+            particle.color.b = static_cast<sf::Uint8>(m_parameters->startColor.b + (m_parameters->endColor.b - m_parameters->startColor.b) * lifetimeRatio);
+            particle.color.a = static_cast<sf::Uint8>(m_parameters->startColor.a + (m_parameters->endColor.a - m_parameters->startColor.a) * lifetimeRatio);
+        }
+        else
+        {
+            particle.color.a = static_cast<sf::Uint8>(m_startColor.a * (1.f - lifetimeRatio));
+        }
     }
 
 } // namespace Orenji

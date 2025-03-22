@@ -1,5 +1,5 @@
 #include "TradeGood.hpp"
-#include "../utils/MathUtils.h"
+#include "../../include/utils/MathUtils.hpp"
 #include <algorithm>
 
 namespace Orenji

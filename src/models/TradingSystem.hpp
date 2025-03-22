@@ -5,10 +5,10 @@
 #include <string>
 #include <memory>
 #include <functional>
-#include "City.h"
-#include "TradeGood.h"
-#include "Player.h"
-#include "Ship.h"
+#include "City.hpp"
+#include "TradeGood.hpp"
+#include "Player.hpp"
+#include "Ship.hpp"
 
 namespace Orenji
 {

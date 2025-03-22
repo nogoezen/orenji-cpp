@@ -10,12 +10,12 @@
 #include <SFML/Graphics.hpp>
 #include <nlohmann/json.hpp>
 
-#include "../models/Ship.h"
-#include "../models/Fleet.h"
-#include "../models/Character.h"
-#include "../models/World.h"
-#include "../models/TradeGood.h"
-#include "../models/Player.h"
+#include "../models/Ship.hpp"
+#include "../models/Fleet.hpp"
+#include "../models/Character.hpp"
+#include "../models/World.hpp"
+#include "../models/TradeGood.hpp"
+#include "../models/Player.hpp"
 
 namespace Orenji
 {

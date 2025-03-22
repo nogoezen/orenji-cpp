@@ -2,12 +2,16 @@
 
 #include "../Core/Component.hpp"
 #include <SFML/Graphics.hpp>
-#include <Thor/Particles.hpp>
 #include <memory>
 #include <string>
+#include <vector>
 
 namespace Orenji
 {
+    // Déclaration anticipée
+    struct SimpleParticle;
+    struct EmissionParameters;
+
     /**
      * @brief Type de déclencheur de particules
      */
@@ -20,14 +24,14 @@ namespace Orenji
     };
 
     /**
-     * @brief Composant pour gérer un système de particules.
-     * Utilise la bibliothèque Thor pour le système de particules.
+     * @brief Composant pour gérer un système de particules simple
+     * Implémentation sans dépendance à Thor
      */
     class ParticleComponent : public Component, public sf::Drawable
     {
     public:
         ParticleComponent();
-        virtual ~ParticleComponent();
+        virtual ~ParticleComponent() = default;
 
         // Méthodes du Component
         virtual void initialize() override;
@@ -36,11 +40,11 @@ namespace Orenji
         // Méthodes spécifiques aux particules
 
         /**
-         * @brief Charge un système de particules depuis un fichier
-         * @param filename Chemin vers le fichier de configuration
+         * @brief Charge un système de particules depuis un fichier ou un template
+         * @param templateName Nom du template ou chemin vers le fichier de configuration
          * @return true si le chargement a réussi
          */
-        bool loadFromFile(const std::string &filename);
+        bool loadFromFile(const std::string &templateName);
 
         /**
          * @brief Définit la texture utilisée par les particules
@@ -95,34 +99,51 @@ namespace Orenji
          */
         void clearParticles();
 
+        /**
+         * @brief Définit les paramètres d'émission de particules
+         * @param params Paramètres d'émission
+         */
+        void setEmissionParameters(const EmissionParameters &params);
+
     private:
         // Méthode pour dessiner les particules
         virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
-        // Système de particules Thor
-        thor::ParticleSystem m_particleSystem;
+        // Génère une nouvelle particule
+        SimpleParticle generateParticle() const;
 
-        // Émetteur de particules
-        thor::UniversalEmitter m_emitter;
+        // Applique les affecteurs aux particules
+        void applyAffectors(SimpleParticle &particle, float deltaTime);
+
+        // Liste des particules actives
+        std::vector<SimpleParticle> m_particles;
 
         // Type de déclencheur
         ParticleTriggerType m_triggerType;
-
-        // Connexion pour l'émission continue
-        thor::Connection m_connection;
 
         // Paramètres de particules
         float m_emissionRate;
         unsigned int m_burstSize;
         bool m_enabled;
+        float m_emissionAccumulator;
 
         // Pour le déclencheur basé sur la distance
         sf::Vector2f m_lastPosition;
         float m_distanceTrigger;
         float m_distanceAccumulator;
 
+        // Paramètres d'émission
+        EmissionParameters *m_parameters;
+
         // Texture
         sf::Texture m_texture;
+        sf::VertexArray m_vertices;
+        sf::Color m_startColor;
+        sf::Color m_endColor;
+        float m_minSize;
+        float m_maxSize;
+        float m_minLifetime;
+        float m_maxLifetime;
     };
 
 } // namespace Orenji

@@ -1,7 +1,7 @@
-#include "GameData.h"
-#include "../models/Ship.h"
-#include "../models/TradeGood.h"
-#include "../utils/JsonLoader.h"
+#include "GameData.hpp"
+#include "../models/Ship.hpp"
+#include "../models/TradeGood.hpp"
+#include "../utils/JsonLoader.hpp"
 #include <iostream>
 #include <filesystem>
 

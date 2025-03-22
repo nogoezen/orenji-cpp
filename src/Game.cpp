@@ -6,7 +6,7 @@
 namespace Orenji
 {
 
-    Game::Game() : m_isRunning(false), m_deltaTime(0.0f)
+    Game::Game() : m_isRunning(false), m_deltaTime(0.0f), m_clock(), m_elapsed(), m_window(), m_stateMachine(nullptr), m_settings()
     {
         m_stateMachine = std::make_unique<StateMachine>();
     }

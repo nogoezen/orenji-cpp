@@ -1,4 +1,4 @@
-#include "MerchantAI.h"
+#include "MerchantAI.hpp"
 #include <algorithm>
 #include <cmath>
 

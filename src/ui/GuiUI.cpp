@@ -1,4 +1,4 @@
-#include "GuiUI.h"
+#include "GuiUI.hpp"
 #include <iostream>
 
 GuiUI::GuiUI()

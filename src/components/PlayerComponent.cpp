@@ -1,4 +1,4 @@
-#include "PlayerComponent.h"
+#include "PlayerComponent.hpp"
 #include <SFML/Window/Keyboard.hpp>
 
 PlayerComponent::PlayerComponent(std::shared_ptr<Player> player)

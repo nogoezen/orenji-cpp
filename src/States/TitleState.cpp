@@ -312,14 +312,7 @@ namespace Orenji
         // à effectuer une fois l'animation de sortie terminée
         if (m_fadeAlpha >= 255.f)
         {
-#ifdef DISABLE_GAMESTATE
-            std::cout << "Game mode disabled in this build. Only title screen is available." << std::endl;
-            m_isExiting = false;
-            m_fadeAlpha = 0.f;
-            m_fadeRect.setFillColor(sf::Color(0, 0, 0, static_cast<sf::Uint8>(m_fadeAlpha)));
-#else
             getStateMachine()->changeState(std::make_unique<GameState>());
-#endif
         }
     }
 

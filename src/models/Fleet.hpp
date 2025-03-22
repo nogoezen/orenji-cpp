@@ -5,7 +5,7 @@
 #include <string>
 #include <map>
 #include <functional>
-#include "Ship.h"
+#include "Ship.hpp"
 
 // Nombre maximum de navires dans une flotte
 constexpr int MAX_FLEET_SIZE = 5;

@@ -6,10 +6,10 @@
 #include <memory>
 #include <algorithm> // Pour std::min, std::max, std::clamp
 #include <nlohmann/json.hpp>
-#include "Ship.h"
-#include "Fleet.h"
-#include "TradeGood.h"
-#include "Character.h"
+#include "Ship.hpp"
+#include "Fleet.hpp"
+#include "TradeGood.hpp"
+#include "Character.hpp"
 
 // Fonction clamp (au cas où std::clamp n'est pas disponible dans la version de C++ utilisée)
 template <typename T>

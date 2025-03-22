@@ -1,5 +1,5 @@
-#include "Player.h"
-#include "../data/GameData.h"
+#include "Player.hpp"
+#include "../data/GameData.hpp"
 #include <algorithm>
 #include <iostream>
 #include <sstream>

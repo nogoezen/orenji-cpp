@@ -41,8 +41,10 @@ namespace Orenji
         // For each entity with renderable components, draw them
         // This is a placeholder - in a real implementation, we'd have a proper
         // component-based rendering system
-        for (auto &entity : entities)
+        for (const auto &entity : entities)
         {
+            (void)entity; // Évite l'avertissement de variable non utilisée
+
             // Check if the entity has a sprite or other drawable component
             // and render it if it does
 

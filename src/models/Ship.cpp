@@ -1,5 +1,5 @@
-#include "Ship.h"
-#include "../utils/MathUtils.h"
+#include "Ship.hpp"
+#include "../../include/utils/MathUtils.hpp"
 #include <cmath>
 #include <algorithm>
 
@@ -11,7 +11,17 @@ namespace Orenji
     }
 
     Ship::Ship(int id, const std::string &name, ShipType type)
-        : m_id(id), m_name(name), m_type(type), m_description(""), m_level(1), m_x(0.0f), m_y(0.0f), m_rotation(0.0f), m_speed(0.0f), m_ownerId(-1), m_faction(""), m_isDestroyed(false), m_isAnchored(false)
+        : m_id(id), m_name(name), m_type(type), m_description(""), m_level(1),
+          m_maxHealth(100), m_currentHealth(100),
+          m_x(0.0f), m_y(0.0f), m_rotation(0.0f), m_speed(0.0f), m_maxSpeed(10.0f),
+          m_acceleration(2.0f), m_turnRate(90.0f),
+          m_attackPower(10), m_defense(5), m_range(100), m_accuracy(70),
+          m_maxCrewSize(10), m_currentCrewSize(5),
+          m_cargoCapacity(100.0f), m_currentCargoWeight(0.0f),
+          m_ownerId(-1), m_faction(""),
+          m_cannonSlots(2), m_installedCannons(0),
+          m_fuelCapacity(1000.0f), m_currentFuel(1000.0f), m_fuelConsumptionRate(0.5f),
+          m_isDestroyed(false), m_isAnchored(false)
     {
         // Définir les attributs en fonction du type de navire
         switch (type)

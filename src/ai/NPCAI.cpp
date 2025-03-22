@@ -1,4 +1,4 @@
-#include "NPCAI.h"
+#include "NPCAI.hpp"
 #include <algorithm>
 #include <cmath>
 

@@ -1,4 +1,4 @@
-#include "DiplomaticAI.h"
+#include "DiplomaticAI.hpp"
 #include <algorithm>
 #include <cmath>
 

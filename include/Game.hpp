@@ -53,15 +53,15 @@ namespace Orenji
         void update();
         void render();
 
-        // Member variables
-        sf::RenderWindow m_window;
-        std::unique_ptr<StateMachine> m_stateMachine;
+        // Member variables - réorganisés selon l'ordre d'initialisation
+        bool m_isRunning;
+        float m_deltaTime;
 
         sf::Clock m_clock;
         sf::Time m_elapsed;
-        float m_deltaTime;
 
-        bool m_isRunning;
+        sf::RenderWindow m_window;
+        std::unique_ptr<StateMachine> m_stateMachine;
         Settings m_settings;
     };
 

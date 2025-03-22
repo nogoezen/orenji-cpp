@@ -81,10 +81,10 @@ public:
           m_population(0), m_defenseLevel(0), m_wealth(0), m_influence(0), m_stability(50),
           m_portCapacity(0), m_tradingVolume(0), m_taxRate(10),
           m_faction("Independent"), m_loyaltyLevel(50),
+          m_description(""),
           m_marketModifier(1.0f),
           m_hasShipyard(false), m_hasBank(false), m_hasGuild(false),
-          m_hasMarketplace(false), m_hasTavern(false), m_hasBarracks(false),
-          m_description("") {}
+          m_hasMarketplace(false), m_hasTavern(false), m_hasBarracks(false) {}
 
     /**
      * Constructeur avec paramètres de base
@@ -98,10 +98,10 @@ public:
           m_influence(wealth / 10), m_stability(50),
           m_portCapacity(population / 1000), m_tradingVolume(wealth / 5), m_taxRate(10),
           m_faction("Independent"), m_loyaltyLevel(50),
+          m_description("A " + type + " in the region of " + region),
           m_marketModifier(1.0f),
           m_hasShipyard(false), m_hasBank(false), m_hasGuild(false),
-          m_hasMarketplace(true), m_hasTavern(true), m_hasBarracks(false),
-          m_description("A " + type + " in the region of " + region) {}
+          m_hasMarketplace(true), m_hasTavern(true), m_hasBarracks(false) {}
 
     /**
      * Constructeur à partir de données JSON

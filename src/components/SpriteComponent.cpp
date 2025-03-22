@@ -1,4 +1,4 @@
-#include "SpriteComponent.h"
+#include "SpriteComponent.hpp"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <iostream>
 
