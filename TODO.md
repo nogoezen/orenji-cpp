@@ -271,6 +271,59 @@ En suivant cette démarche, le projet pourra devenir une base solide pour dével
 - ~~Erreurs d'inclusion de fichiers relatifs à MathUtils~~
 - ~~Implémentation manquante pour les particules sans Thor~~
 
+## Erreurs de compilation détaillées (dernière exécution)
+
+### Erreurs Box2D 3
+1. Structure des identifiants incompatible:
+   - Remplacer `bodyId.index` par `bodyId.index1` dans toutes les fonctions `IsValid`
+   - De même pour `fixtureId.index`, `jointId.index`, `worldId.index` et `shapeId.index`
+
+2. Fonctions manquantes dans Box2D 3:
+   - `b2Body_GetDefinition` et `b2Body_SetDefinition` n'existent pas dans Box2D 3
+   - `b2BodyDef` a changé: `bullet` est devenu `isBullet`
+   - `b2BodyUserData` n'est pas défini
+   - Problème avec `GetBodyFixtureList`, `GetContactBodyA`, etc.
+
+3. Types manquants ou renommés:
+   - `b2ContactId` n'est pas déclaré
+   - `b2FixtureId` n'est pas reconnu dans plusieurs contextes
+   - `b2ContactEvent` vs `b2ContactEvents`
+   - `b2StackAllocator` manquant
+
+4. Problèmes avec les transformations:
+   - Erreur lors de l'appel à `b2Body_SetTransform` qui attend maintenant différents arguments
+   - `b2Body_GetAngle` remplacé par autre chose (peut-être `b2Rot_GetAngle`)
+
+### Erreurs SFML 3
+1. Problèmes de conversion de types:
+   - Impossible de convertir `float` en `sf::Angle` dans `setRotation`
+   - `transform.getPosition()` retourne une valeur et non une référence
+   - Signature différente pour certains constructeurs
+
+### Erreurs du système de particules
+1. Redéfinitions multiples:
+   - `SimpleParticle` défini à la fois dans `ParticleComponent.hpp` et `ParticleSystem.hpp`
+   - `EmissionParameters` défini dans les deux fichiers
+   - `AffectorType` et `ParticleTriggerType` également dupliqués
+
+2. Problèmes d'implémentation:
+   - Méthode `draw` marquée comme `override` mais ne surcharge rien
+   - Membres non déclarés comme `m_particleComponents`, `position`, `texture`, etc.
+   - Classe `ParticleSystem` avec constructeur privé et problème avec `std::make_unique`
+
+### Erreurs des modèles (Ship, Fleet, City)
+1. Problèmes de namespace:
+   - `Ship` utilisé au lieu de `Orenji::Ship` dans `Fleet.hpp`
+   - Erreurs avec les templates comme `std::shared_ptr<Ship>`
+
+2. Méthodes manquantes:
+   - `City` n'a pas les méthodes `hasGood`, `getGoodQuantity`, `removeGood`, etc.
+   - `Player` n'a pas les méthodes `getFaction`, `getMoney`, `getShip`, etc.
+
+3. Erreurs d'ordre d'initialisation et de types:
+   - Warnings d'ordre d'initialisation dans `Player`
+   - Erreurs de types incompatibles dans les opérateurs ternaires
+
 ## Plan d'action pour résoudre les erreurs
 
 ### 1. Mise à jour Box2D
@@ -323,4 +376,27 @@ En suivant cette démarche, le projet pourra devenir une base solide pour dével
 ### Objectifs à moyen terme
 - Améliorer les graphismes
 - Améliorer les effets sonores
+
+## Plan d'action détaillé pour la prochaine étape
+
+Pour résoudre les erreurs Box2D les plus critiques:
+
+1. Modifier `Box2DTypes.hpp`:
+   - Remplacer toutes les occurrences de `.index` par `.index1` pour les identifiants Box2D
+   - Rechercher des alternatives aux fonctions `b2Body_GetDefinition` et `b2Body_SetDefinition`
+   - Implémenter une solution pour `b2BodyUserData`
+   - Revoir les signatures des fonctions `GetBodyFixtureList`, `GetContactBodyA`, etc.
+
+2. Adapter les transformations dans `PhysicsComponent.cpp`:
+   - Corriger l'utilisation de `b2Body_SetTransform`
+   - Remplacer `b2Body_GetAngle` par la fonction appropriée
+   - Convertir correctement les angles avec `sf::degrees()`
+
+3. Résoudre les problèmes de duplication:
+   - Nettoyer `ParticleSystem.hpp` pour utiliser les types définis dans `ParticleTypes.hpp`
+   - Assurer la cohérence dans l'utilisation des namespaces
+
+4. Implémenter les méthodes manquantes dans les modèles:
+   - Ajouter les méthodes requises dans `City` ou adapter le code pour utiliser d'autres méthodes
+   - Corriger les problèmes de namespace dans `Fleet` et `Player`
  

@@ -22,10 +22,9 @@ namespace Orenji
         /**
          * @brief Constructeur du composant physique.
          *
-         * @param entity L'entité à laquelle ce composant est attaché.
-         * @param bodyType Le type de corps (b2_dynamicBody, b2_staticBody, b2_kinematicBody).
+         * @param id L'identifiant du composant.
          */
-        PhysicsComponent(Entity *entity, b2BodyType bodyType = b2_dynamicBody);
+        PhysicsComponent(const std::string &id);
 
         /**
          * @brief Destructeur du composant physique.
@@ -46,9 +45,16 @@ namespace Orenji
          *
          * Synchronise la position de l'entité avec celle du corps Box2D.
          *
-         * @param deltaTime Le temps écoulé depuis la dernière mise à jour.
+         * @param dt Le temps écoulé depuis la dernière mise à jour.
          */
-        virtual void update(float deltaTime) override;
+        virtual void update(float dt) override;
+
+        /**
+         * @brief Crée le corps physique.
+         *
+         * Cette méthode est appelée pendant l'initialisation.
+         */
+        void createBody();
 
         // --- Méthodes pour la création de fixtures ---
 
@@ -191,6 +197,34 @@ namespace Orenji
         b2BodyType getBodyType() const;
 
         /**
+         * @brief Définit la valeur de l'amortissement linéaire.
+         *
+         * @param damping Valeur de l'amortissement.
+         */
+        void setLinearDamping(float damping);
+
+        /**
+         * @brief Obtient la valeur actuelle de l'amortissement linéaire.
+         *
+         * @return Valeur de l'amortissement linéaire.
+         */
+        float getLinearDamping() const;
+
+        /**
+         * @brief Définit la valeur de l'amortissement angulaire.
+         *
+         * @param damping Valeur de l'amortissement.
+         */
+        void setAngularDamping(float damping);
+
+        /**
+         * @brief Obtient la valeur actuelle de l'amortissement angulaire.
+         *
+         * @return Valeur de l'amortissement angulaire.
+         */
+        float getAngularDamping() const;
+
+        /**
          * @brief Définit si le corps peut tourner ou non.
          *
          * @param fixed Si true, le corps ne peut pas tourner.
@@ -219,11 +253,39 @@ namespace Orenji
         bool isBullet() const;
 
         /**
+         * @brief Active ou désactive le corps physique.
+         *
+         * @param enabled Si true, le corps est actif.
+         */
+        void setEnabled(bool enabled);
+
+        /**
+         * @brief Vérifie si le corps est actif.
+         *
+         * @return true si le corps est actif.
+         */
+        bool isEnabled() const;
+
+        /**
+         * @brief Définit l'entité propriétaire de ce composant.
+         *
+         * @param owner Pointeur vers l'entité propriétaire.
+         */
+        void setOwner(Entity *owner);
+
+        /**
+         * @brief Obtient l'entité propriétaire de ce composant.
+         *
+         * @return Pointeur vers l'entité propriétaire.
+         */
+        Entity *getOwner() const;
+
+        /**
          * @brief Obtient l'ID du corps Box2D.
          *
          * @return L'ID du corps Box2D.
          */
-        b2BodyId getBody() const { return m_body; }
+        b2BodyId getBody() const;
 
         /**
          * @brief Définit les données utilisateur associées au corps.
@@ -235,9 +297,9 @@ namespace Orenji
         void setUserData(T *userData)
         {
             m_userData = static_cast<void *>(userData);
-            if (b2IsValid(m_body))
+            if (IsValid(m_body))
             {
-                b2Body_SetUserData(m_body, m_userData);
+                SetBodyUserData(m_body, m_userData);
             }
         }
 
@@ -250,21 +312,23 @@ namespace Orenji
         template <typename T>
         T *getUserData() const
         {
-            if (b2IsValid(m_body))
+            if (IsValid(m_body))
             {
-                return static_cast<T *>(b2Body_GetUserData(m_body));
+                return static_cast<T *>(GetBodyUserData(m_body));
             }
             return static_cast<T *>(m_userData);
         }
 
     private:
-        b2BodyId m_body;                     ///< L'ID du corps Box2D.
-        b2BodyType m_bodyType;               ///< Le type de corps.
-        bool m_initialized;                  ///< Indique si le composant est initialisé.
-        bool m_fixedRotation;                ///< Indique si la rotation est fixée.
-        bool m_isBullet;                     ///< Indique si le corps est traité comme un projectile.
-        void *m_userData;                    ///< Données utilisateur associées au corps.
-        std::vector<b2FixtureId> m_fixtures; ///< Liste des fixtures attachées au corps.
+        b2BodyId m_body;        ///< L'ID du corps Box2D.
+        b2BodyType m_bodyType;  ///< Le type de corps.
+        float m_linearDamping;  ///< Amortissement linéaire du corps.
+        float m_angularDamping; ///< Amortissement angulaire du corps.
+        bool m_fixedRotation;   ///< Indique si la rotation est fixée.
+        bool m_bullet;          ///< Indique si le corps est traité comme un projectile.
+        bool m_enabled;         ///< Indique si le corps est actif.
+        void *m_userData;       ///< Données utilisateur associées au corps.
+        Entity *m_owner;        ///< Entité propriétaire de ce composant.
     };
 
 } // namespace Orenji

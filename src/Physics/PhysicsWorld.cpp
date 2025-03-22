@@ -3,28 +3,28 @@
 #include <cassert>
 
 // Callbacks pour la gestion des contacts Box2D
-void BeginContactCallback(void *listener, void *contact)
+void BeginContactCallback(void *listener, b2ContactId contactId)
 {
     auto *contactListener = static_cast<PhysicsWorld::ContactListener *>(listener);
-    contactListener->BeginContact(contact);
+    contactListener->BeginContact(contactId);
 }
 
-void EndContactCallback(void *listener, void *contact)
+void EndContactCallback(void *listener, b2ContactId contactId)
 {
     auto *contactListener = static_cast<PhysicsWorld::ContactListener *>(listener);
-    contactListener->EndContact(contact);
+    contactListener->EndContact(contactId);
 }
 
-void PreSolveCallback(void *listener, void *contact, void *oldManifold)
+void PreSolveCallback(void *listener, b2ContactId contactId, const b2Manifold *oldManifold)
 {
     auto *contactListener = static_cast<PhysicsWorld::ContactListener *>(listener);
-    contactListener->PreSolve(contact, oldManifold);
+    contactListener->PreSolve(contactId, oldManifold);
 }
 
-void PostSolveCallback(void *listener, void *contact, void *impulse)
+void PostSolveCallback(void *listener, b2ContactId contactId, const b2ContactImpulse *impulse)
 {
     auto *contactListener = static_cast<PhysicsWorld::ContactListener *>(listener);
-    contactListener->PostSolve(contact, impulse);
+    contactListener->PostSolve(contactId, impulse);
 }
 
 namespace Orenji

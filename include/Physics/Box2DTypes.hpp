@@ -32,27 +32,27 @@ namespace Orenji
     // Fonctions d'aide pour vérifier la validité des identifiants Box2D
     inline bool IsValid(b2BodyId bodyId)
     {
-        return bodyId.index != b2_nullBodyId.index;
+        return bodyId.index1 != b2_nullBodyId.index1;
     }
 
     inline bool IsValid(b2FixtureId fixtureId)
     {
-        return fixtureId.index != b2_nullFixtureId.index;
+        return fixtureId.index1 != b2_nullFixtureId.index1;
     }
 
     inline bool IsValid(b2JointId jointId)
     {
-        return jointId.index != b2_nullJointId.index;
+        return jointId.index1 != b2_nullJointId.index1;
     }
 
     inline bool IsValid(b2WorldId worldId)
     {
-        return worldId.index != b2_nullWorldId.index;
+        return worldId.index1 != b2_nullWorldId.index1;
     }
 
     inline bool IsValid(b2ShapeId shapeId)
     {
-        return shapeId.index != b2_nullShapeId.index;
+        return shapeId.index1 != b2_nullShapeId.index1;
     }
 
     // Fonctions utilitaires pour l'API Box2D 3.x
@@ -60,23 +60,19 @@ namespace Orenji
     // Récupère l'angle d'un corps (en radians)
     inline float GetBodyAngle(b2BodyId bodyId)
     {
-        return b2Body_GetTransform(bodyId).q.s;
+        return b2Rot_GetAngle(b2Body_GetTransform(bodyId).q);
     }
 
     // Définit si un corps est en rotation fixe
     inline void SetBodyFixedRotation(b2BodyId bodyId, bool fixed)
     {
-        b2BodyDef bodyDef = b2Body_GetDefinition(bodyId);
-        bodyDef.fixedRotation = fixed;
-        b2Body_SetDefinition(bodyId, &bodyDef);
+        b2Body_SetFixedRotation(bodyId, fixed);
     }
 
     // Définit si un corps est traité comme un projectile
     inline void SetBodyBullet(b2BodyId bodyId, bool bullet)
     {
-        b2BodyDef bodyDef = b2Body_GetDefinition(bodyId);
-        bodyDef.bullet = bullet;
-        b2Body_SetDefinition(bodyId, &bodyDef);
+        b2Body_SetBullet(bodyId, bullet);
     }
 
     // Applique une force à un point
@@ -91,17 +87,19 @@ namespace Orenji
         b2Body_ApplyForce(bodyId, force, b2Body_GetPosition(bodyId), wake);
     }
 
-    // Gestion des données utilisateur
+    // Gestion des données utilisateur pour Box2D 3
     inline void SetBodyUserData(b2BodyId bodyId, void *userData)
     {
-        b2BodyUserData data;
+        // Dans Box2D 3, on utilise b2Body_SetUserData avec b2BodyUserData
+        b2BodyUserData2 data;
         data.pointer = reinterpret_cast<uintptr_t>(userData);
         b2Body_SetUserData(bodyId, data);
     }
 
     inline void *GetBodyUserData(b2BodyId bodyId)
     {
-        b2BodyUserData data = b2Body_GetUserData(bodyId);
+        // Dans Box2D 3, on utilise b2Body_GetUserData pour récupérer b2BodyUserData
+        b2BodyUserData2 data = b2Body_GetUserData(bodyId);
         return reinterpret_cast<void *>(data.pointer);
     }
 
@@ -117,27 +115,6 @@ namespace Orenji
         return b2Fixture_GetNext(fixtureId);
     }
 
-    // Fonction d'aide pour récupérer les données de contact
-    inline b2BodyId GetContactBodyA(b2ContactId contactId)
-    {
-        return b2Contact_GetBodyIdA(contactId);
-    }
-
-    inline b2BodyId GetContactBodyB(b2ContactId contactId)
-    {
-        return b2Contact_GetBodyIdB(contactId);
-    }
-
-    inline b2FixtureId GetContactFixtureA(b2ContactId contactId)
-    {
-        return b2Contact_GetFixtureIdA(contactId);
-    }
-
-    inline b2FixtureId GetContactFixtureB(b2ContactId contactId)
-    {
-        return b2Contact_GetFixtureIdB(contactId);
-    }
-
     // Structure pour encapsuler les données de contact spécifiques à notre jeu
     struct ContactData
     {
@@ -148,12 +125,14 @@ namespace Orenji
         bool isSensor;
 
         // Constructeur à partir d'un contact Box2D
-        ContactData(b2ContactId contactId)
+        ContactData(uintptr_t contactPtr)
         {
-            bodyA = GetContactBodyA(contactId);
-            bodyB = GetContactBodyB(contactId);
-            fixtureA = GetContactFixtureA(contactId);
-            fixtureB = GetContactFixtureB(contactId);
+            // Dans Box2D 3, nous devons travailler directement avec les identifiants
+            b2ContactId contactId = *reinterpret_cast<b2ContactId *>(contactPtr);
+            bodyA = b2Contact_GetBodyIdA(contactId);
+            bodyB = b2Contact_GetBodyIdB(contactId);
+            fixtureA = b2Contact_GetFixtureIdA(contactId);
+            fixtureB = b2Contact_GetFixtureIdB(contactId);
             isSensor = b2Fixture_IsSensor(fixtureA) || b2Fixture_IsSensor(fixtureB);
         }
     };
