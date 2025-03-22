@@ -22,10 +22,10 @@ namespace Orenji
         ALL = 0xFFFF
     };
 
-    // Aliases pour simplifier l'utilisation de Box2D v2.4.x
+    // Constantes pour Box2D
     namespace box2d
     {
-        // Constante utilisée pour les conversions d'angle si Box2D ne la fournit pas
+        // Constante utilisée pour les conversions d'angle
         constexpr float b2_pi = 3.14159265359f;
     }
 
@@ -44,73 +44,117 @@ namespace Orenji
     {
         return jointId.index != b2_nullJointId.index;
     }
-    
+
     inline bool IsValid(b2WorldId worldId)
     {
         return worldId.index != b2_nullWorldId.index;
     }
-    
+
     inline bool IsValid(b2ShapeId shapeId)
     {
         return shapeId.index != b2_nullShapeId.index;
     }
-    
-    // Fonction pour convertir un ancien pointeur b2Body* vers b2BodyId (utilisée pour la migration)
-    // Cette fonction est temporaire et sera supprimée une fois la migration terminée
-    inline b2BodyId ConvertToBodyId(void* bodyPtr)
-    {
-        // Cette implémentation est un placeholder, à remplacer par la bonne logique
-        // dans le contexte de votre application
-        return b2_nullBodyId;
-    }
-    
-    // Fonctions utilitaires pour l'API Box2D 2.4.x
-    
+
+    // Fonctions utilitaires pour l'API Box2D 3.x
+
     // Récupère l'angle d'un corps (en radians)
-    inline float b2Body_GetAngle(b2BodyId bodyId)
+    inline float GetBodyAngle(b2BodyId bodyId)
     {
         return b2Body_GetTransform(bodyId).q.s;
     }
-    
+
     // Définit si un corps est en rotation fixe
-    inline void b2Body_SetFixedRotation(b2BodyId bodyId, bool fixed)
+    inline void SetBodyFixedRotation(b2BodyId bodyId, bool fixed)
     {
         b2BodyDef bodyDef = b2Body_GetDefinition(bodyId);
         bodyDef.fixedRotation = fixed;
         b2Body_SetDefinition(bodyId, &bodyDef);
     }
-    
+
     // Définit si un corps est traité comme un projectile
-    inline void b2Body_SetBullet(b2BodyId bodyId, bool bullet)
+    inline void SetBodyBullet(b2BodyId bodyId, bool bullet)
     {
         b2BodyDef bodyDef = b2Body_GetDefinition(bodyId);
         bodyDef.bullet = bullet;
         b2Body_SetDefinition(bodyId, &bodyDef);
     }
-    
-    // Accessoires pour les fonctions qui peuvent ne pas être directement disponibles dans l'API Box2D 2.4.x
-    // Ces fonctions servent de wrapper pour faciliter la transition
-    
-    inline void b2Body_ApplyForce(b2BodyId bodyId, b2Vec2 force, b2Vec2 point, bool wake)
+
+    // Applique une force à un point
+    inline void ApplyForce(b2BodyId bodyId, b2Vec2 force, b2Vec2 point, bool wake)
     {
         b2Body_ApplyForce(bodyId, force, point, wake);
     }
-    
-    inline void b2Body_ApplyForceToCenter(b2BodyId bodyId, b2Vec2 force, bool wake)
+
+    // Applique une force au centre
+    inline void ApplyForceToCenter(b2BodyId bodyId, b2Vec2 force, bool wake)
     {
         b2Body_ApplyForce(bodyId, force, b2Body_GetPosition(bodyId), wake);
     }
-    
-    inline void b2Body_SetUserData(b2BodyId bodyId, void* userData)
+
+    // Gestion des données utilisateur
+    inline void SetBodyUserData(b2BodyId bodyId, void *userData)
     {
         b2BodyUserData data;
-        data.pointer = (uintptr_t)userData;
+        data.pointer = reinterpret_cast<uintptr_t>(userData);
         b2Body_SetUserData(bodyId, data);
     }
-    
-    inline void* b2Body_GetUserData(b2BodyId bodyId)
+
+    inline void *GetBodyUserData(b2BodyId bodyId)
     {
         b2BodyUserData data = b2Body_GetUserData(bodyId);
-        return (void*)data.pointer;
+        return reinterpret_cast<void *>(data.pointer);
     }
+
+    // Fonction pour récupérer les fixtures d'un corps
+    inline b2FixtureId GetBodyFixtureList(b2BodyId bodyId)
+    {
+        return b2Body_GetFirstFixture(bodyId);
+    }
+
+    // Fonction pour récupérer la fixture suivante
+    inline b2FixtureId GetNextFixture(b2FixtureId fixtureId)
+    {
+        return b2Fixture_GetNext(fixtureId);
+    }
+
+    // Fonction d'aide pour récupérer les données de contact
+    inline b2BodyId GetContactBodyA(b2ContactId contactId)
+    {
+        return b2Contact_GetBodyIdA(contactId);
+    }
+
+    inline b2BodyId GetContactBodyB(b2ContactId contactId)
+    {
+        return b2Contact_GetBodyIdB(contactId);
+    }
+
+    inline b2FixtureId GetContactFixtureA(b2ContactId contactId)
+    {
+        return b2Contact_GetFixtureIdA(contactId);
+    }
+
+    inline b2FixtureId GetContactFixtureB(b2ContactId contactId)
+    {
+        return b2Contact_GetFixtureIdB(contactId);
+    }
+
+    // Structure pour encapsuler les données de contact spécifiques à notre jeu
+    struct ContactData
+    {
+        b2BodyId bodyA;
+        b2BodyId bodyB;
+        b2FixtureId fixtureA;
+        b2FixtureId fixtureB;
+        bool isSensor;
+
+        // Constructeur à partir d'un contact Box2D
+        ContactData(b2ContactId contactId)
+        {
+            bodyA = GetContactBodyA(contactId);
+            bodyB = GetContactBodyB(contactId);
+            fixtureA = GetContactFixtureA(contactId);
+            fixtureB = GetContactFixtureB(contactId);
+            isSensor = b2Fixture_IsSensor(fixtureA) || b2Fixture_IsSensor(fixtureB);
+        }
+    };
 }

@@ -9,9 +9,6 @@
 
 namespace Orenji
 {
-    // Forward declarations
-    class ContactListener;
-
     /**
      * @brief Classe singleton gérant le monde physique Box2D.
      *
@@ -35,16 +32,16 @@ namespace Orenji
             ~ContactListener() = default;
 
             // Méthodes appelées par Box2D lors des collisions
-            void BeginContact(void *contact);
-            void EndContact(void *contact);
-            void PreSolve(void *contact, const void *oldManifold);
-            void PostSolve(void *contact, const void *impulse);
+            void BeginContact(b2ContactId contact);
+            void EndContact(b2ContactId contact);
+            void PreSolve(b2ContactId contact, const b2Manifold *oldManifold);
+            void PostSolve(b2ContactId contact, const b2ContactImpulse *impulse);
 
             // Méthodes pour définir les callbacks utilisateur
-            using BeginContactCallback = std::function<void(void *)>;
-            using EndContactCallback = std::function<void(void *)>;
-            using PreSolveCallback = std::function<void(void *, const void *)>;
-            using PostSolveCallback = std::function<void(void *, const void *)>;
+            using BeginContactCallback = std::function<void(b2ContactId)>;
+            using EndContactCallback = std::function<void(b2ContactId)>;
+            using PreSolveCallback = std::function<void(b2ContactId, const b2Manifold *)>;
+            using PostSolveCallback = std::function<void(b2ContactId, const b2ContactImpulse *)>;
 
             void SetBeginContactCallback(BeginContactCallback callback);
             void SetEndContactCallback(EndContactCallback callback);
@@ -143,9 +140,9 @@ namespace Orenji
          * @return Identifiant de la fixture créée.
          */
         b2FixtureId addBoxFixture(b2BodyId body, const sf::Vector2f &size,
-                                 float density = 1.0f, float friction = 0.3f,
-                                 uint16_t categoryBits = 0x0001, uint16_t maskBits = 0xFFFF,
-                                 bool isSensor = false);
+                                  float density = 1.0f, float friction = 0.3f,
+                                  uint16_t categoryBits = 0x0001, uint16_t maskBits = 0xFFFF,
+                                  bool isSensor = false);
 
         /**
          * @brief Ajoute une fixture circulaire à un corps.
@@ -160,9 +157,9 @@ namespace Orenji
          * @return Identifiant de la fixture créée.
          */
         b2FixtureId addCircleFixture(b2BodyId body, float radius,
-                                    float density = 1.0f, float friction = 0.3f,
-                                    uint16_t categoryBits = 0x0001, uint16_t maskBits = 0xFFFF,
-                                    bool isSensor = false);
+                                     float density = 1.0f, float friction = 0.3f,
+                                     uint16_t categoryBits = 0x0001, uint16_t maskBits = 0xFFFF,
+                                     bool isSensor = false);
 
         /**
          * @brief Définit le callback pour le début d'un contact.
@@ -212,35 +209,35 @@ namespace Orenji
          * @param window La fenêtre SFML sur laquelle dessiner.
          */
         void debugDraw(sf::RenderWindow &window);
-        
+
         /**
          * @brief Obtient l'identifiant du monde Box2D.
          *
          * @return Identifiant du monde Box2D.
          */
         b2WorldId getWorldId() const { return m_world; }
-        
+
         /**
          * @brief Définit la gravité du monde.
          *
          * @param gravity Vecteur de gravité (en pixels/s²).
          */
         void setGravity(const sf::Vector2f &gravity);
-        
+
         /**
          * @brief Obtient la gravité du monde.
          *
          * @return Vecteur de gravité (en pixels/s²).
          */
         sf::Vector2f getGravity() const;
-        
+
         /**
          * @brief Définit le nombre d'itérations de sous-étapes pour la résolution.
          *
          * @param count Nombre de sous-étapes.
          */
         void setSubStepCount(int count) { m_subStepCount = count; }
-        
+
         /**
          * @brief Obtient le nombre d'itérations de sous-étapes.
          *
@@ -251,21 +248,26 @@ namespace Orenji
     private:
         // Constructeur privé (singleton)
         PhysicsWorld();
-        PhysicsWorld(const PhysicsWorld &) = delete;
-        PhysicsWorld &operator=(const PhysicsWorld &) = delete;
 
         // Instance unique
-        static PhysicsWorld *s_instance;
+        static std::unique_ptr<PhysicsWorld> s_instance;
 
         // Monde Box2D
         b2WorldId m_world;
-        ContactListener m_contactListener;
 
-        // Paramètres de simulation
+        // Listener pour les collisions
+        std::unique_ptr<ContactListener> m_contactListener;
+
+        // Configuration du monde
+        bool m_debugDrawEnabled;
         int m_velocityIterations;
         int m_positionIterations;
         int m_subStepCount;
-        bool m_debugDrawEnabled;
-    };
 
-} // namespace Orenji
+        // Structure ContactEvent pour Box2D 3
+        b2ContactEvent m_contactEvent;
+
+        // Instance unique Box2D
+        static b2StackAllocator *s_stackAllocator;
+    };
+}

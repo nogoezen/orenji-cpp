@@ -1,12 +1,19 @@
 #pragma once
 
-#include "../Core/ResourceCache.hpp"
+#include "Core/ResourceCache.hpp"
 #include <SFML/Graphics.hpp>
+#include "Particles/ParticleTypes.hpp"
 #include <string>
 #include <unordered_map>
 #include <memory>
 #include <functional>
 #include <map>
+
+#ifndef DISABLE_THOR
+#include <Thor/Particles.hpp>
+#include <Thor/Math.hpp>
+#include <Thor/Animations.hpp>
+#endif
 
 namespace Orenji
 {
@@ -244,50 +251,33 @@ namespace Orenji
          */
         ParticleSystem();
 
-        static std::unique_ptr<ParticleSystem> s_instance;
-
-        /**
-         * @brief Structure containing data for a particle system
-         */
-        struct ParticleData
-        {
-            std::vector<SimpleParticle> particles;
-            EmissionParameters parameters;
-            sf::VertexArray vertices;
-            sf::Texture texture;
-            sf::IntRect textureRect;
-            bool active;
-            sf::Vector2f position;
-            float emissionAccumulator;
-            std::vector<std::pair<AffectorType, float>> affectors;
-        };
-
-        // Map of particle systems by ID
-        std::unordered_map<std::string, std::unique_ptr<ParticleData>> m_particleSystems;
-
-        // Map of particle components by name
-        std::map<std::string, std::unique_ptr<ParticleComponent>> m_particleComponents;
-
-        // Map of templates by name
-        std::map<std::string, EmissionParameters> m_templates;
-
-        /**
-         * @brief Generate a new particle based on the given parameters
-         * @param params Emission parameters
-         * @param position Base position
-         * @return A new particle
-         */
-        SimpleParticle generateParticle(const EmissionParameters &params, const sf::Vector2f &position);
-
         /**
          * @brief Apply affectors to a particle
-         * @param particle The particle to affect
-         * @param affectors List of affectors and their strengths
-         * @param deltaTime Time elapsed
+         * @param particle Particle to modify
+         * @param affectors List of affectors (type and strength)
+         * @param deltaTime Time elapsed since last update
          */
         void applyAffectors(SimpleParticle &particle,
                             const std::vector<std::pair<AffectorType, float>> &affectors,
                             float deltaTime);
-    };
 
-} // namespace Orenji
+        // Implémentation du singleton
+        static std::unique_ptr<ParticleSystem> s_instance;
+
+#ifndef DISABLE_THOR
+        // Systèmes Thor
+        std::map<int, std::unique_ptr<thor::ParticleSystem>> m_thorSystems;
+        std::map<std::string, std::function<void(ParticleComponent &)>> m_templates;
+        int m_nextSystemId;
+#else
+        // Stockage des systèmes de particules
+        std::map<std::string, std::unique_ptr<ParticleComponent>> m_particleSystems;
+
+        // Templates préconfigurés
+        std::map<std::string, EmissionParameters> m_templates;
+
+        // Stockage des affecteurs pour chaque système
+        std::map<std::string, std::vector<std::pair<AffectorType, float>>> m_affectors;
+#endif
+    };
+}

@@ -1,10 +1,17 @@
 #pragma once
 
-#include "../Core/Component.hpp"
 #include <SFML/Graphics.hpp>
-#include <memory>
-#include <string>
+#include "Particles/ParticleTypes.hpp"
+#include "Core/Component.hpp"
 #include <vector>
+#include <string>
+#include <memory>
+
+#ifndef DISABLE_THOR
+#include <Thor/Particles.hpp>
+#include <Thor/Math.hpp>
+#include <Thor/Animations.hpp>
+#endif
 
 namespace Orenji
 {
@@ -38,127 +45,255 @@ namespace Orenji
         float rotationSpeed;   // Vitesse de rotation
     };
 
+#ifndef DISABLE_THOR
     /**
-     * @brief Composant pour gérer un système de particules simple
-     * Implémentation sans dépendance à Thor
+     * @brief Composant de particules utilisant Thor
      */
-    class ParticleComponent : public Component, public sf::Drawable
+    class ParticleComponent : public Component
     {
     public:
-        ParticleComponent();
-        virtual ~ParticleComponent() = default;
-
-        // Méthodes du Component
-        virtual void initialize() override;
-        virtual void update(float deltaTime) override;
-
-        // Méthodes spécifiques aux particules
+        /**
+         * @brief Constructeur de la classe ParticleComponent
+         * @param id Identifiant du composant
+         */
+        ParticleComponent(const std::string &id = "particle");
 
         /**
-         * @brief Charge un système de particules depuis un fichier ou un template
-         * @param templateName Nom du template ou chemin vers le fichier de configuration
+         * @brief Destructeur de la classe ParticleComponent
+         */
+        ~ParticleComponent();
+
+        /**
+         * @brief Initialise le composant
+         */
+        void initialize() override;
+
+        /**
+         * @brief Met à jour le composant
+         * @param dt Delta time
+         */
+        void update(float dt) override;
+
+        /**
+         * @brief Dessine le composant
+         * @param target Cible de rendu
+         */
+        void draw(sf::RenderTarget &target) override;
+
+        /**
+         * @brief Charge un fichier de particules
+         * @param filename Nom du fichier
          * @return true si le chargement a réussi
          */
-        bool loadFromFile(const std::string &templateName);
+        bool loadFromFile(const std::string &filename);
 
         /**
-         * @brief Définit la texture utilisée par les particules
-         * @param texturePath Chemin vers la texture
+         * @brief Définit la texture du système de particules
+         * @param texture Pointeur vers la texture
+         * @param textureRect Rectangle de texture
          */
-        void setTexture(const std::string &texturePath);
+        void setTexture(const sf::Texture *texture, const sf::IntRect &textureRect = sf::IntRect());
 
         /**
-         * @brief Définit le nombre de particules à émettre
-         * @param rate Nombre de particules à émettre par seconde (pour émission continue)
+         * @brief Définit le taux d'émission
+         * @param rate Taux d'émission
          */
         void setEmissionRate(float rate);
 
         /**
-         * @brief Définit le nombre de particules à émettre dans un burst
+         * @brief Définit le type de déclencheur
+         * @param triggerType Type de déclencheur
+         */
+        void setTriggerType(ParticleTriggerType triggerType);
+
+        /**
+         * @brief Emets des particules
          * @param count Nombre de particules
          */
-        void setBurstSize(unsigned int count);
-
-        /**
-         * @brief Définit le type de déclencheur
-         * @param type Type de déclencheur
-         */
-        void setTriggerType(ParticleTriggerType type);
-
-        /**
-         * @brief Déclenche une émission manuelle de particules
-         * @param count Nombre de particules à émettre (0 = utiliser la taille de burst par défaut)
-         */
-        void emit(unsigned int count = 0);
-
-        /**
-         * @brief Démarre ou arrête l'émission continue
-         * @param enabled Active ou désactive l'émission
-         */
-        void setEnabled(bool enabled);
+        void emit(unsigned int count = 1);
 
         /**
          * @brief Vérifie si le système est actif
          * @return true si le système est actif
          */
+        bool isSystemActive() const;
+
+        /**
+         * @brief Vérifie si le système continue d'émettre
+         * @return true si le système continue d'émettre
+         */
+        bool isContinuousEmitting() const;
+
+        /**
+         * @brief Définit si le système est activé
+         * @param enabled true si le système est activé
+         */
+        void setEnabled(bool enabled);
+
+        /**
+         * @brief Retourne si le système est activé
+         * @return true si le système est activé
+         */
         bool isEnabled() const;
 
         /**
-         * @brief Récupère le nombre de particules actives
-         * @return Nombre de particules
+         * @brief Définit la position du système
+         * @param position Position du système
          */
-        unsigned int getParticleCount() const;
+        void setPosition(const sf::Vector2f &position);
+
+    private:
+        float m_emissionRate;              ///< Taux d'émission
+        float m_emissionTime;              ///< Temps d'émission
+        ParticleTriggerType m_triggerType; ///< Type de déclencheur
+        bool m_enabled;                    ///< Si le système est activé
+        bool m_isActive;                   ///< Si le système est actif
+        bool m_continuousEmitting;         ///< Si le système continue d'émettre
+        sf::Vector2f m_position;           ///< Position du système
+
+        thor::ParticleSystem m_system;                     ///< Système de particules
+        thor::Connection m_connection;                     ///< Connexion de l'émetteur
+        std::unique_ptr<thor::UniversalEmitter> m_emitter; ///< Émetteur
+    };
+#else
+    /**
+     * @brief Composant de particules simple sans Thor
+     */
+    class ParticleComponent : public Component
+    {
+    public:
+        /**
+         * @brief Constructeur de la classe ParticleComponent
+         * @param id Identifiant du composant
+         */
+        ParticleComponent(const std::string &id = "particle");
 
         /**
-         * @brief Efface toutes les particules
+         * @brief Destructeur de la classe ParticleComponent
          */
-        void clearParticles();
+        ~ParticleComponent();
 
         /**
-         * @brief Définit les paramètres d'émission de particules
+         * @brief Initialise le composant
+         */
+        void initialize() override;
+
+        /**
+         * @brief Met à jour le composant
+         * @param dt Delta time
+         */
+        void update(float dt) override;
+
+        /**
+         * @brief Dessine le composant
+         * @param target Cible de rendu
+         */
+        void draw(sf::RenderTarget &target) override;
+
+        /**
+         * @brief Charge un fichier de particules
+         * @param filename Nom du fichier
+         * @return true si le chargement a réussi
+         */
+        bool loadFromFile(const std::string &filename);
+
+        /**
+         * @brief Définit la texture du système de particules
+         * @param texture Pointeur vers la texture
+         * @param textureRect Rectangle de texture
+         */
+        void setTexture(const sf::Texture *texture, const sf::IntRect &textureRect = sf::IntRect());
+
+        /**
+         * @brief Définit le taux d'émission
+         * @param rate Taux d'émission
+         */
+        void setEmissionRate(float rate);
+
+        /**
+         * @brief Définit le type de déclencheur
+         * @param triggerType Type de déclencheur
+         */
+        void setTriggerType(ParticleTriggerType triggerType);
+
+        /**
+         * @brief Emets des particules
+         * @param count Nombre de particules
+         */
+        void emit(unsigned int count = 1);
+
+        /**
+         * @brief Vérifie si le système est actif
+         * @return true si le système est actif
+         */
+        bool isSystemActive() const;
+
+        /**
+         * @brief Vérifie si le système continue d'émettre
+         * @return true si le système continue d'émettre
+         */
+        bool isContinuousEmitting() const;
+
+        /**
+         * @brief Définit si le système est activé
+         * @param enabled true si le système est activé
+         */
+        void setEnabled(bool enabled);
+
+        /**
+         * @brief Retourne si le système est activé
+         * @return true si le système est activé
+         */
+        bool isEnabled() const;
+
+        /**
+         * @brief Définit la position du système
+         * @param position Position du système
+         */
+        void setPosition(const sf::Vector2f &position);
+
+        /**
+         * @brief Définit les paramètres d'émission
          * @param params Paramètres d'émission
          */
         void setEmissionParameters(const EmissionParameters &params);
 
+        /**
+         * @brief Obtient les paramètres d'émission
+         * @return Paramètres d'émission
+         */
+        const EmissionParameters &getEmissionParameters() const;
+
     private:
-        // Méthode pour dessiner les particules
-        virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+        /**
+         * @brief Crée une nouvelle particule
+         * @return Nouvelle particule
+         */
+        SimpleParticle createParticle();
 
-        // Génère une nouvelle particule
-        SimpleParticle generateParticle() const;
+        /**
+         * @brief Mélange une couleur entre début et fin
+         * @param start Couleur de début
+         * @param end Couleur de fin
+         * @param alpha Ratio (0.0 à 1.0)
+         * @return Couleur mélangée
+         */
+        sf::Color lerpColor(const sf::Color &start, const sf::Color &end, float alpha);
 
-        // Applique les affecteurs aux particules
-        void applyAffectors(SimpleParticle &particle, float deltaTime);
+        float m_emissionRate;              ///< Taux d'émission
+        float m_emissionTime;              ///< Temps d'émission
+        ParticleTriggerType m_triggerType; ///< Type de déclencheur
+        bool m_enabled;                    ///< Si le système est activé
+        bool m_isActive;                   ///< Si le système est actif
+        bool m_continuousEmitting;         ///< Si le système continue d'émettre
+        sf::Vector2f m_position;           ///< Position du système
+        float m_distanceTraveled;          ///< Distance parcourue depuis la dernière émission
 
-        // Liste des particules actives
-        std::vector<SimpleParticle> m_particles;
-
-        // Type de déclencheur
-        ParticleTriggerType m_triggerType;
-
-        // Paramètres de particules
-        float m_emissionRate;
-        unsigned int m_burstSize;
-        bool m_enabled;
-        float m_emissionAccumulator;
-
-        // Pour le déclencheur basé sur la distance
-        sf::Vector2f m_lastPosition;
-        float m_distanceTrigger;
-        float m_distanceAccumulator;
-
-        // Paramètres d'émission
-        EmissionParameters *m_parameters;
-
-        // Texture
-        sf::Texture m_texture;
-        sf::VertexArray m_vertices;
-        sf::Color m_startColor;
-        sf::Color m_endColor;
-        float m_minSize;
-        float m_maxSize;
-        float m_minLifetime;
-        float m_maxLifetime;
+        EmissionParameters m_emissionParams;     ///< Paramètres d'émission
+        std::vector<SimpleParticle> m_particles; ///< Liste des particules
+        sf::VertexArray m_vertices;              ///< Vertex array pour le rendu
+        const sf::Texture *m_texture;            ///< Texture des particules
+        sf::IntRect m_textureRect;               ///< Rectangle de texture
     };
-
-} // namespace Orenji
+#endif
+}
