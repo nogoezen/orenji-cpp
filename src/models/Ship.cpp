@@ -6,7 +6,7 @@
 namespace Orenji
 {
     Ship::Ship()
-        : m_id(-1), m_name(""), m_type(ShipType::SMALL_MERCHANT), m_description(""), m_level(1), m_maxHealth(100), m_currentHealth(100), m_x(0.0f), m_y(0.0f), m_rotation(0.0f), m_speed(0.0f), m_maxSpeed(10.0f), m_acceleration(2.0f), m_turnRate(90.0f), m_attackPower(10), m_defense(5), m_range(100), m_accuracy(70), m_maxCrewSize(10), m_currentCrewSize(5), m_cargoCapacity(100.0f), m_currentCargoWeight(0.0f), m_ownerId(-1), m_faction(""), m_cannonSlots(2), m_installedCannons(0), m_fuelCapacity(1000.0f), m_currentFuel(1000.0f), m_fuelConsumptionRate(0.5f), m_isDestroyed(false), m_isAnchored(false)
+        : m_id(-1), m_name(""), m_type(ShipType::SMALL_MERCHANT), m_description(""), m_level(1), m_maxHealth(100), m_currentHealth(100), m_x(0.0f), m_y(0.0f), m_rotation(0.0f), m_speed(0.0f), m_maxSpeed(10.0f), m_acceleration(2.0f), m_turnRate(90.0f), m_attackPower(10), m_defense(5), m_range(100), m_accuracy(70), m_maxCrewSize(10), m_currentCrewSize(5), m_cargoCapacity(100.0f), m_currentCargoWeight(0.0f), m_ownerId(-1), m_faction(""), m_cannonSlots(2), m_installedCannons(0), m_fuelCapacity(1000.0f), m_currentFuel(1000.0f), m_fuelConsumptionRate(0.5f), m_isDestroyed(false), m_isAnchored(false), m_crew(10)
     {
     }
 
@@ -21,7 +21,7 @@ namespace Orenji
           m_ownerId(-1), m_faction(""),
           m_cannonSlots(2), m_installedCannons(0),
           m_fuelCapacity(1000.0f), m_currentFuel(1000.0f), m_fuelConsumptionRate(0.5f),
-          m_isDestroyed(false), m_isAnchored(false)
+          m_isDestroyed(false), m_isAnchored(false), m_crew(10)
     {
         // Définir les attributs en fonction du type de navire
         switch (type)
@@ -629,4 +629,139 @@ namespace Orenji
         }
     }
 
+    void Ship::setType(Type type)
+    {
+        // Convertir entre Type et ShipType
+        switch (type)
+        {
+        case Type::GALLEON:
+            m_type = ShipType::LARGE_MERCHANT;
+            m_maxHealth = 300;
+            m_currentHealth = 300;
+            m_maxSpeed = 6.0f;
+            m_acceleration = 1.0f;
+            m_turnRate = 50.0f;
+            m_attackPower = 20;
+            m_defense = 15;
+            m_maxCrewSize = 40;
+            m_currentCrewSize = 30;
+            m_cargoCapacity = 400.0f;
+            m_cannonSlots = 12;
+            m_installedCannons = 10;
+            break;
+
+        case Type::BRIGANTINE:
+            m_type = ShipType::WARSHIP;
+            m_maxHealth = 200;
+            m_currentHealth = 200;
+            m_maxSpeed = 8.0f;
+            m_acceleration = 2.0f;
+            m_turnRate = 70.0f;
+            m_attackPower = 25;
+            m_defense = 10;
+            m_maxCrewSize = 25;
+            m_currentCrewSize = 20;
+            m_cargoCapacity = 200.0f;
+            m_cannonSlots = 8;
+            m_installedCannons = 6;
+            break;
+
+        case Type::SLOOP:
+            m_type = ShipType::PATROL_BOAT;
+            m_maxHealth = 100;
+            m_currentHealth = 100;
+            m_maxSpeed = 12.0f;
+            m_acceleration = 3.0f;
+            m_turnRate = 120.0f;
+            m_attackPower = 15;
+            m_defense = 5;
+            m_maxCrewSize = 10;
+            m_currentCrewSize = 8;
+            m_cargoCapacity = 100.0f;
+            m_cannonSlots = 4;
+            m_installedCannons = 3;
+            break;
+
+        case Type::FRIGATE:
+            m_type = ShipType::WARSHIP;
+            m_maxHealth = 250;
+            m_currentHealth = 250;
+            m_maxSpeed = 10.0f;
+            m_acceleration = 2.5f;
+            m_turnRate = 80.0f;
+            m_attackPower = 30;
+            m_defense = 12;
+            m_maxCrewSize = 30;
+            m_currentCrewSize = 25;
+            m_cargoCapacity = 150.0f;
+            m_cannonSlots = 10;
+            m_installedCannons = 8;
+            break;
+
+        case Type::SCHOONER:
+            m_type = ShipType::SMALL_MERCHANT;
+            m_maxHealth = 120;
+            m_currentHealth = 120;
+            m_maxSpeed = 9.0f;
+            m_acceleration = 2.2f;
+            m_turnRate = 100.0f;
+            m_attackPower = 10;
+            m_defense = 7;
+            m_maxCrewSize = 15;
+            m_currentCrewSize = 12;
+            m_cargoCapacity = 250.0f;
+            m_cannonSlots = 6;
+            m_installedCannons = 4;
+            break;
+
+        case Type::CARAVEL:
+            m_type = ShipType::SMALL_MERCHANT;
+            m_maxHealth = 150;
+            m_currentHealth = 150;
+            m_maxSpeed = 7.0f;
+            m_acceleration = 1.8f;
+            m_turnRate = 60.0f;
+            m_attackPower = 8;
+            m_defense = 10;
+            m_maxCrewSize = 20;
+            m_currentCrewSize = 15;
+            m_cargoCapacity = 300.0f;
+            m_cannonSlots = 4;
+            m_installedCannons = 2;
+            break;
+
+        case Type::CUSTOM:
+            // Ne rien changer, laisser les valeurs actuelles
+            break;
+        }
+
+        // Mettre à jour la taille maximale de l'équipage
+        m_crew.setMaxSize(m_maxCrewSize);
+    }
+
+    bool Ship::addCrewMember(const CrewMember &member, CrewRole role)
+    {
+        // Vérifier si l'équipage est plein
+        if (m_crew.getSize() >= m_maxCrewSize)
+        {
+            return false;
+        }
+
+        // Ajouter le membre à l'équipage
+        bool success = m_crew.addCrewMember(member);
+
+        if (success)
+        {
+            // Si c'est le capitaine, définir son ID comme capitaine
+            if (role == CrewRole::CAPTAIN)
+            {
+                m_crew.setCaptainId(member.id);
+            }
+
+            // Mettre à jour le nombre actuel de membres d'équipage
+            m_currentCrewSize = m_crew.getSize();
+        }
+
+        return success;
+    }
 } // namespace Orenji

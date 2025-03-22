@@ -3,81 +3,6 @@
 ## Contexte général
 Le projet Orenji-CPP est un moteur de jeu/RPG basé sur SFML qui a été corrigé pour résoudre les principaux problèmes de compilation et fonctionnalités manquantes. Le projet peut maintenant afficher l'écran titre et passer au mode jeu. Des améliorations et optimisations supplémentaires peuvent encore être apportées.
 
-## Problèmes résolus
-
-### ✅ 1. Intégration de Box2D 2.4.x
-- **Contexte** : Le projet a été mis à jour pour utiliser Box2D 2.4.x.
-- **Réalisations** :
-  - Les fichiers `Box2DTypes.hpp` ont été mis à jour pour être compatibles avec Box2D 2.4.x
-  - Les wrappers de `PhysicsComponent.cpp` et `PhysicsWorld.cpp` ont été adaptés pour la nouvelle API
-  - Les signatures des méthodes utilisant des identifiants Box2D ont été corrigées
-
-### ✅ 2. Résolution des problèmes de compilation de la bibliothèque Thor
-- **Contexte** : Une alternative au composant `ParticleComponent` a été implémentée pour fonctionner avec ou sans Thor.
-- **Réalisations** :
-  - Création d'un système de particules simple intégré au projet qui ne dépend pas de Thor
-  - Mise en place d'une compilation conditionnelle avec `#ifndef DISABLE_THOR`
-  - La compilaton peut maintenant se faire que Thor soit disponible ou non
-
-### ✅ 3. Implémentation des modèles manquants
-- **Contexte** : Les fichiers manquants ont été créés et implémentés.
-- **Réalisations** :
-  - Création des classes `City`, `Ship`, `TradeGood` et autres modèles manquants
-  - Implémentation des fonctionnalités de base pour ces modèles
-  - Intégration avec le reste du système de jeu
-
-### ✅ 4. Implémentation du mode de jeu complet
-- **Contexte** : Le mode de jeu (GameState) est désormais fonctionnel.
-- **Réalisations** :
-  - Implémentation complète de `GameState.cpp`
-  - Intégration des systèmes d'entités et de composants
-  - Système de rendu des niveaux fonctionnel
-  - Gestion des personnages jouables
-
-### ✅ 5. Correction des avertissements de compilation
-- **Contexte** : Les avertissements liés à l'ordre d'initialisation et aux variables non utilisées ont été corrigés.
-- **Réalisations** :
-  - Correction de l'ordre d'initialisation dans les constructeurs (ex: `Game::m_isRunning` et `Game::m_deltaTime`)
-  - Ajout de cast pour les variables non utilisées (ex: `entity` dans `RenderSystem.cpp`)
-  - Initialisation complète des membres dans le constructeur de `Ship`
-
-### ✅ 7. Configuration correcte des DLL SFML
-- **Contexte** : Les DLL SFML ne sont pas trouvées lors de la copie dans le dossier bin.
-- **Réalisations** :
-  - Création d'un script `copy_dlls.bat` pour copier manuellement les DLL
-  - Amélioration du CMakeLists.txt pour détecter et copier automatiquement les DLL
-  - Gestion distincte des configurations Debug et Release
-
-### ✅ 8. Implémentation du système de trading
-- **Contexte** : Le système de trading est maintenant fonctionnel.
-- **Réalisations** :
-  - Création de l'interface pour le système de trading via `TradingSystem`
-  - Implémentation des mécanismes d'échange entre entités
-  - Intégration avec le système d'économie du jeu
-
-### ✅ 11. Correction des erreurs de compilation identifiées
-- **Contexte** : Plusieurs erreurs de compilation ont été identifiées et corrigées.
-- **Réalisations** :
-  - Création du fichier manquant `include/utils/MathUtils.hpp` avec les fonctions mathématiques nécessaires
-  - Correction des chemins d'inclusion dans les fichiers `Ship.cpp`, `TradeGood.cpp` et `TradingSystem.cpp`
-  - Correction de l'ordre d'initialisation dans les constructeurs de la classe `City`
-  - Vérification du système de build et configurations des chemins d'inclusion
-
-### ✅ 12. Installation des bibliothèques requises
-- **Contexte** : Les bibliothèques externes SFML, Box2D, Thor et TMXLite ont été installées via MSYS2 UCRT64.
-- **Réalisations** :
-  - Installation des bibliothèques à l'aide de pacman dans MSYS2
-  - Configuration correcte des chemins d'inclusion et des bibliothèques
-  - Détection automatique des bibliothèques installées dans le script de build
-
-### ✅ 13. Mise à jour vers les dernières versions des bibliothèques
-- **Contexte** : Le projet a été mis à jour pour utiliser les dernières versions des bibliothèques.
-- **Réalisations** :
-  - Support de SFML 3 avec les nouvelles fonctionnalités audio et graphiques
-  - Support de Box2D 3 avec la nouvelle API physique
-  - Support des dernières versions de Thor et TMXLite
-  - Ajout de directives conditionnelles pour assurer la compatibilité (SFML_V3, BOX2D_V3)
-  - Mise à jour du script build.bat pour détecter et utiliser les bonnes versions des DLLs
 
 ## Problèmes restants à résoudre
 
@@ -343,14 +268,14 @@ En suivant cette démarche, le projet pourra devenir une base solide pour dével
 - [x] Supprimer les définitions dupliquées dans ParticleComponent.hpp
 - [x] Adapter les imports existants
 
-### 4. Intégration des modèles manquants
-- [x] Créer le fichier MathUtils.hpp
-- [x] Implémenter les fonctions utilitaires mathématiques
+### 4. Intégration des modèles
+- [ ] Corriger les erreurs dans Ship
+- [ ] Corriger les erreurs dans Fleet et City
+- [ ] Ajouter les méthodes manquantes dans les modèles
 
 ### 5. Implémentation des utilitaires
-- [x] Compléter l'implémentation de ParticleComponent.cpp sans Thor
-- [x] Ajouter la méthode updateVertices()
-- [ ] Finaliser ParticleSystem.cpp
+- [x] Créer le fichier MathUtils.hpp
+- [x] Implémenter les fonctions utilitaires mathématiques
 
 ## Conclusion et prochaines étapes
 
@@ -399,4 +324,189 @@ Pour résoudre les erreurs Box2D les plus critiques:
 4. Implémenter les méthodes manquantes dans les modèles:
    - Ajouter les méthodes requises dans `City` ou adapter le code pour utiliser d'autres méthodes
    - Corriger les problèmes de namespace dans `Fleet` et `Player`
- 
+
+# Tasks pour l'adaptation du code à SFML 3 et Box2D 3
+
+## Problèmes identifiés
+
+- [x] SFML 3 change la façon dont les primitives sont utilisées (`sf::Lines` -> `sf::PrimitiveType::Lines`)
+- [x] SFML 3 change certains aspects de l'API `VertexArray` et `Vertex`
+- [x] Box2D 3 utilise un système d'identifiants différent (b2BodyId, b2JointId, etc.)
+- [x] Box2D 3 a changé la façon dont les callbacks de collision sont gérés
+- [x] Box2D 3 utilise des méthodes différentes pour accéder aux données utilisateur
+- [x] Problèmes de namespace avec les modèles Ship, Fleet et City
+
+## Erreurs de compilation
+
+### Erreurs liées à Box2D
+
+- [x] Identifier `b2BodyId` utilise `index1` au lieu de `index`
+- [x] Modifier les fonctions `IsValid` pour vérifier `index1` au lieu de `index`
+- [x] Rechercher toutes les utilisations de `b2Body_GetDefinition` et `b2Body_SetDefinition` et les remplacer
+- [x] Adapter les méthodes `GetBodyAngle`, `SetBodyFixedRotation`, `SetBodyBullet` et autres helpers
+- [x] Mise à jour de la gestion des UserData pour utiliser le nouveau système
+- [x] Adapter les transformations dans `PhysicsComponent.cpp`
+- [x] Mettre à jour les callbacks de collision dans ContactListener
+
+### Erreurs liées à SFML
+
+- [x] Mettre à jour les références à `sf::Lines` vers `sf::PrimitiveType::Lines`
+- [x] Mettre à jour les références à `sf::Quads` vers `sf::PrimitiveType::Quads`
+- [x] Adapter les conversions d'angle avec `sf::degrees()`
+
+### Erreurs dans le système de particules
+
+- [x] Résoudre les redéfinitions entre ParticleComponent et ParticleSystem
+- [x] Ajouter la méthode `updateVertices()` dans ParticleComponent
+
+### Erreurs dans les modèles (Ship, Fleet, City)
+
+- [x] Résoudre les erreurs de namespace dans Ship.cpp
+- [x] Ajouter les méthodes manquantes dans Ship (`setType(Type)`, `addCrewMember`)
+- [x] Ajouter le namespace Orenji dans Fleet.hpp et Fleet.cpp
+- [ ] Corriger les warnings d'ordre d'initialisation dans City
+
+## Plan d'action pour résoudre les erreurs
+
+### 1. Mise à jour Box2D
+
+- [x] Modifier `Box2DTypes.hpp` pour la compatibilité avec Box2D 3
+- [x] Adapter les transformations dans `PhysicsComponent.cpp`
+- [x] Mettre à jour le ContactListener pour utiliser les nouveaux types
+
+### 2. Compatibilité SFML 3
+
+- [x] Mettre à jour les références aux PrimitiveTypes dans tous les fichiers
+- [x] Adapter les références aux angles et transformations
+
+### 3. Résolution des duplications
+
+- [x] Vérifier les conflits entre ParticleComponent et ParticleSystem
+- [x] Restructurer les composants de particules si nécessaire
+
+### 4. Intégration des modèles
+
+- [x] Corriger les erreurs dans Ship
+- [x] Corriger les erreurs dans Fleet
+- [ ] Corriger les erreurs dans City
+- [ ] Ajouter les méthodes manquantes dans les modèles restants
+
+### 5. Implémentation des utilitaires
+
+- [x] Créer le fichier MathUtils.hpp si nécessaire
+- [x] Adapter les namespace pour les utilitaires mathématiques
+
+## Erreurs spécifiques rencontrées lors de la dernière compilation
+
+Les erreurs actuellement identifiées lors de la dernière compilation incluent:
+
+1. ~~Erreurs liées aux identifiants Box2D (`index` vs `index1`)~~
+2. ~~Erreurs liées aux transformations Box2D~~
+3. ~~Erreurs liées aux données utilisateur Box2D~~
+4. ~~Erreurs liées au modèle Ship et à ses méthodes manquantes~~
+5. ~~Erreurs liées au modèle Fleet et à l'absence de namespace~~
+6. Erreurs liées aux warnings d'initialisation dans City et autres modèles
+
+## Conclusion et prochaines étapes
+
+Nous avons progressé dans l'adaptation du code pour SFML 3 et Box2D 3:
+
+- ✅ Les problèmes principaux de Box2D ont été résolus (PhysicsComponent, Box2DTypes)
+- ✅ Les problèmes liés à SFML 3 ont été corrigés (PrimitiveTypes, angles)
+- ✅ Les problèmes du système de particules ont été adressés
+- ✅ La mise à jour des callbacks de collision a été effectuée
+- ✅ Les erreurs liées au modèle Ship ont été corrigées
+- ✅ Les erreurs liées au modèle Fleet ont été corrigées
+
+Prochaines étapes:
+
+1. Corriger les erreurs dans le modèle City
+2. Résoudre les warnings d'ordre d'initialisation
+3. Effectuer des tests pour vérifier que la physique fonctionne correctement
+4. Documenter les changements majeurs effectués
+
+Il est recommandé de continuer en se concentrant sur les erreurs du modèle City et les warnings d'initialisation, qui sont les principaux problèmes restants. 
+
+# Orenji-CPP Project Status and TODO List
+
+## Adaptation pour SFML 3 et Box2D 3
+
+### Problèmes identifiés
+- [x] SFML 3 change la façon dont les primitives sont utilisées (`sf::Lines` -> `sf::PrimitiveType::Lines`)
+- [x] SFML 3 change certains aspects de l'API `VertexArray` et `Vertex`
+- [x] Box2D 3 utilise un système d'identifiants différent (b2BodyId, b2JointId, etc.)
+- [x] Box2D 3 a changé la façon dont les callbacks de collision sont gérés
+- [x] Box2D 3 utilise des méthodes différentes pour accéder aux données utilisateur
+- [x] Problèmes de namespace avec les modèles Ship, Fleet et City
+
+### Erreurs de compilation
+- [x] `b2JointId`, `b2WorldId`, et `b2ShapeId` n'ont pas de membre `index`
+- [x] Les fonctions `b2Body_GetDefinition` et `b2Body_SetDefinition` ne sont pas reconnues
+- [x] Erreur avec `b2BodyUserData` et son utilisation dans `SetBodyUserData`
+- [x] Problèmes de namespace avec les modèles Ship, Fleet et City
+- [x] Classes manquantes dans les modèles (Fleet et City nécessitent des méthodes supplémentaires pour le commerce)
+- [x] Problèmes avec la classe Player (référence aux classes non qualifiées par le namespace Orenji)
+- [ ] Redéfinitions dans les classes ParticleSystem et ParticleComponent
+
+### Plan d'action
+- [x] Mise à jour de Box2D
+  - [x] Adaptation des structures pour utiliser les nouveaux identifiants
+  - [x] Mise à jour des fonctions de callback pour les collisions
+  - [x] Résolution des problèmes avec les userData
+- [x] Compatibilité SFML 3
+  - [x] Mise à jour des références à `sf::PrimitiveType::Lines` au lieu de `sf::Lines`
+  - [x] Adaptation des structures VertexArray et Vertex
+- [x] Correction des duplications de définitions
+  - [x] Résolution des problèmes de redéfinition entre les différents en-têtes
+- [x] Intégration des modèles
+  - [x] Ajout des méthodes manquantes dans Ship
+  - [x] Mise à jour des namespaces pour Fleet et City
+  - [x] Implémentation des méthodes de commerce pour City
+  - [x] Ajout du namespace Orenji pour Character
+  - [x] Mise à jour de la classe Player pour utiliser le namespace Orenji
+  - [ ] Résolution des problèmes avec TradeGood et TradingSystem
+- [ ] Implémentation des utilitaires
+  - [ ] Ajout des classes auxiliaires pour la gestion du jeu
+  - [ ] Tests des composants mis à jour
+
+### Erreurs spécifiques rencontrées lors de la dernière compilation
+- [x] Problèmes avec le modèle Fleet - résolu en ajoutant le namespace Orenji
+- [x] Problèmes avec le modèle City - résolu en ajoutant le namespace Orenji et les méthodes manquantes (hasGood, getGoodQuantity, removeGood)
+- [x] Problèmes avec le modèle Character - résolu en ajoutant le namespace Orenji
+- [x] Problèmes avec la classe Player - résolu en ajoutant le namespace Orenji et en qualifiant les références aux autres classes
+- [ ] Problèmes avec TradeGood et TradingSystem:
+  - [ ] Mise à jour des références pour utiliser les classes avec leur namespace Orenji complet
+  - [ ] Adaptation des méthodes pour correspondre aux interfaces mises à jour
+- [ ] Problèmes avec ParticleSystem:
+  - [ ] Redéfinition de SimpleParticle, EmissionParameters et autres structures
+  - [ ] Configuration incorrecte des constructeurs et des méthodes
+- [ ] Plusieurs avertissements concernant l'initialisation de variables
+
+## Système de particules
+- [x] Mise à jour pour SFML 3
+- [x] Résolution des problèmes de compatibilité
+- [ ] Correction des redéfinitions entre ParticleSystem et ParticleComponent
+
+## Système physique
+- [x] Adaptation pour Box2D 3
+- [x] Mise à jour des callbacks de collision
+- [x] Correction des erreurs liées aux userData
+- [ ] Problèmes restants avec PhysicsComponent:
+  - [ ] getTransformable non défini dans Entity
+  - [ ] Problèmes avec b2FixtureId
+  - [ ] Erreurs de conversion pour b2Body_SetTransform
+
+## Prochaines étapes:
+1. Finaliser les corrections du système de particules pour éliminer les redéfinitions
+2. Compléter l'adaptation de PhysicsComponent pour Box2D 3
+3. Mettre à jour TradingSystem pour utiliser correctement les classes avec leur namespace
+4. Résoudre les avertissements d'initialisation des variables
+5. Effectuer des tests complets pour s'assurer que tous les systèmes fonctionnent correctement ensemble
+
+## Tests et validation
+- [ ] Tests des composants mis à jour
+- [ ] Vérification de la compatibilité cross-platform
+
+## Documentation
+- [ ] Mise à jour des commentaires de code
+- [ ] Documentation des changements pour SFML 3 et Box2D 3 

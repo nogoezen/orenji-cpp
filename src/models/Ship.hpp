@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <vector>
 #include <nlohmann/json.hpp>
+#include "ShipCrew.hpp"
 
 namespace Orenji
 {
@@ -18,6 +19,34 @@ namespace Orenji
         ROYAL_SHIP,     // Navire royal
         CUSTOM          // Type personnalisé
     };
+
+    // Type d'énumération pour les types spécifiques de navires (compatibilité)
+    enum class Type
+    {
+        GALLEON,    // Galion
+        BRIGANTINE, // Brigantin
+        SLOOP,      // Sloop
+        FRIGATE,    // Frégate
+        SCHOONER,   // Goélette
+        CARAVEL,    // Caravelle
+        CUSTOM      // Type personnalisé
+    };
+
+    // Rôles de l'équipage
+    enum class CrewRole
+    {
+        CAPTAIN,   // Capitaine
+        NAVIGATOR, // Navigateur
+        BOATSWAIN, // Maître d'équipage
+        GUNNER,    // Canonnier
+        CARPENTER, // Charpentier
+        COOK,      // Cuisinier
+        SURGEON,   // Chirurgien
+        SAILOR     // Marin simple
+    };
+
+    // Déclaration anticipée
+    struct CrewMember;
 
     /**
      * @brief Classe représentant un navire dans le jeu
@@ -53,6 +82,7 @@ namespace Orenji
         // Équipage
         int m_maxCrewSize;     // Taille maximale de l'équipage
         int m_currentCrewSize; // Taille actuelle de l'équipage
+        ShipCrew m_crew;       // Équipage du navire
 
         // Cargo
         float m_cargoCapacity;                // Capacité de fret totale (en unités de poids)
@@ -144,11 +174,14 @@ namespace Orenji
         bool isDestroyed() const { return m_isDestroyed; }
         bool isAnchored() const { return m_isAnchored; }
         const std::vector<std::string> &getActiveEffects() const { return m_activeEffects; }
+        const ShipCrew &getCrew() const { return m_crew; }
+        ShipCrew &getCrew() { return m_crew; }
 
         // Setters
         void setId(int id) { m_id = id; }
         void setName(const std::string &name) { m_name = name; }
         void setType(ShipType type) { m_type = type; }
+        void setType(Type type);
         void setDescription(const std::string &description) { m_description = description; }
         void setLevel(int level) { m_level = level; }
         void setMaxHealth(int maxHealth) { m_maxHealth = maxHealth; }
@@ -179,6 +212,15 @@ namespace Orenji
         void setFuelConsumptionRate(float rate) { m_fuelConsumptionRate = rate; }
         void setDestroyed(bool destroyed) { m_isDestroyed = destroyed; }
         void setAnchored(bool anchored) { m_isAnchored = anchored; }
+
+        /**
+         * @brief Ajoute un membre d'équipage au navire avec un rôle spécifique
+         *
+         * @param member Le membre d'équipage à ajouter
+         * @param role Le rôle du membre d'équipage
+         * @return true si l'ajout a réussi, false sinon
+         */
+        bool addCrewMember(const CrewMember &member, CrewRole role);
 
         /**
          * @brief Ajoute un effet au navire
@@ -249,7 +291,7 @@ namespace Orenji
          *
          * @return Map des marchandises (ID -> quantité)
          */
-        const std::unordered_map<int, int> &getAllCargo() const { return m_cargo; }
+        const std::unordered_map<int, int> &getCargo() const { return m_cargo; }
 
         /**
          * @brief Vide complètement le cargo
@@ -260,7 +302,7 @@ namespace Orenji
          * @brief Inflige des dégâts au navire
          *
          * @param damage Quantité de dégâts à infliger
-         * @return true si le navire est détruit après les dégâts, false sinon
+         * @return true si le navire est détruit, false sinon
          */
         bool takeDamage(int damage);
 
@@ -268,22 +310,22 @@ namespace Orenji
          * @brief Répare le navire
          *
          * @param amount Quantité de points de vie à restaurer
-         * @return Points de vie effectivement restaurés
+         * @return Quantité de points de vie effectivement restaurés
          */
         int repair(int amount);
 
         /**
-         * @brief Met à jour la position du navire en fonction de sa vitesse et de sa direction
+         * @brief Met à jour la position du navire en fonction de sa vitesse et de sa rotation
          *
          * @param deltaTime Temps écoulé depuis la dernière mise à jour
          */
         void updatePosition(float deltaTime);
 
         /**
-         * @brief Accélère le navire
+         * @brief Accélère ou décélère le navire
          *
          * @param deltaTime Temps écoulé depuis la dernière mise à jour
-         * @param acceleration Facteur d'accélération (positif pour accélérer, négatif pour freiner)
+         * @param acceleration Facteur d'accélération (négatif pour décélérer)
          */
         void accelerate(float deltaTime, float acceleration = 1.0f);
 
@@ -296,7 +338,7 @@ namespace Orenji
         void turn(float deltaTime, float direction);
 
         /**
-         * @brief Consomme du carburant en fonction de la vitesse
+         * @brief Consomme du carburant en fonction du temps écoulé et de la vitesse
          *
          * @param deltaTime Temps écoulé depuis la dernière mise à jour
          * @return Quantité de carburant consommée
@@ -304,7 +346,7 @@ namespace Orenji
         float consumeFuel(float deltaTime);
 
         /**
-         * @brief Remplit le réservoir de carburant
+         * @brief Ajoute du carburant au navire
          *
          * @param amount Quantité de carburant à ajouter
          * @return Quantité de carburant effectivement ajoutée
@@ -312,24 +354,24 @@ namespace Orenji
         float refuel(float amount);
 
         /**
-         * @brief Calcule la distance jusqu'à un point
+         * @brief Calcule la distance à un point
          *
          * @param x Coordonnée X du point
          * @param y Coordonnée Y du point
-         * @return Distance euclidienne
+         * @return Distance en unités de carte
          */
         float distanceTo(float x, float y) const;
 
         /**
-         * @brief Calcule la distance jusqu'à un autre navire
+         * @brief Calcule la distance à un autre navire
          *
-         * @param other Autre navire
-         * @return Distance euclidienne
+         * @param other L'autre navire
+         * @return Distance en unités de carte
          */
         float distanceTo(const Ship &other) const;
 
         /**
-         * @brief Vérifie si le navire est à portée d'attaque d'un point
+         * @brief Vérifie si un point est à portée d'attaque
          *
          * @param x Coordonnée X du point
          * @param y Coordonnée Y du point
@@ -338,25 +380,25 @@ namespace Orenji
         bool isInRange(float x, float y) const;
 
         /**
-         * @brief Vérifie si le navire est à portée d'attaque d'un autre navire
+         * @brief Vérifie si un autre navire est à portée d'attaque
          *
-         * @param other Autre navire
+         * @param other L'autre navire
          * @return true si l'autre navire est à portée, false sinon
          */
         bool isInRange(const Ship &other) const;
 
         /**
-         * @brief Convertit une chaîne de caractères en ShipType
+         * @brief Convertit une chaîne de caractères en type de navire
          *
          * @param typeStr Chaîne représentant le type
-         * @return ShipType correspondant
+         * @return Type de navire correspondant
          */
         static ShipType stringToShipType(const std::string &typeStr);
 
         /**
-         * @brief Convertit un ShipType en chaîne de caractères
+         * @brief Convertit un type de navire en chaîne de caractères
          *
-         * @param type Type à convertir
+         * @param type Type de navire
          * @return Chaîne représentant le type
          */
         static std::string shipTypeToString(ShipType type);
