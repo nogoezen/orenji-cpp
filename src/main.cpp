@@ -8,7 +8,7 @@ int main()
     try
     {
         // Create engine instance
-        Core::Engine engine("SFML 3 Game Engine", 1024, 768);
+        Engine engine("SFML 3 Game Engine", 1024, 768);
 
         // Initialize engine
         if (!engine.initialize())
@@ -25,6 +25,9 @@ int main()
 
         // Run the game loop
         engine.run();
+
+        // Clean up
+        engine.shutdown();
 
         return 0;
     }

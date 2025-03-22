@@ -7,177 +7,180 @@
 
 #include <iostream>
 
-Engine::Engine(const std::string &title, int width, int height)
-    : m_title(title), m_width(width), m_height(height), m_deltaTime(0.0f)
+namespace Core
 {
-    std::cout << "Engine created" << std::endl;
-}
-
-Engine::~Engine()
-{
-    shutdown();
-    std::cout << "Engine destroyed" << std::endl;
-}
-
-bool Engine::initialize()
-{
-    // Create window
-    m_window.create(sf::VideoMode(sf::Vector2u(m_width, m_height)), m_title, sf::Style::Close);
-    m_window.setVerticalSyncEnabled(true);
-
-    // Initialize resource manager
-    m_resourceManager = std::make_unique<Resources::ResourceManager>();
-
-    // Initialize entity manager
-    m_entityManager = std::make_unique<Core::EntityManager>();
-
-    // Initialize subsystems
-    m_physicsSystem = std::make_unique<Physics::PhysicsSystem>(*m_entityManager);
-    m_renderSystem = std::make_unique<Graphics::RenderSystem>(*m_entityManager, m_window);
-    m_aiSystem = std::make_unique<AI::AISystem>(*m_entityManager);
-    m_uiManager = std::make_unique<UI::UIManager>(m_window);
-
-    // Initialize tiled map loader
-    m_tiledMapLoader = std::make_unique<Resources::TiledMapLoader>(*m_resourceManager);
-
-    std::cout << "Engine initialized" << std::endl;
-    return true;
-}
-
-void Engine::run()
-{
-    if (!m_currentScene)
+    Engine::Engine(const std::string &title, int width, int height)
+        : m_title(title), m_width(width), m_height(height)
     {
-        std::cerr << "No scene set! Can't run the engine." << std::endl;
-        return;
+        std::cout << "Engine created" << std::endl;
     }
 
-    // Reset the clock
-    m_clock.restart();
-
-    while (m_window.isOpen())
+    Engine::~Engine()
     {
-        // Calculate delta time
-        m_deltaTime = m_clock.restart().asSeconds();
+        shutdown();
+        std::cout << "Engine destroyed" << std::endl;
+    }
 
-        // Cap delta time to prevent physics issues on lag spikes
-        if (m_deltaTime > 0.25f)
+    bool Engine::initialize()
+    {
+        // Create window
+        m_window.create(sf::VideoMode({static_cast<unsigned int>(m_width), static_cast<unsigned int>(m_height)}),
+                        m_title, sf::Style::Close);
+        m_window.setFramerateLimit(60);
+
+        // Initialize resource manager
+        m_resourceManager = std::make_unique<Resources::ResourceManager>();
+
+        // Initialize entity manager
+        m_entityManager = std::make_unique<Core::EntityManager>();
+
+        // Initialize physics system
+        m_physicsSystem = std::make_unique<Physics::PhysicsSystem>(*m_entityManager);
+        m_renderSystem = std::make_unique<Graphics::RenderSystem>(*m_entityManager, m_window);
+        m_aiSystem = std::make_unique<AI::AISystem>(*m_entityManager);
+        m_uiManager = std::make_unique<UI::UIManager>(m_window);
+
+        // Initialize TiledMapLoader
+        m_tiledMapLoader = std::make_unique<Resources::TiledMapLoader>(*m_resourceManager);
+
+        return true;
+    }
+
+    void Engine::run()
+    {
+        if (!m_currentScene)
         {
-            m_deltaTime = 0.25f;
+            std::cerr << "No scene set, cannot run engine!" << std::endl;
+            return;
         }
 
-        // Process events
-        processEvents();
+        // Initialize time tracking
+        m_clock.restart();
 
-        // Update systems
-        update(m_deltaTime);
+        while (m_window.isOpen())
+        {
+            // Calculate delta time
+            m_deltaTime = m_clock.restart().asSeconds();
 
-        // Render frame
-        render();
-    }
-}
+            // Limit delta time to avoid issues with physics when game runs slowly
+            if (m_deltaTime > 0.25f)
+            {
+                m_deltaTime = 0.25f;
+            }
 
-void Engine::shutdown()
-{
-    // Destroy systems in reverse order of creation
-    m_tiledMapLoader.reset();
-    m_uiManager.reset();
-    m_aiSystem.reset();
-    m_renderSystem.reset();
-    m_physicsSystem.reset();
-    m_entityManager.reset();
-    m_resourceManager.reset();
+            processEvents();
 
-    if (m_window.isOpen())
-    {
-        m_window.close();
+            update(m_deltaTime);
+
+            render();
+        }
     }
 
-    std::cout << "Engine shut down" << std::endl;
-}
-
-Resources::ResourceManager &Engine::getResourceManager()
-{
-    return *m_resourceManager;
-}
-
-sf::RenderWindow &Engine::getWindow()
-{
-    return m_window;
-}
-
-void Engine::setScene(std::shared_ptr<Core::Scene> scene)
-{
-    m_currentScene = scene;
-
-    if (m_currentScene)
+    void Engine::shutdown()
     {
-        m_currentScene->init();
-    }
-}
+        m_tiledMapLoader.reset();
+        m_uiManager.reset();
+        m_aiSystem.reset();
+        m_renderSystem.reset();
+        m_physicsSystem.reset();
+        m_entityManager.reset();
+        m_resourceManager.reset();
 
-void Engine::processEvents()
-{
-    // In SFML 3, pollEvent returns an optional<Event>
-    while (auto eventOpt = m_window.pollEvent())
-    {
-        sf::Event &event = eventOpt.value();
-
-        // Check if event is closed
-        if (event.is<sf::Event::Closed>())
+        if (m_window.isOpen())
         {
             m_window.close();
         }
+    }
 
-        // Let UI handle events first
-        if (m_uiManager->handleEvent(event))
-        {
-            continue; // Event was handled by UI
-        }
+    Resources::ResourceManager &Engine::getResourceManager()
+    {
+        return *m_resourceManager;
+    }
 
-        // Let current scene handle events
+    sf::RenderWindow &Engine::getWindow()
+    {
+        return m_window;
+    }
+
+    void Engine::setScene(std::shared_ptr<Core::Scene> scene)
+    {
+        m_currentScene = scene;
         if (m_currentScene)
         {
-            m_currentScene->handleEvent(event);
+            m_currentScene->init();
         }
     }
-}
 
-void Engine::update(float deltaTime)
-{
-    // Update physics
-    m_physicsSystem->update(deltaTime);
-
-    // Update AI
-    m_aiSystem->update(deltaTime);
-
-    // Update current scene
-    if (m_currentScene)
+    void Engine::processEvents()
     {
-        m_currentScene->update(deltaTime);
+        // Process window events
+        if (auto event = m_window.pollEvent())
+        {
+            // Check for window close event
+            if (event->type == sf::Event::Closed)
+            {
+                m_window.close();
+                return;
+            }
+
+            // Check for key press event - escape to quit
+            if (event->type == sf::Event::KeyPressed && event->key.code == sf::Keyboard::Escape)
+            {
+                m_window.close();
+                return;
+            }
+
+            // Pass event to UI manager first
+            if (m_uiManager->handleEvent(*event))
+            {
+                // UI consumed the event, don't pass to scene
+                return;
+            }
+
+            // Pass event to current scene
+            if (m_currentScene)
+            {
+                m_currentScene->handleEvent(*event);
+            }
+        }
     }
 
-    // Update UI
-    m_uiManager->update(deltaTime);
-}
-
-void Engine::render()
-{
-    // Clear the window
-    m_window.clear(sf::Color(40, 40, 40));
-
-    // Let the render system draw all entities
-    m_renderSystem->render();
-
-    // Let the current scene draw anything specific
-    if (m_currentScene)
+    void Engine::update(float deltaTime)
     {
-        m_currentScene->render(m_window);
+        // Update physics
+        m_physicsSystem->update(deltaTime);
+
+        // Update AI
+        m_aiSystem->update(deltaTime);
+
+        // Update current scene
+        if (m_currentScene)
+        {
+            m_currentScene->update(deltaTime);
+        }
+
+        // Update UI
+        m_uiManager->update(deltaTime);
     }
 
-    // Draw UI on top
-    m_uiManager->render();
+    void Engine::render()
+    {
+        // Clear the window
+        m_window.clear(sf::Color(40, 40, 40));
 
-    // Display the window
-    m_window.display();
-}
+        // Render objects via render system
+        m_renderSystem->render();
+
+        // Render current scene
+        if (m_currentScene)
+        {
+            m_currentScene->render(m_window);
+        }
+
+        // Render UI on top
+        m_uiManager->render();
+
+        // Display the window
+        m_window.display();
+    }
+} // namespace Core

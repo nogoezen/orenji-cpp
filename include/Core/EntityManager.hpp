@@ -65,6 +65,28 @@ namespace Core
         void removeAllEntities();
 
         /**
+         * @brief Get entities with a specific component type
+         * @tparam T Component type
+         * @return Vector of pointers to entities with the specified component type
+         */
+        template <typename T>
+        std::vector<Entity *> getEntitiesWithComponent()
+        {
+            std::vector<Entity *> result;
+
+            for (auto &pair : m_entities)
+            {
+                Entity *entity = pair.second.get();
+                if (entity->isActive() && entity->hasComponent<T>())
+                {
+                    result.push_back(entity);
+                }
+            }
+
+            return result;
+        }
+
+        /**
          * @brief Find entities with specific component types
          * @tparam T Component type
          * @tparam Args Additional component types

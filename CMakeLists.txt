@@ -20,6 +20,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/box2d/include
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/tgui/include
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/nlohmann
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/tileson
 )
 
 # Set library paths
