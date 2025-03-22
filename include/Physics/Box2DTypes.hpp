@@ -32,27 +32,27 @@ namespace Orenji
     // Fonctions d'aide pour vérifier la validité des identifiants Box2D
     inline bool IsValid(b2BodyId bodyId)
     {
-        return bodyId.index != b2_nullBodyId.index;
+        return bodyId.index1 != b2_nullBodyId.index1;
     }
 
     inline bool IsValid(b2FixtureId fixtureId)
     {
-        return fixtureId.index != b2_nullFixtureId.index;
+        return fixtureId.index1 != b2_nullFixtureId.index1;
     }
 
     inline bool IsValid(b2JointId jointId)
     {
-        return jointId.index != b2_nullJointId.index;
+        return jointId.index1 != b2_nullJointId.index1;
     }
 
     inline bool IsValid(b2WorldId worldId)
     {
-        return worldId.index != b2_nullWorldId.index;
+        return worldId.index1 != b2_nullWorldId.index1;
     }
 
     inline bool IsValid(b2ShapeId shapeId)
     {
-        return shapeId.index != b2_nullShapeId.index;
+        return shapeId.index1 != b2_nullShapeId.index1;
     }
 
     // Fonctions utilitaires pour l'API Box2D 3.x
@@ -91,7 +91,7 @@ namespace Orenji
     inline void SetBodyUserData(b2BodyId bodyId, void *userData)
     {
         // Dans Box2D 3, on utilise b2Body_SetUserData avec b2BodyUserData
-        b2BodyUserData data;
+        b2BodyUserData2 data;
         data.pointer = reinterpret_cast<uintptr_t>(userData);
         b2Body_SetUserData(bodyId, data);
     }
@@ -99,7 +99,7 @@ namespace Orenji
     inline void *GetBodyUserData(b2BodyId bodyId)
     {
         // Dans Box2D 3, on utilise b2Body_GetUserData pour récupérer b2BodyUserData
-        b2BodyUserData data = b2Body_GetUserData(bodyId);
+        b2BodyUserData2 data = b2Body_GetUserData(bodyId);
         return reinterpret_cast<void *>(data.pointer);
     }
 
@@ -125,8 +125,10 @@ namespace Orenji
         bool isSensor;
 
         // Constructeur à partir d'un contact Box2D
-        ContactData(b2ContactId contactId)
+        ContactData(uintptr_t contactPtr)
         {
+            // Dans Box2D 3, nous devons travailler directement avec les identifiants
+            b2ContactId contactId = *reinterpret_cast<b2ContactId *>(contactPtr);
             bodyA = b2Contact_GetBodyA(contactId);
             bodyB = b2Contact_GetBodyB(contactId);
             fixtureA = b2Contact_GetFixtureA(contactId);

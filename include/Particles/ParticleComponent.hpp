@@ -7,166 +7,10 @@
 #include <string>
 #include <memory>
 
-#ifndef DISABLE_THOR
-#include <Thor/Particles.hpp>
-#include <Thor/Math/Distributions.hpp>
-#include <Thor/Animations.hpp>
-#endif
-
 namespace Orenji
 {
-    // Déclaration anticipée
-    struct SimpleParticle;
-    struct EmissionParameters;
-
     /**
-     * @brief Type de déclencheur de particules
-     */
-    enum class ParticleTriggerType
-    {
-        Continuous, // Émission continue
-        OneShot,    // Émission unique (un burst)
-        OnCommand,  // Émission sur commande
-        OnDistance  // Émission en fonction de la distance parcourue
-    };
-
-    /**
-     * @brief Structure représentant une particule simple
-     */
-    struct SimpleParticle
-    {
-        sf::Vector2f position; // Position
-        sf::Vector2f velocity; // Vitesse
-        sf::Color color;       // Couleur
-        float lifetime;        // Durée de vie maximale
-        float elapsed;         // Temps écoulé
-        float size;            // Taille
-        float rotation;        // Rotation
-        float rotationSpeed;   // Vitesse de rotation
-    };
-
-#ifndef DISABLE_THOR
-    /**
-     * @brief Composant de particules utilisant Thor
-     *
-     * Cette implémentation utilise la bibliothèque Thor pour
-     * un système de particules avancé avec de nombreuses options.
-     */
-    class ParticleComponent : public Component
-    {
-    public:
-        /**
-         * @brief Constructeur
-         *
-         * @param id Identifiant du composant
-         */
-        ParticleComponent(const std::string &id);
-
-        /**
-         * @brief Destructeur
-         */
-        ~ParticleComponent();
-
-        /**
-         * @brief Initialise le composant
-         */
-        void initialize() override;
-
-        /**
-         * @brief Met à jour le système de particules
-         *
-         * @param dt Temps écoulé depuis la dernière mise à jour (en secondes)
-         */
-        void update(float dt) override;
-
-        /**
-         * @brief Dessine les particules
-         *
-         * @param target Cible de rendu
-         */
-        void draw(sf::RenderTarget &target) override;
-
-        /**
-         * @brief Définit le taux d'émission
-         *
-         * @param rate Particules par seconde
-         */
-        void setEmissionRate(float rate);
-
-        /**
-         * @brief Définit le type de déclenchement
-         *
-         * @param triggerType Type de déclenchement
-         */
-        void setTriggerType(ParticleTriggerType triggerType);
-
-        /**
-         * @brief Émet un nombre spécifique de particules
-         *
-         * @param count Nombre de particules à émettre
-         */
-        void emit(unsigned int count);
-
-        /**
-         * @brief Active ou désactive le système
-         *
-         * @param enabled État d'activation
-         */
-        void setEnabled(bool enabled);
-
-        /**
-         * @brief Vérifie si le système est actif
-         *
-         * @return true si actif, false sinon
-         */
-        bool isEnabled() const { return m_enabled; }
-
-        /**
-         * @brief Vérifie si le système est en train d'émettre
-         *
-         * @return true si émission en cours, false sinon
-         */
-        bool isEmitting() const { return m_isActive; }
-
-        /**
-         * @brief Définit la texture pour les particules
-         *
-         * @param texture Pointeur vers la texture
-         * @param textureRect Rectangle définissant la partie de la texture à utiliser
-         */
-        void setTexture(const sf::Texture *texture, const sf::IntRect &textureRect = sf::IntRect());
-
-        /**
-         * @brief Définit la position du système
-         *
-         * @param position Nouvelle position
-         */
-        void setPosition(const sf::Vector2f &position);
-
-        /**
-         * @brief Récupère le système de particules Thor
-         *
-         * @return Référence au système Thor
-         */
-        thor::ParticleSystem &getParticleSystem() { return m_particleSystem; }
-
-    private:
-        float m_emissionRate;              ///< Taux d'émission (particules/sec)
-        float m_emissionTime;              ///< Temps accumulé pour l'émission
-        ParticleTriggerType m_triggerType; ///< Type de déclenchement
-        bool m_enabled;                    ///< État d'activation
-        bool m_isActive;                   ///< État d'émission
-        bool m_continuousEmitting;         ///< Émission continue
-        sf::Vector2f m_position;           ///< Position du système
-        float m_distanceTraveled;          ///< Distance parcourue pour l'émission par distance
-
-        // Thor
-        thor::ParticleSystem m_particleSystem; ///< Système de particules Thor
-        thor::Connection m_connection;         ///< Connexion de l'émetteur
-    };
-#else
-    /**
-     * @brief Composant de particules simplifié sans Thor
+     * @brief Composant de particules simplifié
      *
      * Cette implémentation utilise uniquement SFML pour un système
      * de particules simple mais suffisant pour la plupart des effets.
@@ -203,7 +47,7 @@ namespace Orenji
          *
          * @param target Cible de rendu
          */
-        void draw(sf::RenderTarget &target);
+        void draw(sf::RenderTarget &target) override;
 
         /**
          * @brief Définit le taux d'émission
@@ -325,5 +169,4 @@ namespace Orenji
         const sf::Texture *m_texture; ///< Texture des particules
         sf::IntRect m_textureRect;    ///< Rectangle de texture
     };
-#endif
 }
