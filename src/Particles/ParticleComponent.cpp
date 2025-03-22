@@ -25,7 +25,7 @@ namespace Orenji
           m_distanceTrigger(10.f),
           m_distanceAccumulator(0.f),
           m_parameters(nullptr),
-          m_vertices(sf::PrimitiveType::Quads),
+          m_vertices(sf::PrimitiveType::Triangles),
           m_startColor(sf::Color(255, 255, 255, 255)),
           m_endColor(sf::Color(255, 255, 255, 0)),
           m_minSize(2.f),
@@ -40,7 +40,7 @@ namespace Orenji
     {
         if (Entity *entity = getOwner())
         {
-            m_lastPosition = entity->getPosition();
+            m_lastPosition = entity->getTransform().getPosition();
         }
     }
 
@@ -50,7 +50,7 @@ namespace Orenji
             return;
 
         // Mettre à jour la position du système pour qu'elle corresponde à l'entité
-        sf::Vector2f position = getOwner()->getPosition();
+        sf::Vector2f position = getOwner()->getTransform().getPosition();
 
         // Gérer les différents types de déclencheurs
         switch (m_triggerType)
@@ -126,7 +126,7 @@ namespace Orenji
         }
 
         // Mettre à jour le vertex array pour le rendu
-        m_vertices.resize(m_particles.size() * 4); // 4 vertices par particule (quad)
+        m_vertices.resize(m_particles.size() * 6); // 6 vertices par particule (2 triangles)
 
         for (size_t i = 0; i < m_particles.size(); ++i)
         {
@@ -140,10 +140,10 @@ namespace Orenji
             sf::Color color = m_startColor;
             if (ratio > 0.0f)
             {
-                color.r = static_cast<sf::Uint8>(m_startColor.r + (m_endColor.r - m_startColor.r) * ratio);
-                color.g = static_cast<sf::Uint8>(m_startColor.g + (m_endColor.g - m_startColor.g) * ratio);
-                color.b = static_cast<sf::Uint8>(m_startColor.b + (m_endColor.b - m_startColor.b) * ratio);
-                color.a = static_cast<sf::Uint8>(m_startColor.a + (m_endColor.a - m_startColor.a) * ratio);
+                color.r = static_cast<uint8_t>(m_startColor.r + (m_endColor.r - m_startColor.r) * ratio);
+                color.g = static_cast<uint8_t>(m_startColor.g + (m_endColor.g - m_startColor.g) * ratio);
+                color.b = static_cast<uint8_t>(m_startColor.b + (m_endColor.b - m_startColor.b) * ratio);
+                color.a = static_cast<uint8_t>(m_startColor.a + (m_endColor.a - m_startColor.a) * ratio);
             }
 
             // Position des 4 sommets du quad
@@ -164,9 +164,9 @@ namespace Orenji
             sf::Vector2f r4(v4.x * cos_a - v4.y * sin_a, v4.x * sin_a + v4.y * cos_a);
 
             // Indice de base dans le vertex array
-            size_t idx = i * 4;
+            size_t idx = i * 6;
 
-            // Définir les 4 sommets du quad
+            // Premier triangle (v1, v2, v3)
             m_vertices[idx].position = p.position + r1;
             m_vertices[idx].color = color;
             m_vertices[idx].texCoords = sf::Vector2f(0, 0);
@@ -179,9 +179,18 @@ namespace Orenji
             m_vertices[idx + 2].color = color;
             m_vertices[idx + 2].texCoords = sf::Vector2f(m_texture.getSize().x, m_texture.getSize().y);
 
-            m_vertices[idx + 3].position = p.position + r4;
+            // Deuxième triangle (v1, v3, v4)
+            m_vertices[idx + 3].position = p.position + r1;
             m_vertices[idx + 3].color = color;
-            m_vertices[idx + 3].texCoords = sf::Vector2f(0, m_texture.getSize().y);
+            m_vertices[idx + 3].texCoords = sf::Vector2f(0, 0);
+
+            m_vertices[idx + 4].position = p.position + r3;
+            m_vertices[idx + 4].color = color;
+            m_vertices[idx + 4].texCoords = sf::Vector2f(m_texture.getSize().x, m_texture.getSize().y);
+
+            m_vertices[idx + 5].position = p.position + r4;
+            m_vertices[idx + 5].color = color;
+            m_vertices[idx + 5].texCoords = sf::Vector2f(0, m_texture.getSize().y);
         }
     }
 
@@ -219,7 +228,7 @@ namespace Orenji
         // Réinitialiser les variables si nécessaire
         if (m_triggerType == ParticleTriggerType::OnDistance && getOwner())
         {
-            m_lastPosition = getOwner()->getPosition();
+            m_lastPosition = getOwner()->getTransform().getPosition();
             m_distanceAccumulator = 0.f;
         }
         else if (m_triggerType == ParticleTriggerType::Continuous)
@@ -261,7 +270,7 @@ namespace Orenji
                 }
                 else if (m_triggerType == ParticleTriggerType::OnDistance && getOwner())
                 {
-                    m_lastPosition = getOwner()->getPosition();
+                    m_lastPosition = getOwner()->getTransform().getPosition();
                     m_distanceAccumulator = 0.f;
                 }
             }
@@ -313,7 +322,7 @@ namespace Orenji
     SimpleParticle ParticleComponent::generateParticle() const
     {
         // Position d'émission basée sur l'entité
-        sf::Vector2f position = getOwner() ? getOwner()->getPosition() : sf::Vector2f(0.f, 0.f);
+        sf::Vector2f position = getOwner() ? getOwner()->getTransform().getPosition() : sf::Vector2f(0.f, 0.f);
 
         // Si nous avons des paramètres d'émission personnalisés, les utiliser
         if (m_parameters)

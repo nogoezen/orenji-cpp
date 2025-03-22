@@ -6,9 +6,11 @@
 #include <typeindex>
 #include <algorithm>
 #include "Component.hpp"
+#include <SFML/Graphics/Transformable.hpp>
 
 namespace Orenji
 {
+    class TransformComponent;
 
     class Entity
     {
@@ -20,6 +22,23 @@ namespace Orenji
         unsigned int getId() const;
         std::string getName() const;
         void setName(const std::string &name);
+
+        // Position and transform
+        sf::Vector2f getPosition() const;
+        void setPosition(const sf::Vector2f &position);
+        void setPosition(float x, float y);
+        void move(const sf::Vector2f &offset);
+        void move(float offsetX, float offsetY);
+        float getRotation() const;
+        void setRotation(float angle);
+        void rotate(float angle);
+        sf::Vector2f getScale() const;
+        void setScale(const sf::Vector2f &scale);
+        void setScale(float x, float y);
+
+        // Returns a reference to the transform component
+        sf::Transformable &getTransform();
+        const sf::Transformable &getTransform() const;
 
         // Component management
         template <typename T, typename... Args>
@@ -40,6 +59,7 @@ namespace Orenji
         unsigned int m_id;
         std::string m_name;
         std::map<std::type_index, std::shared_ptr<Component>> m_components;
+        sf::Transformable m_transform; // Built-in transform for position/rotation/scale
     };
 
     // Template implementations

@@ -3,46 +3,24 @@
 #include <iostream>
 #include <random>
 #include <fstream>
-#include <json/json.h>
 
 namespace Orenji
 {
-    // Singleton instance
-    ParticleSystem *ParticleSystem::s_instance = nullptr;
+    // Initialize static member
+    std::unique_ptr<ParticleSystem> ParticleSystem::s_instance;
 
     ParticleSystem &ParticleSystem::getInstance()
     {
         if (!s_instance)
         {
-            s_instance = new ParticleSystem();
+            s_instance = std::make_unique<ParticleSystem>();
         }
         return *s_instance;
     }
 
-    void ParticleSystem::release()
-    {
-        if (s_instance)
-        {
-            delete s_instance;
-            s_instance = nullptr;
-        }
-    }
-
     ParticleSystem::ParticleSystem()
     {
-        // Initialize predefined systems
-        initializePredefinedSystems();
-    }
-
-    ParticleSystem::~ParticleSystem()
-    {
-        // Clean up particle components
-        m_particleComponents.clear();
-    }
-
-    void ParticleSystem::initializePredefinedSystems()
-    {
-        // Fire effect
+        // Initialize default templates
         EmissionParameters fire;
         fire.emissionRate = 50.0f;
         fire.minLifetime = 0.5f;
@@ -95,24 +73,6 @@ namespace Orenji
         spark.maxRotationSpeed = 0.0f;
         m_templates["spark"] = spark;
 
-        // Water effect
-        EmissionParameters water;
-        water.emissionRate = 30.0f;
-        water.minLifetime = 1.0f;
-        water.maxLifetime = 3.0f;
-        water.minSize = 2.0f;
-        water.maxSize = 5.0f;
-        water.minSpeed = 20.0f;
-        water.maxSpeed = 40.0f;
-        water.startColor = sf::Color(0, 100, 255, 150);
-        water.endColor = sf::Color(0, 200, 255, 0);
-        water.positionRadius = 1.0f;
-        water.baseVelocity = sf::Vector2f(0.0f, 1.0f);
-        water.velocitySpread = 30.0f;
-        water.minRotationSpeed = 0.0f;
-        water.maxRotationSpeed = 0.0f;
-        m_templates["water"] = water;
-
         // Explosion effect
         EmissionParameters explosion;
         explosion.emissionRate = 0.0f; // One-shot
@@ -131,93 +91,10 @@ namespace Orenji
         m_templates["explosion"] = explosion;
     }
 
-    bool ParticleSystem::loadTemplatesFromFile(const std::string &filename)
+    ParticleSystem::~ParticleSystem()
     {
-        try
-        {
-            // Open the file
-            std::ifstream file(filename);
-            if (!file.is_open())
-            {
-                std::cerr << "Failed to open particle templates file: " << filename << std::endl;
-                return false;
-            }
-
-            // Parse JSON
-            Json::Value root;
-            file >> root;
-            file.close();
-
-            // Process each template
-            for (const auto &templateName : root.getMemberNames())
-            {
-                const Json::Value &templateData = root[templateName];
-                EmissionParameters params;
-
-                // Load basic parameters
-                params.emissionRate = templateData.get("emissionRate", 30.0f).asFloat();
-                params.minLifetime = templateData.get("minLifetime", 1.0f).asFloat();
-                params.maxLifetime = templateData.get("maxLifetime", 3.0f).asFloat();
-                params.minSize = templateData.get("minSize", 2.0f).asFloat();
-                params.maxSize = templateData.get("maxSize", 5.0f).asFloat();
-                params.minSpeed = templateData.get("minSpeed", 20.0f).asFloat();
-                params.maxSpeed = templateData.get("maxSpeed", 50.0f).asFloat();
-                params.positionRadius = templateData.get("positionRadius", 2.0f).asFloat();
-                params.velocitySpread = templateData.get("velocitySpread", 45.0f).asFloat();
-                params.minRotationSpeed = templateData.get("minRotationSpeed", -180.0f).asFloat();
-                params.maxRotationSpeed = templateData.get("maxRotationSpeed", 180.0f).asFloat();
-
-                // Load colors
-                if (templateData.isMember("startColor"))
-                {
-                    Json::Value startColor = templateData["startColor"];
-                    params.startColor = sf::Color(
-                        startColor.get("r", 255).asUInt(),
-                        startColor.get("g", 255).asUInt(),
-                        startColor.get("b", 255).asUInt(),
-                        startColor.get("a", 255).asUInt());
-                }
-
-                if (templateData.isMember("endColor"))
-                {
-                    Json::Value endColor = templateData["endColor"];
-                    params.endColor = sf::Color(
-                        endColor.get("r", 255).asUInt(),
-                        endColor.get("g", 255).asUInt(),
-                        endColor.get("b", 255).asUInt(),
-                        endColor.get("a", 0).asUInt());
-                }
-
-                // Load base velocity
-                if (templateData.isMember("baseVelocity"))
-                {
-                    Json::Value baseVelocity = templateData["baseVelocity"];
-                    params.baseVelocity = sf::Vector2f(
-                        baseVelocity.get("x", 0.0f).asFloat(),
-                        baseVelocity.get("y", 0.0f).asFloat());
-                }
-
-                // Load position offset
-                if (templateData.isMember("positionOffset"))
-                {
-                    Json::Value posOffset = templateData["positionOffset"];
-                    params.positionOffset = sf::Vector2f(
-                        posOffset.get("x", 0.0f).asFloat(),
-                        posOffset.get("y", 0.0f).asFloat());
-                }
-
-                // Add to templates
-                m_templates[templateName] = params;
-                std::cout << "Loaded particle template: " << templateName << std::endl;
-            }
-
-            return true;
-        }
-        catch (const std::exception &e)
-        {
-            std::cerr << "Error loading particle templates: " << e.what() << std::endl;
-            return false;
-        }
+        // Clean up particle components
+        m_particleComponents.clear();
     }
 
     bool ParticleSystem::setupParticleSystem(ParticleComponent &component, const std::string &templateName)
@@ -250,74 +127,97 @@ namespace Orenji
         return true;
     }
 
-    ParticleComponent *ParticleSystem::createSystem(const std::string &id, ParticleType type, const sf::Vector2f &position, const sf::Color &color)
+    ParticleComponent *ParticleSystem::createParticleSystem(const std::string &name, const std::string &texturePath)
     {
         // Create a new component
-        auto component = std::make_shared<ParticleComponent>();
+        auto component = std::make_unique<ParticleComponent>();
+
+        // Set texture if provided
+        if (!texturePath.empty())
+        {
+            component->setTexture(texturePath);
+        }
+
+        // Store and return the component
+        ParticleComponent *result = component.get();
+        m_particleComponents[name] = std::move(component);
+        return result;
+    }
+
+    bool ParticleSystem::setTexture(const std::string &name, const std::string &texturePath)
+    {
+        auto it = m_particleComponents.find(name);
+        if (it != m_particleComponents.end())
+        {
+            it->second->setTexture(texturePath);
+            return true;
+        }
+        return false;
+    }
+
+    bool ParticleSystem::createSystem(const std::string &id, ParticleType type, const sf::Vector2f &position, const sf::Color &color)
+    {
+        // Create a new particle system based on type
+        auto component = std::make_unique<ParticleComponent>();
 
         std::string templateName;
 
         // Map ParticleType to template name
         switch (type)
         {
-        case ParticleType::Fire:
-            templateName = "fire";
-            break;
-        case ParticleType::Smoke:
-            templateName = "smoke";
-            break;
-        case ParticleType::Spark:
-            templateName = "spark";
-            break;
-        case ParticleType::Water:
-            templateName = "water";
-            break;
-        case ParticleType::Explosion:
+        case ParticleType::EXPLOSION:
             templateName = "explosion";
             break;
+        case ParticleType::FIRE:
+            templateName = "fire";
+            break;
+        case ParticleType::SMOKE:
+            templateName = "smoke";
+            break;
+        case ParticleType::SPARKLE:
+            templateName = "spark";
+            break;
         default:
-            templateName = "fire"; // Default to fire
+            templateName = "fire"; // Default
             break;
         }
 
-        // Configure the component using the template
+        // Configure the component
         if (!setupParticleSystem(*component, templateName))
         {
-            return nullptr;
+            return false;
         }
 
-        // Store and return the component
-        m_particleComponents[id] = component;
+        // Store the component
+        m_particleSystems[id] = std::move(std::make_unique<ParticleData>());
+        m_particleSystems[id]->active = true;
+        m_particleSystems[id]->position = position;
 
-        // Set the component as enabled
-        component->setEnabled(true);
+        // Add to component map as well
+        m_particleComponents[id] = std::move(component);
 
-        return component.get();
+        return true;
     }
 
-    ParticleComponent *ParticleSystem::createCustomSystem(const std::string &id, const sf::Vector2f &position,
-                                                          float emissionRate, sf::Time particleLifetime)
+    bool ParticleSystem::createCustomSystem(const std::string &id, const sf::Vector2f &position, const EmissionParameters &params)
     {
-        // Create a new component
-        auto component = std::make_shared<ParticleComponent>();
+        // Create a new particle system with custom parameters
+        auto component = std::make_unique<ParticleComponent>();
 
-        // Create custom emission parameters
-        EmissionParameters params;
-        params.emissionRate = emissionRate;
-        params.minLifetime = particleLifetime.asSeconds();
-        params.maxLifetime = particleLifetime.asSeconds() * 1.5f;
-
-        // Apply parameters to component
+        // Apply custom parameters
         component->setEmissionParameters(params);
-        component->setTriggerType(emissionRate > 0 ? ParticleTriggerType::Continuous : ParticleTriggerType::OneShot);
+        component->setTriggerType(params.emissionRate > 0 ? ParticleTriggerType::Continuous : ParticleTriggerType::OneShot);
 
-        // Store and return the component
-        m_particleComponents[id] = component;
+        // Store the system
+        m_particleSystems[id] = std::move(std::make_unique<ParticleData>());
+        m_particleSystems[id]->active = true;
+        m_particleSystems[id]->position = position;
+        m_particleSystems[id]->parameters = params;
 
-        // Set the component as enabled
-        component->setEnabled(true);
+        // Add to component map
+        m_particleComponents[id] = std::move(component);
 
-        return component.get();
+        return true;
     }
 
     void ParticleSystem::update(float deltaTime)
@@ -325,7 +225,7 @@ namespace Orenji
         // Update all particle components
         for (auto &pair : m_particleComponents)
         {
-            if (pair.second)
+            if (pair.second && pair.second->isEnabled())
             {
                 pair.second->update(deltaTime);
             }
@@ -337,16 +237,16 @@ namespace Orenji
         // Draw all particle components
         for (const auto &pair : m_particleComponents)
         {
-            if (pair.second)
+            if (pair.second && pair.second->isEnabled())
             {
                 target.draw(*pair.second, states);
             }
         }
     }
 
-    ParticleComponent *ParticleSystem::getComponent(const std::string &id)
+    ParticleComponent *ParticleSystem::getParticleComponent(const std::string &name)
     {
-        auto it = m_particleComponents.find(id);
+        auto it = m_particleComponents.find(name);
         if (it != m_particleComponents.end())
         {
             return it->second.get();
@@ -354,36 +254,82 @@ namespace Orenji
         return nullptr;
     }
 
-    void ParticleSystem::removeComponent(const std::string &id)
+    void ParticleSystem::removeParticleSystem(const std::string &name)
     {
-        m_particleComponents.erase(id);
+        m_particleComponents.erase(name);
     }
 
-    bool ParticleSystem::addAffector(const std::string &particleId, AffectorType type, float strength)
+    bool ParticleSystem::hasParticleSystem(const std::string &name) const
     {
-        // Find the particle component
-        auto component = getComponent(particleId);
-        if (!component)
+        return m_particleComponents.find(name) != m_particleComponents.end();
+    }
+
+    bool ParticleSystem::emit(const std::string &id, int count)
+    {
+        auto component = getParticleComponent(id);
+        if (component)
         {
-            return false;
+            component->emit(count);
+            return true;
         }
+        return false;
+    }
 
-        // Implementation of custom affectors would go here
-        // Since our system is simplified, we would need to implement actual affector logic
-        // in the ParticleComponent::applyAffectors method
+    bool ParticleSystem::setPosition(const std::string &id, const sf::Vector2f &position)
+    {
+        auto it = m_particleSystems.find(id);
+        if (it != m_particleSystems.end())
+        {
+            it->second->position = position;
+            return true;
+        }
+        return false;
+    }
 
+    bool ParticleSystem::setActive(const std::string &id, bool active)
+    {
+        auto component = getParticleComponent(id);
+        if (component)
+        {
+            component->setEnabled(active);
+            return true;
+        }
+        return false;
+    }
+
+    bool ParticleSystem::stop(const std::string &id)
+    {
+        return setActive(id, false);
+    }
+
+    bool ParticleSystem::removeSystem(const std::string &id)
+    {
+        m_particleSystems.erase(id);
+        m_particleComponents.erase(id);
         return true;
     }
 
-    void ParticleSystem::clearAllParticles()
+    bool ParticleSystem::addAffector(const std::string &id, AffectorType type, float strength)
     {
-        for (auto &pair : m_particleComponents)
+        auto it = m_particleSystems.find(id);
+        if (it != m_particleSystems.end())
         {
-            if (pair.second)
-            {
-                pair.second->clearParticles();
-            }
+            it->second->affectors.push_back(std::make_pair(type, strength));
+            return true;
         }
+        return false;
+    }
+
+    bool ParticleSystem::setTexture(const std::string &id, const sf::Texture &texture, const sf::IntRect &textureRect)
+    {
+        auto it = m_particleSystems.find(id);
+        if (it != m_particleSystems.end())
+        {
+            it->second->texture = texture;
+            it->second->textureRect = textureRect;
+            return true;
+        }
+        return false;
     }
 
 } // namespace Orenji

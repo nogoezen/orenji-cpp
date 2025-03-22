@@ -268,6 +268,9 @@ namespace Orenji
         // Map of particle components by name
         std::map<std::string, std::unique_ptr<ParticleComponent>> m_particleComponents;
 
+        // Map of templates by name
+        std::map<std::string, EmissionParameters> m_templates;
+
         /**
          * @brief Generate a new particle based on the given parameters
          * @param params Emission parameters

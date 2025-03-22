@@ -24,6 +24,21 @@ namespace Orenji
     };
 
     /**
+     * @brief Structure représentant une particule simple
+     */
+    struct SimpleParticle
+    {
+        sf::Vector2f position; // Position
+        sf::Vector2f velocity; // Vitesse
+        sf::Color color;       // Couleur
+        float lifetime;        // Durée de vie maximale
+        float elapsed;         // Temps écoulé
+        float size;            // Taille
+        float rotation;        // Rotation
+        float rotationSpeed;   // Vitesse de rotation
+    };
+
+    /**
      * @brief Composant pour gérer un système de particules simple
      * Implémentation sans dépendance à Thor
      */
