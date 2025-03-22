@@ -1,10 +1,8 @@
 # Fichiers compilés
 *.o
 *.obj
-*.exe
 *.out
 *.app
-*.dll
 *.so
 *.dylib
 
