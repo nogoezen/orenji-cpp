@@ -1,133 +1,187 @@
 #include "Scene/SceneManager.hpp"
 #include <iostream>
+#include <algorithm>
 
 namespace Orenji
 {
 
     SceneManager::SceneManager()
-        : m_activeSceneName("")
     {
     }
 
     SceneManager::~SceneManager()
     {
         m_scenes.clear();
+        m_activeScenes.clear();
     }
 
-    bool SceneManager::addScene(const std::string &name, ScenePtr scene)
+    bool SceneManager::initialize()
     {
-        if (!scene)
-        {
-            std::cerr << "SceneManager::addScene: Scène invalide" << std::endl;
-            return false;
-        }
-
-        if (hasScene(name))
-        {
-            std::cerr << "SceneManager::addScene: Une scène avec ce nom existe déjà: " << name << std::endl;
-            return false;
-        }
-
-        m_scenes[name] = scene;
-        scene->setName(name);
-
-        // Si c'est la première scène, la définir comme active
-        if (m_scenes.size() == 1)
-        {
-            m_activeSceneName = name;
-        }
-
         return true;
     }
 
-    ScenePtr SceneManager::createScene(const std::string &name)
+    void SceneManager::addScene(const std::string &id, ScenePtr scene)
     {
-        if (hasScene(name))
+        if (scene)
         {
-            std::cerr << "SceneManager::createScene: Une scène avec ce nom existe déjà: " << name << std::endl;
+            m_scenes[id] = std::move(scene);
+        }
+    }
+
+    Scene *SceneManager::createScene(const std::string &id, const std::string &sceneName)
+    {
+        auto it = m_factories.find(id);
+        if (it == m_factories.end())
+        {
+            std::cerr << "Erreur : type de scène '" << id << "' non enregistré" << std::endl;
             return nullptr;
         }
 
-        auto scene = std::make_shared<Scene>(name);
-        if (addScene(name, scene))
+        auto scene = it->second();
+        if (!scene)
         {
-            return scene;
+            std::cerr << "Erreur : échec de création de la scène de type '" << id << "'" << std::endl;
+            return nullptr;
         }
 
-        return nullptr;
+        scene->setName(sceneName);
+        if (!scene->initialize())
+        {
+            std::cerr << "Erreur : échec d'initialisation de la scène '" << sceneName << "'" << std::endl;
+            return nullptr;
+        }
+
+        Scene *scenePtr = scene.get();
+        m_scenes[sceneName] = std::move(scene);
+        return scenePtr;
     }
 
-    bool SceneManager::removeScene(const std::string &name)
+    bool SceneManager::activateScene(const std::string &id, bool exclusive)
     {
-        if (!hasScene(name))
-        {
+        auto it = m_scenes.find(id);
+        if (it == m_scenes.end())
             return false;
+
+        if (exclusive)
+        {
+            // Désactive toutes les scènes actuellement actives
+            for (const auto &activeId : m_activeScenes)
+            {
+                auto sceneIt = m_scenes.find(activeId);
+                if (sceneIt != m_scenes.end())
+                {
+                    sceneIt->second->onDeactivate();
+                }
+            }
+            m_activeScenes.clear();
+        }
+        else if (isSceneActive(id))
+        {
+            // La scène est déjà active
+            return true;
         }
 
-        m_scenes.erase(name);
+        // Active la scène
+        it->second->onActivate();
+        m_activeScenes.push_back(id);
+        return true;
+    }
 
-        // Si la scène active a été supprimée, en définir une autre si possible
-        if (m_activeSceneName == name)
+    bool SceneManager::deactivateScene(const std::string &id)
+    {
+        auto it = std::find(m_activeScenes.begin(), m_activeScenes.end(), id);
+        if (it == m_activeScenes.end())
+            return false;
+
+        auto sceneIt = m_scenes.find(id);
+        if (sceneIt != m_scenes.end())
         {
-            m_activeSceneName = "";
-            if (!m_scenes.empty())
+            sceneIt->second->onDeactivate();
+        }
+
+        m_activeScenes.erase(it);
+        return true;
+    }
+
+    bool SceneManager::removeScene(const std::string &id)
+    {
+        // Désactive d'abord la scène si elle est active
+        deactivateScene(id);
+
+        // Supprime la scène
+        auto it = m_scenes.find(id);
+        if (it == m_scenes.end())
+            return false;
+
+        m_scenes.erase(it);
+        return true;
+    }
+
+    Scene *SceneManager::getScene(const std::string &id)
+    {
+        auto it = m_scenes.find(id);
+        return (it != m_scenes.end()) ? it->second.get() : nullptr;
+    }
+
+    bool SceneManager::isSceneActive(const std::string &id) const
+    {
+        return std::find(m_activeScenes.begin(), m_activeScenes.end(), id) != m_activeScenes.end();
+    }
+
+    void SceneManager::update(float dt)
+    {
+        // Met à jour toutes les scènes actives
+        for (const auto &id : m_activeScenes)
+        {
+            auto it = m_scenes.find(id);
+            if (it != m_scenes.end())
             {
-                m_activeSceneName = m_scenes.begin()->first;
+                it->second->update(dt);
             }
         }
-
-        return true;
     }
 
-    ScenePtr SceneManager::getScene(const std::string &name) const
+    void SceneManager::render(sf::RenderTarget &target)
     {
-        auto it = m_scenes.find(name);
-        if (it != m_scenes.end())
+        // Dessine toutes les scènes actives dans l'ordre
+        for (const auto &id : m_activeScenes)
         {
-            return it->second;
+            auto it = m_scenes.find(id);
+            if (it != m_scenes.end())
+            {
+                it->second->render(target);
+            }
         }
-
-        return nullptr;
     }
 
-    bool SceneManager::setActiveScene(const std::string &name)
+    bool SceneManager::loadSceneFromFile(const std::string &filename, const std::string &id)
     {
-        if (!hasScene(name))
+        // Crée une nouvelle scène vide
+        auto scene = std::make_unique<Scene>(id);
+
+        // Charge la scène depuis le fichier
+        if (!scene->loadFromFile(filename))
         {
-            std::cerr << "SceneManager::setActiveScene: Scène non trouvée: " << name << std::endl;
+            std::cerr << "Erreur : échec du chargement de la scène depuis '" << filename << "'" << std::endl;
             return false;
         }
 
-        m_activeSceneName = name;
+        // Ajoute la scène
+        m_scenes[id] = std::move(scene);
         return true;
     }
 
-    ScenePtr SceneManager::getActiveScene() const
+    bool SceneManager::saveSceneToFile(const std::string &id, const std::string &filename)
     {
-        return getScene(m_activeSceneName);
-    }
-
-    bool SceneManager::hasScene(const std::string &name) const
-    {
-        return m_scenes.find(name) != m_scenes.end();
-    }
-
-    void SceneManager::update(float deltaTime)
-    {
-        auto activeScene = getActiveScene();
-        if (activeScene)
+        auto it = m_scenes.find(id);
+        if (it == m_scenes.end())
         {
-            activeScene->update(deltaTime);
+            std::cerr << "Erreur : scène '" << id << "' non trouvée" << std::endl;
+            return false;
         }
-    }
 
-    void SceneManager::render(sf::RenderWindow &window)
-    {
-        auto activeScene = getActiveScene();
-        if (activeScene)
-        {
-            activeScene->render(window);
-        }
+        // Sauvegarde la scène dans le fichier
+        return it->second->saveToFile(filename);
     }
 
 } // namespace Orenji

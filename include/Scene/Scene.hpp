@@ -1,21 +1,18 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include <string>
+#include "Scene/SceneNode.hpp"
 #include <memory>
-#include <vector>
-#include <functional>
+#include <string>
+#include <unordered_map>
 
 namespace Orenji
 {
-
-    // Déclarations avancées
-    class Entity;
-    using EntityPtr = std::shared_ptr<Entity>;
-
     /**
      * @class Scene
-     * @brief Représente une scène de jeu avec des entités
+     * @brief Représente une scène complète dans le jeu
+     *
+     * Une scène contient un graphe de nœuds (SceneNode) et gère leur cycle de vie.
+     * Elle permet d'organiser et manipuler les objets du jeu de manière hiérarchique.
      */
     class Scene
     {
@@ -24,10 +21,10 @@ namespace Orenji
          * @brief Constructeur
          * @param name Nom de la scène
          */
-        explicit Scene(const std::string &name = "DefaultScene");
+        explicit Scene(const std::string &name = "Scene");
 
         /**
-         * @brief Destructeur virtuel
+         * @brief Destructeur
          */
         virtual ~Scene();
 
@@ -38,85 +35,112 @@ namespace Orenji
         virtual bool initialize();
 
         /**
-         * @brief Met à jour la scène et ses entités
-         * @param deltaTime Temps écoulé depuis la dernière mise à jour
+         * @brief Met à jour la scène
+         * @param dt Delta time (temps écoulé depuis la dernière mise à jour)
          */
-        virtual void update(float deltaTime);
+        virtual void update(float dt);
 
         /**
-         * @brief Dessine la scène et ses entités
-         * @param window La fenêtre SFML sur laquelle dessiner
+         * @brief Dessine la scène
+         * @param target Cible de rendu
          */
-        virtual void render(sf::RenderWindow &window);
+        virtual void render(sf::RenderTarget &target);
 
         /**
-         * @brief Ajoute une entité à la scène
-         * @param entity L'entité à ajouter
-         * @return Pointeur vers l'entité ajoutée
+         * @brief Récupère le nœud racine de la scène
+         * @return Pointeur vers le nœud racine
          */
-        EntityPtr addEntity(EntityPtr entity);
+        SceneNode *getRootNode();
 
         /**
-         * @brief Crée et ajoute une nouvelle entité à la scène
-         * @param name Nom de l'entité
-         * @return Pointeur vers l'entité créée
-         */
-        EntityPtr createEntity(const std::string &name = "Entity");
-
-        /**
-         * @brief Trouve une entité par son ID
-         * @param id ID de l'entité
-         * @return Pointeur vers l'entité trouvée, nullptr si non trouvée
-         */
-        EntityPtr findEntityById(unsigned int id) const;
-
-        /**
-         * @brief Trouve une entité par son nom
-         * @param name Nom de l'entité
-         * @return Pointeur vers la première entité trouvée avec ce nom, nullptr si non trouvée
-         */
-        EntityPtr findEntityByName(const std::string &name) const;
-
-        /**
-         * @brief Supprime une entité de la scène
-         * @param id ID de l'entité à supprimer
-         * @return true si l'entité a été supprimée, false sinon
-         */
-        bool removeEntity(unsigned int id);
-
-        /**
-         * @brief Supprime toutes les entités de la scène
-         */
-        void clearEntities();
-
-        /**
-         * @brief Obtient le nom de la scène
+         * @brief Récupère le nom de la scène
          * @return Nom de la scène
          */
-        const std::string &getName() const { return m_name; }
+        const std::string &getName() const;
 
         /**
          * @brief Définit le nom de la scène
-         * @param name Nouveau nom de la scène
+         * @param name Nouveau nom
          */
-        void setName(const std::string &name) { m_name = name; }
+        void setName(const std::string &name);
 
         /**
-         * @brief Obtient le nombre d'entités dans la scène
-         * @return Nombre d'entités
+         * @brief Récupère un nœud par son nom
+         * @param name Nom du nœud à rechercher
+         * @return Pointeur vers le nœud, nullptr si non trouvé
          */
-        size_t getEntityCount() const { return m_entities.size(); }
+        SceneNode *findNodeByName(const std::string &name);
+
+        /**
+         * @brief Ajoute un nœud à la scène
+         * @param node Nœud à ajouter
+         * @param parent Nom du parent (utilise la racine si vide)
+         * @return Pointeur vers le nœud ajouté
+         */
+        SceneNode *addNode(SceneNode::Ptr node, const std::string &parent = "");
+
+        /**
+         * @brief Crée et ajoute un nouveau nœud à la scène
+         * @param name Nom du nouveau nœud
+         * @param parent Nom du parent (utilise la racine si vide)
+         * @return Pointeur vers le nœud créé
+         */
+        SceneNode *createNode(const std::string &name, const std::string &parent = "");
+
+        /**
+         * @brief Supprime un nœud de la scène
+         * @param name Nom du nœud à supprimer
+         * @return true si le nœud a été supprimé, false si non trouvé
+         */
+        bool removeNode(const std::string &name);
+
+        /**
+         * @brief Charge une scène depuis un fichier JSON
+         * @param filename Chemin vers le fichier JSON
+         * @return true si le chargement a réussi, false sinon
+         */
+        bool loadFromFile(const std::string &filename);
+
+        /**
+         * @brief Sauvegarde la scène dans un fichier JSON
+         * @param filename Chemin vers le fichier JSON
+         * @return true si la sauvegarde a réussi, false sinon
+         */
+        bool saveToFile(const std::string &filename);
+
+        /**
+         * @brief Efface tous les nœuds de la scène
+         */
+        void clear();
+
+        /**
+         * @brief Fonction appelée lorsque la scène est activée
+         */
+        virtual void onActivate();
+
+        /**
+         * @brief Fonction appelée lorsque la scène est désactivée
+         */
+        virtual void onDeactivate();
+
+    protected:
+        /**
+         * @brief Enregistre un nœud dans le registre de nœuds
+         * @param node Nœud à enregistrer
+         */
+        void registerNode(SceneNode *node);
+
+        /**
+         * @brief Supprime un nœud du registre de nœuds
+         * @param node Nœud à supprimer
+         */
+        void unregisterNode(SceneNode *node);
 
     private:
-        std::string m_name;                ///< Nom de la scène
-        std::vector<EntityPtr> m_entities; ///< Liste des entités dans la scène
-        unsigned int m_nextEntityId;       ///< ID pour la prochaine entité
+        std::string m_name;                                   ///< Nom de la scène
+        std::unique_ptr<SceneNode> m_rootNode;                ///< Nœud racine de la scène
+        std::unordered_map<std::string, SceneNode *> m_nodes; ///< Registre des nœuds par nom
+        bool m_isActive;                                      ///< Indique si la scène est active
     };
-
-    /**
-     * @typedef ScenePtr
-     * @brief Pointeur vers une scène
-     */
-    using ScenePtr = std::shared_ptr<Scene>;
 
 } // namespace Orenji

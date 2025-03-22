@@ -1,117 +1,176 @@
 #include "Scene/Scene.hpp"
 #include "Core/Entity.hpp"
 #include <algorithm>
+#include <fstream>
+#include <iostream>
+
+// À inclure plus tard pour la sérialisation JSON
+// #include <nlohmann/json.hpp>
 
 namespace Orenji
 {
 
     Scene::Scene(const std::string &name)
-        : m_name(name), m_nextEntityId(1)
+        : m_name(name), m_isActive(false)
     {
+        // Crée le nœud racine
+        m_rootNode = std::make_unique<SceneNode>("root");
+        registerNode(m_rootNode.get());
     }
 
     Scene::~Scene()
     {
-        clearEntities();
+        clear();
     }
 
     bool Scene::initialize()
     {
-        for (auto &entity : m_entities)
-        {
-            if (!entity->initialize())
-            {
-                return false;
-            }
-        }
+        // Initialisation de base, peut être étendue dans les classes dérivées
         return true;
     }
 
-    void Scene::update(float deltaTime)
+    void Scene::update(float dt)
     {
-        for (auto &entity : m_entities)
+        if (m_isActive && m_rootNode)
         {
-            if (entity->isActive())
-            {
-                entity->update(deltaTime);
-            }
+            m_rootNode->update(dt);
         }
     }
 
-    void Scene::render(sf::RenderWindow &window)
+    void Scene::render(sf::RenderTarget &target)
     {
-        for (auto &entity : m_entities)
+        if (m_isActive && m_rootNode)
         {
-            if (entity->isActive())
-            {
-                window.draw(*entity);
-            }
+            target.draw(*m_rootNode);
         }
     }
 
-    EntityPtr Scene::addEntity(EntityPtr entity)
+    SceneNode *Scene::getRootNode()
     {
-        if (!entity)
-        {
+        return m_rootNode.get();
+    }
+
+    const std::string &Scene::getName() const
+    {
+        return m_name;
+    }
+
+    void Scene::setName(const std::string &name)
+    {
+        m_name = name;
+    }
+
+    SceneNode *Scene::findNodeByName(const std::string &name)
+    {
+        auto it = m_nodes.find(name);
+        return (it != m_nodes.end()) ? it->second : nullptr;
+    }
+
+    SceneNode *Scene::addNode(SceneNode::Ptr node, const std::string &parent)
+    {
+        if (!node)
             return nullptr;
-        }
 
-        m_entities.push_back(entity);
-        return entity;
-    }
+        SceneNode *nodePtr = node.get();
+        registerNode(nodePtr);
 
-    EntityPtr Scene::createEntity(const std::string &name)
-    {
-        auto entity = std::make_shared<Entity>(m_nextEntityId++, name);
-        return addEntity(entity);
-    }
-
-    EntityPtr Scene::findEntityById(unsigned int id) const
-    {
-        auto it = std::find_if(m_entities.begin(), m_entities.end(),
-                               [id](const EntityPtr &entity)
-                               { return entity->getId() == id; });
-
-        if (it != m_entities.end())
+        SceneNode *parentNode = parent.empty() ? m_rootNode.get() : findNodeByName(parent);
+        if (!parentNode)
         {
-            return *it;
+            std::cerr << "Erreur : parent '" << parent << "' non trouvé pour le nœud '" << node->getName() << "'" << std::endl;
+            parentNode = m_rootNode.get(); // Fallback à la racine
         }
 
-        return nullptr;
+        parentNode->attachChild(std::move(node));
+        return nodePtr;
     }
 
-    EntityPtr Scene::findEntityByName(const std::string &name) const
+    SceneNode *Scene::createNode(const std::string &name, const std::string &parent)
     {
-        auto it = std::find_if(m_entities.begin(), m_entities.end(),
-                               [&name](const EntityPtr &entity)
-                               { return entity->getName() == name; });
-
-        if (it != m_entities.end())
-        {
-            return *it;
-        }
-
-        return nullptr;
+        auto node = std::make_unique<SceneNode>(name);
+        return addNode(std::move(node), parent);
     }
 
-    bool Scene::removeEntity(unsigned int id)
+    bool Scene::removeNode(const std::string &name)
     {
-        auto it = std::find_if(m_entities.begin(), m_entities.end(),
-                               [id](const EntityPtr &entity)
-                               { return entity->getId() == id; });
+        SceneNode *node = findNodeByName(name);
+        if (!node || node == m_rootNode.get())
+            return false;
 
-        if (it != m_entities.end())
-        {
-            m_entities.erase(it);
-            return true;
-        }
+        SceneNode *parent = node->getParent();
+        if (!parent)
+            return false;
 
+        unregisterNode(node);
+        parent->detachChild(*node);
+        return true;
+    }
+
+    bool Scene::loadFromFile(const std::string &filename)
+    {
+        // À implémenter avec nlohmann/json
+        std::cerr << "Warning: Scene::loadFromFile not implemented yet" << std::endl;
         return false;
     }
 
-    void Scene::clearEntities()
+    bool Scene::saveToFile(const std::string &filename)
     {
-        m_entities.clear();
+        // À implémenter avec nlohmann/json
+        std::cerr << "Warning: Scene::saveToFile not implemented yet" << std::endl;
+        return false;
+    }
+
+    void Scene::clear()
+    {
+        m_nodes.clear();
+
+        // Crée un nouveau nœud racine
+        m_rootNode = std::make_unique<SceneNode>("root");
+        registerNode(m_rootNode.get());
+    }
+
+    void Scene::onActivate()
+    {
+        m_isActive = true;
+    }
+
+    void Scene::onDeactivate()
+    {
+        m_isActive = false;
+    }
+
+    void Scene::registerNode(SceneNode *node)
+    {
+        if (node)
+        {
+            // Si le nom est déjà pris, génère un nom unique
+            std::string name = node->getName();
+            if (m_nodes.find(name) != m_nodes.end())
+            {
+                int counter = 1;
+                std::string baseName = name;
+                do
+                {
+                    name = baseName + "_" + std::to_string(counter++);
+                } while (m_nodes.find(name) != m_nodes.end());
+
+                node->setName(name);
+            }
+
+            m_nodes[name] = node;
+        }
+    }
+
+    void Scene::unregisterNode(SceneNode *node)
+    {
+        if (node)
+        {
+            auto it = m_nodes.find(node->getName());
+            if (it != m_nodes.end() && it->second == node)
+            {
+                m_nodes.erase(it);
+            }
+        }
     }
 
 } // namespace Orenji

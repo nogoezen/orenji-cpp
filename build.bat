@@ -33,6 +33,12 @@ if "%1"=="clean" (
     goto :fin
 )
 
+if "%1"=="title_example" (
+    echo %jaune%Compilation de l'exemple de menu titre...%reset%
+    set "MAIN_FILE=src\main_title_example.cpp"
+    goto :compile_example
+)
+
 :: Création des répertoires si nécessaires
 if not exist "%BIN_DIR%" mkdir "%BIN_DIR%"
 if not exist "%OBJ_DIR%" mkdir "%OBJ_DIR%"
@@ -74,6 +80,13 @@ set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\models\Ship.cpp""
 set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\models\City.cpp""
 set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\models\TradeGood.cpp""
 set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\models\TradingSystem.cpp""
+:: Nouveaux fichiers de Scene
+set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\Scene\SceneNode.cpp""
+set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\Scene\Scene.cpp""
+set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\Scene\SceneManager.cpp""
+set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\Scene\TextNode.cpp""
+set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\Scene\SpriteNode.cpp""
+set "ESSENTIAL_FILES=!ESSENTIAL_FILES! "%SRC_DIR%\Scene\TitleScene.cpp""
 
 :: Variables de compilation
 set "COMPILER=g++"
@@ -198,6 +211,28 @@ if "%SFML_VERSION%"=="3" (
     echo %vert%Utilisation de SFML version 3%reset%
 )
 
+goto :compile_main
+
+:compile_example
+:: Commande de compilation pour l'exemple spécifié
+set "COMPILE_CMD=%COMPILER% %STD_VERSION% %OPTIMIZATION% %WARNINGS% %DEBUG% %INCLUDES% %DEFINES% -o %BIN_DIR%\title_example.exe !MAIN_FILE! %ESSENTIAL_FILES% %LIBS%"
+
+:: Exécution de la compilation
+echo %bleu%Compilation de l'exemple...%reset%
+echo %bleu%Commande: %COMPILE_CMD%%reset%
+call %COMPILE_CMD%
+
+:: Vérification du résultat
+if %ERRORLEVEL% NEQ 0 (
+    echo %rouge%ERREUR: La compilation a échoué.%reset%
+    pause
+    goto :fin
+)
+
+echo %vert%Exemple compilé dans %BIN_DIR%\title_example.exe%reset%
+goto :copy_resources
+
+:compile_main
 :: Commande de compilation principale
 set "COMPILE_CMD=%COMPILER% %STD_VERSION% %OPTIMIZATION% %WARNINGS% %DEBUG% %INCLUDES% %DEFINES% -o %BIN_DIR%\OrenjicGame.exe main.cpp %ESSENTIAL_FILES% %LIBS%"
 
@@ -213,6 +248,9 @@ if %ERRORLEVEL% NEQ 0 (
     goto :fin
 )
 
+echo %vert%Exécutable créé dans %BIN_DIR%\OrenjicGame.exe%reset%
+
+:copy_resources
 :: Copie des ressources
 if exist "%RESOURCES_DIR%\sounds" (
     echo Copie des sons...
@@ -372,8 +410,6 @@ if "%USING_MSYS2%"=="1" (
         )
     )
 )
-
-echo %vert%Exécutable créé dans %BIN_DIR%\OrenjicGame.exe%reset%
 
 :fin
 echo %vert%Terminé.%reset%

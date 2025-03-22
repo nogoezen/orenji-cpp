@@ -2,21 +2,25 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <string>
 
 namespace Orenji
 {
 
+    class StateManager;
+
     /**
      * @class State
-     * @brief Interface de base pour les états du jeu
+     * @brief Classe de base pour tous les états du jeu
      */
     class State
     {
     public:
         /**
-         * @brief Constructeur virtuel par défaut
+         * @brief Constructeur
+         * @param stateManager Pointeur vers le gestionnaire d'états
          */
-        State() = default;
+        State(StateManager &stateManager);
 
         /**
          * @brief Destructeur virtuel
@@ -25,9 +29,8 @@ namespace Orenji
 
         /**
          * @brief Initialise l'état
-         * @return true si l'initialisation a réussi, false sinon
          */
-        virtual bool initialize() = 0;
+        virtual void initialize() = 0;
 
         /**
          * @brief Met à jour l'état
@@ -37,40 +40,34 @@ namespace Orenji
 
         /**
          * @brief Gère les événements
-         * @param event L'événement SFML à traiter
+         * @param event Événement à traiter
          */
         virtual void handleEvent(const sf::Event &event) = 0;
 
         /**
          * @brief Dessine l'état
-         * @param window La fenêtre SFML sur laquelle dessiner
+         * @param window Fenêtre sur laquelle dessiner
          */
-        virtual void render(sf::RenderWindow &window) = 0;
+        virtual void draw(sf::RenderWindow &window) = 0;
 
         /**
-         * @brief Appelé lorsque l'état est activé (devient l'état courant)
+         * @brief Méthode appelée lorsque l'état est mis en pause
          */
-        virtual void onActive() {}
+        virtual void pause() {}
 
         /**
-         * @brief Appelé lorsque l'état est désactivé (un autre état devient l'état courant)
+         * @brief Méthode appelée lorsque l'état est repris
          */
-        virtual void onInactive() {}
+        virtual void resume() {}
 
         /**
-         * @brief Vérifie si l'état doit être retiré
-         * @return true si l'état doit être retiré, false sinon
+         * @brief Vérifie si l'état est transparent (si les états en dessous doivent être rendus)
+         * @return true si l'état est transparent, false sinon
          */
-        virtual bool shouldRemove() const { return m_shouldRemove; }
+        virtual bool isTransparent() const { return false; }
 
     protected:
-        bool m_shouldRemove = false;
+        StateManager &m_stateManager;
     };
-
-    /**
-     * @typedef StatePtr
-     * @brief Pointeur vers un état
-     */
-    using StatePtr = std::unique_ptr<State>;
 
 } // namespace Orenji
