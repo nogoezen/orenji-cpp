@@ -135,7 +135,7 @@ namespace Orenji
     ParticleComponent::ParticleComponent(const std::string &id)
         : Component(id), m_emissionRate(30.0f), m_emissionTime(0.0f), m_triggerType(ParticleTriggerType::Continuous), m_enabled(true), m_isActive(false), m_continuousEmitting(false), m_position(0.0f, 0.0f), m_distanceTraveled(0.0f), m_texture(nullptr)
     {
-        m_vertices.setPrimitiveType(sf::Quads);
+        m_vertices.setPrimitiveType(sf::PrimitiveType::Quads);
 
         // Paramètres d'émission par défaut
         m_emissionParams.emissionRate = 30.0f;

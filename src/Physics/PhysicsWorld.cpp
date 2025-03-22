@@ -425,7 +425,7 @@ namespace Orenji
                     sf::Vertex line[2] = {
                         sf::Vertex(worldPos, fixtureColor),
                         sf::Vertex(worldPos + sf::Vector2f(std::cos(angle) * radius, std::sin(angle) * radius), fixtureColor)};
-                    window.draw(line, 2, sf::Lines);
+                    window.draw(line, 2, sf::PrimitiveType::Lines);
                     break;
                 }
                 case b2ShapeType::e_polygon:

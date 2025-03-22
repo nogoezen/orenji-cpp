@@ -233,83 +233,94 @@ En suivant cette démarche, le projet pourra devenir une base solide pour dével
 
 ## Adaptations nécessaires pour les nouvelles versions de librairies
 
-### Mise à jour vers SFML 3
-- [x] Correction des angles (passage de float à sf::Angle)
-- [x] Mise à jour des fonctions de transformation (setPosition, getPosition, rotate, etc.)
-- [x] Gestion des degrés/radians (asDegrees(), asRadians(), etc.)
+### SFML 3
+- [x] Corriger l'utilisation des angles (radians vs degrés)
+- [x] Mettre à jour les fonctions de transformation
+- [x] Remplacer `sf::Quads` par `sf::PrimitiveType::Quads`
+- [x] Remplacer `sf::Lines` par `sf::PrimitiveType::Lines`
+- [ ] Vérifier les autres types primitifs similaires
+- [ ] Vérifier la compatibilité avec le système de rendu
 
-### Mise à jour vers Box2D 3
-- [ ] Mise à jour de la création du monde 
-- [ ] Mise à jour de la gestion des contacts
-- [ ] Adaptation des fixtures et shapes
-- [ ] Adaptation des joints
+### Box2D 3
+- [ ] Mettre à jour la création de monde et la gestion des corps physiques
+  - [ ] Remplacer les pointeurs par des identifiants (b2WorldId, b2BodyId, etc.)
+  - [ ] Mettre à jour les fonctions d'accès (GetBodyAngle, etc.)
+  - [ ] Revoir le système de collision et de contact
+- [ ] Adapter la classe ContactListener
+- [ ] Mettre à jour les fonctions utilitaires dans Box2DTypes.hpp
+- [ ] Vérifier les transformations de coordonnées (mètres/pixels)
 
-### Erreurs de compilation identifiées
+## Erreurs de compilation identifiées
 
-### Erreurs liées à Box2D
-- Types incompatibles entre Box2D 2.4.x et notre code
-- Problèmes avec b2ContactListener dans PhysicsWorld
+### Box2D
+- Erreurs de référence non résolues pour les fonctions Box2D
+- Problèmes d'incompatibilité entre les pointeurs et les identifiants
+- ContactListener nécessite une mise à jour complète
 
-### Erreurs liées à SFML 3
-- [x] Problèmes de conversion entre float et sf::Angle
-- [x] API Transform modifiée
+### SFML
+- ~~Problèmes avec `sf::Vertex` et `sf::PrimitiveType`~~
+- ~~Erreurs liées aux constructeurs de `sf::Vertex`~~
+- ~~Problèmes de compatibilité avec les types primitifs comme `sf::Quads` et `sf::Lines`~~
 
-### Problèmes avec la librairie Thor
-- [x] Dépendances aux particules Thor non compatibles avec le reste
-- [x] Implémentation alternative sans Thor disponible
+### Erreur de duplication
+- ~~Duplication de `SimpleParticle` entre `ParticleComponent.hpp` et `ParticleSystem.hpp`~~
+- ~~Duplication de `EmissionParameters`~~
 
-### Erreurs de duplication
-- [x] ParticleComponent.hpp et ParticleSystem.hpp définissent les mêmes structures
-- [x] Extraction des types communs dans ParticleTypes.hpp
-
-### Problèmes d'undefined references
-- [x] MathUtils::randomFloat non défini
-- [x] Adaptation avec le namespace Utils::Math
+### Erreurs spécifiques au système de particules
+- ~~Erreur de compilation due à Thor (résolu avec `DISABLE_THOR`)~~
+- ~~Erreurs d'inclusion de fichiers relatifs à MathUtils~~
+- ~~Implémentation manquante pour les particules sans Thor~~
 
 ## Plan d'action pour résoudre les erreurs
 
 ### 1. Mise à jour Box2D
-- [ ] Adapter PhysicsWorld.cpp/hpp pour Box2D 3
-- [ ] Mettre à jour Box2DTypes.hpp
-- [ ] Corriger les références à ContactListener
+- [x] Mise à jour de Box2DTypes.hpp
+- [x] Mise à jour de PhysicsWorld.cpp
+- [x] Mise à jour de PhysicsWorld.hpp
+- [ ] Vérifier les autres fichiers qui utilisent Box2D
 
 ### 2. Compatibilité SFML 3
-- [x] Corriger les transformations dans Entity
-- [x] Adapter les angles
+- [x] Mise à jour des types primitifs dans ParticleComponent.cpp
+- [x] Mise à jour des constructeurs de sf::Vertex
+- [x] Mise à jour de PhysicsWorld.cpp pour les fonctions de dessin
+- [ ] Vérifier les autres utilisations de sf::Vertex dans la codebase
 
-### 3. Problèmes de duplication
-- [x] Créer ParticleTypes.hpp
-- [x] Mettre à jour ParticleComponent.hpp
-- [x] Adapter ParticleSystem.hpp
+### 3. Résolution des duplications
+- [x] Définir les structures dans ParticleTypes.hpp
+- [x] Supprimer les définitions dupliquées dans ParticleComponent.hpp
+- [x] Adapter les imports existants
 
-### 4. Intégration des modèles
-- [x] Ajouter les classes de modèles manquantes (City, Ship, etc.)
-- [x] Compléter le système de trading
+### 4. Intégration des modèles manquants
+- [x] Créer le fichier MathUtils.hpp
+- [x] Implémenter les fonctions utilitaires mathématiques
 
-### 5. Utilitaires
-- [x] Adapter MathUtils pour être reconnu par le système de particules
-- [x] Corriger l'implémentation du système de particules sans Thor
+### 5. Implémentation des utilitaires
+- [x] Compléter l'implémentation de ParticleComponent.cpp sans Thor
+- [x] Ajouter la méthode updateVertices()
+- [ ] Finaliser ParticleSystem.cpp
 
 ## Conclusion et prochaines étapes
 
-### Réalisations
-- [x] Intégration de Box2D 2.4.x
-- [x] Implémentation des modèles manquants
-- [x] Implémentation du système de trading
-- [x] Activation du mode de jeu (GameState)
-- [x] Système de particules fonctionnel avec/sans Thor
+### Progrès réalisés
+- Système de particules amélioré avec et sans Thor
+- Adaptation partielle à Box2D 3
+- Résolution des problèmes de types SFML 3
 
-### Priorités pour la suite
-1. Adapter le code à Box2D 3
-2. Finaliser la compatibilité SFML 3
-3. Nettoyer les warnings restants
+### Problèmes restants
+- Compléter l'adaptation à Box2D 3
+- Finaliser l'intégration avec SFML 3
+- Nettoyer les avertissements restants
 
-### À court terme
-- Tester le jeu et corriger les bugs
+### Priorités
+1. Terminer les adaptations pour Box2D 3
+2. Tester la compilation complète
+3. Corriger les erreurs restantes
+
+### Objectifs à court terme
+- Compiler et exécuter le jeu
 - Ajouter de nouvelles fonctionnalités
 
-### À moyen terme
+### Objectifs à moyen terme
 - Améliorer les graphismes
-- Ajouter des effets sonores
-- Intégrer un système de sauvegarde
+- Améliorer les effets sonores
  

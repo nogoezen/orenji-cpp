@@ -280,6 +280,11 @@ namespace Orenji
          */
         sf::Color lerpColor(const sf::Color &start, const sf::Color &end, float alpha);
 
+        /**
+         * @brief Met à jour les vertices pour le rendu
+         */
+        void updateVertices();
+
         float m_emissionRate;              ///< Taux d'émission
         float m_emissionTime;              ///< Temps d'émission
         ParticleTriggerType m_triggerType; ///< Type de déclencheur
