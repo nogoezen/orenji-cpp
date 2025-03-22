@@ -7,7 +7,8 @@
 int main()
 {
     // Créer une fenêtre SFML
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Camera Example", sf::Style::Default);
+    sf::VideoMode mode(800, 600);
+    sf::RenderWindow window(mode, "Camera Example", sf::Style::Default);
     window.setFramerateLimit(60);
 
     // Créer une caméra avec la taille du monde (2000x1500)
@@ -16,11 +17,11 @@ int main()
     // Créer un "joueur" qui sera suivi par la caméra
     sf::CircleShape player(20.0f);
     player.setFillColor(sf::Color::Red);
-    player.setOrigin(20.0f, 20.0f);
-    player.setPosition(400.0f, 300.0f);
+    player.setOrigin(sf::Vector2f(20.0f, 20.0f));
+    player.setPosition(sf::Vector2f(400.0f, 300.0f));
 
     // Créer une grille de fond pour mieux visualiser les déplacements
-    sf::VertexArray grid(sf::Lines);
+    sf::VertexArray grid(sf::PrimitiveType::Lines);
     const int gridSize = 100;
     const int worldWidth = 2000;
     const int worldHeight = 1500;
@@ -46,8 +47,8 @@ int main()
     {
         sf::RectangleShape obj(sf::Vector2f(40.0f, 40.0f));
         obj.setFillColor(sf::Color(100, 100, 255));
-        obj.setOrigin(20.0f, 20.0f);
-        obj.setPosition(std::rand() % worldWidth, std::rand() % worldHeight);
+        obj.setOrigin(sf::Vector2f(20.0f, 20.0f));
+        obj.setPosition(sf::Vector2f(std::rand() % worldWidth, std::rand() % worldHeight));
         objects.push_back(obj);
     }
 
@@ -71,21 +72,19 @@ int main()
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.getIf<sf::Event::Closed>())
+            if (event.type == sf::Event::Closed)
             {
                 window.close();
             }
 
             // Touche Échap pour quitter
-            if (event.getIf<sf::Event::KeyPressed>([](const auto &e)
-                                                   { return e.key.code == sf::Keyboard::Escape; }))
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
             {
                 window.close();
             }
 
             // Touche F pour activer/désactiver le suivi
-            if (event.getIf<sf::Event::KeyPressed>([](const auto &e)
-                                                   { return e.key.code == sf::Keyboard::F; }))
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F)
             {
                 followingEnabled = !followingEnabled;
                 if (followingEnabled)
@@ -101,8 +100,7 @@ int main()
             }
 
             // Touche Z pour zoomer
-            if (event.getIf<sf::Event::KeyPressed>([](const auto &e)
-                                                   { return e.key.code == sf::Keyboard::Z; }))
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Z)
             {
                 float currentZoom = camera.getZoom();
                 camera.setZoom(currentZoom * 1.2f);
@@ -110,8 +108,7 @@ int main()
             }
 
             // Touche X pour dézoomer
-            if (event.getIf<sf::Event::KeyPressed>([](const auto &e)
-                                                   { return e.key.code == sf::Keyboard::X; }))
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::X)
             {
                 float currentZoom = camera.getZoom();
                 camera.setZoom(currentZoom / 1.2f);
@@ -119,16 +116,14 @@ int main()
             }
 
             // Touche S pour effet de secousse
-            if (event.getIf<sf::Event::KeyPressed>([](const auto &e)
-                                                   { return e.key.code == sf::Keyboard::S; }))
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::S)
             {
                 camera.addEffect(Core::Camera::Effect::Shake, 0.5f, 20.0f);
                 std::cout << "Shake effect added" << std::endl;
             }
 
             // Touche P pour effet de panoramique
-            if (event.getIf<sf::Event::KeyPressed>([](const auto &e)
-                                                   { return e.key.code == sf::Keyboard::P; }))
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P)
             {
                 camera.addEffect(Core::Camera::Effect::Pan, 2.0f, 300.0f);
                 std::cout << "Pan effect added" << std::endl;
@@ -139,19 +134,19 @@ int main()
         float deltaTime = clock.restart().asSeconds();
 
         // Mouvement du joueur avec les touches fléchées
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
         {
             playerPos.x -= playerSpeed * deltaTime;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
         {
             playerPos.x += playerSpeed * deltaTime;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
         {
             playerPos.y -= playerSpeed * deltaTime;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
         {
             playerPos.y += playerSpeed * deltaTime;
         }

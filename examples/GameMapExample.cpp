@@ -1,8 +1,24 @@
 #include <SFML/Graphics.hpp>
+#include "../include/Resources/ResourceManager.hpp"
 #include "../include/Gameplay/GameMap.hpp"
 #include "../include/Physics/Box2DWrapper.hpp"
 #include "../include/Resources/TiledMapLoader.hpp"
 #include <iostream>
+
+// Définir les événements SFML pour SFML 3.0
+namespace sf
+{
+    namespace Event
+    {
+        constexpr auto Closed = sf::EventType::Closed;
+        constexpr auto KeyPressed = sf::EventType::KeyPressed;
+    }
+
+    namespace Keyboard
+    {
+        constexpr auto Escape = sf::Keyboard::Key::Escape;
+    }
+}
 
 // Exemple d'utilisation de la classe GameMap
 int main()
@@ -11,11 +27,11 @@ int main()
     sf::RenderWindow window(sf::VideoMode({800, 600}), "GameMap Example", sf::Style::Default);
     window.setFramerateLimit(60);
 
-    // Créer le système physique Box2D
-    Physics::Box2DWrapper physics({0.0f, 9.8f}); // Gravité standard
-
     // Créer le gestionnaire de ressources
     Resources::ResourceManager resourceManager;
+
+    // Créer le système physique Box2D
+    Physics::Box2DWrapper physics({0.0f, 9.8f}); // Gravité standard
 
     // Créer le chargeur de cartes Tiled
     Resources::TiledMapLoader mapLoader(resourceManager);
@@ -41,7 +57,7 @@ int main()
 
     // Trouver le point de départ du joueur
     auto spawnPoints = gameMap.getObjectsByType("spawn");
-    sf::Vector2f playerPos;
+    sf::Vector2f playerPos = {400.0f, 300.0f}; // Position par défaut
 
     if (!spawnPoints.empty())
     {
@@ -75,17 +91,18 @@ int main()
     // Boucle principale
     while (window.isOpen())
     {
-        // SFML 3.0: La gestion des événements a changé
+        // Gestion des événements pour SFML 3.0
         if (auto event = window.pollEvent())
         {
-            // Vérifier le type d'événement
+            // Fermeture de la fenêtre
             if (event->type == sf::Event::Closed)
             {
                 window.close();
             }
 
             // Échap pour quitter
-            if (event->type == sf::Event::KeyPressed && event->key.code == sf::Keyboard::Escape)
+            if (event->type == sf::Event::KeyPressed &&
+                event->key.code == sf::Keyboard::Escape)
             {
                 window.close();
             }
@@ -94,7 +111,7 @@ int main()
         // Calcul du temps delta
         float deltaTime = clock.restart().asSeconds();
 
-        // Mise à jour de la physique - note: step gère maintenant la mise à jour
+        // Mise à jour de la physique
         physics.step(deltaTime);
 
         // Mise à jour de la carte
