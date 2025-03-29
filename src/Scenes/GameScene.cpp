@@ -1,12 +1,12 @@
 #include "../../include/Scenes/GameScene.hpp"
 #include "../../include/Engine.hpp"
 #include <iostream>
-#include <variant>
+#include <SFML/Graphics.hpp>
 
 namespace Scenes
 {
 
-    GameScene::GameScene(Engine &engine)
+    GameScene::GameScene(Core::Engine &engine)
         : Core::Scene("Game"), m_engine(engine)
     {
         std::cout << "GameScene created" << std::endl;
@@ -45,12 +45,9 @@ namespace Scenes
     void GameScene::handleEvent(const sf::Event &event)
     {
         // Gestion des événements spécifiques à la scène
-        if (event.is<sf::Event::KeyPressed>())
+        if (event.type == sf::Event::KeyPressed)
         {
-            // Get the KeyPressed data using getIf
-            const auto *keyPressed = event.getIf<sf::Event::KeyPressed>();
-
-            if (keyPressed && keyPressed->code == sf::Keyboard::Key::Escape)
+            if (event.key.code == sf::Keyboard::Key::Escape)
             {
                 // Mettre le jeu en pause
                 std::cout << "Game paused" << std::endl;

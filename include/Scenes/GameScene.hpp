@@ -4,7 +4,10 @@
 #include <SFML/Graphics.hpp>
 
 // Forward declaration
-class Engine;
+namespace Core
+{
+    class Engine;
+}
 
 namespace Scenes
 {
@@ -19,7 +22,7 @@ namespace Scenes
          * @brief Constructor
          * @param engine Reference to the engine
          */
-        GameScene(Engine &engine);
+        GameScene(Core::Engine &engine);
 
         /**
          * @brief Destructor
@@ -50,7 +53,7 @@ namespace Scenes
         virtual void handleEvent(const sf::Event &event) override;
 
     private:
-        Engine &m_engine;
+        Core::Engine &m_engine;
 
         // Game elements
         // TODO: Add game-specific variables

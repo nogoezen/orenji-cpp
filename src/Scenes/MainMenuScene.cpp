@@ -6,6 +6,7 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <cmath>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
@@ -13,7 +14,8 @@ namespace Scenes
 {
     MainMenuScene::MainMenuScene(Core::Engine &engine)
         : Scene("MainMenu"), m_engine(engine), m_background(), m_showDemosList(false),
-          m_selectedDemo(0), m_selectedItem(0), m_music(nullptr)
+          m_selectedDemo(0), m_selectedItem(0), m_music(nullptr),
+          m_transitionAlpha(0.0f), m_isTransitioning(false)
     {
         std::cout << "MainMenuScene created" << std::endl;
     }
@@ -21,6 +23,14 @@ namespace Scenes
     MainMenuScene::~MainMenuScene()
     {
         std::cout << "MainMenuScene destroyed" << std::endl;
+
+        // Properly clean up music
+        if (m_music != nullptr)
+        {
+            m_music->stop();
+            delete m_music;
+            m_music = nullptr;
+        }
     }
 
     void MainMenuScene::init()
@@ -29,21 +39,23 @@ namespace Scenes
         try
         {
             m_resourceManager.loadFont("main", "resources/fonts/VeniceClassic.ttf");
+            m_resourceManager.loadFont("secondary", "resources/fonts/arial.ttf");
         }
         catch (const std::exception &e)
         {
-            std::cerr << "Failed to load main font: " << e.what() << std::endl;
+            std::cerr << "Failed to load fonts: " << e.what() << std::endl;
             return;
         }
 
-        // Load background image
+        // Load background images
         try
         {
             m_resourceManager.loadTexture("menu_bg", "resources/textures/Titles/title-bg.png");
+            m_resourceManager.loadTexture("title_overlay", "resources/textures/Titles/001-Title01.jpg");
         }
         catch (const std::exception &e)
         {
-            std::cerr << "Failed to load background image: " << e.what() << std::endl;
+            std::cerr << "Failed to load background images: " << e.what() << std::endl;
             return;
         }
 
@@ -51,26 +63,21 @@ namespace Scenes
         try
         {
             sf::Font &font = m_resourceManager.getFont("main");
-            m_titleText = std::make_unique<sf::Text>("Orenji Engine", font, 72);
-            m_titleText->setFillColor(sf::Color(255, 128, 0));
-            m_titleText->setOutlineColor(sf::Color(128, 64, 0));
-            m_titleText->setOutlineThickness(2.0f);
+            m_titleText = std::make_unique<sf::Text>("Orenji Engine", font, 80);
+            m_titleText->setFillColor(sf::Color(255, 128, 0, 255));
+            m_titleText->setOutlineColor(sf::Color(128, 64, 0, 255));
+            m_titleText->setOutlineThickness(3.0f);
+            m_titleText->setStyle(sf::Text::Bold);
 
             // SFML 3 way to center text
             sf::FloatRect bounds = m_titleText->getLocalBounds();
             m_titleText->setOrigin(sf::Vector2f(bounds.width / 2.0f, bounds.height / 2.0f));
-            m_titleText->setPosition(sf::Vector2f(m_engine.getWindow().getSize().x / 2.0f, 100.0f));
+            m_titleText->setPosition(sf::Vector2f(m_engine.getWindow().getSize().x / 2.0f, 120.0f));
         }
         catch (const std::exception &e)
         {
             std::cerr << "Failed to create title text: " << e.what() << std::endl;
         }
-
-        // Create menu items
-        createMenuItem("New Game", 250.0f);
-        createMenuItem("Examples", 350.0f);
-        createMenuItem("Options", 450.0f);
-        createMenuItem("Exit", 550.0f);
 
         // Create background
         try
@@ -85,27 +92,173 @@ namespace Scenes
             float scaleY = static_cast<float>(windowSize.y) / static_cast<float>(textureSize.y);
 
             m_background.setScale(sf::Vector2f(scaleX, scaleY));
+
+            // Create title overlay
+            m_backgroundSprite = sf::Sprite();
+            m_backgroundSprite->setTexture(m_resourceManager.getTexture("title_overlay"));
+
+            // Scale the overlay to fit the screen width but preserve aspect ratio
+            sf::Vector2u overlaySize = m_resourceManager.getTexture("title_overlay").getSize();
+            float overlayScale = static_cast<float>(windowSize.x) / static_cast<float>(overlaySize.x);
+            m_backgroundSprite->setScale(sf::Vector2f(overlayScale, overlayScale));
+
+            // Position at bottom of screen
+            float overlayHeight = overlaySize.y * overlayScale;
+            m_backgroundSprite->setPosition(0, windowSize.y - overlayHeight);
+
+            // Set initial alpha (transparent)
+            m_backgroundSprite->setColor(sf::Color(255, 255, 255, 0));
         }
         catch (const std::exception &e)
         {
             std::cerr << "Failed to create background: " << e.what() << std::endl;
         }
 
+        // Create menu items with animation delay
+        createMenuItem("New Game", 280.0f);
+        createMenuItem("Examples", 360.0f);
+        createMenuItem("Options", 440.0f);
+        createMenuItem("Exit", 520.0f);
+
         // Load available demos
         loadDemosList();
 
+        // Update menu selection to highlight the first item
         updateMenuSelection();
+
+        // Load and play background music
+        try
+        {
+            m_music = new sf::Music();
+            if (m_music->openFromFile("resources/sounds/BGM/012-Theme01.mid"))
+            {
+                m_music->setLoop(true);
+                m_music->setVolume(70.0f);
+                m_music->play();
+            }
+            else
+            {
+                std::cerr << "Failed to open music file" << std::endl;
+                delete m_music;
+                m_music = nullptr;
+            }
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << "Failed to create music: " << e.what() << std::endl;
+            if (m_music != nullptr)
+            {
+                delete m_music;
+                m_music = nullptr;
+            }
+        }
+
+        // Start fade-in transition
+        m_isTransitioning = true;
+        m_transitionAlpha = 0.0f;
     }
 
     void MainMenuScene::update(float deltaTime)
     {
-        // Update animations or other dynamic elements
+        // Update animations
+        static float elapsedTime = 0.0f;
+        elapsedTime += deltaTime;
+
+        // Subtle floating animation for title
+        if (m_titleText)
+        {
+            float offsetY = std::sin(elapsedTime * 1.5f) * 5.0f;
+            m_titleText->setPosition(
+                m_engine.getWindow().getSize().x / 2.0f,
+                120.0f + offsetY);
+        }
+
+        // Handle fade-in transition
+        if (m_isTransitioning)
+        {
+            m_transitionAlpha += deltaTime * 255.0f * 0.7f; // 0.7 seconds for full fade
+
+            if (m_transitionAlpha >= 255.0f)
+            {
+                m_transitionAlpha = 255.0f;
+                m_isTransitioning = false;
+            }
+
+            // Apply alpha to overlay and menu items
+            if (m_backgroundSprite)
+            {
+                m_backgroundSprite->setColor(sf::Color(255, 255, 255, static_cast<std::uint8_t>(m_transitionAlpha)));
+            }
+
+            float titleAlpha = std::min(255.0f, m_transitionAlpha * 1.5f);
+            if (m_titleText)
+            {
+                sf::Color titleColor = m_titleText->getFillColor();
+                m_titleText->setFillColor(sf::Color(titleColor.r, titleColor.g, titleColor.b,
+                                                    static_cast<std::uint8_t>(titleAlpha)));
+
+                sf::Color outlineColor = m_titleText->getOutlineColor();
+                m_titleText->setOutlineColor(sf::Color(outlineColor.r, outlineColor.g, outlineColor.b,
+                                                       static_cast<std::uint8_t>(titleAlpha)));
+            }
+
+            // Fade in menu items with cascading effect
+            for (size_t i = 0; i < m_menuItems.size(); ++i)
+            {
+                float delay = 0.1f * static_cast<float>(i); // 0.1 seconds delay between items
+                float itemAlpha = std::max(0.0f, std::min(255.0f, (m_transitionAlpha - (delay * 255.0f)) * 1.2f));
+
+                sf::Color itemColor = m_menuItems[i].getFillColor();
+                m_menuItems[i].setFillColor(sf::Color(itemColor.r, itemColor.g, itemColor.b,
+                                                      static_cast<std::uint8_t>(itemAlpha)));
+
+                if (i == m_selectedItem)
+                {
+                    sf::Color outlineColor = m_menuItems[i].getOutlineColor();
+                    m_menuItems[i].setOutlineColor(sf::Color(outlineColor.r, outlineColor.g, outlineColor.b,
+                                                             static_cast<std::uint8_t>(itemAlpha)));
+                }
+            }
+        }
+
+        // Breathing effect for selected menu item
+        if (!m_isTransitioning && !m_showDemosList)
+        {
+            float breathingFactor = (std::sin(elapsedTime * 3.0f) + 1.0f) / 2.0f; // 0 to 1
+            float scaleFactor = 1.0f + breathingFactor * 0.05f;                   // Scale between 1.0 and 1.05
+
+            for (size_t i = 0; i < m_menuItems.size(); ++i)
+            {
+                if (i == m_selectedItem)
+                {
+                    m_menuItems[i].setScale(sf::Vector2f(scaleFactor, scaleFactor));
+
+                    // Pulse color effect
+                    sf::Color pulseColor = sf::Color(
+                        255,
+                        200 + static_cast<std::uint8_t>(breathingFactor * 55.0f), // 200-255
+                        0 + static_cast<std::uint8_t>(breathingFactor * 100.0f)   // 0-100
+                    );
+                    m_menuItems[i].setFillColor(pulseColor);
+                }
+                else
+                {
+                    m_menuItems[i].setScale(sf::Vector2f(1.0f, 1.0f));
+                }
+            }
+        }
     }
 
     void MainMenuScene::render(sf::RenderWindow &window)
     {
         // Draw background
         window.draw(m_background);
+
+        // Draw title overlay background
+        if (m_backgroundSprite)
+        {
+            window.draw(*m_backgroundSprite);
+        }
 
         // Draw title
         if (m_titleText)
@@ -156,6 +309,12 @@ namespace Scenes
 
     void MainMenuScene::handleEvent(const sf::Event &event)
     {
+        // Skip input during initial transition
+        if (m_isTransitioning)
+        {
+            return;
+        }
+
         if (event.type == sf::Event::KeyPressed)
         {
             if (m_showDemosList)
@@ -217,6 +376,12 @@ namespace Scenes
                     {
                     case 0: // New Game
                         // TODO: Create and set GameScene when implemented
+                        // For now, let's just show a placeholder effect
+                        if (m_titleText)
+                        {
+                            m_titleText->setFillColor(sf::Color(0, 255, 128));
+                            m_titleText->setOutlineColor(sf::Color(0, 128, 64));
+                        }
                         break;
                     case 1: // Examples
                         showDemosList();
@@ -239,7 +404,8 @@ namespace Scenes
         {
             sf::Font &font = m_resourceManager.getFont("main");
             sf::Text menuItem(text, font, 48);
-            menuItem.setFillColor(sf::Color::White);
+            menuItem.setFillColor(sf::Color(255, 255, 255, 0)); // Start invisible
+            menuItem.setStyle(sf::Text::Regular);
 
             // SFML 3 way to center text
             sf::FloatRect bounds = menuItem.getLocalBounds();
@@ -258,18 +424,22 @@ namespace Scenes
     {
         for (size_t i = 0; i < m_menuItems.size(); ++i)
         {
+            // Get current alpha for transition
+            std::uint8_t currentAlpha = m_menuItems[i].getFillColor().a;
+
             if (i == m_selectedItem)
             {
-                m_menuItems[i].setFillColor(sf::Color(255, 200, 0));
-                m_menuItems[i].setOutlineColor(sf::Color(255, 100, 0));
+                m_menuItems[i].setFillColor(sf::Color(255, 200, 0, currentAlpha));
+                m_menuItems[i].setOutlineColor(sf::Color(255, 100, 0, currentAlpha));
                 m_menuItems[i].setOutlineThickness(2.0f);
                 m_menuItems[i].setStyle(sf::Text::Bold);
             }
             else
             {
-                m_menuItems[i].setFillColor(sf::Color::White);
+                m_menuItems[i].setFillColor(sf::Color(255, 255, 255, currentAlpha));
                 m_menuItems[i].setOutlineThickness(0.0f);
                 m_menuItems[i].setStyle(sf::Text::Regular);
+                m_menuItems[i].setScale(sf::Vector2f(1.0f, 1.0f)); // Reset scale
             }
         }
     }
@@ -284,12 +454,16 @@ namespace Scenes
                 m_demoItems[i].setOutlineColor(sf::Color(255, 100, 0));
                 m_demoItems[i].setOutlineThickness(2.0f);
                 m_demoItems[i].setStyle(sf::Text::Bold);
+
+                // Add a subtle scale effect
+                m_demoItems[i].setScale(sf::Vector2f(1.05f, 1.05f));
             }
             else
             {
                 m_demoItems[i].setFillColor(sf::Color::White);
                 m_demoItems[i].setOutlineThickness(0.0f);
                 m_demoItems[i].setStyle(sf::Text::Regular);
+                m_demoItems[i].setScale(sf::Vector2f(1.0f, 1.0f));
             }
         }
     }
@@ -307,10 +481,19 @@ namespace Scenes
         m_demoCommands.clear();
         m_demoDescriptions.clear();
 
+        // Fallback demo descriptions if file not found
+        m_demoDescriptions = {
+            "Particle Effects Demo",
+            "Camera Controls Demo",
+            "Physics Simulation Demo",
+            "Map Editor Demo",
+            "Animation System Demo"};
+
         // Try to load the demos list from file
         std::ifstream file("examples/demos.txt");
         if (file.is_open())
         {
+            m_demoDescriptions.clear();
             std::string line;
             while (std::getline(file, line))
             {

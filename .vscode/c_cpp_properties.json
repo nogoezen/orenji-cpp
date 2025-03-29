@@ -13,7 +13,7 @@
                 "__USE_MINGW_ANSI_STDIO=1",
                 "_GLIBCXX_USE_CXX11_ABI=1"
             ],
-            "compilerPath": "c:/msys64/ucrt64/bin/g++.exe",
+            "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "windows-gcc-x64"

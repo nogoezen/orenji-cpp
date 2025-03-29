@@ -1,5 +1,5 @@
 @echo off
-setlocal
+setlocal EnableDelayedExpansion
 
 REM Check if G++ is available
 where g++ >nul 2>nul
@@ -46,7 +46,9 @@ if not exist "build\resources\textures" mkdir build\resources\textures
 echo.
 echo Copying resources...
 copy resources\fonts\VeniceClassic.ttf build\resources\fonts\ >nul 2>nul
+copy resources\fonts\arial.ttf build\resources\fonts\ >nul 2>nul
 copy resources\textures\Titles\title-bg.png build\resources\textures\Titles\ >nul 2>nul
+copy resources\textures\Titles\001-Title01.jpg build\resources\textures\Titles\ >nul 2>nul
 copy resources\sounds\BGM\012-Theme01.mid build\resources\sounds\BGM\ >nul 2>nul
 
 REM Copy particle effects and textures
@@ -75,6 +77,84 @@ REM Create a demos.txt file for the main menu to read
 echo GameMap Demo - Shows Tiled map integration with Box2D physics (Demo coming soon) > build\examples\demos.txt
 echo Camera Demo - Demonstrates camera follow and effects (Demo coming soon) >> build\examples\demos.txt
 echo Particle Demo - Shows particle effects system capabilities >> build\examples\demos.txt
+
+echo.
+echo =====================================
+echo Building Main Application...
+echo =====================================
+echo Creating a simplified version of Main.exe for demo purposes...
+
+rem Liste des fichiers essentiels
+echo #include "include/Engine.hpp" > src\temp_main.cpp
+echo #include "include/Scenes/MainMenuScene.hpp" >> src\temp_main.cpp
+echo #include ^<iostream^> >> src\temp_main.cpp
+echo #include ^<memory^> >> src\temp_main.cpp
+echo. >> src\temp_main.cpp
+echo int main() >> src\temp_main.cpp
+echo { >> src\temp_main.cpp
+echo     try >> src\temp_main.cpp
+echo     { >> src\temp_main.cpp
+echo         sf::RenderWindow window(sf::VideoMode(sf::Vector2u(1024, 768)), "Orenji Engine - Demo"); >> src\temp_main.cpp
+echo         window.setFramerateLimit(60); >> src\temp_main.cpp
+echo. >> src\temp_main.cpp
+echo         // Créer le gestionnaire de ressources >> src\temp_main.cpp
+echo         Resources::ResourceManager resourceManager; >> src\temp_main.cpp
+echo. >> src\temp_main.cpp
+echo         // Créer la scène de menu >> src\temp_main.cpp
+echo         Scenes::MainMenuScene mainMenu(window, resourceManager); >> src\temp_main.cpp
+echo         mainMenu.init(); >> src\temp_main.cpp
+echo. >> src\temp_main.cpp
+echo         // Boucle principale >> src\temp_main.cpp
+echo         sf::Clock clock; >> src\temp_main.cpp
+echo         while (window.isOpen()) >> src\temp_main.cpp
+echo         { >> src\temp_main.cpp
+echo             // Calculer le temps delta >> src\temp_main.cpp
+echo             float deltaTime = clock.restart().asSeconds(); >> src\temp_main.cpp
+echo. >> src\temp_main.cpp
+echo             // Traiter les événements >> src\temp_main.cpp
+echo             if (auto event = window.pollEvent()) >> src\temp_main.cpp
+echo             { >> src\temp_main.cpp
+echo                 if (event-^>type == sf::Event::Closed) >> src\temp_main.cpp
+echo                     window.close(); >> src\temp_main.cpp
+echo. >> src\temp_main.cpp
+echo                 mainMenu.handleEvent(*event); >> src\temp_main.cpp
+echo             } >> src\temp_main.cpp
+echo. >> src\temp_main.cpp
+echo             // Mise à jour >> src\temp_main.cpp
+echo             mainMenu.update(deltaTime); >> src\temp_main.cpp
+echo. >> src\temp_main.cpp
+echo             // Rendu >> src\temp_main.cpp
+echo             window.clear(sf::Color(40, 40, 40)); >> src\temp_main.cpp
+echo             mainMenu.render(window); >> src\temp_main.cpp
+echo             window.display(); >> src\temp_main.cpp
+echo         } >> src\temp_main.cpp
+echo. >> src\temp_main.cpp
+echo         return 0; >> src\temp_main.cpp
+echo     } >> src\temp_main.cpp
+echo     catch (const std::exception &e) >> src\temp_main.cpp
+echo     { >> src\temp_main.cpp
+echo         std::cerr ^<^< "Exception: " ^<^< e.what() ^<^< std::endl; >> src\temp_main.cpp
+echo         return 1; >> src\temp_main.cpp
+echo     } >> src\temp_main.cpp
+echo } >> src\temp_main.cpp
+
+echo Building simplified Main.exe...
+g++ -o build\bin\MainSimple.exe src\temp_main.cpp src\Scenes\MainMenuScene.cpp src\Core\Scene.cpp -I. -I.\lib\sfml\include -L.\lib\sfml\lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+if %ERRORLEVEL% NEQ 0 (
+    echo Failed to build simplified Main.exe application.
+) else (
+    echo Simplified Main.exe built successfully.
+    
+    REM Delete temporary main file
+    del src\temp_main.cpp
+    
+    REM Copy DLLs to bin directory
+    copy lib\sfml\bin\*.dll build\bin\ >nul 2>nul
+    
+    REM Copy resources to bin directory
+    if not exist "build\bin\resources" mkdir build\bin\resources
+    xcopy /E /Y build\resources build\bin\resources\ >nul 2>nul
+)
 
 echo.
 echo =====================================
@@ -136,15 +216,16 @@ echo =====================================
 echo Build completed!
 echo =====================================
 echo.
+echo Main application:
+echo - MainSimple.exe: Simplified menu demo
+echo.
 echo Tests built successfully:
 echo - SimpleWindow.exe: Basic SFML window test
 echo - MovingBoxTest.exe: SFML box with movement and collisions
 echo.
-echo To run a test:
+echo To run the main application:
 echo cd build\bin
-echo SimpleWindow.exe
-echo   or
-echo MovingBoxTest.exe
+echo MainSimple.exe
 echo.
 echo Press any key to exit...
 pause > nul 
