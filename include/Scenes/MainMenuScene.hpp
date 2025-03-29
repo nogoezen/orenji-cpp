@@ -93,6 +93,7 @@ namespace Scenes
 
         // Music
         sf::Music *m_music;
+        sf::Sound *m_selectionSound;
 
         // Resources
         Resources::ResourceManager m_resourceManager;

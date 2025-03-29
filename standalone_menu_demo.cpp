@@ -19,6 +19,9 @@ int main()
     sf::Texture overlayTexture;
     sf::Font mainFont;
     sf::Music *music = nullptr;
+    sf::SoundBuffer menuSoundBuffer;
+    std::unique_ptr<sf::Sound> menuSound;
+    bool menuSoundLoaded = false;
 
     bool resourcesLoaded = true;
 
@@ -40,6 +43,18 @@ int main()
     {
         std::cerr << "Impossible de charger la texture d'overlay" << std::endl;
         resourcesLoaded = false;
+    }
+
+    // Chargement du son de menu
+    if (menuSoundBuffer.loadFromFile("resources/sounds/se/002-System02.ogg"))
+    {
+        menuSound = std::make_unique<sf::Sound>(menuSoundBuffer);
+        menuSound->setVolume(80.0f);
+        menuSoundLoaded = true;
+    }
+    else
+    {
+        std::cerr << "Impossible de charger le son de menu, mais on continue sans" << std::endl;
     }
 
     // Charger la musique (optionnel)
@@ -160,6 +175,11 @@ int main()
                         if (selectedItem > 0)
                         {
                             selectedItem--;
+                            // Jouer le son de changement de menu
+                            if (menuSoundLoaded && menuSound->getStatus() != sf::SoundSource::Status::Playing)
+                            {
+                                menuSound->play();
+                            }
                         }
                     }
                     else if (keyEvent->code == sf::Keyboard::Key::Down)
@@ -167,6 +187,11 @@ int main()
                         if (selectedItem < static_cast<int>(menuItems.size()) - 1)
                         {
                             selectedItem++;
+                            // Jouer le son de changement de menu
+                            if (menuSoundLoaded && menuSound->getStatus() != sf::SoundSource::Status::Playing)
+                            {
+                                menuSound->play();
+                            }
                         }
                     }
                     else if (keyEvent->code == sf::Keyboard::Key::Enter)

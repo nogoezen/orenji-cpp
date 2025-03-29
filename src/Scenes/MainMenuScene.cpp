@@ -16,7 +16,7 @@ namespace Scenes
     MainMenuScene::MainMenuScene(Core::Engine &engine)
         : Scene("MainMenu"), m_engine(engine), m_showDemosList(false),
           m_selectedDemo(0), m_selectedItem(0), m_music(nullptr),
-          m_transitionAlpha(0.0f), m_isTransitioning(false)
+          m_transitionAlpha(0.0f), m_isTransitioning(false), m_selectionSound(nullptr)
     {
         std::cout << "MainMenuScene created" << std::endl;
     }
@@ -32,6 +32,13 @@ namespace Scenes
             delete m_music;
             m_music = nullptr;
         }
+
+        // Clean up selection sound
+        if (m_selectionSound != nullptr)
+        {
+            delete m_selectionSound;
+            m_selectionSound = nullptr;
+        }
     }
 
     void MainMenuScene::init()
@@ -46,6 +53,19 @@ namespace Scenes
         {
             std::cerr << "Failed to load fonts: " << e.what() << std::endl;
             return;
+        }
+
+        // Load sounds
+        try
+        {
+            m_resourceManager.loadSoundBuffer("menu_change", "resources/sounds/se/002-System02.ogg");
+            m_selectionSound = new sf::Sound(m_resourceManager.getSoundBuffer("menu_change"));
+            m_selectionSound->setVolume(80.0f);
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << "Failed to load selection sound: " << e.what() << std::endl;
+            // Continue without sound
         }
 
         // Load background images
@@ -427,6 +447,12 @@ namespace Scenes
 
     void MainMenuScene::updateMenuSelection()
     {
+        // Play selection sound
+        if (m_selectionSound && m_selectionSound->getStatus() != sf::SoundSource::Status::Playing)
+        {
+            m_selectionSound->play();
+        }
+
         for (size_t i = 0; i < m_menuItems.size(); ++i)
         {
             // Get current alpha for transition
@@ -451,6 +477,12 @@ namespace Scenes
 
     void MainMenuScene::updateDemoSelection()
     {
+        // Play selection sound
+        if (m_selectionSound && m_selectionSound->getStatus() != sf::SoundSource::Status::Playing)
+        {
+            m_selectionSound->play();
+        }
+
         for (size_t i = 0; i < m_demoItems.size(); ++i)
         {
             if (i == m_selectedDemo)
