@@ -10,7 +10,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo =====================================
-echo Orenji-CPP Build Script
+echo Orenji-CPP Build Script (SFML 3.0)
 echo =====================================
 echo.
 echo Checking directories...
@@ -49,7 +49,7 @@ copy resources\fonts\VeniceClassic.ttf build\resources\fonts\ >nul 2>nul
 copy resources\fonts\arial.ttf build\resources\fonts\ >nul 2>nul
 copy resources\textures\Titles\title-bg.png build\resources\textures\Titles\ >nul 2>nul
 copy resources\textures\Titles\001-Title01.jpg build\resources\textures\Titles\ >nul 2>nul
-copy resources\sounds\BGM\012-Theme01.mid build\resources\sounds\BGM\ >nul 2>nul
+copy resources\sounds\BGM\012-Theme01.mp3 build\resources\sounds\BGM\ >nul 2>nul
 
 REM Copy particle effects and textures
 copy resources\effects\*.txt build\resources\effects\ >nul 2>nul
@@ -89,6 +89,7 @@ echo #include "include/Engine.hpp" > src\temp_main.cpp
 echo #include "include/Scenes/MainMenuScene.hpp" >> src\temp_main.cpp
 echo #include ^<iostream^> >> src\temp_main.cpp
 echo #include ^<memory^> >> src\temp_main.cpp
+echo #include ^<cstdint^> >> src\temp_main.cpp
 echo. >> src\temp_main.cpp
 echo int main() >> src\temp_main.cpp
 echo { >> src\temp_main.cpp
@@ -111,10 +112,10 @@ echo         { >> src\temp_main.cpp
 echo             // Calculer le temps delta >> src\temp_main.cpp
 echo             float deltaTime = clock.restart().asSeconds(); >> src\temp_main.cpp
 echo. >> src\temp_main.cpp
-echo             // Traiter les événements >> src\temp_main.cpp
+echo             // Traiter les événements - SFML 3 utilise une nouvelle API pour les événements >> src\temp_main.cpp
 echo             if (auto event = window.pollEvent()) >> src\temp_main.cpp
 echo             { >> src\temp_main.cpp
-echo                 if (event-^>type == sf::Event::Closed) >> src\temp_main.cpp
+echo                 if (event-^>is^<sf::Event::Closed^>()) >> src\temp_main.cpp
 echo                     window.close(); >> src\temp_main.cpp
 echo. >> src\temp_main.cpp
 echo                 mainMenu.handleEvent(*event); >> src\temp_main.cpp
@@ -212,6 +213,15 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo.
+echo Building standalone menu demo for SFML 3...
+g++ -o build\bin\MenuDemoSFML3.exe standalone_menu_demo.cpp -I.\lib\sfml\include -L.\lib\sfml\lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+if %ERRORLEVEL% NEQ 0 (
+    echo Failed to build standalone menu demo.
+) else (
+    echo Standalone menu demo built successfully.
+)
+
+echo.
 echo =====================================
 echo Build completed!
 echo =====================================
@@ -222,10 +232,15 @@ echo.
 echo Tests built successfully:
 echo - SimpleWindow.exe: Basic SFML window test
 echo - MovingBoxTest.exe: SFML box with movement and collisions
+echo - MenuDemoSFML3.exe: Standalone menu demo with SFML 3
 echo.
 echo To run the main application:
 echo cd build\bin
 echo MainSimple.exe
+echo.
+echo To run the standalone menu demo:
+echo cd build
+echo .\bin\MenuDemoSFML3.exe
 echo.
 echo Press any key to exit...
 pause > nul 

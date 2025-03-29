@@ -2,6 +2,7 @@
 #include "include/Scenes/MainMenuScene.hpp" 
 #include <iostream> 
 #include <memory> 
+#include <cstdint> 
  
 int main() 
 { 
@@ -24,10 +25,10 @@ int main()
             // Calculer le temps delta 
             float deltaTime = clock.restart().asSeconds(); 
  
-            // Traiter les événements 
+            // Traiter les événements - SFML 3 utilise une nouvelle API pour les événements 
             if (auto event = window.pollEvent()) 
             { 
-                if (event->type == sf::Event::Closed) 
+                if (event->is<sf::Event::Closed>()) 
                     window.close(); 
  
                 mainMenu.handleEvent(*event); 

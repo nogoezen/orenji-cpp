@@ -45,9 +45,9 @@ namespace Scenes
     void GameScene::handleEvent(const sf::Event &event)
     {
         // Gestion des événements spécifiques à la scène
-        if (event.type == sf::Event::KeyPressed)
+        if (const auto *keyEvent = event.getIf<sf::Event::KeyPressed>())
         {
-            if (event.key.code == sf::Keyboard::Key::Escape)
+            if (keyEvent->code == sf::Keyboard::Key::Escape)
             {
                 // Mettre le jeu en pause
                 std::cout << "Game paused" << std::endl;

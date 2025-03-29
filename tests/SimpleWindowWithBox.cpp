@@ -1,79 +1,83 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <cstdint>
 
 int main()
 {
-    // Create an SFML window
-    sf::RenderWindow window(sf::VideoMode({800, 600}), "Moving Box Test");
+    // Création de la fenêtre
+    sf::RenderWindow window(sf::VideoMode(sf::Vector2u(800, 600)), "Moving Box with Collision");
     window.setFramerateLimit(60);
 
-    // Create a box shape
-    sf::RectangleShape box({50, 50});
-    box.setFillColor(sf::Color::Red);
-    box.setPosition({375, 275}); // Center of the window
+    // Création de notre rectangle
+    sf::RectangleShape box(sf::Vector2f(50.0f, 50.0f));
+    box.setFillColor(sf::Color(255, 128, 0));   // Orange
+    box.setOutlineColor(sf::Color(128, 64, 0)); // Marron
+    box.setOutlineThickness(2.0f);
+    box.setPosition(sf::Vector2f(375.0f, 275.0f)); // Centre de la fenêtre
 
-    // Box velocity
-    sf::Vector2f velocity(100.0f, 80.0f); // pixels per second
+    // Variables pour le mouvement
+    sf::Vector2f velocity(0.0f, 0.0f);
+    float speed = 200.0f; // Vitesse du rectangle en pixels par seconde
 
-    // Clock for delta time calculation
+    // Variables pour les collisions
+    sf::Vector2f windowSize(static_cast<float>(window.getSize().x),
+                            static_cast<float>(window.getSize().y));
+
+    // Horloge pour le framerate
     sf::Clock clock;
 
-    // Main loop
+    // Boucle principale
     while (window.isOpen())
     {
-        // Calculate delta time
         float deltaTime = clock.restart().asSeconds();
 
-        // Handle events
-        while (const auto event = window.pollEvent())
+        // Gestion des événements
+        if (auto event = window.pollEvent())
         {
-            // Close window when closed button is clicked
+            // Fermeture de la fenêtre
             if (event->is<sf::Event::Closed>())
-            {
                 window.close();
-            }
 
-            // Close window when Escape key is pressed
+            // Touche Escape
             if (const auto *keyEvent = event->getIf<sf::Event::KeyPressed>())
             {
                 if (keyEvent->code == sf::Keyboard::Key::Escape)
-                {
                     window.close();
-                }
-                // Reset box position when Space is pressed
-                else if (keyEvent->code == sf::Keyboard::Key::Space)
-                {
-                    box.setPosition({375, 275});
-                }
             }
         }
 
-        // Update box position
-        sf::Vector2f position = box.getPosition();
-        position += velocity * deltaTime;
+        // Mise à jour de la vitesse en fonction des touches pressées
+        velocity = sf::Vector2f(0.0f, 0.0f); // Reset velocity
 
-        // Simple collision detection with window boundaries
-        if (position.x < 0 || position.x + 50 > 800)
-        {
-            velocity.x = -velocity.x;
-            position.x = (position.x < 0) ? 0 : 800 - 50;
-        }
-        if (position.y < 0 || position.y + 50 > 600)
-        {
-            velocity.y = -velocity.y;
-            position.y = (position.y < 0) ? 0 : 600 - 50;
-        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
+            velocity.x = -speed;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
+            velocity.x = speed;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+            velocity.y = -speed;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+            velocity.y = speed;
 
-        // Update the box position
+        // Mise à jour de la position
+        sf::Vector2f position = box.getPosition() + velocity * deltaTime;
+
+        // Détection des collisions avec les bords de la fenêtre
+        sf::FloatRect boxBounds = box.getGlobalBounds();
+        if (position.x < 0)
+            position.x = 0;
+        if (position.y < 0)
+            position.y = 0;
+        if (position.x + boxBounds.size.x > windowSize.x)
+            position.x = windowSize.x - boxBounds.size.x;
+        if (position.y + boxBounds.size.y > windowSize.y)
+            position.y = windowSize.y - boxBounds.size.y;
+
+        // Application de la nouvelle position
         box.setPosition(position);
 
-        // Clear the window
-        window.clear(sf::Color(50, 50, 100));
-
-        // Draw the box
+        // Rendu
+        window.clear(sf::Color(40, 40, 40)); // Fond gris foncé
         window.draw(box);
-
-        // Display the window contents
         window.display();
     }
 

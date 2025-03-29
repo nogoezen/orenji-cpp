@@ -6,7 +6,6 @@
 #include <SFML/Audio.hpp>
 #include <vector>
 #include <memory>
-#include <optional>
 
 // Forward declaration
 namespace Core
@@ -68,7 +67,8 @@ namespace Scenes
         int m_selectedOption;
 
         // Background
-        std::optional<sf::Sprite> m_backgroundSprite;
+        std::unique_ptr<sf::Sprite> m_backgroundSprite;
+        sf::Texture *m_backgroundTexture{nullptr};
 
         // Menu transitions
         float m_transitionAlpha;
@@ -85,7 +85,7 @@ namespace Scenes
         size_t m_selectedDemo;
 
         // Sprite
-        sf::Sprite m_background;
+        std::unique_ptr<sf::Sprite> m_background;
 
         // Menu items
         std::vector<sf::Text> m_menuItems;

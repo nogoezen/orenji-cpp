@@ -24,7 +24,7 @@ namespace Core
     bool Engine::initialize()
     {
         // Create window
-        m_window.create(sf::VideoMode({static_cast<unsigned int>(m_width), static_cast<unsigned int>(m_height)}),
+        m_window.create(sf::VideoMode(sf::Vector2u(m_width, m_height)),
                         m_title, sf::Style::Close);
         m_window.setFramerateLimit(60);
 
@@ -117,17 +117,20 @@ namespace Core
         if (auto event = m_window.pollEvent())
         {
             // Check for window close event
-            if (event->type == sf::Event::Closed)
+            if (event->is<sf::Event::Closed>())
             {
                 m_window.close();
                 return;
             }
 
             // Check for key press event - escape to quit
-            if (event->type == sf::Event::KeyPressed && event->key.code == sf::Keyboard::Escape)
+            if (const auto *keyEvent = event->getIf<sf::Event::KeyPressed>())
             {
-                m_window.close();
-                return;
+                if (keyEvent->code == sf::Keyboard::Key::Escape)
+                {
+                    m_window.close();
+                    return;
+                }
             }
 
             // Pass event to UI manager first

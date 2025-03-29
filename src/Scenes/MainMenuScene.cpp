@@ -7,13 +7,14 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include <cstdint>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
 namespace Scenes
 {
     MainMenuScene::MainMenuScene(Core::Engine &engine)
-        : Scene("MainMenu"), m_engine(engine), m_background(), m_showDemosList(false),
+        : Scene("MainMenu"), m_engine(engine), m_showDemosList(false),
           m_selectedDemo(0), m_selectedItem(0), m_music(nullptr),
           m_transitionAlpha(0.0f), m_isTransitioning(false)
     {
@@ -63,7 +64,7 @@ namespace Scenes
         try
         {
             sf::Font &font = m_resourceManager.getFont("main");
-            m_titleText = std::make_unique<sf::Text>("Orenji Engine", font, 80);
+            m_titleText = std::make_unique<sf::Text>(font, "Orenji Engine", 80);
             m_titleText->setFillColor(sf::Color(255, 128, 0, 255));
             m_titleText->setOutlineColor(sf::Color(128, 64, 0, 255));
             m_titleText->setOutlineThickness(3.0f);
@@ -71,7 +72,7 @@ namespace Scenes
 
             // SFML 3 way to center text
             sf::FloatRect bounds = m_titleText->getLocalBounds();
-            m_titleText->setOrigin(sf::Vector2f(bounds.width / 2.0f, bounds.height / 2.0f));
+            m_titleText->setOrigin(sf::Vector2f(bounds.size.x / 2.0f, bounds.size.y / 2.0f));
             m_titleText->setPosition(sf::Vector2f(m_engine.getWindow().getSize().x / 2.0f, 120.0f));
         }
         catch (const std::exception &e)
@@ -83,7 +84,8 @@ namespace Scenes
         try
         {
             sf::Texture &bgTexture = m_resourceManager.getTexture("menu_bg");
-            m_background.setTexture(bgTexture);
+            m_backgroundTexture = &bgTexture;
+            m_background = std::make_unique<sf::Sprite>(bgTexture);
 
             sf::Vector2u windowSize = m_engine.getWindow().getSize();
             sf::Vector2u textureSize = bgTexture.getSize();
@@ -91,20 +93,20 @@ namespace Scenes
             float scaleX = static_cast<float>(windowSize.x) / static_cast<float>(textureSize.x);
             float scaleY = static_cast<float>(windowSize.y) / static_cast<float>(textureSize.y);
 
-            m_background.setScale(sf::Vector2f(scaleX, scaleY));
+            m_background->setScale(sf::Vector2f(scaleX, scaleY));
 
             // Create title overlay
-            m_backgroundSprite = sf::Sprite();
-            m_backgroundSprite->setTexture(m_resourceManager.getTexture("title_overlay"));
+            sf::Texture &overlayTexture = m_resourceManager.getTexture("title_overlay");
+            m_backgroundSprite = std::make_unique<sf::Sprite>(overlayTexture);
 
             // Scale the overlay to fit the screen width but preserve aspect ratio
-            sf::Vector2u overlaySize = m_resourceManager.getTexture("title_overlay").getSize();
+            sf::Vector2u overlaySize = overlayTexture.getSize();
             float overlayScale = static_cast<float>(windowSize.x) / static_cast<float>(overlaySize.x);
             m_backgroundSprite->setScale(sf::Vector2f(overlayScale, overlayScale));
 
             // Position at bottom of screen
             float overlayHeight = overlaySize.y * overlayScale;
-            m_backgroundSprite->setPosition(0, windowSize.y - overlayHeight);
+            m_backgroundSprite->setPosition(sf::Vector2f(0, windowSize.y - overlayHeight));
 
             // Set initial alpha (transparent)
             m_backgroundSprite->setColor(sf::Color(255, 255, 255, 0));
@@ -130,9 +132,9 @@ namespace Scenes
         try
         {
             m_music = new sf::Music();
-            if (m_music->openFromFile("resources/sounds/BGM/012-Theme01.mid"))
+            if (m_music->openFromFile("resources/sounds/BGM/012-Theme01.mp3"))
             {
-                m_music->setLoop(true);
+                m_music->setLooping(true);
                 m_music->setVolume(70.0f);
                 m_music->play();
             }
@@ -169,8 +171,8 @@ namespace Scenes
         {
             float offsetY = std::sin(elapsedTime * 1.5f) * 5.0f;
             m_titleText->setPosition(
-                m_engine.getWindow().getSize().x / 2.0f,
-                120.0f + offsetY);
+                sf::Vector2f(m_engine.getWindow().getSize().x / 2.0f,
+                             120.0f + offsetY));
         }
 
         // Handle fade-in transition
@@ -252,7 +254,10 @@ namespace Scenes
     void MainMenuScene::render(sf::RenderWindow &window)
     {
         // Draw background
-        window.draw(m_background);
+        if (m_background)
+        {
+            window.draw(*m_background);
+        }
 
         // Draw title overlay background
         if (m_backgroundSprite)
@@ -315,12 +320,12 @@ namespace Scenes
             return;
         }
 
-        if (event.type == sf::Event::KeyPressed)
+        if (const auto *keyEvent = event.getIf<sf::Event::KeyPressed>())
         {
             if (m_showDemosList)
             {
                 // Handle demo list navigation
-                if (event.key.code == sf::Keyboard::Up)
+                if (keyEvent->code == sf::Keyboard::Key::Up)
                 {
                     if (m_selectedDemo > 0)
                     {
@@ -328,7 +333,7 @@ namespace Scenes
                         updateDemoSelection();
                     }
                 }
-                else if (event.key.code == sf::Keyboard::Down)
+                else if (keyEvent->code == sf::Keyboard::Key::Down)
                 {
                     if (m_selectedDemo < m_demoItems.size() - 1)
                     {
@@ -336,7 +341,7 @@ namespace Scenes
                         updateDemoSelection();
                     }
                 }
-                else if (event.key.code == sf::Keyboard::Enter)
+                else if (keyEvent->code == sf::Keyboard::Key::Enter)
                 {
                     // Demos are not launchable yet
                     if (m_comingSoonText)
@@ -344,7 +349,7 @@ namespace Scenes
                         m_comingSoonText->setFillColor(sf::Color(255, 0, 0));
                     }
                 }
-                else if (event.key.code == sf::Keyboard::Escape)
+                else if (keyEvent->code == sf::Keyboard::Key::Escape)
                 {
                     // Return to main menu
                     m_showDemosList = false;
@@ -353,7 +358,7 @@ namespace Scenes
             else
             {
                 // Handle main menu navigation
-                if (event.key.code == sf::Keyboard::Up)
+                if (keyEvent->code == sf::Keyboard::Key::Up)
                 {
                     if (m_selectedItem > 0)
                     {
@@ -361,7 +366,7 @@ namespace Scenes
                         updateMenuSelection();
                     }
                 }
-                else if (event.key.code == sf::Keyboard::Down)
+                else if (keyEvent->code == sf::Keyboard::Key::Down)
                 {
                     if (m_selectedItem < m_menuItems.size() - 1)
                     {
@@ -369,7 +374,7 @@ namespace Scenes
                         updateMenuSelection();
                     }
                 }
-                else if (event.key.code == sf::Keyboard::Enter)
+                else if (keyEvent->code == sf::Keyboard::Key::Enter)
                 {
                     // Execute the selected menu item
                     switch (m_selectedItem)
@@ -403,13 +408,13 @@ namespace Scenes
         try
         {
             sf::Font &font = m_resourceManager.getFont("main");
-            sf::Text menuItem(text, font, 48);
+            sf::Text menuItem(font, text, 48);
             menuItem.setFillColor(sf::Color(255, 255, 255, 0)); // Start invisible
             menuItem.setStyle(sf::Text::Regular);
 
             // SFML 3 way to center text
             sf::FloatRect bounds = menuItem.getLocalBounds();
-            menuItem.setOrigin(sf::Vector2f(bounds.width / 2.0f, bounds.height / 2.0f));
+            menuItem.setOrigin(sf::Vector2f(bounds.size.x / 2.0f, bounds.size.y / 2.0f));
             menuItem.setPosition(sf::Vector2f(m_engine.getWindow().getSize().x / 2.0f, yPos));
 
             m_menuItems.push_back(menuItem);
@@ -472,7 +477,7 @@ namespace Scenes
     {
         // SFML 3 way to center text
         sf::FloatRect bounds = text.getLocalBounds();
-        text.setOrigin(sf::Vector2f(bounds.width / 2.0f, bounds.height / 2.0f));
+        text.setOrigin(sf::Vector2f(bounds.size.x / 2.0f, bounds.size.y / 2.0f));
         text.setPosition(position);
     }
 
@@ -509,19 +514,19 @@ namespace Scenes
             sf::Vector2u windowSize = m_engine.getWindow().getSize();
 
             // Create title for demos screen
-            m_demosTitle = std::make_unique<sf::Text>("Available Examples", font, 60);
+            m_demosTitle = std::make_unique<sf::Text>(font, "Available Examples", 60);
             m_demosTitle->setFillColor(sf::Color(255, 128, 0));
             m_demosTitle->setOutlineColor(sf::Color(128, 64, 0));
             m_demosTitle->setOutlineThickness(2.0f);
             centerText(*m_demosTitle, sf::Vector2f(windowSize.x / 2.0f, 100.0f));
 
             // Create back instruction text
-            m_backText = std::make_unique<sf::Text>("Press ESC to return to main menu", font, 24);
+            m_backText = std::make_unique<sf::Text>(font, "Press ESC to return to main menu", 24);
             m_backText->setFillColor(sf::Color(200, 200, 200));
             centerText(*m_backText, sf::Vector2f(windowSize.x / 2.0f, windowSize.y - 50.0f));
 
             // Create coming soon message
-            m_comingSoonText = std::make_unique<sf::Text>("These demos are coming soon!", font, 36);
+            m_comingSoonText = std::make_unique<sf::Text>(font, "These demos are coming soon!", 36);
             m_comingSoonText->setFillColor(sf::Color(255, 165, 0));
             centerText(*m_comingSoonText, sf::Vector2f(windowSize.x / 2.0f, windowSize.y - 120.0f));
         }
@@ -546,7 +551,7 @@ namespace Scenes
 
             for (size_t i = 0; i < m_demoDescriptions.size(); ++i)
             {
-                sf::Text demoItem(m_demoDescriptions[i], font, 36);
+                sf::Text demoItem(font, m_demoDescriptions[i], 36);
                 demoItem.setFillColor(sf::Color::White);
                 centerText(demoItem, sf::Vector2f(windowSize.x / 2.0f, startY + i * spacing));
                 m_demoItems.push_back(demoItem);

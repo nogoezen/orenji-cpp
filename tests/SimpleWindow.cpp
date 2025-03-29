@@ -3,36 +3,32 @@
 
 int main()
 {
-    // Create an SFML window
-    sf::RenderWindow window(sf::VideoMode({800, 600}), "SFML 3 Window Test");
+    // Création de la fenêtre
+    sf::RenderWindow window(sf::VideoMode(sf::Vector2u(800, 600)), "SFML Simple Window");
     window.setFramerateLimit(60);
 
-    // Main loop
+    // Boucle principale
     while (window.isOpen())
     {
-        // Handle events
-        while (const auto event = window.pollEvent())
+        // Gestion des événements
+        if (auto event = window.pollEvent())
         {
-            // Close window when closed button is clicked
+            // Si on ferme la fenêtre
             if (event->is<sf::Event::Closed>())
-            {
                 window.close();
-            }
 
-            // Close window when Escape key is pressed
+            // Si on appuie sur Escape
             if (const auto *keyEvent = event->getIf<sf::Event::KeyPressed>())
             {
                 if (keyEvent->code == sf::Keyboard::Key::Escape)
-                {
                     window.close();
-                }
             }
         }
 
-        // Clear the window
-        window.clear(sf::Color(50, 50, 100));
+        // Effacement de la fenêtre en bleu
+        window.clear(sf::Color(64, 128, 255));
 
-        // Display the window contents
+        // Affichage du contenu de la fenêtre
         window.display();
     }
 

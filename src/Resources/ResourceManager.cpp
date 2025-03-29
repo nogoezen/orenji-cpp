@@ -189,7 +189,7 @@ namespace Resources
             std::string fullPath = getFullPath("fonts", filePath);
             auto fontPtr = std::make_unique<sf::Font>();
 
-            if (!fontPtr->loadFromFile(std::filesystem::path(fullPath)))
+            if (!fontPtr->openFromFile(std::filesystem::path(fullPath)))
             {
                 throw ResourceLoadException("Failed to load font: " + fullPath);
             }
