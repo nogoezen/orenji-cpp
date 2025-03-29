@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4">
+  <BehaviorTree ID="PatrolBehavior">
+    <Sequence name="root_sequence">
+      <Fallback name="movement_strategy">
+        <Sequence name="patrol_sequence">
+          <IsAtPatrolPoint/>
+          <SwitchPatrolDirection/>
+          <MoveToNextPatrol/>
+        </Sequence>
+        <MoveAlongPatrol/>
+      </Fallback>
+      <DetectPlayer/>
+      <Fallback name="player_reaction">
+        <Sequence name="chase_player">
+          <IsPlayerInRange/>
+          <ChasePlayer/>
+        </Sequence>
+        <ReturnToPatrol/>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+
+  <!-- Descriptions of nodes used in the behavior tree -->
+  <!-- 
+    IsAtPatrolPoint: Checks if the enemy has reached a patrol point
+    SwitchPatrolDirection: Toggles the patrol direction when at an endpoint
+    MoveToNextPatrol: Sets the next patrol point as the target
+    MoveAlongPatrol: Moves along the patrol path
+    DetectPlayer: Attempts to detect the player in the vicinity
+    IsPlayerInRange: Checks if the player is within attacking range
+    ChasePlayer: Chases the player
+    ReturnToPatrol: Returns to the patrol route
+  -->
+</root> 

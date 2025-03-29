@@ -46,7 +46,7 @@
 - [x] Implémenter classes de base Entity et EntityManager
 - [x] Ajouter récupération d'entités par composants
 - [ ] Implémenter nettoyage des entités
-- [ ] Créer Player et Enemy de base
+- [x] Créer Player et Enemy de base
 
 ### Système de Rendu
 - [x] Implémenter RenderSystem et SpriteComponent
@@ -78,9 +78,9 @@
 
 ### Interface Utilisateur
 - [x] Implémenter UIManager (base)
-- [ ] Créer interface d'éditeur
-- [ ] Intégrer TGUI
-- [ ] Ajouter menus (pause, options)
+- [x] Créer interface d'éditeur
+- [x] Intégrer TGUI
+- [x] Ajouter menus (pause, options)
 
 ### Ressources
 - [x] Implémenter ResourceManager pour SFML 3

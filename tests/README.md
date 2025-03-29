@@ -54,3 +54,88 @@ This demo shows:
 2. How to implement collision filtering with categories and masks
 3. How to create different types of bodies (static, dynamic)
 4. How to visualize collision shapes 
+
+## GameplayEntitiesTest
+
+This test demonstrates the Player and Enemy classes with physics and AI integration. It sets up a simple scene with:
+
+- A player character that can move left/right and jump
+- An enemy that uses a behavior tree for patrolling and player detection
+- A ground platform for character movement
+
+### Prerequisites
+
+This test requires the same Box2D library setup as the SimplePhysicsTest (see above).
+It also requires the BehaviorTree.CPP library to be properly built and linked.
+
+### Compiling and Running
+
+To compile the test:
+
+```bash
+g++ -o build/bin/gameplay-test.exe tests/GameplayEntitiesTest.cpp src/Gameplay/Player.cpp src/Gameplay/Enemy.cpp -I./include -I./lib/sfml/include -I./lib/box2d/include -I./lib/behaviortree_cpp/include -L./lib/sfml/lib -L./lib/box2d/lib -L./lib/behaviortree_cpp/lib -lsfml-graphics -lsfml-window -lsfml-system -lbox2d -lbehaviortree_cpp
+```
+
+Run the test:
+
+```bash
+./build/bin/gameplay-test.exe
+```
+
+### Controls
+
+- A/Left Arrow: Move player left
+- D/Right Arrow: Move player right
+- Space/W/Up Arrow: Jump
+- Escape: Close the application
+
+This demo shows:
+1. How to create and use the Player and Enemy classes
+2. Integration of Box2D physics with game entities
+3. Behavior tree-based AI for enemy movement
+4. Entity component system with physics and graphics components 
+
+## TGUITest
+
+This test demonstrates the TGUI integration in the engine, showcasing a complete UI system with multiple screens and interactive elements:
+
+- Main menu with buttons for navigation
+- Pause menu that can be toggled with ESC key during gameplay
+- Property editor interface for modifying game object properties
+- Theme system for applying consistent styling to UI elements
+
+### Prerequisites
+
+This test requires the TGUI library to be properly built and linked. Make sure that:
+
+- TGUI is installed in the `lib/tgui` directory
+- SFML is installed and working (TGUI depends on SFML)
+
+### Compiling and Running
+
+To compile the test:
+
+```bash
+g++ -o build/bin/tgui-test.exe tests/TGUITest.cpp src/UI/UIManager.cpp src/UI/PauseMenu.cpp src/UI/EditorForm.cpp -I./include -I./lib/sfml/include -I./lib/tgui/include -L./lib/sfml/lib -L./lib/tgui/lib -lsfml-graphics -lsfml-window -lsfml-system -ltgui
+```
+
+Run the test:
+
+```bash
+./build/bin/tgui-test.exe
+```
+
+### Features Demonstrated
+
+1. **UIManager**: Central manager for all UI forms and themes
+2. **Forms and Widgets**: Management of different UI screens (main menu, pause menu, editor)
+3. **Event Handling**: Processing SFML events and dispatching them to the UI
+4. **Properties Editor**: Dynamic property editing interface for game objects
+5. **Theming**: Applying TGUI themes to style the interface consistently
+6. **Callbacks**: Event-driven programming through widget callbacks
+
+### Controls
+
+- Left click: Interact with UI elements
+- ESC: Toggle the pause menu (during gameplay)
+- Various buttons for navigating between different UI screens 
