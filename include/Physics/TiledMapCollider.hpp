@@ -28,25 +28,37 @@ namespace Physics
         /**
          * @brief Créer les corps statiques pour tous les objets collidables d'une carte
          * @param map Référence vers le chargeur de carte Tiled
+         * @param category Catégorie de collision pour les objets de la carte
+         * @param mask Masque de collision pour les objets de la carte
          * @return Nombre d'objets de collision créés
          */
-        int createCollisionsFromMap(const Resources::TiledMapLoader &map);
+        int createCollisionsFromMap(const Resources::TiledMapLoader &map,
+                                    CollisionCategory category = CollisionCategory::Platform,
+                                    CollisionCategory mask = CollisionCategory::All);
 
         /**
          * @brief Créer les corps statiques pour tous les objets d'une couche spécifique
          * @param map Référence vers le chargeur de carte Tiled
          * @param layerName Nom de la couche contenant les objets
+         * @param category Catégorie de collision pour les objets de la couche
+         * @param mask Masque de collision pour les objets de la couche
          * @return Nombre d'objets de collision créés
          */
-        int createCollisionsFromLayer(const Resources::TiledMapLoader &map, const std::string &layerName);
+        int createCollisionsFromLayer(const Resources::TiledMapLoader &map, const std::string &layerName,
+                                      CollisionCategory category = CollisionCategory::Platform,
+                                      CollisionCategory mask = CollisionCategory::All);
 
         /**
          * @brief Créer les corps statiques pour tous les objets d'un type spécifique
          * @param map Référence vers le chargeur de carte Tiled
          * @param type Type des objets à utiliser pour les collisions
+         * @param category Catégorie de collision pour les objets du type
+         * @param mask Masque de collision pour les objets du type
          * @return Nombre d'objets de collision créés
          */
-        int createCollisionsFromType(const Resources::TiledMapLoader &map, const std::string &type);
+        int createCollisionsFromType(const Resources::TiledMapLoader &map, const std::string &type,
+                                     CollisionCategory category = CollisionCategory::Platform,
+                                     CollisionCategory mask = CollisionCategory::All);
 
         /**
          * @brief Supprimer tous les corps de collision créés
@@ -61,14 +73,18 @@ namespace Physics
 
     private:
         Box2DWrapper &m_physics;
-        std::vector<b2Body *> m_collisionBodies;
+        std::vector<b2BodyId> m_collisionBodies;
 
         /**
          * @brief Créer un corps de collision à partir d'un objet de carte
          * @param obj Objet de carte
-         * @return Pointeur vers le corps créé ou nullptr en cas d'échec
+         * @param category Catégorie de collision pour l'objet
+         * @param mask Masque de collision pour l'objet
+         * @return ID du corps créé ou 0 en cas d'échec
          */
-        b2Body *createCollisionBody(const Resources::MapObject &obj);
+        b2BodyId createCollisionBody(const Resources::MapObject &obj,
+                                     CollisionCategory category,
+                                     CollisionCategory mask);
     };
 
 } // namespace Physics

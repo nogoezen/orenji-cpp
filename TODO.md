@@ -19,14 +19,28 @@
   - `sf::Text` nécessite des paramètres à la construction
   - `sf::Font::loadFromFile` remplacé par `openFromFile`
   - `sf::BlendMode` constants modifiés
+  - [x] Remplacer `sf::Uint8` par `std::uint8_t`
+  - [x] Mettre à jour la méthode `draw` de `sf::RenderTarget`
+
+### Corrections du Système de Particules
+- [x] Corriger les erreurs dans `ParticleSystem.cpp`:
+  - [x] Remplacer `sf::Quads` par `sf::PrimitiveType::Triangles`
+  - [x] Corriger les membres non déclarés (`m_emissionTimer`, `m_enabled`, etc.)
+  - [x] Mettre à jour les constantes `sf::BlendMode`
+  - [x] Corriger les méthodes manquantes (`setEmitterArea`, `setParticleAcceleration`, etc.)
+  - [x] Remplacer `sf::Uint8` par `std::uint8_t`
+  - [x] Mettre à jour les signatures de méthodes pour SFML 3
+  - [x] Implémenter `setBlendMode` et `setCircularEmitter`
+  - [x] Corriger la méthode `draw` pour le nouveau système de rendu de SFML 3
 
 ### Système de Physique
 - [x] Implémenter `Box2DWrapper` et intégration SFML 3
 - [x] Créer `TiledMapCollider` pour Box2D
 - [x] Implémenter composants physiques de base
-- [ ] Ajouter filtrage des collisions
-- [ ] Intégrer débogage visuel des collisions
-- [ ] Implémenter collisions entité-entité et entité-map
+- [x] Ajouter filtrage des collisions
+- [x] Intégrer débogage visuel des collisions
+- [x] Implémenter collisions entité-entité et entité-map
+- [x] Mettre à jour pour utiliser le système `b2BodyId` de Box2D 3.0
 
 ### Système d'Entités
 - [x] Implémenter classes de base Entity et EntityManager
@@ -93,7 +107,8 @@
 
 ### Tests et Optimisation
 - [x] Créer démo du système de particules
-- [ ] Corriger les erreurs dans la démo de particules pour SFML 3
+- [x] Corriger les erreurs dans la démo de particules pour SFML 3
+- [x] Créer démo du système de physique avec collision filtering
 - [ ] Créer tests unitaires
 - [ ] Tester sur différentes plateformes
 - [ ] Ajouter benchmarks
@@ -106,6 +121,7 @@
 - [ ] Documenter intégration Tiled
 - [ ] Documenter utilisation des arbres de comportement
 - [ ] Documenter système de particules et effets
+- [x] Documenter système de physique et collision filtering
 
 ## Fonctionnalités Additionnelles
 - [ ] Système de sauvegarde/chargement

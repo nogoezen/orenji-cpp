@@ -1,4 +1,5 @@
 #include "../../include/Physics/TiledMapCollider.hpp"
+#include "../../include/Resources/TiledMapLoader.hpp"
 #include <iostream>
 
 namespace Physics
@@ -13,74 +14,99 @@ namespace Physics
         clear();
     }
 
-    int TiledMapCollider::createCollisionsFromMap(const Resources::TiledMapLoader &map)
+    int TiledMapCollider::createCollisionsFromMap(const Resources::TiledMapLoader &map,
+                                                  CollisionCategory category,
+                                                  CollisionCategory mask)
     {
-        int count = 0;
+        int objectCount = 0;
 
-        // Récupérer tous les objets marqués comme collidables
-        auto objects = map.getCollidableObjects();
-
-        for (const auto &obj : objects)
+        // Parcourir toutes les couches d'objets
+        for (const auto &layer : map.getObjectLayers())
         {
-            if (createCollisionBody(obj))
+            // Parcourir tous les objets de la couche
+            for (const auto &obj : layer.objects)
             {
-                count++;
+                // Créer un corps de collision à partir de l'objet
+                b2BodyId body = createCollisionBody(obj, category, mask);
+                if (b2Body_IsValid(body))
+                {
+                    m_collisionBodies.push_back(body);
+                    objectCount++;
+                }
             }
         }
 
-        std::cout << "Created " << count << " collision objects from map" << std::endl;
-        return count;
+        return objectCount;
     }
 
-    int TiledMapCollider::createCollisionsFromLayer(const Resources::TiledMapLoader &map, const std::string &layerName)
+    int TiledMapCollider::createCollisionsFromLayer(const Resources::TiledMapLoader &map, const std::string &layerName,
+                                                    CollisionCategory category,
+                                                    CollisionCategory mask)
     {
-        int count = 0;
+        int objectCount = 0;
 
-        // Récupérer tous les objets de la couche spécifiée
-        auto objects = map.getObjectsInLayer(layerName);
-
-        for (const auto &obj : objects)
+        // Chercher la couche par son nom
+        for (const auto &layer : map.getObjectLayers())
         {
-            if (createCollisionBody(obj))
+            if (layer.name == layerName)
             {
-                count++;
+                // Parcourir tous les objets de la couche
+                for (const auto &obj : layer.objects)
+                {
+                    // Créer un corps de collision à partir de l'objet
+                    b2BodyId body = createCollisionBody(obj, category, mask);
+                    if (b2Body_IsValid(body))
+                    {
+                        m_collisionBodies.push_back(body);
+                        objectCount++;
+                    }
+                }
+                break;
             }
         }
 
-        std::cout << "Created " << count << " collision objects from layer '" << layerName << "'" << std::endl;
-        return count;
+        return objectCount;
     }
 
-    int TiledMapCollider::createCollisionsFromType(const Resources::TiledMapLoader &map, const std::string &type)
+    int TiledMapCollider::createCollisionsFromType(const Resources::TiledMapLoader &map, const std::string &type,
+                                                   CollisionCategory category,
+                                                   CollisionCategory mask)
     {
-        int count = 0;
+        int objectCount = 0;
 
-        // Récupérer tous les objets du type spécifié
-        auto objects = map.getObjectsByType(type);
-
-        for (const auto &obj : objects)
+        // Parcourir toutes les couches d'objets
+        for (const auto &layer : map.getObjectLayers())
         {
-            if (createCollisionBody(obj))
+            // Parcourir tous les objets de la couche
+            for (const auto &obj : layer.objects)
             {
-                count++;
+                // Vérifier si l'objet est du type demandé
+                if (obj.type == type)
+                {
+                    // Créer un corps de collision à partir de l'objet
+                    b2BodyId body = createCollisionBody(obj, category, mask);
+                    if (b2Body_IsValid(body))
+                    {
+                        m_collisionBodies.push_back(body);
+                        objectCount++;
+                    }
+                }
             }
         }
 
-        std::cout << "Created " << count << " collision objects of type '" << type << "'" << std::endl;
-        return count;
+        return objectCount;
     }
 
     void TiledMapCollider::clear()
     {
-        // Détruire tous les corps de collision
-        for (auto body : m_collisionBodies)
+        // Supprimer tous les corps de collision
+        for (auto bodyId : m_collisionBodies)
         {
-            if (body)
+            if (b2Body_IsValid(bodyId))
             {
-                m_physics.destroyBody(body);
+                m_physics.destroyBody(bodyId);
             }
         }
-
         m_collisionBodies.clear();
     }
 
@@ -89,27 +115,80 @@ namespace Physics
         return m_collisionBodies.size();
     }
 
-    b2Body *TiledMapCollider::createCollisionBody(const Resources::MapObject &obj)
+    b2BodyId TiledMapCollider::createCollisionBody(const Resources::MapObject &obj,
+                                                   CollisionCategory category,
+                                                   CollisionCategory mask)
     {
-        // Déterminer la forme de l'objet (pour l'instant, uniquement des boîtes rectangulaires)
-        // Dans une implémentation plus complète, on pourrait gérer d'autres formes comme les cercles ou les polygones
+        // Créer un corps statique
+        b2BodyId bodyId = m_physics.createStaticBody(b2Vec2(obj.x, obj.y));
 
-        // Créer un corps statique à la position de l'objet
-        b2Body *body = m_physics.createStaticBody(b2Vec2(obj.position.x + obj.size.x / 2, obj.position.y + obj.size.y / 2));
+        if (!b2Body_IsValid(bodyId))
+            return {0};
 
-        if (!body)
+        // Ajouter une forme en fonction du type d'objet
+        b2ShapeId shapeId = {0};
+        if (obj.isRectangle())
         {
-            std::cerr << "Failed to create collision body for object: " << obj.name << std::endl;
-            return nullptr;
+            // Pour un rectangle, on utilise une boîte
+            shapeId = m_physics.addBoxFixture(bodyId, obj.width, obj.height);
+        }
+        else if (obj.isCircle())
+        {
+            // Pour un cercle, on utilise un cercle
+            // Ici, nous supposons que le rayon est stocké dans la propriété "radius" de l'objet
+            float radius = 0.0f;
+            for (const auto &prop : obj.properties)
+            {
+                if (prop.name == "radius")
+                {
+                    radius = std::stof(prop.value);
+                    break;
+                }
+            }
+            if (radius <= 0.0f)
+            {
+                // Si pas de rayon spécifié, utiliser la moyenne de la largeur et de la hauteur
+                radius = (obj.width + obj.height) * 0.25f;
+            }
+            shapeId = m_physics.addCircleFixture(bodyId, radius);
+        }
+        else if (obj.isPolygon())
+        {
+            // Pour un polygone, créer un corps composé de plusieurs boîtes
+            // Ceci est une simplification; idéalement, nous utiliserions des polygones directement
+            // mais Box2D nécessite des polygones convexes, ce qui complique la tâche
+            std::cout << "Warning: Polygon objects are not fully supported yet. Using bounding box instead." << std::endl;
+            shapeId = m_physics.addBoxFixture(bodyId, obj.width, obj.height);
+        }
+        else
+        {
+            // Type d'objet non supporté
+            std::cout << "Warning: Unsupported object type. Using bounding box." << std::endl;
+            shapeId = m_physics.addBoxFixture(bodyId, obj.width, obj.height);
         }
 
-        // Ajouter une fixture rectangulaire au corps
-        m_physics.addBoxFixture(body, obj.size.x, obj.size.y);
+        // Définir la catégorie et le masque de collision
+        if (b2Shape_IsValid(shapeId))
+        {
+            m_physics.setFilterData(shapeId, category, mask);
 
-        // Stocker le corps créé
-        m_collisionBodies.push_back(body);
+            // Vérifier si l'objet est un capteur (trigger)
+            bool isSensor = false;
+            for (const auto &prop : obj.properties)
+            {
+                if (prop.name == "isSensor" || prop.name == "sensor" || prop.name == "trigger")
+                {
+                    isSensor = (prop.value == "true" || prop.value == "1");
+                    if (isSensor)
+                    {
+                        b2Shape_SetSensor(shapeId, true);
+                        break;
+                    }
+                }
+            }
+        }
 
-        return body;
+        return bodyId;
     }
 
 } // namespace Physics

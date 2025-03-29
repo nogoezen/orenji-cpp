@@ -34,7 +34,7 @@ namespace Orenji
             float rotationSpeed;       // Rotation speed in degrees per second
             float drag;                // Air resistance factor (0-1)
             float alpha;               // Transparency (0-1)
-            bool active;               // Whether the particle is currently active
+            bool active = false;       // Whether the particle is currently active
         };
 
         /**
@@ -45,8 +45,8 @@ namespace Orenji
             NONE,
             FIRE,
             SMOKE,
-            SPARK,
             EXPLOSION,
+            SPARK,
             RAIN,
             SNOW,
             DUST,
@@ -62,6 +62,8 @@ namespace Orenji
         class ParticleSystem : public sf::Drawable, public sf::Transformable
         {
         public:
+            using ParticleBehavior = std::function<void(Particle &, float)>;
+
             /**
              * @brief Constructor
              * @param maxParticles Maximum number of particles in the system
@@ -75,7 +77,7 @@ namespace Orenji
 
             /**
              * @brief Set the texture
-             * @param texture Texture to apply to particles
+             * @param texturePath Path to the texture to apply to particles
              */
             void setTexture(const std::string &texturePath);
 
@@ -210,9 +212,9 @@ namespace Orenji
 
             /**
              * @brief Set a custom behavior function
-             * @param function Function that modifies particle behavior
+             * @param behavior Function that modifies particle behavior
              */
-            void setParticleBehavior(const std::function<void(Particle &, float)> &behavior);
+            void setParticleBehavior(ParticleBehavior behavior);
 
             /**
              * @brief Set a predefined particle effect
@@ -239,11 +241,23 @@ namespace Orenji
              */
             void clear();
 
+            /**
+             * @brief Set particle blend mode
+             * @param mode SFML blend mode to use
+             */
+            void setBlendMode(sf::BlendMode mode);
+
+            /**
+             * @brief Set whether to use circular emitter
+             * @param circular True to use circular emitter, false for point/rectangular
+             */
+            void setCircularEmitter(bool circular);
+
             // Predefined particle behaviors
             static void fireEffect(Particle &particle, float deltaTime);
             static void smokeEffect(Particle &particle, float deltaTime);
-            static void sparkEffect(Particle &particle, float deltaTime);
             static void explosionEffect(Particle &particle, float deltaTime);
+            static void sparkEffect(Particle &particle, float deltaTime);
             static void rainEffect(Particle &particle, float deltaTime);
             static void snowEffect(Particle &particle, float deltaTime);
             static void dustEffect(Particle &particle, float deltaTime);
@@ -307,7 +321,7 @@ namespace Orenji
             std::vector<Particle> m_particles;
             sf::VertexArray m_vertices;
             std::shared_ptr<sf::Texture> m_texture;
-            std::function<void(Particle &, float)> m_particleBehavior;
+            ParticleBehavior m_particleBehavior;
 
             // Random number generation
             mutable std::mt19937 m_randomEngine;

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <cstdint> // Pour std::uint8_t
 
 namespace Orenji
 {
@@ -12,7 +13,7 @@ namespace Orenji
     {
 
         ParticleSystem::ParticleSystem(unsigned int maxParticles)
-            : m_vertices(sf::PrimitiveType::Quads),
+            : m_vertices(sf::PrimitiveType::Triangles),
               m_maxParticles(maxParticles),
               m_emitterPosition(0.f, 0.f),
               m_emitterAreaTopLeft(0.f, 0.f),
@@ -20,7 +21,7 @@ namespace Orenji
               m_emitterRadius(0.f),
               m_useCircularEmitter(false),
               m_emissionRate(10.f),
-              m_emissionTimer(0.f),
+              m_emissionAccumulator(0.f),
               m_globalForce(0.f, 0.f),
               m_acceleration(0.f, 0.f),
               m_drag(0.f),
@@ -36,8 +37,8 @@ namespace Orenji
               m_maxRotation(180.f),
               m_startColor(sf::Color::White),
               m_endColor(sf::Color(255, 255, 255, 0)),
-              m_blendMode(sf::BlendMode::Alpha),
-              m_enabled(true),
+              m_blendMode(sf::BlendAlpha),
+              m_emitterEnabled(true),
               m_activeParticleCount(0)
         {
             // Seed the random number generator
@@ -85,7 +86,7 @@ namespace Orenji
             m_emitterAreaSize = sf::Vector2f(0.f, 0.f);
         }
 
-        void ParticleSystem::setEmitterArea(const sf::Vector2f &topLeft, const sf::Vector2f &size)
+        void ParticleSystem::setRectangularEmitter(const sf::Vector2f &topLeft, const sf::Vector2f &size)
         {
             m_emitterAreaTopLeft = topLeft;
             m_emitterAreaSize = size;
@@ -110,7 +111,7 @@ namespace Orenji
             m_maxVelocity = maxVelocity;
         }
 
-        void ParticleSystem::setParticleAcceleration(const sf::Vector2f &acceleration)
+        void ParticleSystem::setAcceleration(const sf::Vector2f &acceleration)
         {
             m_acceleration = acceleration;
         }
@@ -140,7 +141,7 @@ namespace Orenji
             m_endColor = endColor;
         }
 
-        void ParticleSystem::setRotationSpeed(float minRotation, float maxRotation)
+        void ParticleSystem::setParticleRotationSpeed(float minRotation, float maxRotation)
         {
             m_minRotation = minRotation;
             m_maxRotation = maxRotation;
@@ -189,14 +190,14 @@ namespace Orenji
             }
         }
 
-        void ParticleSystem::setEnabled(bool enabled)
+        void ParticleSystem::enableEmitter(bool enable)
         {
-            m_enabled = enabled;
+            m_emitterEnabled = enable;
         }
 
-        bool ParticleSystem::isEnabled() const
+        bool ParticleSystem::isEmitterEnabled() const
         {
-            return m_enabled;
+            return m_emitterEnabled;
         }
 
         size_t ParticleSystem::getParticleCount() const
@@ -218,7 +219,7 @@ namespace Orenji
             m_activeParticleCount = 0;
         }
 
-        void ParticleSystem::emitBurst(unsigned int count)
+        void ParticleSystem::emit(unsigned int count)
         {
             for (unsigned int i = 0; i < count; ++i)
             {
@@ -232,7 +233,7 @@ namespace Orenji
             switch (effect)
             {
             case ParticleEffect::FIRE:
-                m_blendMode = sf::BlendMode::Alpha;
+                m_blendMode = sf::BlendAlpha;
                 setParticleLifetime(0.5f, 1.5f);
                 setParticleVelocity(sf::Vector2f(-10.f, -80.f), sf::Vector2f(10.f, -50.f));
                 setParticleSize(10.f, 30.f);
@@ -240,12 +241,12 @@ namespace Orenji
                 setParticleColors(sf::Color(255, 160, 20, 200), sf::Color(130, 60, 0, 0));
                 setEmissionRate(100.f);
                 setDrag(0.02f);
-                setParticleAcceleration(sf::Vector2f(0.f, -20.f));
+                setAcceleration(sf::Vector2f(0.f, -20.f));
                 setParticleBehavior(fireEffect);
                 break;
 
             case ParticleEffect::SMOKE:
-                m_blendMode = sf::BlendMode::Alpha;
+                m_blendMode = sf::BlendAlpha;
                 setParticleLifetime(1.5f, 3.f);
                 setParticleVelocity(sf::Vector2f(-5.f, -40.f), sf::Vector2f(5.f, -20.f));
                 setParticleSize(20.f, 40.f);
@@ -253,12 +254,12 @@ namespace Orenji
                 setParticleColors(sf::Color(50, 50, 50, 150), sf::Color(150, 150, 150, 0));
                 setEmissionRate(20.f);
                 setDrag(0.05f);
-                setParticleAcceleration(sf::Vector2f(0.f, -5.f));
+                setAcceleration(sf::Vector2f(0.f, -5.f));
                 setParticleBehavior(smokeEffect);
                 break;
 
             case ParticleEffect::SPARK:
-                m_blendMode = sf::BlendMode::Alpha;
+                m_blendMode = sf::BlendAlpha;
                 setParticleLifetime(0.3f, 0.8f);
                 setParticleVelocity(sf::Vector2f(-150.f, -150.f), sf::Vector2f(150.f, 150.f));
                 setParticleSize(2.f, 4.f);
@@ -266,12 +267,12 @@ namespace Orenji
                 setParticleColors(sf::Color(255, 230, 100, 255), sf::Color(255, 160, 20, 0));
                 setEmissionRate(200.f);
                 setDrag(0.01f);
-                setParticleAcceleration(sf::Vector2f(0.f, 100.f)); // Légère gravité
+                setAcceleration(sf::Vector2f(0.f, 100.f)); // Légère gravité
                 setParticleBehavior(sparkEffect);
                 break;
 
             case ParticleEffect::EXPLOSION:
-                m_blendMode = sf::BlendMode::Alpha;
+                m_blendMode = sf::BlendAlpha;
                 setParticleLifetime(0.5f, 1.f);
                 setParticleVelocity(sf::Vector2f(-300.f, -300.f), sf::Vector2f(300.f, 300.f));
                 setParticleSize(10.f, 20.f);
@@ -279,14 +280,14 @@ namespace Orenji
                 setParticleColors(sf::Color(255, 100, 20, 255), sf::Color(150, 20, 0, 0));
                 setEmissionRate(0.f); // Pas d'émission continue
                 setDrag(0.1f);
-                setParticleAcceleration(sf::Vector2f(0.f, 0.f));
+                setAcceleration(sf::Vector2f(0.f, 0.f));
                 setParticleBehavior(explosionEffect);
                 // Émettre un groupe de particules immédiatement
-                emitBurst(100);
+                emit(100);
                 break;
 
             case ParticleEffect::RAIN:
-                m_blendMode = sf::BlendMode::Alpha;
+                m_blendMode = sf::BlendAlpha;
                 setParticleLifetime(0.8f, 1.2f);
                 setParticleVelocity(sf::Vector2f(-20.f, 200.f), sf::Vector2f(20.f, 300.f));
                 setParticleSize(1.f, 3.f);
@@ -294,40 +295,40 @@ namespace Orenji
                 setParticleColors(sf::Color(100, 100, 240, 150), sf::Color(200, 200, 255, 100));
                 setEmissionRate(200.f);
                 setDrag(0.001f);
-                setParticleAcceleration(sf::Vector2f(0.f, 200.f));
+                setAcceleration(sf::Vector2f(0.f, 200.f));
                 setParticleBehavior(rainEffect);
                 break;
 
             case ParticleEffect::SNOW:
-                m_blendMode = sf::BlendMode::Alpha;
+                m_blendMode = sf::BlendAlpha;
                 setParticleLifetime(3.f, 6.f);
                 setParticleVelocity(sf::Vector2f(-15.f, 15.f), sf::Vector2f(15.f, 30.f));
                 setParticleSize(2.f, 5.f);
                 setParticleEndSize(2.f, 5.f);
                 setParticleColors(sf::Color(250, 250, 255, 200), sf::Color(250, 250, 255, 50));
-                setRotationSpeed(10.f, 30.f);
+                setParticleRotationSpeed(10.f, 30.f);
                 setEmissionRate(50.f);
                 setDrag(0.05f);
-                setParticleAcceleration(sf::Vector2f(0.f, 5.f));
+                setAcceleration(sf::Vector2f(0.f, 5.f));
                 setParticleBehavior(snowEffect);
                 break;
 
             case ParticleEffect::DUST:
-                m_blendMode = sf::BlendMode::Alpha;
+                m_blendMode = sf::BlendAlpha;
                 setParticleLifetime(1.f, 3.f);
                 setParticleVelocity(sf::Vector2f(-20.f, -5.f), sf::Vector2f(20.f, 5.f));
                 setParticleSize(2.f, 8.f);
                 setParticleEndSize(6.f, 12.f);
                 setParticleColors(sf::Color(180, 160, 120, 100), sf::Color(180, 160, 120, 0));
-                setRotationSpeed(-10.f, 10.f);
+                setParticleRotationSpeed(-10.f, 10.f);
                 setEmissionRate(10.f);
                 setDrag(0.1f);
-                setParticleAcceleration(sf::Vector2f(0.f, -1.f));
+                setAcceleration(sf::Vector2f(0.f, -1.f));
                 setParticleBehavior(dustEffect);
                 break;
 
             case ParticleEffect::WATERFALL:
-                m_blendMode = sf::BlendMode::Alpha;
+                m_blendMode = sf::BlendAlpha;
                 setParticleLifetime(1.f, 2.f);
                 setParticleVelocity(sf::Vector2f(-10.f, 50.f), sf::Vector2f(10.f, 150.f));
                 setParticleSize(3.f, 8.f);
@@ -335,64 +336,64 @@ namespace Orenji
                 setParticleColors(sf::Color(100, 150, 255, 150), sf::Color(200, 230, 255, 0));
                 setEmissionRate(100.f);
                 setDrag(0.02f);
-                setParticleAcceleration(sf::Vector2f(0.f, 100.f));
+                setAcceleration(sf::Vector2f(0.f, 100.f));
                 setParticleBehavior(waterfallEffect);
                 break;
 
             case ParticleEffect::MAGIC:
-                m_blendMode = sf::BlendMode::Alpha;
+                m_blendMode = sf::BlendAlpha;
                 setParticleLifetime(0.5f, 1.5f);
                 setParticleVelocity(sf::Vector2f(-20.f, -20.f), sf::Vector2f(20.f, 20.f));
                 setParticleSize(5.f, 10.f);
                 setParticleEndSize(1.f, 3.f);
                 setParticleColors(sf::Color(100, 20, 255, 200), sf::Color(200, 150, 255, 0));
-                setRotationSpeed(-180.f, 180.f);
+                setParticleRotationSpeed(-180.f, 180.f);
                 setEmissionRate(30.f);
                 setDrag(0.05f);
-                setParticleAcceleration(sf::Vector2f(0.f, -10.f));
+                setAcceleration(sf::Vector2f(0.f, -10.f));
                 setParticleBehavior(magicEffect);
                 break;
 
             case ParticleEffect::LEAF:
-                m_blendMode = sf::BlendMode::Alpha;
+                m_blendMode = sf::BlendAlpha;
                 setParticleLifetime(3.f, 8.f);
                 setParticleVelocity(sf::Vector2f(-20.f, 5.f), sf::Vector2f(20.f, 20.f));
                 setParticleSize(5.f, 15.f);
                 setParticleEndSize(5.f, 15.f);
                 setParticleColors(sf::Color(50, 150, 30, 200), sf::Color(150, 180, 30, 100));
-                setRotationSpeed(-90.f, 90.f);
+                setParticleRotationSpeed(-90.f, 90.f);
                 setEmissionRate(5.f);
                 setDrag(0.01f);
-                setParticleAcceleration(sf::Vector2f(0.f, 5.f));
+                setAcceleration(sf::Vector2f(0.f, 5.f));
                 setParticleBehavior(leafEffect);
                 break;
 
             case ParticleEffect::BUBBLE:
-                m_blendMode = sf::BlendMode::Alpha;
+                m_blendMode = sf::BlendAlpha;
                 setParticleLifetime(2.f, 6.f);
                 setParticleVelocity(sf::Vector2f(-10.f, -30.f), sf::Vector2f(10.f, -10.f));
                 setParticleSize(3.f, 12.f);
                 setParticleEndSize(3.f, 12.f);
                 setParticleColors(sf::Color(200, 250, 255, 100), sf::Color(200, 250, 255, 0));
-                setRotationSpeed(0.f, 0.f);
+                setParticleRotationSpeed(0.f, 0.f);
                 setEmissionRate(10.f);
                 setDrag(0.05f);
-                setParticleAcceleration(sf::Vector2f(0.f, -5.f));
+                setAcceleration(sf::Vector2f(0.f, -5.f));
                 setParticleBehavior(bubbleEffect);
                 break;
 
             case ParticleEffect::NONE:
             default:
-                m_blendMode = sf::BlendMode::Alpha;
+                m_blendMode = sf::BlendAlpha;
                 setParticleLifetime(1.f, 3.f);
                 setParticleVelocity(sf::Vector2f(-50.f, -50.f), sf::Vector2f(50.f, 50.f));
                 setParticleSize(5.f, 10.f);
                 setParticleEndSize(5.f, 10.f);
                 setParticleColors(sf::Color::White, sf::Color(255, 255, 255, 0));
-                setRotationSpeed(0.f, 0.f);
+                setParticleRotationSpeed(0.f, 0.f);
                 setEmissionRate(10.f);
                 setDrag(0.f);
-                setParticleAcceleration(sf::Vector2f(0.f, 0.f));
+                setAcceleration(sf::Vector2f(0.f, 0.f));
                 setParticleBehavior([](Particle &particle, float deltaTime) {});
                 break;
             }
@@ -489,7 +490,7 @@ namespace Orenji
                 {
                     float minRot, maxRot;
                     iss >> minRot >> maxRot;
-                    setRotationSpeed(minRot, maxRot);
+                    setParticleRotationSpeed(minRot, maxRot);
                 }
                 else if (paramName == "Drag")
                 {
@@ -501,7 +502,7 @@ namespace Orenji
                 {
                     float accX, accY;
                     iss >> accX >> accY;
-                    setParticleAcceleration(sf::Vector2f(accX, accY));
+                    setAcceleration(sf::Vector2f(accX, accY));
                 }
                 else if (paramName == "BlendMode")
                 {
@@ -568,15 +569,15 @@ namespace Orenji
 
                 // Écrire le mode de fusion
                 file << "BlendMode ";
-                if (m_blendMode == sf::BlendMode::Alpha)
+                if (m_blendMode == sf::BlendAlpha)
                 {
                     file << "Alpha\n";
                 }
-                else if (m_blendMode == sf::BlendMode::Add)
+                else if (m_blendMode == sf::BlendAdd)
                 {
                     file << "Add\n";
                 }
-                else if (m_blendMode == sf::BlendMode::Multiply)
+                else if (m_blendMode == sf::BlendMultiply)
                 {
                     file << "Multiply\n";
                 }
@@ -598,9 +599,9 @@ namespace Orenji
         void ParticleSystem::update(float deltaTime)
         {
             // Émettre de nouvelles particules selon le taux d'émission
-            if (m_enabled)
+            if (m_emitterEnabled)
             {
-                m_emissionTimer += deltaTime;
+                m_emissionAccumulator += deltaTime;
 
                 float particlesThisFrame = m_emissionRate * deltaTime;
                 int wholeParticles = static_cast<int>(particlesThisFrame);
@@ -673,10 +674,10 @@ namespace Orenji
                     float b = particle.endColor.b + (particle.startColor.b - particle.endColor.b) * lifeRatio;
                     float a = particle.endColor.a + (particle.startColor.a - particle.endColor.a) * lifeRatio;
 
-                    particle.color = sf::Color(static_cast<sf::Uint8>(r),
-                                               static_cast<sf::Uint8>(g),
-                                               static_cast<sf::Uint8>(b),
-                                               static_cast<sf::Uint8>(a));
+                    particle.color = sf::Color(static_cast<std::uint8_t>(r),
+                                               static_cast<std::uint8_t>(g),
+                                               static_cast<std::uint8_t>(b),
+                                               static_cast<std::uint8_t>(a));
                 }
 
                 activeCount++;
@@ -688,9 +689,9 @@ namespace Orenji
             updateVertices();
         }
 
-        void ParticleSystem::setParticleBehavior(const std::function<void(Particle &, float)> &function)
+        void ParticleSystem::setParticleBehavior(ParticleBehavior behavior)
         {
-            m_particleBehavior = function;
+            m_particleBehavior = behavior;
         }
 
         void ParticleSystem::draw(sf::RenderTarget &target, sf::RenderStates states) const
@@ -704,7 +705,8 @@ namespace Orenji
             // Dessiner seulement les particules actives
             if (m_activeParticleCount > 0)
             {
-                target.draw(m_vertices, 0, m_activeParticleCount * 4, states);
+                // SFML 3 utilise désormais le vertex array complet
+                target.draw(m_vertices, states);
             }
         }
 
@@ -897,10 +899,10 @@ namespace Orenji
         sf::Color ParticleSystem::randomColor(const sf::Color &min, const sf::Color &max) const
         {
             return sf::Color(
-                static_cast<sf::Uint8>(randomFloat(min.r, max.r)),
-                static_cast<sf::Uint8>(randomFloat(min.g, max.g)),
-                static_cast<sf::Uint8>(randomFloat(min.b, max.b)),
-                static_cast<sf::Uint8>(randomFloat(min.a, max.a)));
+                static_cast<std::uint8_t>(randomFloat(min.r, max.r)),
+                static_cast<std::uint8_t>(randomFloat(min.g, max.g)),
+                static_cast<std::uint8_t>(randomFloat(min.b, max.b)),
+                static_cast<std::uint8_t>(randomFloat(min.a, max.a)));
         }
 
         // Effets prédéfinis
@@ -949,7 +951,7 @@ namespace Orenji
             particle.velocity *= (0.95f - 0.2f * deltaTime);
 
             // Ondulation de luminosité
-            particle.color.r = static_cast<sf::Uint8>(std::min(255.f, particle.color.r * (1.f + 0.1f * std::sin(particle.lifetime * 20.f))));
+            particle.color.r = static_cast<std::uint8_t>(std::min(255.f, particle.color.r * (1.f + 0.1f * std::sin(particle.lifetime * 20.f))));
         }
 
         void ParticleSystem::rainEffect(Particle &particle, float deltaTime)
@@ -1001,7 +1003,7 @@ namespace Orenji
             // Légère variation de couleur (plus claire/transparente vers la fin)
             if (lifeRatio < 0.5f)
             {
-                particle.color.a = static_cast<sf::Uint8>(particle.color.a * 0.95f);
+                particle.color.a = static_cast<std::uint8_t>(particle.color.a * 0.95f);
             }
         }
 
@@ -1047,7 +1049,17 @@ namespace Orenji
             particle.size = particle.initialSize * (0.9f + 0.1f * std::sin(particle.lifetime * 8.f));
 
             // Légère variation de l'opacité
-            particle.color.a = static_cast<sf::Uint8>(particle.color.a * (0.95f + 0.05f * std::sin(particle.lifetime * 10.f)));
+            particle.color.a = static_cast<std::uint8_t>(particle.color.a * (0.95f + 0.05f * std::sin(particle.lifetime * 10.f)));
+        }
+
+        void ParticleSystem::setBlendMode(sf::BlendMode mode)
+        {
+            m_blendMode = mode;
+        }
+
+        void ParticleSystem::setCircularEmitter(bool circular)
+        {
+            m_useCircularEmitter = circular;
         }
     } // namespace Graphics
 } // namespace Orenji

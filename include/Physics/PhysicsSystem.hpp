@@ -3,6 +3,7 @@
 #include "../Core/System.hpp"
 #include "Box2DWrapper.hpp"
 #include <memory>
+#include <SFML/Graphics.hpp>
 
 namespace Physics
 {
@@ -62,6 +63,19 @@ namespace Physics
          * @param positionIterations Nombre d'itérations de position
          */
         void setIterations(int velocityIterations, int positionIterations);
+
+        /**
+         * @brief Activer ou désactiver le mode de débogage visuel
+         * @param enabled True pour activer, false pour désactiver
+         */
+        void enableDebugDraw(bool enabled);
+
+        /**
+         * @brief Dessiner les formes de collision pour le débogage
+         * @param target La cible de rendu SFML
+         * @param states Les états de rendu SFML
+         */
+        void debugDraw(sf::RenderTarget &target, sf::RenderStates states = sf::RenderStates::Default);
 
     private:
         std::unique_ptr<Box2DWrapper> m_physics;
