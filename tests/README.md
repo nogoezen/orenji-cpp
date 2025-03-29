@@ -139,3 +139,48 @@ Run the test:
 - Left click: Interact with UI elements
 - ESC: Toggle the pause menu (during gameplay)
 - Various buttons for navigating between different UI screens 
+
+## ResourceManagerTest
+
+This test demonstrates the enhanced ResourceManager functionality for SFML 3, including:
+
+### Prerequisites
+- SFML 3 library (Graphics and Audio modules)
+- Resource files (textures, fonts, sounds, music)
+
+### Compiling and Running
+```bash
+g++ -std=c++17 -o ResourceManagerTest tests/ResourceManagerTest.cpp src/Resources/ResourceManager.cpp -I./include -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
+```
+
+### Features Demonstrated
+- Resource path management with configurable base directories
+- Texture loading with smoothing and repeating options
+- Sprite sheet creation and animation
+- Font loading and text rendering
+- Sound and music loading and playback
+- Resource availability checking
+- Exception handling for missing resources
+
+### Controls
+- **Space**: Play jump sound effect
+- **Escape**: Exit the application
+
+### Resource Structure
+The test expects resources to be organized in the following structure:
+```
+resources/
+  ├── textures/
+  │     ├── characters/
+  │     │     └── player.png
+  │     └── tilesets/
+  │           └── tileset.png
+  ├── fonts/
+  │     └── main.ttf
+  ├── sounds/
+  │     └── jump.wav
+  └── music/
+        └── background.ogg
+```
+
+If the resources aren't found, the test will display error messages indicating which files are missing and where it was looking for them. 
