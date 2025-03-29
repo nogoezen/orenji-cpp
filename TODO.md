@@ -9,16 +9,16 @@
   - Membres `sf::Event`
   - Constantes `sf::Keyboard`
   - Types `sf::Uint8`
-- [ ] Corriger les erreurs de compatibilité SFML 3 dans les exemples:
-  - `sf::VideoMode` nécessite maintenant `sf::Vector2u` au lieu de `(int, int)`
-  - `sf::Vertex` constructeur modifié
-  - `sf::Event` doit être construit avec un sous-type
-  - `pollEvent()` ne prend plus de paramètre et retourne un `std::optional<Event>`
-  - `sf::Keyboard::Key::X` au lieu de `sf::Keyboard::X`
-  - `sf::Mouse::Button::Left` au lieu de `sf::Mouse::Left`
-  - `sf::Text` nécessite des paramètres à la construction
-  - `sf::Font::loadFromFile` remplacé par `openFromFile`
-  - `sf::BlendMode` constants modifiés
+- [x] Corriger les erreurs de compatibilité SFML 3 dans les exemples:
+  - [x] `sf::VideoMode` nécessite maintenant `sf::Vector2u` au lieu de `(int, int)`
+  - [x] `sf::Vertex` constructeur modifié
+  - [x] `sf::Event` doit être construit avec un sous-type
+  - [x] `pollEvent()` ne prend plus de paramètre et retourne un `std::optional<Event>`
+  - [x] `sf::Keyboard::Key::X` au lieu de `sf::Keyboard::X`
+  - [x] `sf::Mouse::Button::Left` au lieu de `sf::Mouse::Left`
+  - [x] `sf::Text` nécessite des paramètres à la construction
+  - [x] `sf::Font::loadFromFile` remplacé par `openFromFile`
+  - [x] `sf::BlendMode` constants modifiés
   - [x] Remplacer `sf::Uint8` par `std::uint8_t`
   - [x] Mettre à jour la méthode `draw` de `sf::RenderTarget`
 
@@ -103,7 +103,7 @@
 - [x] Résoudre problèmes de liaison
 - [x] Ajouter support pour BehaviorTree.CPP dans CMakeLists.txt
 - [x] Ajouter support pour le système de particules dans le build
-- [ ] Corriger les erreurs de compilation des exemples
+- [x] Corriger les erreurs de compilation des exemples
 
 ### Tests et Optimisation
 - [x] Créer démo du système de particules
@@ -115,7 +115,7 @@
 - [ ] Optimiser performances générales
 
 ### Documentation
-- [ ] Écrire README détaillé
+- [x] Écrire README détaillé
 - [ ] Documenter API (Doxygen)
 - [ ] Créer guide d'utilisation
 - [ ] Documenter intégration Tiled
