@@ -21,6 +21,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/tgui/include
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/nlohmann
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/tileson
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/behaviortree_cpp/include
 )
 
 # Set library paths
@@ -28,6 +29,7 @@ link_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/sfml/lib
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/box2d/lib
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/tgui/lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/behaviortree_cpp/lib
 )
 
 # Find SFML
@@ -58,6 +60,17 @@ else()
     set(TGUI_LIBRARY "")
 endif()
 
+# BehaviorTree.CPP manual setup
+set(BT_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/behaviortree_cpp/lib)
+if(EXISTS ${BT_LIB_DIR}/libbehaviortree_cpp.a)
+    set(BT_LIBRARY ${BT_LIB_DIR}/libbehaviortree_cpp.a)
+elseif(EXISTS ${BT_LIB_DIR}/behaviortree_cpp.lib)
+    set(BT_LIBRARY ${BT_LIB_DIR}/behaviortree_cpp.lib)
+else()
+    message(WARNING "BehaviorTree.CPP library not found. Will continue without BehaviorTree.CPP.")
+    set(BT_LIBRARY "")
+endif()
+
 # Link libraries - use static libs directly
 target_link_libraries(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/sfml/lib/libsfml-graphics.a
@@ -66,6 +79,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/sfml/lib/libsfml-audio.a
     ${BOX2D_LIBRARY}
     ${TGUI_LIBRARY}
+    ${BT_LIBRARY}
 )
 
 # Add definitions for SFML 3
@@ -77,6 +91,7 @@ file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/resources/textures)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/resources/fonts)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/resources/sounds)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/resources/maps)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/resources/behaviors)
 
 # Copy resources to build directory
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
@@ -101,6 +116,14 @@ if(WIN32)
         add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_directory
             ${CMAKE_CURRENT_SOURCE_DIR}/lib/box2d/bin $<TARGET_FILE_DIR:${PROJECT_NAME}>
+        )
+    endif()
+    
+    # Copy BehaviorTree.CPP DLLs if they exist
+    if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/lib/behaviortree_cpp/bin)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_CURRENT_SOURCE_DIR}/lib/behaviortree_cpp/bin $<TARGET_FILE_DIR:${PROJECT_NAME}>
         )
     endif()
 endif() 

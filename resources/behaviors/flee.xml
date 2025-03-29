@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root main_tree_to_execute="FleeTree">
+    <BehaviorTree ID="FleeTree">
+        <Sequence>
+            <!-- Vérifier si l'entité doit fuir (PV bas ou menace forte) -->
+            <Condition ID="ShouldFlee" health_threshold="30"/>
+            
+            <!-- Identifier la menace -->
+            <Action ID="IdentifyThreat"/>
+            
+            <!-- Trouver un point de fuite sûr -->
+            <Action ID="FindSafePosition" min_distance="200.0"/>
+            
+            <!-- Séquence de fuite -->
+            <Sequence>
+                <!-- Se déplacer rapidement vers la position sûre -->
+                <Action ID="MoveToPosition" speed="3.0"/>
+                
+                <!-- Vérifier si la position est atteinte -->
+                <Fallback>
+                    <Condition ID="IsPositionReached"/>
+                    <Sequence>
+                        <!-- Si la menace est trop proche, trouver un autre point -->
+                        <Condition ID="IsThreatClose" range="150.0"/>
+                        <Action ID="FindSafePosition" min_distance="250.0"/>
+                        <Action ID="ReturnRunning"/>
+                    </Sequence>
+                </Fallback>
+                
+                <!-- Se cacher une fois en sécurité -->
+                <Action ID="Hide" duration="5000"/>
+            </Sequence>
+        </Sequence>
+    </BehaviorTree>
+</root> 

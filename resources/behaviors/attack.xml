@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root main_tree_to_execute="AttackTree">
+    <BehaviorTree ID="AttackTree">
+        <Sequence>
+            <!-- Vérifier si la cible est à portée d'attaque -->
+            <Condition ID="IsTargetInRange" range="50.0"/>
+            
+            <!-- Face à la cible avant d'attaquer -->
+            <Action ID="FaceTarget"/>
+            
+            <!-- Séquence d'attaque -->
+            <Sequence>
+                <!-- Préparer l'attaque -->
+                <Action ID="PrepareAttack" animation="attack_prep" duration="500"/>
+                
+                <!-- Exécuter l'attaque -->
+                <Action ID="PerformAttack" damage="20" animation="attack"/>
+                
+                <!-- Temps de récupération -->
+                <Action ID="Wait" milliseconds="1000"/>
+            </Sequence>
+        </Sequence>
+    </BehaviorTree>
+</root> 

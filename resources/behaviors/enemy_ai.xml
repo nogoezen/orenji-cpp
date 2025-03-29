@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4">
+    <!-- Importer les sous-arbres -->
+    <include path="patrol.xml" />
+    <include path="chase.xml" />
+    <include path="attack.xml" />
+    <include path="flee.xml" />
+    
+    <BehaviorTree ID="EnemyStateMachine">
+        <Sequence>
+            <!-- Récupérer l'entité depuis le blackboard -->
+            <SetBlackboard output_key="entity_id" value="{entity_id}" />
+            
+            <!-- Mise à jour des informations de l'ennemi -->
+            <Script code="
+                // Mise à jour du temps
+                {total_time} = ({total_time} || 0.0) + {deltaTime};
+                
+                // Si l'état n'est pas défini, commencer par la patrouille
+                if(!{state}) {
+                    {state} = 'patrol';
+                }
+                
+                return true;
+            " />
+            
+            <!-- Machine à états principale -->
+            <Switch3 variable="{state}" case_1="patrol" case_2="chase" case_3="attack">
+                
+                <!-- État 1: Patrouille -->
+                <Sequence>
+                    <SubTree ID="PatrolBehavior" __shared_blackboard="true" />
+                    
+                    <!-- Transition vers l'état de poursuite si alerte -->
+                    <Fallback>
+                        <Script code="
+                            return !{is_alerted};
+                        " />
+                        <SetBlackboard output_key="state" value="chase" />
+                    </Fallback>
+                </Sequence>
+                
+                <!-- État 2: Poursuite -->
+                <Sequence>
+                    <SubTree ID="ChaseBehavior" __shared_blackboard="true" />
+                    
+                    <!-- Transition vers l'état d'attaque si proche -->
+                    <Fallback>
+                        <Script code="
+                            return !{should_attack};
+                        " />
+                        <SetBlackboard output_key="state" value="attack" />
+                    </Fallback>
+                </Sequence>
+                
+                <!-- État 3: Attaque -->
+                <Sequence>
+                    <SubTree ID="AttackBehavior" __shared_blackboard="true" />
+                    
+                    <!-- Vérifier la santé pour transition éventuelle vers l'état de fuite -->
+                    <Fallback>
+                        <Script code="
+                            var health = {health};
+                            var maxHealth = {max_health};
+                            
+                            // Vérifier si la santé est basse
+                            if(health / maxHealth < 0.3) {
+                                {state} = 'flee';
+                                return false;
+                            }
+                            
+                            return true;
+                        " />
+                        
+                        <!-- Reste dans l'état actuel -->
+                        <AlwaysSuccess />
+                    </Fallback>
+                </Sequence>
+                
+                <!-- État par défaut: Vérifier s'il faut fuir -->
+                <Sequence>
+                    <SubTree ID="FleeBehavior" __shared_blackboard="true" />
+                </Sequence>
+                
+            </Switch3>
+        </Sequence>
+    </BehaviorTree>
+</root> 

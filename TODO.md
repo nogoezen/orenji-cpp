@@ -25,9 +25,10 @@
 - [ ] Créer Player et Enemy de base
 
 ### Système de Rendu
-- [ ] Implémenter RenderSystem et SpriteComponent
-- [ ] Créer système de particules
-- [ ] Optimiser avec texture batching et view culling
+- [x] Implémenter RenderSystem et SpriteComponent
+- [x] Créer système de particules
+- [x] Optimiser avec texture batching et view culling
+- [x] Implémenter système d'animation
 
 ### Système de Cartes
 - [x] Intégrer Tileson pour chargement des cartes Tiled
@@ -41,6 +42,15 @@
 - [x] Ajouter limites de caméra
 - [x] Intégrer effets (shake, zoom, pan)
 - [x] Implémenter mouvement fluide
+
+### Intelligence Artificielle
+- [x] Implémenter le pathfinding A*
+- [x] Créer une architecture pour les behavior trees
+- [x] Intégrer BehaviorTree.CPP
+- [x] Ajouter des comportements prédéfinis (poursuite, patrouille, etc.)
+- [x] Créer AIComponent pour lier entités aux arbres de comportement
+- [ ] Tester et déboguer les comportements d'IA
+- [ ] Créer une interface visuelle pour la création d'arbres de comportement
 
 ### Interface Utilisateur
 - [x] Implémenter UIManager (base)
@@ -64,6 +74,7 @@
 - [x] Mettre à jour build.bat
 - [x] Configurer CMake pour SFML 3
 - [x] Résoudre problèmes de liaison
+- [x] Ajouter support pour BehaviorTree.CPP dans CMakeLists.txt
 
 ### Tests et Optimisation
 - [ ] Créer tests unitaires
@@ -76,9 +87,10 @@
 - [ ] Documenter API (Doxygen)
 - [ ] Créer guide d'utilisation
 - [ ] Documenter intégration Tiled
+- [ ] Documenter utilisation des arbres de comportement
 
 ## Fonctionnalités Additionnelles
 - [ ] Système de sauvegarde/chargement
-- [ ] Système d'animation
+- [x] Système d'animation
 - [ ] Gestionnaire d'événements personnalisé
 - [ ] Éditeur de niveaux

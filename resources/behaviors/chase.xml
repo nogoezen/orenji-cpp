@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root main_tree_to_execute="ChaseTree">
+    <BehaviorTree ID="ChaseTree">
+        <Sequence>
+            <!-- Vérifier si la cible est dans la zone de poursuite -->
+            <Fallback>
+                <Condition ID="IsTargetVisible"/>
+                <Condition ID="WasTargetSeen"/>
+                <Action ID="ReturnFailure"/>
+            </Fallback>
+            
+            <!-- Mettre à jour le dernier emplacement connu -->
+            <Action ID="UpdateLastKnownPosition"/>
+            
+            <!-- Poursuite active -->
+            <Sequence>
+                <Action ID="GetTargetPosition"/>
+                <Action ID="MoveToPosition" speed="2.0"/>
+                <Action ID="ResetPathfinding"/>
+            </Sequence>
+        </Sequence>
+    </BehaviorTree>
+</root> 

@@ -1,0 +1,129 @@
+Cahier des Charges : Moteur de Jeu 2D en C++ avec SFML
+Version : 1.0
+Date : 2024
+Auteur : [Votre Nom]
+
+1. Introduction
+Objectif : Développer un moteur de jeu 2D modulaire en C++ avec SFML, intégrant un système d'entités (ECS), une gestion de scènes, des outils d'édition et des fonctionnalités avancées (physique, particules, IA).
+
+Public visé :
+
+Développeurs de jeux indépendants.
+
+Étudiants en game programming.
+
+Projets nécessitant un moteur léger et personnalisable.
+
+Contraintes techniques :
+
+Langage : C++17 (ou supérieur).
+
+Bibliothèque graphique : SFML 3.
+
+Plateformes cibles : Windows, Linux (macOS optionnel).
+
+Outils : CMake, Git, IDE (VS Code, CLion, etc.).
+
+2. Fonctionnalités Principales
+2.1. Architecture de Base
+Fonctionnalité	Description	Priorité
+Système ECS	Entités, composants et systèmes pour une structure modulaire.	⭐⭐⭐⭐⭐
+Gestion des scènes	Machine à états (SceneManager) pour les menus, niveaux, pause.	⭐⭐⭐⭐⭐
+Boucle de jeu	Gestion du temps (delta time), updates fixes, rendu.	⭐⭐⭐⭐⭐
+Gestion des ressources	Chargement des textures, polices, sons (ResourceManager).	⭐⭐⭐⭐
+2.2. Graphismes & Rendu
+Fonctionnalité	Description	Priorité
+Moteur de particules	Système personnalisé avec effets (feu, fumée, pluie).	⭐⭐⭐⭐
+Animations de sprites	Support des spritesheets et transitions fluides (AnimationSystem).	⭐⭐⭐⭐
+Caméra	Défilement, zoom, suivi du joueur.	⭐⭐⭐
+Tiled Map Integration	Chargement des cartes .tmx via tileson.	⭐⭐⭐
+2.3. Physique & Collisions
+Fonctionnalité	Description	Priorité
+Box2D Integration	Physique réaliste (gravité, collisions, joints).	⭐⭐⭐⭐⭐
+Collision Events	Callbacks pour les interactions métier (ex: pièces ramassées).	⭐⭐⭐⭐
+2.4. Intelligence Artificielle
+Fonctionnalité	Description	Priorité
+Behavior Trees	Création de comportements complexes (via BehaviorTree.CPP).	⭐⭐⭐
+Pathfinding (A)*	Navigation dans les grilles ou graphes.	⭐⭐⭐
+2.5. Interface Utilisateur (UI)
+Fonctionnalité	Description	Priorité
+TGUI Integration	Menus, boutons, sliders pour l'UI in-game.	⭐⭐⭐⭐
+Console de debug	Affichage des FPS, logs, variables en temps réel.	⭐⭐
+2.6. Outils de Développement
+Fonctionnalité	Description	Priorité
+Éditeur de niveau	Outil interne pour placer des entités, tester les animations/particules.	⭐⭐⭐
+Hot-reloading	Rechargement à chaud des assets (textures, scripts).	⭐⭐
+Sérialisation JSON	Sauvegarde/chargement des niveaux et configurations.	⭐⭐⭐
+3. Spécifications Techniques
+3.1. Bibliothèques Utilisées
+Bibliothèque	Rôle
+SFML 3	Graphismes, audio, fenêtrage.
+Box2D	Physique 2D.
+tileson	Chargement des cartes Tiled.
+nlohmann/json	Sérialisation des données.
+TGUI	Interface utilisateur.
+BehaviorTree.CPP	Arbres de comportement pour l'IA.
+3.2. Structure du Code
+Modulaire : Séparation claire entre ECS, physique, graphismes, etc.
+
+Documenté : Commentaires Doxygen + README détaillé.
+
+Testé : Tests unitaires pour les systèmes critiques (Google Test).
+
+3.3. Performance
+Cibles :
+
+60 FPS minimum sur machines grand public.
+
+Gestion efficace de la mémoire (pools d'objets, pas de fuites).
+
+Optimisations :
+
+Spatial partitioning (QuadTree).
+
+Rendus batchés (VertexArray).
+
+4. Livrables
+Livrable	Description
+Code source	Dépôt Git organisé (include/src/resources).
+Documentation	Doxygen + guide d'utilisation.
+Éditeur de niveau	Outil standalone ou intégré au moteur.
+Exemples de jeux	1-2 mini-jeux démo (plateformer, RPG simple).
+Build automatisé	Scripts CMake pour Windows/Linux.
+5. Planning Estimé
+Phase	Durée	Jalons
+Architecture	3 sem.	ECS, SceneManager, boucle de jeu.
+Graphismes	4 sem.	Particules, animations, Tiled.
+Physique/IA	3 sem.	Box2D, Behavior Trees.
+UI/Outils	4 sem.	TGUI, éditeur de niveau.
+Optimisation	2 sem.	Profiling, tests de performance.
+Documentation	1 sem.	Doxygen, tutoriels.
+6. Contraintes & Risques
+Risque	Atténuation
+Complexité de l'ECS	Prototyper d'abord un système minimal (ex: rendu + physique).
+Performance des particules	Utiliser des VertexArray et limiter le nombre de particules actives.
+Dépendances externes	Vérifier la compatibilité multi-plateforme (Linux/Windows).
+7. Conclusion
+Ce moteur de jeu 2D vise à offrir une alternative légère et modulaire aux solutions existantes (Unity, Godot), avec un focus sur :
+
+La performance (C++ natif + SFML).
+
+La flexibilité (ECS, scripting optionnel).
+
+L'outillage (éditeur intégré, debug).
+
+Prochaines étapes :
+
+Valider l’architecture ECS.
+
+Prototyper l’intégration Box2D + SFML.
+
+Commencer le développement de l’éditeur.
+
+Signatures :
+
+[Chef de projet]
+
+[Lead Developer]
+
+🚀 Prêt à coder ? Ce cahier des charges servira de référence tout au long du développement !

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root main_tree_to_execute="PatrolTree">
+    <BehaviorTree ID="PatrolTree">
+        <Sequence>
+            <Action ID="GetPatrolPoints"/>
+            <Repeat num_cycles="5">
+                <Sequence>
+                    <Action ID="GetNextPatrolPoint"/>
+                    <Action ID="MoveToPosition"/>
+                    <Action ID="Wait" milliseconds="1000"/>
+                </Sequence>
+            </Repeat>
+        </Sequence>
+    </BehaviorTree>
+</root> 
