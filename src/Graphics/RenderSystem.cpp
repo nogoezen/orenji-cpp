@@ -43,49 +43,54 @@ namespace Graphics
         }
 
         // Sort entities by layer (higher layers drawn on top)
-        std::sort(entities.begin(), entities.end(), [this](Core::EntityId a, Core::EntityId b)
+        std::sort(entities.begin(), entities.end(), [this](Core::Entity *a, Core::Entity *b)
                   {
-            auto& spriteA = m_entityManager.getComponent<Components::SpriteComponent>(a);
-            auto& spriteB = m_entityManager.getComponent<Components::SpriteComponent>(b);
-            return spriteA.getLayer() < spriteB.getLayer(); });
+            auto* spriteA = a->getComponent<Components::SpriteComponent>();
+            auto* spriteB = b->getComponent<Components::SpriteComponent>();
+            return spriteA->getLayer() < spriteB->getLayer(); });
 
         // View culling - Get current view
         sf::View view = m_window.getView();
         sf::FloatRect viewBounds(
-            view.getCenter().x - view.getSize().x / 2.f,
-            view.getCenter().y - view.getSize().y / 2.f,
-            view.getSize().x,
-            view.getSize().y);
+            sf::Vector2f(view.getCenter().x - view.getSize().x / 2.f,
+                         view.getCenter().y - view.getSize().y / 2.f),
+            sf::Vector2f(view.getSize().x, view.getSize().y));
 
         // Batching - Group by texture
         std::map<const sf::Texture *, std::vector<Components::SpriteComponent *>> batchMap;
 
         // Collect all visible sprites within view
-        for (const auto &entityId : entities)
+        for (const auto &entity : entities)
         {
-            auto &spriteComponent = m_entityManager.getComponent<Components::SpriteComponent>(entityId);
+            auto *spriteComponent = entity->getComponent<Components::SpriteComponent>();
+            if (!spriteComponent)
+            {
+                continue;
+            }
 
             // Skip invisible sprites
-            if (!spriteComponent.isVisible())
+            if (!spriteComponent->isVisible())
             {
                 continue;
             }
 
             // Get sprite global bounds for culling
-            sf::FloatRect spriteBounds = spriteComponent.getSprite().getGlobalBounds();
+            sf::FloatRect spriteBounds = spriteComponent->getSprite().getGlobalBounds();
 
             // View culling - Skip sprites outside view
-            if (!viewBounds.intersects(spriteBounds))
+            // SFML 3: check if any corner of the sprite bounds is within the view
+            if (!viewBounds.contains(spriteBounds.position) &&
+                !viewBounds.contains(sf::Vector2f(spriteBounds.position.x + spriteBounds.size.x, spriteBounds.position.y)) &&
+                !viewBounds.contains(sf::Vector2f(spriteBounds.position.x, spriteBounds.position.y + spriteBounds.size.y)) &&
+                !viewBounds.contains(sf::Vector2f(spriteBounds.position.x + spriteBounds.size.x, spriteBounds.position.y + spriteBounds.size.y)))
             {
                 continue;
             }
 
-            // Group by texture for batching
-            const sf::Texture *texture = spriteComponent.getSprite().getTexture();
-            if (texture)
-            {
-                batchMap[texture].push_back(&spriteComponent);
-            }
+            // SFML 3: getTexture() renvoie une référence et non un pointeur
+            // On l'ajoute directement au batchMap en utilisant son adresse comme clé
+            const sf::Texture &texture = spriteComponent->getSprite().getTexture();
+            batchMap[&texture].push_back(spriteComponent);
         }
 
         // Render batches

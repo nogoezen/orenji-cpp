@@ -22,6 +22,12 @@
   - [x] Remplacer `sf::Uint8` par `std::uint8_t`
   - [x] Mettre à jour la méthode `draw` de `sf::RenderTarget`
 
+### Améliorations de l'Interface Utilisateur
+- [x] Ajouter des effets sonores pour la navigation dans les menus
+- [x] Implémenter un son pour le changement d'élément dans le menu principal
+- [x] Corriger les constructeurs sans paramètres dans SFML 3 (Sound, Sprite)
+- [x] Mettre à jour les énumérations pour la lecture de sons (Status::Playing)
+
 ### Corrections du Système de Particules
 - [x] Corriger les erreurs dans `ParticleSystem.cpp`:
   - [x] Remplacer `sf::Quads` par `sf::PrimitiveType::Triangles`
@@ -88,6 +94,7 @@
   - Police VeniceClassic.ttf
   - Textures title-bg.png
   - Audio 012-Theme01.mid
+  - Sons d'interface 002-System02.ogg
 - [x] Ajouter ressources pour particules:
   - Textures: particle.png, particle_star.png, particle_flame.png
   - Configurations: fire.txt, smoke.txt, explosion.txt
