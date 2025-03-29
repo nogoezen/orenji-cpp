@@ -1,0 +1,35 @@
+# Configuration d'effet de particules - Fumée
+# Format: Nom_Paramètre Valeur1 Valeur2 ...
+
+# Type d'effet prédéfini
+Effect Smoke
+
+# Taux d'émission (particules par seconde)
+EmissionRate 40
+
+# Durée de vie des particules (min max) en secondes
+ParticleLifetime 2.0 4.0
+
+# Vélocité initiale (minX minY maxX maxY)
+ParticleVelocity -5 -30 5 -15
+
+# Taille des particules (min max)
+ParticleSize 15 40
+
+# Taille finale des particules (min max)
+ParticleEndSize 30 80
+
+# Couleurs (R1 G1 B1 A1 R2 G2 B2 A2) - début et fin
+ParticleColors 200 200 200 180 150 150 150 0
+
+# Vitesse de rotation (min max) en degrés/seconde
+RotationSpeed -10 10
+
+# Résistance à l'air (0-1)
+Drag 0.05
+
+# Accélération (X Y)
+Acceleration 0 -5
+
+# Mode de fusion (Alpha, Add, Multiply)
+BlendMode Alpha 

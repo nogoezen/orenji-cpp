@@ -1,0 +1,41 @@
+# Configuration d'effet de particules - Explosion
+# Format: Nom_Paramètre Valeur1 Valeur2 ...
+
+# Type d'effet prédéfini
+Effect Explosion
+
+# Taux d'émission (particules par seconde)
+EmissionRate 800
+
+# Durée de vie des particules (min max) en secondes
+ParticleLifetime 0.3 1.0
+
+# Vélocité initiale (minX minY maxX maxY)
+ParticleVelocity -200 -200 200 200
+
+# Taille des particules (min max)
+ParticleSize 3 15
+
+# Taille finale des particules (min max)
+ParticleEndSize 1 5
+
+# Couleurs (R1 G1 B1 A1 R2 G2 B2 A2) - début et fin
+ParticleColors 255 220 50 255 255 60 30 0
+
+# Vitesse de rotation (min max) en degrés/seconde
+RotationSpeed -100 100
+
+# Résistance à l'air (0-1)
+Drag 0.1
+
+# Accélération (X Y)
+Acceleration 0 30
+
+# Mode de fusion (Alpha, Add, Multiply)
+BlendMode Add
+
+# Utiliser émetteur circulaire
+CircularEmitter true
+
+# Rayon de l'émetteur
+EmitterRadius 5 

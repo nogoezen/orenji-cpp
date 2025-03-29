@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<root main_tree_to_execute="MainTree">
+    <BehaviorTree ID="MainTree">
+        <Sequence name="root_sequence">
+            <Action ID="SayHello"/>
+            <Action ID="MoveToPosition" target_x="1.0" target_y="2.0"/>
+            <Action ID="Wait" milliseconds="1000"/>
+            <Action ID="SayGoodbye"/>
+        </Sequence>
+    </BehaviorTree>
+</root> 

@@ -9,6 +9,16 @@
   - Membres `sf::Event`
   - Constantes `sf::Keyboard`
   - Types `sf::Uint8`
+- [ ] Corriger les erreurs de compatibilité SFML 3 dans les exemples:
+  - `sf::VideoMode` nécessite maintenant `sf::Vector2u` au lieu de `(int, int)`
+  - `sf::Vertex` constructeur modifié
+  - `sf::Event` doit être construit avec un sous-type
+  - `pollEvent()` ne prend plus de paramètre et retourne un `std::optional<Event>`
+  - `sf::Keyboard::Key::X` au lieu de `sf::Keyboard::X`
+  - `sf::Mouse::Button::Left` au lieu de `sf::Mouse::Left`
+  - `sf::Text` nécessite des paramètres à la construction
+  - `sf::Font::loadFromFile` remplacé par `openFromFile`
+  - `sf::BlendMode` constants modifiés
 
 ### Système de Physique
 - [x] Implémenter `Box2DWrapper` et intégration SFML 3
@@ -26,7 +36,7 @@
 
 ### Système de Rendu
 - [x] Implémenter RenderSystem et SpriteComponent
-- [x] Créer système de particules
+- [x] Créer système de particules (SFML 3 compatible)
 - [x] Optimiser avec texture batching et view culling
 - [x] Implémenter système d'animation
 
@@ -64,6 +74,9 @@
   - Police VeniceClassic.ttf
   - Textures title-bg.png
   - Audio 012-Theme01.mid
+- [x] Ajouter ressources pour particules:
+  - Textures: particle.png, particle_star.png, particle_flame.png
+  - Configurations: fire.txt, smoke.txt, explosion.txt
 - [ ] Ajouter sprites (joueur, ennemis)
 - [ ] Créer tilesets et cartes
 - [ ] Ajouter effets sonores et musiques
@@ -75,8 +88,12 @@
 - [x] Configurer CMake pour SFML 3
 - [x] Résoudre problèmes de liaison
 - [x] Ajouter support pour BehaviorTree.CPP dans CMakeLists.txt
+- [x] Ajouter support pour le système de particules dans le build
+- [ ] Corriger les erreurs de compilation des exemples
 
 ### Tests et Optimisation
+- [x] Créer démo du système de particules
+- [ ] Corriger les erreurs dans la démo de particules pour SFML 3
 - [ ] Créer tests unitaires
 - [ ] Tester sur différentes plateformes
 - [ ] Ajouter benchmarks
@@ -88,9 +105,11 @@
 - [ ] Créer guide d'utilisation
 - [ ] Documenter intégration Tiled
 - [ ] Documenter utilisation des arbres de comportement
+- [ ] Documenter système de particules et effets
 
 ## Fonctionnalités Additionnelles
 - [ ] Système de sauvegarde/chargement
 - [x] Système d'animation
+- [x] Système de particules configurable
 - [ ] Gestionnaire d'événements personnalisé
 - [ ] Éditeur de niveaux
