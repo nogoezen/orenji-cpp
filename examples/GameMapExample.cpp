@@ -5,21 +5,6 @@
 #include "../include/Resources/TiledMapLoader.hpp"
 #include <iostream>
 
-// Définir les événements SFML pour SFML 3.0
-namespace sf
-{
-    namespace Event
-    {
-        constexpr auto Closed = sf::EventType::Closed;
-        constexpr auto KeyPressed = sf::EventType::KeyPressed;
-    }
-
-    namespace Keyboard
-    {
-        constexpr auto Escape = sf::Keyboard::Key::Escape;
-    }
-}
-
 // Exemple d'utilisation de la classe GameMap
 int main()
 {
@@ -92,19 +77,21 @@ int main()
     while (window.isOpen())
     {
         // Gestion des événements pour SFML 3.0
-        if (auto event = window.pollEvent())
+        while (const auto event = window.pollEvent())
         {
             // Fermeture de la fenêtre
-            if (event->type == sf::Event::Closed)
+            if (event->is<sf::Event::Closed>())
             {
                 window.close();
             }
 
             // Échap pour quitter
-            if (event->type == sf::Event::KeyPressed &&
-                event->key.code == sf::Keyboard::Escape)
+            if (const auto *keyEvent = event->getIf<sf::Event::KeyPressed>())
             {
-                window.close();
+                if (keyEvent->code == sf::Keyboard::Key::Escape)
+                {
+                    window.close();
+                }
             }
         }
 

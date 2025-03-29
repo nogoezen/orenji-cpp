@@ -7,7 +7,7 @@
 int main()
 {
     // Créer une fenêtre SFML
-    sf::VideoMode mode(800, 600);
+    sf::VideoMode mode({800, 600});
     sf::RenderWindow window(mode, "Camera Example", sf::Style::Default);
     window.setFramerateLimit(60);
 
@@ -29,15 +29,25 @@ int main()
     // Lignes horizontales
     for (int y = 0; y <= worldHeight; y += gridSize)
     {
-        grid.append(sf::Vertex(sf::Vector2f(0, y), sf::Color(50, 50, 50)));
-        grid.append(sf::Vertex(sf::Vector2f(worldWidth, y), sf::Color(50, 50, 50)));
+        sf::Vertex v1, v2;
+        v1.position = sf::Vector2f(0, y);
+        v1.color = sf::Color(50, 50, 50);
+        v2.position = sf::Vector2f(worldWidth, y);
+        v2.color = sf::Color(50, 50, 50);
+        grid.append(v1);
+        grid.append(v2);
     }
 
     // Lignes verticales
     for (int x = 0; x <= worldWidth; x += gridSize)
     {
-        grid.append(sf::Vertex(sf::Vector2f(x, 0), sf::Color(50, 50, 50)));
-        grid.append(sf::Vertex(sf::Vector2f(x, worldHeight), sf::Color(50, 50, 50)));
+        sf::Vertex v1, v2;
+        v1.position = sf::Vector2f(x, 0);
+        v1.color = sf::Color(50, 50, 50);
+        v2.position = sf::Vector2f(x, worldHeight);
+        v2.color = sf::Color(50, 50, 50);
+        grid.append(v1);
+        grid.append(v2);
     }
 
     // Créer des objets dans le monde pour référence visuelle
@@ -69,64 +79,56 @@ int main()
     // Boucle principale
     while (window.isOpen())
     {
-        sf::Event event;
-        while (window.pollEvent(event))
+        while (const auto event = window.pollEvent())
         {
-            if (event.type == sf::Event::Closed)
+            if (event->is<sf::Event::Closed>())
             {
                 window.close();
             }
 
             // Touche Échap pour quitter
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+            if (const auto *keyEvent = event->getIf<sf::Event::KeyPressed>())
             {
-                window.close();
-            }
-
-            // Touche F pour activer/désactiver le suivi
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F)
-            {
-                followingEnabled = !followingEnabled;
-                if (followingEnabled)
+                if (keyEvent->code == sf::Keyboard::Key::Escape)
                 {
-                    camera.follow(&playerPos);
-                    std::cout << "Camera following enabled" << std::endl;
+                    window.close();
                 }
-                else
+                else if (keyEvent->code == sf::Keyboard::Key::F)
                 {
-                    camera.stopFollowing();
-                    std::cout << "Camera following disabled" << std::endl;
+                    followingEnabled = !followingEnabled;
+                    if (followingEnabled)
+                    {
+                        camera.follow(&playerPos);
+                        std::cout << "Camera following enabled" << std::endl;
+                    }
+                    else
+                    {
+                        camera.stopFollowing();
+                        std::cout << "Camera following disabled" << std::endl;
+                    }
                 }
-            }
-
-            // Touche Z pour zoomer
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Z)
-            {
-                float currentZoom = camera.getZoom();
-                camera.setZoom(currentZoom * 1.2f);
-                std::cout << "Zoom: " << camera.getZoom() << std::endl;
-            }
-
-            // Touche X pour dézoomer
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::X)
-            {
-                float currentZoom = camera.getZoom();
-                camera.setZoom(currentZoom / 1.2f);
-                std::cout << "Zoom: " << camera.getZoom() << std::endl;
-            }
-
-            // Touche S pour effet de secousse
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::S)
-            {
-                camera.addEffect(Core::Camera::Effect::Shake, 0.5f, 20.0f);
-                std::cout << "Shake effect added" << std::endl;
-            }
-
-            // Touche P pour effet de panoramique
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P)
-            {
-                camera.addEffect(Core::Camera::Effect::Pan, 2.0f, 300.0f);
-                std::cout << "Pan effect added" << std::endl;
+                else if (keyEvent->code == sf::Keyboard::Key::Z)
+                {
+                    float currentZoom = camera.getZoom();
+                    camera.setZoom(currentZoom * 1.2f);
+                    std::cout << "Zoom: " << camera.getZoom() << std::endl;
+                }
+                else if (keyEvent->code == sf::Keyboard::Key::X)
+                {
+                    float currentZoom = camera.getZoom();
+                    camera.setZoom(currentZoom / 1.2f);
+                    std::cout << "Zoom: " << camera.getZoom() << std::endl;
+                }
+                else if (keyEvent->code == sf::Keyboard::Key::S)
+                {
+                    camera.addEffect(Core::Camera::Effect::Shake, 0.5f, 20.0f);
+                    std::cout << "Shake effect added" << std::endl;
+                }
+                else if (keyEvent->code == sf::Keyboard::Key::P)
+                {
+                    camera.addEffect(Core::Camera::Effect::Pan, 2.0f, 300.0f);
+                    std::cout << "Pan effect added" << std::endl;
+                }
             }
         }
 

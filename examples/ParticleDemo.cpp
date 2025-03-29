@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "Graphics/ParticleSystem.hpp"
+#include "../include/Graphics/ParticleSystem.hpp"
 #include <iostream>
 #include <memory>
 #include <thread>
@@ -92,24 +92,19 @@ int main()
         float deltaTime = clock.restart().asSeconds();
 
         // Gestion des événements
-        auto event = window.pollEvent();
-        while (event.has_value())
+        while (const auto event = window.pollEvent())
         {
-            auto &e = event.value();
-
-            if (std::holds_alternative<sf::Event::Closed>(e))
+            if (event->is<sf::Event::Closed>())
             {
                 window.close();
             }
-            else if (std::holds_alternative<sf::Event::KeyPressed>(e))
+            else if (const auto *keyEvent = event->getIf<sf::Event::KeyPressed>())
             {
-                auto keyEvent = std::get<sf::Event::KeyPressed>(e);
-
                 // Quitter avec Échap
-                if (keyEvent.scancode == sf::Keyboard::Scan::Escape)
+                if (keyEvent->code == sf::Keyboard::Key::Escape)
                     window.close();
                 // Déclencher une explosion avec Espace
-                else if (keyEvent.scancode == sf::Keyboard::Scan::Space)
+                else if (keyEvent->code == sf::Keyboard::Key::Space)
                 {
                     explosionSystem->clear();
                     explosionSystem->enableEmitter(true);
@@ -123,28 +118,26 @@ int main()
                         .detach();
                 }
                 // Activer/désactiver le feu
-                else if (keyEvent.scancode == sf::Keyboard::Scan::F)
+                else if (keyEvent->code == sf::Keyboard::Key::F)
                     fireSystem->enableEmitter(!fireSystem->isEmitterEnabled());
                 // Activer/désactiver la fumée
-                else if (keyEvent.scancode == sf::Keyboard::Scan::S)
+                else if (keyEvent->code == sf::Keyboard::Key::S)
                     smokeSystem->enableEmitter(!smokeSystem->isEmitterEnabled());
                 // Activer/désactiver la neige
-                else if (keyEvent.scancode == sf::Keyboard::Scan::N)
+                else if (keyEvent->code == sf::Keyboard::Key::N)
                     snowSystem->enableEmitter(!snowSystem->isEmitterEnabled());
             }
-            else if (std::holds_alternative<sf::Event::MouseButtonPressed>(e))
+            else if (const auto *mouseEvent = event->getIf<sf::Event::MouseButtonPressed>())
             {
-                auto mouseEvent = std::get<sf::Event::MouseButtonPressed>(e);
-
-                if (mouseEvent.button == sf::Mouse::Button::Left)
+                if (mouseEvent->button == sf::Mouse::Button::Left)
                 {
-                    sf::Vector2f mousePos(mouseEvent.pos.x, mouseEvent.pos.y);
+                    sf::Vector2f mousePos(static_cast<float>(mouseEvent->position.x), static_cast<float>(mouseEvent->position.y));
                     fireSystem->setEmitterPosition(mousePos);
                     smokeSystem->setEmitterPosition(mousePos);
                 }
-                else if (mouseEvent.button == sf::Mouse::Button::Right)
+                else if (mouseEvent->button == sf::Mouse::Button::Right)
                 {
-                    sf::Vector2f mousePos(mouseEvent.pos.x, mouseEvent.pos.y);
+                    sf::Vector2f mousePos(static_cast<float>(mouseEvent->position.x), static_cast<float>(mouseEvent->position.y));
                     explosionSystem->setEmitterPosition(mousePos);
                     explosionSystem->clear();
                     explosionSystem->enableEmitter(true);
@@ -158,8 +151,6 @@ int main()
                         .detach();
                 }
             }
-
-            event = window.pollEvent();
         }
 
         // Mise à jour des systèmes de particules
